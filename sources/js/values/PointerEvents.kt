@@ -23,7 +23,7 @@ public interface PointerEvents : PointerEventsOrGlobal {
 }
 
 
-private class PointerEventsImpl(value: String) : CssValueImpl(value), PointerEvents
+private class PointerEventsImpl(value: String) : CssValueBase(value), PointerEvents
 
 
 @Suppress("FunctionName")

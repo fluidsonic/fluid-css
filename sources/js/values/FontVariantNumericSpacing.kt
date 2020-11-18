@@ -13,7 +13,7 @@ public interface FontVariantNumericSpacing : CssValue {
 }
 
 
-private class FontVariantNumericSpacingImpl(value: String) : CssValueImpl(value), FontVariantNumericSpacing
+private class FontVariantNumericSpacingImpl(value: String) : CssValueBase(value), FontVariantNumericSpacing
 
 
 @Suppress("FunctionName")

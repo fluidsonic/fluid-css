@@ -12,7 +12,7 @@ public interface CounterReset : CssValue {
 }
 
 
-private class CounterResetImpl(value: String) : CssValueImpl(value), CounterReset
+private class CounterResetImpl(value: String) : CssValueBase(value), CounterReset
 
 
 @Suppress("FunctionName")

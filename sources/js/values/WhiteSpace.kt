@@ -18,7 +18,7 @@ public interface WhiteSpace : WhiteSpaceOrGlobal {
 }
 
 
-private class WhiteSpaceImpl(value: String) : CssValueImpl(value), WhiteSpace
+private class WhiteSpaceImpl(value: String) : CssValueBase(value), WhiteSpace
 
 
 @Suppress("FunctionName")

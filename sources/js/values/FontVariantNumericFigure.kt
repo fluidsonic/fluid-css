@@ -13,7 +13,7 @@ public interface FontVariantNumericFigure : CssValue {
 }
 
 
-private class FontVariantNumericFigureImpl(value: String) : CssValueImpl(value), FontVariantNumericFigure
+private class FontVariantNumericFigureImpl(value: String) : CssValueBase(value), FontVariantNumericFigure
 
 
 @Suppress("FunctionName")

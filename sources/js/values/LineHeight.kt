@@ -13,7 +13,7 @@ public interface LineHeight : LineHeightOrGlobal {
 }
 
 
-private class LineHeightImpl(value: String) : CssValueImpl(value), LineHeight
+private class LineHeightImpl(value: String) : CssValueBase(value), LineHeight
 
 
 @Suppress("FunctionName")

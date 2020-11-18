@@ -19,7 +19,7 @@ public interface VerticalAlign : CssValue {
 }
 
 
-private class VerticalAlignImpl(value: String) : CssValueImpl(value), VerticalAlign
+private class VerticalAlignImpl(value: String) : CssValueBase(value), VerticalAlign
 
 
 @Suppress("FunctionName")

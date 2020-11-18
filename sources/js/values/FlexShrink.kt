@@ -10,7 +10,7 @@ public interface FlexShrink : FlexShrinkOrGlobal {
 }
 
 
-private class FlexShrinkImpl(value: String) : CssValueImpl(value), FlexShrink
+private class FlexShrinkImpl(value: String) : CssValueBase(value), FlexShrink
 
 
 @Suppress("FunctionName")

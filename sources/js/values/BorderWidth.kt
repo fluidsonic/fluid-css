@@ -15,7 +15,7 @@ public interface BorderWidth : BorderWidthOrGlobal {
 }
 
 
-private class BorderWidthImpl(value: String) : CssValueImpl(value), BorderWidth
+private class BorderWidthImpl(value: String) : CssValueBase(value), BorderWidth
 
 
 @Suppress("FunctionName")

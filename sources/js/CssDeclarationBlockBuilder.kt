@@ -130,30 +130,22 @@ public inline fun CssDeclarationBlockBuilder.property(
 
 @CssDsl
 public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
-	property: CustomCssProperty<Value>,
+	variable: CssVariable<Value>,
 	value: Value,
 ) {
-	property(CssProperty(property.toString()), value)
+	property(variable.toProperty(), value)
 }
 
-
-@CssDsl
-public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
-	property: CustomCssProperty<Value>,
-	value: CustomCssProperty<Value>,
-) {
-	property(CssProperty(property.toString()), value)
-}
-
-
-@CssDsl
-public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
-	property: CustomCssProperty<Value>,
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty(property.toString()), value, *defaultValues)
-}
+// FIXME
+//
+//@CssDsl
+//public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
+//	property: CustomCssProperty<Value>,
+//	value: CustomCssProperty<Value>,
+//	vararg defaultValues: Value?,
+//) {
+//	property(CssProperty(property.toString()), value, *defaultValues)
+//}
 
 
 // FIXME refactor

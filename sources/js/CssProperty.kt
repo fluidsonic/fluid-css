@@ -14,3 +14,4 @@ public inline class CssProperty(
 
 
 public val CssProperty.Companion.all: CssProperty get() = CssProperty("all")
+

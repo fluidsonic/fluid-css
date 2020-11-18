@@ -21,7 +21,7 @@ public interface AnimationName : AnimationNameOrGlobal {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), AnimationName
+	private class Default(value: String) : CssValueBase(value), AnimationName
 }
 
 

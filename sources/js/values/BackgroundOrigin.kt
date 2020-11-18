@@ -15,7 +15,7 @@ public interface BackgroundOrigin : BackgroundOriginOrGlobal {
 }
 
 
-private class BackgroundOriginImpl(value: String) : CssValueImpl(value), BackgroundOrigin
+private class BackgroundOriginImpl(value: String) : CssValueBase(value), BackgroundOrigin
 
 
 @Suppress("FunctionName")

@@ -11,7 +11,7 @@ public interface GridTemplate : CssValue {
 }
 
 
-private class GridTemplateImpl(value: String) : CssValueImpl(value), GridTemplate
+private class GridTemplateImpl(value: String) : CssValueBase(value), GridTemplate
 
 
 @Suppress("FunctionName")

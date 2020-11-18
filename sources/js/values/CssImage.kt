@@ -18,5 +18,5 @@ public interface CssImage :
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), CssImage
+	private class Default(value: String) : CssValueBase(value), CssImage
 }

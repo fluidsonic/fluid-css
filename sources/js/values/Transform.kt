@@ -13,7 +13,7 @@ public interface Transform : TransformOrGlobal {
 }
 
 
-private class TransformImpl(value: String) : CssValueImpl(value), Transform
+private class TransformImpl(value: String) : CssValueBase(value), Transform
 
 
 @Suppress("FunctionName")

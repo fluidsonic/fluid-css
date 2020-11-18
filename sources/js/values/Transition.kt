@@ -49,7 +49,7 @@ public interface Transition : TransitionOrGlobal {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), Transition
+	private class Default(value: String) : CssValueBase(value), Transition
 }
 
 

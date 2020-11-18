@@ -17,7 +17,7 @@ private class BorderImpl(
 	color: Color?,
 	style: BorderStyle?,
 	width: BorderWidth?,
-) : CssValueImpl(buildString {
+) : CssValueBase(buildString {
 	if (width != null)
 		append(width)
 

@@ -21,7 +21,7 @@ public interface Angle : AngleOrGlobal {
 private class AngleImpl(
 	override val value: Double,
 	override val unit: String,
-) : CssValueImpl("$value$unit"), Angle {
+) : CssValueBase("$value$unit"), Angle {
 
 	override fun unaryMinus(): Angle =
 		if (value == 0.0) this

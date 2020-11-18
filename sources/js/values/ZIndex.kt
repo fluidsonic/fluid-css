@@ -13,7 +13,7 @@ public interface ZIndex : ZIndexOrGlobal {
 }
 
 
-private class ZIndexImpl(value: String) : CssValueImpl(value), ZIndex
+private class ZIndexImpl(value: String) : CssValueBase(value), ZIndex
 
 
 @Suppress("FunctionName")

@@ -13,7 +13,7 @@ public interface TextOverflow : CssValue {
 }
 
 
-private class TextOverflowImpl(value: String) : CssValueImpl(value), TextOverflow
+private class TextOverflowImpl(value: String) : CssValueBase(value), TextOverflow
 
 
 @Suppress("FunctionName")

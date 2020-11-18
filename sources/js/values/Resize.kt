@@ -18,7 +18,7 @@ public interface Resize : CssValue {
 }
 
 
-private class ResizeImpl(value: String) : CssValueImpl(value), Resize
+private class ResizeImpl(value: String) : CssValueBase(value), Resize
 
 
 @Suppress("FunctionName")

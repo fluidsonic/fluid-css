@@ -20,7 +20,7 @@ public interface FontSize : FontSizeOrGlobal {
 }
 
 
-private class FontSizeImpl(value: String) : CssValueImpl(value), FontSize
+private class FontSizeImpl(value: String) : CssValueBase(value), FontSize
 
 
 @Suppress("FunctionName")

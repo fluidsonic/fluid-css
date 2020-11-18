@@ -15,7 +15,7 @@ public interface Time : TimeOrGlobal {
 private class TimeImpl(
 	override val value: Double,
 	override val unit: String,
-) : CssValueImpl("$value$unit"), Time
+) : CssValueBase("$value$unit"), Time
 
 
 public fun Time(value: Number, unit: String): Time =

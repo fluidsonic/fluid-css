@@ -18,7 +18,7 @@ public interface FontStyle : FontStyleOrGlobal {
 }
 
 
-private class FontStyleImpl(value: String) : CssValueImpl(value), FontStyle
+private class FontStyleImpl(value: String) : CssValueBase(value), FontStyle
 
 
 @Suppress("FunctionName")

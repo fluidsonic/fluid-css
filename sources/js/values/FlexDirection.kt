@@ -16,7 +16,7 @@ public interface FlexDirection : FlexDirectionOrGlobal {
 }
 
 
-private class FlexDirectionImpl(value: String) : CssValueImpl(value), FlexDirection
+private class FlexDirectionImpl(value: String) : CssValueBase(value), FlexDirection
 
 
 @Suppress("FunctionName")

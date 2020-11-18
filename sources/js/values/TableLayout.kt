@@ -14,7 +14,7 @@ public interface TableLayout : CssValue {
 }
 
 
-private class TableLayoutImpl(value: String) : CssValueImpl(value), TableLayout
+private class TableLayoutImpl(value: String) : CssValueBase(value), TableLayout
 
 
 @Suppress("FunctionName")

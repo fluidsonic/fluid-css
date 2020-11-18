@@ -18,7 +18,7 @@ private class TextDecorationImpl(
 	line: TextDecorationLine?,
 	style: TextDecorationStyle?,
 	thickness: TextDecorationThickness?,
-) : CssValueImpl(buildString {
+) : CssValueBase(buildString {
 	if (line != null)
 		append(line)
 

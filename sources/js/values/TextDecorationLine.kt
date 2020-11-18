@@ -19,7 +19,7 @@ public interface TextDecorationLine : TextDecorationLineOrGlobal {
 }
 
 
-private class TextDecorationLineImpl(value: String) : CssValueImpl(value), TextDecorationLine
+private class TextDecorationLineImpl(value: String) : CssValueBase(value), TextDecorationLine
 
 
 @Suppress("FunctionName")

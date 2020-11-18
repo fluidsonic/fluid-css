@@ -9,7 +9,7 @@ public interface TransformOrigin : CssValue {
 }
 
 
-private class TransformOriginImpl(value: String) : CssValueImpl(value), TransformOrigin
+private class TransformOriginImpl(value: String) : CssValueBase(value), TransformOrigin
 
 
 @Suppress("FunctionName")

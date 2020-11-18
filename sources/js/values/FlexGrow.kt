@@ -10,7 +10,7 @@ public interface FlexGrow : FlexGrowOrGlobal {
 }
 
 
-private class FlexGrowImpl(value: String) : CssValueImpl(value), FlexGrow
+private class FlexGrowImpl(value: String) : CssValueBase(value), FlexGrow
 
 
 @Suppress("FunctionName")

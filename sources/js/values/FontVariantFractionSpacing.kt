@@ -13,7 +13,7 @@ public interface FontVariantNumericFraction : CssValue {
 }
 
 
-private class FontVariantNumericFractionImpl(value: String) : CssValueImpl(value), FontVariantNumericFraction
+private class FontVariantNumericFractionImpl(value: String) : CssValueBase(value), FontVariantNumericFraction
 
 
 @Suppress("FunctionName")

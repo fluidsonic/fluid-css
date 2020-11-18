@@ -17,7 +17,7 @@ public interface Position : PositionOrGlobal {
 }
 
 
-private class PositionImpl(value: String) : CssValueImpl(value), Position
+private class PositionImpl(value: String) : CssValueBase(value), Position
 
 
 @Suppress("FunctionName")

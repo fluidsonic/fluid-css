@@ -18,7 +18,7 @@ public interface TextRendering : CssValue {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), TextRendering
+	private class Default(value: String) : CssValueBase(value), TextRendering
 }
 
 

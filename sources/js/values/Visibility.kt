@@ -15,7 +15,7 @@ public interface Visibility : VisibilityOrGlobal {
 }
 
 
-private class VisibilityImpl(value: String) : CssValueImpl(value), Visibility
+private class VisibilityImpl(value: String) : CssValueBase(value), Visibility
 
 
 @Suppress("FunctionName")

@@ -25,7 +25,7 @@ public interface FontWeight : FontWeightOrGlobal {
 }
 
 
-private class FontWeightImpl(value: String) : CssValueImpl(value), FontWeight
+private class FontWeightImpl(value: String) : CssValueBase(value), FontWeight
 
 
 @Suppress("FunctionName")

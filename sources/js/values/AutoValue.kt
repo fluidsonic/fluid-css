@@ -4,7 +4,6 @@ package io.fluidsonic.css
 // FIXME remove
 public interface AutoValue :
 	Appearance,
-	ColorOrAutoOrGlobal,
 	Cursor,
 	Flex,
 	HeightOrAutoOrGlobal,
@@ -25,4 +24,4 @@ public interface AutoValue :
 }
 
 
-internal object AutoValueImpl : CssValueImpl("auto"), AutoValue
+internal object AutoValueImpl : CssValueBase("auto"), AutoValue

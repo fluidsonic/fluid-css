@@ -29,4 +29,4 @@ public interface NoneValue :
 }
 
 
-internal object NoneValueImpl : CssValueImpl("none"), NoneValue
+internal object NoneValueImpl : CssValueBase("none"), NoneValue

@@ -17,7 +17,7 @@ public interface Overflow : OverflowOrGlobal {
 }
 
 
-private class OverflowImpl(value: String) : CssValueImpl(value), Overflow
+private class OverflowImpl(value: String) : CssValueBase(value), Overflow
 
 
 @Suppress("FunctionName")

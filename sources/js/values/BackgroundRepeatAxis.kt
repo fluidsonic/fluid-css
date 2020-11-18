@@ -15,7 +15,7 @@ public interface BackgroundRepeatAxis : CssValue {
 }
 
 
-private class BackgroundRepeatAxisImpl(value: String) : CssValueImpl(value), BackgroundRepeatAxis
+private class BackgroundRepeatAxisImpl(value: String) : CssValueBase(value), BackgroundRepeatAxis
 
 
 @Suppress("FunctionName")

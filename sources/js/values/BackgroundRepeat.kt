@@ -21,7 +21,7 @@ public interface BackgroundRepeat : BackgroundRepeatOrGlobal {
 }
 
 
-private class BackgroundRepeatImpl(value: String) : CssValueImpl(value), BackgroundRepeat
+private class BackgroundRepeatImpl(value: String) : CssValueBase(value), BackgroundRepeat
 
 
 @Suppress("FunctionName")

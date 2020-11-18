@@ -15,7 +15,7 @@ public interface FontFamily : FontFamilyOrGlobal {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), FontFamily
+	private class Default(value: String) : CssValueBase(value), FontFamily
 }
 
 

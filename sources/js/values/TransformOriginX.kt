@@ -14,7 +14,7 @@ public interface TransformOriginX : CssValue {
 }
 
 
-private class TransformOriginXImpl(value: String) : CssValueImpl(value), TransformOriginX
+private class TransformOriginXImpl(value: String) : CssValueBase(value), TransformOriginX
 
 
 @Suppress("FunctionName")

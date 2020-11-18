@@ -12,7 +12,7 @@ public interface CssValue {
 }
 
 
-internal abstract class CssValueImpl(private val value: String) : CssValue {
+internal abstract class CssValueBase(private val value: String) : CssValue {
 
 	init {
 		require(value.isNotBlank()) { "CSS value must not be empty or blank." }
@@ -20,7 +20,7 @@ internal abstract class CssValueImpl(private val value: String) : CssValue {
 
 
 	override fun equals(other: Any?) =
-		other === this || (other is CssValueImpl && value == other.value)
+		other === this || (other is CssValueBase && value == other.value)
 
 
 	override fun hashCode() =

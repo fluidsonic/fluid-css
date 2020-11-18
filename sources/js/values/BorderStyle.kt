@@ -23,7 +23,7 @@ public interface BorderStyle : BorderStyleOrGlobal {
 }
 
 
-private class BorderStyleImpl(value: String) : CssValueImpl(value), BorderStyle
+private class BorderStyleImpl(value: String) : CssValueBase(value), BorderStyle
 
 
 @Suppress("FunctionName")

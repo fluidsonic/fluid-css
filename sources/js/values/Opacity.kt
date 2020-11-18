@@ -14,7 +14,7 @@ public interface Opacity : OpacityOrGlobal {
 }
 
 
-private class OpacityImpl(value: String) : CssValueImpl(value), Opacity
+private class OpacityImpl(value: String) : CssValueBase(value), Opacity
 
 
 @Suppress("FunctionName")

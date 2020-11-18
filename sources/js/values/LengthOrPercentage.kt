@@ -27,7 +27,7 @@ public interface LengthOrPercentage :
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), LengthOrPercentage
+	private class Default(value: String) : CssValueBase(value), LengthOrPercentage
 }
 
 

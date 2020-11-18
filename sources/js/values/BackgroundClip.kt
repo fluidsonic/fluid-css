@@ -15,7 +15,7 @@ public interface BackgroundClip : BackgroundClipOrGlobal {
 }
 
 
-private class BackgroundClipImpl(value: String) : CssValueImpl(value), BackgroundClip
+private class BackgroundClipImpl(value: String) : CssValueBase(value), BackgroundClip
 
 
 @Suppress("FunctionName")

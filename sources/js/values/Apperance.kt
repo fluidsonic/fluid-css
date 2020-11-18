@@ -17,7 +17,7 @@ public interface Appearance : AppearanceOrGlobal {
 }
 
 
-private class AppearanceImpl(value: String) : CssValueImpl(value), Appearance
+private class AppearanceImpl(value: String) : CssValueBase(value), Appearance
 
 
 @Suppress("FunctionName")

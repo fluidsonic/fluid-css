@@ -21,7 +21,7 @@ public interface AnimationIterationCount : AnimationIterationCountOrGlobal {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), AnimationIterationCount
+	private class Default(value: String) : CssValueBase(value), AnimationIterationCount
 }
 
 

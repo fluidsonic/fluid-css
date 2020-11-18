@@ -18,7 +18,7 @@ public interface ListStyleType : ListStyleTypeOrGlobal {
 }
 
 
-private class ListStyleTypeImpl(value: String) : CssValueImpl(value), ListStyleType
+private class ListStyleTypeImpl(value: String) : CssValueBase(value), ListStyleType
 
 
 @Suppress("FunctionName")

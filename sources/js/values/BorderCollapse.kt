@@ -13,7 +13,7 @@ public interface BorderCollapse : CssValue {
 }
 
 
-private class BorderCollapseImpl(value: String) : CssValueImpl(value), BorderCollapse
+private class BorderCollapseImpl(value: String) : CssValueBase(value), BorderCollapse
 
 
 @Suppress("FunctionName")

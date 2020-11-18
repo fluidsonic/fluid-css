@@ -3,67 +3,70 @@
 package io.fluidsonic.css
 
 
-public interface AlignItemsOrGlobal : CssValue
-public interface AlignItems : AlignItemsOrGlobal {
+public interface AlignItems : CssValue {
 
 	public companion object {
 
-		public val baseline: AlignItems = AlignItems("baseline")
-		public val center: AlignItems = AlignItems("center")
-		public val end: AlignItems = AlignItems("end")
-		public val firstBaseline: AlignItems = AlignItems("first baseline")
-		public val flexEnd: AlignItems = AlignItems("flex-end")
-		public val flexStart: AlignItems = AlignItems("flex-start")
-		public val lastBaseline: AlignItems = AlignItems("last baseline")
-		public val normal: AlignItems = AlignItems("normal")
-		public val selfEnd: AlignItems = AlignItems("self-end")
-		public val selfStart: AlignItems = AlignItems("self-start")
-		public val start: AlignItems = AlignItems("start")
-		public val stretch: AlignItems = AlignItems("stretch")
+		public val baseline: AlignItems = raw("baseline")
+		public val center: AlignItems = raw("center")
+		public val end: AlignItems = raw("end")
+		public val firstBaseline: AlignItems = raw("first baseline")
+		public val flexEnd: AlignItems = raw("flex-end")
+		public val flexStart: AlignItems = raw("flex-start")
+		public val lastBaseline: AlignItems = raw("last baseline")
+		public val normal: AlignItems = raw("normal")
+		public val selfEnd: AlignItems = raw("self-end")
+		public val selfStart: AlignItems = raw("self-start")
+		public val start: AlignItems = raw("start")
+		public val stretch: AlignItems = raw("stretch")
 
-		public val safeCenter: AlignItems = AlignItems("safe center")
-		public val safeEnd: AlignItems = AlignItems("safe end")
-		public val safeFlexEnd: AlignItems = AlignItems("safe flex-end")
-		public val safeFlexStart: AlignItems = AlignItems("safe flex-start")
-		public val safeSelfEnd: AlignItems = AlignItems("safe self-end")
-		public val safeSelfStart: AlignItems = AlignItems("safe self-start")
-		public val safeStart: AlignItems = AlignItems("safe start")
+		public val safeCenter: AlignItems = raw("safe center")
+		public val safeEnd: AlignItems = raw("safe end")
+		public val safeFlexEnd: AlignItems = raw("safe flex-end")
+		public val safeFlexStart: AlignItems = raw("safe flex-start")
+		public val safeSelfEnd: AlignItems = raw("safe self-end")
+		public val safeSelfStart: AlignItems = raw("safe self-start")
+		public val safeStart: AlignItems = raw("safe start")
 
-		public val unsafeCenter: AlignItems = AlignItems("unsafe center")
-		public val unsafeEnd: AlignItems = AlignItems("unsafe end")
-		public val unsafeFlexEnd: AlignItems = AlignItems("unsafe flex-end")
-		public val unsafeFlexStart: AlignItems = AlignItems("unsafe flex-start")
-		public val unsafeSelfEnd: AlignItems = AlignItems("unsafe self-end")
-		public val unsafeSelfStart: AlignItems = AlignItems("unsafe self-start")
-		public val unsafeStart: AlignItems = AlignItems("unsafe start")
+		public val unsafeCenter: AlignItems = raw("unsafe center")
+		public val unsafeEnd: AlignItems = raw("unsafe end")
+		public val unsafeFlexEnd: AlignItems = raw("unsafe flex-end")
+		public val unsafeFlexStart: AlignItems = raw("unsafe flex-start")
+		public val unsafeSelfEnd: AlignItems = raw("unsafe self-end")
+		public val unsafeSelfStart: AlignItems = raw("unsafe self-start")
+		public val unsafeStart: AlignItems = raw("unsafe start")
+
+
+		public fun raw(value: String): AlignItems =
+			Default(value)
+
+
+		public fun variable(name: String): Variable =
+			VariableDefault(name)
+	}
+
+
+	private class Default(value: String) : CssValueBase(value), AlignItems
+
+
+	public interface Variable : AlignItems, CssVariable<AlignItems>
+
+	private class VariableDefault(name: String, vararg defaults: AlignItems) : CssVariableBase<AlignItems>(name, *defaults), Variable {
+
+		override fun withDefaults(vararg defaults: AlignItems): AlignItems =
+			VariableDefault(name, *defaults)
 	}
 }
 
 
-private class AlignItemsImpl(value: String) : CssValueImpl(value), AlignItems
-
-
-@Suppress("FunctionName")
-public fun AlignItems(value: String): AlignItems =
-	AlignItemsImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.alignItems(value: AlignItems) {
 	property(CssProperty.alignItems, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.alignItems(value: AlignItemsOrGlobal) {
-	property(CssProperty.alignItems, value)
-}
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.alignItems(value: GlobalValue) {
-	property(CssProperty.alignItems, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.alignItems(value: CustomCssProperty<out AlignItemsOrGlobal>) {
 	property(CssProperty.alignItems, value)
 }
 

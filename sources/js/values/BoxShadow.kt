@@ -23,7 +23,7 @@ private class BoxShadowImpl(
 	offsetY: Length,
 	spreadRadius: Length?,
 ) :
-	CssValueImpl(buildString {
+	CssValueBase(buildString {
 		if (isInset)
 			append("inset ")
 

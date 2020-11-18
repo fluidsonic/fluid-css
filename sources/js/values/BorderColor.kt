@@ -8,17 +8,7 @@ public inline fun CssDeclarationBlockBuilder.borderColor(all: Color) {
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderColor(all: ColorOrGlobal) {
-	property(CssProperty.borderColor, all)
-}
-
-
 public inline fun CssDeclarationBlockBuilder.borderColor(all: GlobalValue) {
-	property(CssProperty.borderColor, all)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderColor(all: CustomCssProperty<out ColorOrGlobal>) {
 	property(CssProperty.borderColor, all)
 }
 
@@ -78,17 +68,7 @@ public inline fun CssDeclarationBlockBuilder.borderBottomColor(value: Color) {
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomColor(value: ColorOrGlobal) {
-	property(CssProperty.borderBottomColor, value)
-}
-
-
 public inline fun CssDeclarationBlockBuilder.borderBottomColor(value: GlobalValue) {
-	property(CssProperty.borderBottomColor, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderBottomColor(value: CustomCssProperty<out ColorOrGlobal>) {
 	property(CssProperty.borderBottomColor, value)
 }
 
@@ -98,17 +78,7 @@ public inline fun CssDeclarationBlockBuilder.borderLeftColor(value: Color) {
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderLeftColor(value: ColorOrGlobal) {
-	property(CssProperty.borderLeftColor, value)
-}
-
-
 public inline fun CssDeclarationBlockBuilder.borderLeftColor(value: GlobalValue) {
-	property(CssProperty.borderLeftColor, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderLeftColor(value: CustomCssProperty<out ColorOrGlobal>) {
 	property(CssProperty.borderLeftColor, value)
 }
 
@@ -118,17 +88,7 @@ public inline fun CssDeclarationBlockBuilder.borderRightColor(value: Color) {
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderRightColor(value: ColorOrGlobal) {
-	property(CssProperty.borderRightColor, value)
-}
-
-
 public inline fun CssDeclarationBlockBuilder.borderRightColor(value: GlobalValue) {
-	property(CssProperty.borderRightColor, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderRightColor(value: CustomCssProperty<out ColorOrGlobal>) {
 	property(CssProperty.borderRightColor, value)
 }
 
@@ -138,17 +98,7 @@ public inline fun CssDeclarationBlockBuilder.borderTopColor(value: Color) {
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderTopColor(value: ColorOrGlobal) {
-	property(CssProperty.borderTopColor, value)
-}
-
-
 public inline fun CssDeclarationBlockBuilder.borderTopColor(value: GlobalValue) {
-	property(CssProperty.borderTopColor, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderTopColor(value: CustomCssProperty<out ColorOrGlobal>) {
 	property(CssProperty.borderTopColor, value)
 }
 

@@ -11,7 +11,7 @@ public interface GridArea : CssValue {
 }
 
 
-private class GridAreaImpl(value: String) : CssValueImpl(value), GridArea
+private class GridAreaImpl(value: String) : CssValueBase(value), GridArea
 
 
 @Suppress("FunctionName")

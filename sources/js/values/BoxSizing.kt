@@ -13,7 +13,7 @@ public interface BoxSizing : CssValue {
 }
 
 
-private class BoxSizingImpl(value: String) : CssValueImpl(value), BoxSizing
+private class BoxSizingImpl(value: String) : CssValueBase(value), BoxSizing
 
 
 @Suppress("FunctionName")

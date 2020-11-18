@@ -13,7 +13,7 @@ public interface StrokeWidth : StrokeWidthOrGlobal {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), StrokeWidth
+	private class Default(value: String) : CssValueBase(value), StrokeWidth
 }
 
 

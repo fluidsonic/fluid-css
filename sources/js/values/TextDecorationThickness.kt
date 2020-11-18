@@ -15,7 +15,7 @@ public interface TextDecorationThickness : TextDecorationThicknessOrGlobal {
 }
 
 
-private class TextDecorationThicknessImpl(value: String) : CssValueImpl(value), TextDecorationThickness
+private class TextDecorationThicknessImpl(value: String) : CssValueBase(value), TextDecorationThickness
 
 
 @Suppress("FunctionName")

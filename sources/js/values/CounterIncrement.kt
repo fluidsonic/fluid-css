@@ -12,7 +12,7 @@ public interface CounterIncrement : CssValue {
 }
 
 
-private class CounterIncrementImpl(value: String) : CssValueImpl(value), CounterIncrement
+private class CounterIncrementImpl(value: String) : CssValueBase(value), CounterIncrement
 
 
 @Suppress("FunctionName")

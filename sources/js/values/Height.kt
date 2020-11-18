@@ -20,7 +20,7 @@ public interface Height : HeightOrAutoOrGlobal, HeightOrNoneOrGlobal {
 }
 
 
-private class HeightImpl(value: String) : CssValueImpl(value), Height
+private class HeightImpl(value: String) : CssValueBase(value), Height
 
 
 @Suppress("FunctionName")

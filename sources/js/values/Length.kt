@@ -22,52 +22,57 @@ public interface Length :
 	public companion object {
 
 		public val auto: LengthOrAuto = AutoValue.auto
-		public val zero: Length = of(0, "")
+		public val zero: Length = numeric(0, "")
 
 
 		public inline fun calc(value: String): Length =
 			raw("calc($value)")
 
 
-		public inline fun of(value: Number, unit: String): Length =
-			NumericLength.of(value, unit)
+		public fun numeric(value: Number, unit: String): Numeric =
+			NumericDefault(unit = unit, value = value.toDouble())
 
 
 		public fun raw(value: String): Length =
 			Default(value)
+
+
+		public fun variable(name: String): Variable =
+			VariableDefault(name)
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), Length
-}
+	private class Default(value: String) : CssValueBase(value), Length
 
 
-public interface NumericLength : Length {
+	public interface Numeric : Length {
 
-	public val value: Double
-	public val unit: String
-
-
-	public companion object {
-
-		public fun of(value: Number, unit: String): NumericLength =
-			Default(value.toDouble(), unit)
+		public val value: Double
+		public val unit: String
 	}
 
-
-	private class Default(
-		override val value: Double,
+	private class NumericDefault(
 		override val unit: String,
-	) : CssValueImpl("$value$unit"), NumericLength
+		override val value: Double,
+	) : CssValueBase("$value$unit"), Numeric
+
+
+	public interface Variable : Length, CssVariable<Length>
+
+	private class VariableDefault(name: String, vararg defaults: Length) : CssVariableBase<Length>(name, *defaults), Variable {
+
+		override fun withDefaults(vararg defaults: Length): Length =
+			VariableDefault(name, *defaults)
+	}
 }
 
 
 public operator fun Length.div(other: Number): Length =
 	when {
 		other == 1.0 -> this
-		this is NumericLength -> when (value) {
+		this is Length.Numeric -> when (value) {
 			0.0 -> this
-			else -> Length.of(value / other.toDouble(), unit)
+			else -> Length.numeric(value / other.toDouble(), unit)
 		}
 		else -> Length.calc("($this) / $other")
 	}
@@ -75,7 +80,7 @@ public operator fun Length.div(other: Number): Length =
 
 public operator fun Length.minus(other: Length): Length =
 	when {
-		this is NumericLength && other is NumericLength && unit == other.unit -> Length.of(value - other.value, unit)
+		this is Length.Numeric && other is Length.Numeric && unit == other.unit -> Length.numeric(value - other.value, unit)
 		else -> Length.calc("($this) - ($other)")
 	}
 
@@ -83,9 +88,9 @@ public operator fun Length.minus(other: Length): Length =
 public operator fun Length.times(other: Number): Length =
 	when {
 		other == 1.0 -> this
-		this is NumericLength -> when (value) {
+		this is Length.Numeric -> when (value) {
 			0.0 -> this
-			else -> Length.of(value * other.toDouble(), unit)
+			else -> Length.numeric(value * other.toDouble(), unit)
 		}
 		else -> Length.calc("($this) * $other")
 	}
@@ -93,7 +98,7 @@ public operator fun Length.times(other: Number): Length =
 
 public operator fun Length.plus(other: Length): Length =
 	when {
-		this is NumericLength && other is NumericLength && unit == other.unit -> Length.of(value + other.value, unit)
+		this is Length.Numeric && other is Length.Numeric && unit == other.unit -> Length.numeric(value + other.value, unit)
 		else -> Length.calc("($this) + ($other)")
 	}
 
@@ -110,17 +115,17 @@ public inline operator fun Number.times(other: Length): Length =
 	other * this
 
 
-public inline val Number.ch: Length get() = Length.of(this, "ch")
-public inline val Number.cm: Length get() = Length.of(this, "cm2")
-public inline val Number.mm: Length get() = Length.of(this, "mm2")
-public inline val Number.em: Length get() = Length.of(this, "em")
-public inline val Number.ex: Length get() = Length.of(this, "ex")
-public inline val Number.inch: Length get() = Length.of(this, "in")
-public inline val Number.pc: Length get() = Length.of(this, "pc")
-public inline val Number.pt: Length get() = Length.of(this, "pt")
-public inline val Number.px: Length get() = Length.of(this, "px")
-public inline val Number.rem: Length get() = Length.of(this, "rem")
-public inline val Number.vh: Length get() = Length.of(this, "vh")
-public inline val Number.vmax: Length get() = Length.of(this, "vmax")
-public inline val Number.vmin: Length get() = Length.of(this, "vmin")
-public inline val Number.vw: Length get() = Length.of(this, "vw")
+public inline val Number.ch: Length.Numeric get() = Length.numeric(this, "ch")
+public inline val Number.cm: Length.Numeric get() = Length.numeric(this, "cm2")
+public inline val Number.mm: Length.Numeric get() = Length.numeric(this, "mm2")
+public inline val Number.em: Length.Numeric get() = Length.numeric(this, "em")
+public inline val Number.ex: Length.Numeric get() = Length.numeric(this, "ex")
+public inline val Number.inch: Length.Numeric get() = Length.numeric(this, "in")
+public inline val Number.pc: Length.Numeric get() = Length.numeric(this, "pc")
+public inline val Number.pt: Length.Numeric get() = Length.numeric(this, "pt")
+public inline val Number.px: Length.Numeric get() = Length.numeric(this, "px")
+public inline val Number.rem: Length.Numeric get() = Length.numeric(this, "rem")
+public inline val Number.vh: Length.Numeric get() = Length.numeric(this, "vh")
+public inline val Number.vmax: Length.Numeric get() = Length.numeric(this, "vmax")
+public inline val Number.vmin: Length.Numeric get() = Length.numeric(this, "vmin")
+public inline val Number.vw: Length.Numeric get() = Length.numeric(this, "vw")

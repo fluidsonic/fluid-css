@@ -19,7 +19,7 @@ public interface TextAlign : TextAlignOrGlobal {
 }
 
 
-private class TextAlignImpl(value: String) : CssValueImpl(value), TextAlign
+private class TextAlignImpl(value: String) : CssValueBase(value), TextAlign
 
 
 @Suppress("FunctionName")

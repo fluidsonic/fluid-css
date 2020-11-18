@@ -37,7 +37,7 @@ public interface Display : DisplayOrGlobal {
 }
 
 
-private class DisplayImpl(value: String) : CssValueImpl(value), Display
+private class DisplayImpl(value: String) : CssValueBase(value), Display
 
 
 @Suppress("FunctionName")

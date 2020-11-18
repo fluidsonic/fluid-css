@@ -42,7 +42,7 @@ public interface Flex : CssValue {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), Flex
+	private class Default(value: String) : CssValueBase(value), Flex
 }
 
 

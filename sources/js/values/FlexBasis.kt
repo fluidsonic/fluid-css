@@ -18,7 +18,7 @@ public interface FlexBasis : FlexBasisOrGlobal {
 }
 
 
-private class FlexBasisImpl(value: String) : CssValueImpl(value), FlexBasis
+private class FlexBasisImpl(value: String) : CssValueBase(value), FlexBasis
 
 
 @Suppress("FunctionName")

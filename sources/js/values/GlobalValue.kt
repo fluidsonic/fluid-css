@@ -2,7 +2,6 @@ package io.fluidsonic.css
 
 
 public interface GlobalValue :
-	AlignItemsOrGlobal,
 	AnimationIterationCountOrGlobal,
 	AnimationNameOrGlobal,
 	AnimationPlayStateOrGlobal,
@@ -18,7 +17,7 @@ public interface GlobalValue :
 	BorderWidthOrGlobal,
 	BoxShadowOrGlobal,
 	BoxSizing,
-	ColorOrGlobal,
+	Color,
 	Content,
 	CounterIncrement,
 	CounterReset,
@@ -75,7 +74,7 @@ public interface GlobalValue :
 }
 
 
-private class GlobalValueImpl(value: String) : CssValueImpl(value), GlobalValue
+private class GlobalValueImpl(value: String) : CssValueBase(value), GlobalValue
 
 
 public fun GlobalValue(value: String): GlobalValue =

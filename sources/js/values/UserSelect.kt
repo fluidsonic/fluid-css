@@ -18,7 +18,7 @@ public interface UserSelect : UserSelectOrGlobal {
 }
 
 
-private class UserSelectImpl(value: String) : CssValueImpl(value), UserSelect
+private class UserSelectImpl(value: String) : CssValueBase(value), UserSelect
 
 
 @Suppress("FunctionName")

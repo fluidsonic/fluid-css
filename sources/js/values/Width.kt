@@ -20,7 +20,7 @@ public interface Width : WidthOrAutoOrGlobal, WidthOrNoneOrGlobal {
 }
 
 
-private class WidthImpl(value: String) : CssValueImpl(value), Width
+private class WidthImpl(value: String) : CssValueBase(value), Width
 
 
 @Suppress("FunctionName")

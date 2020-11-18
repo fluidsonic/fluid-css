@@ -24,7 +24,7 @@ public interface TimingFunction : TimingFunctionOrGlobal {
 }
 
 
-private class TimingFunctionImpl(value: String) : CssValueImpl(value), TimingFunction
+private class TimingFunctionImpl(value: String) : CssValueBase(value), TimingFunction
 
 
 @Suppress("FunctionName")

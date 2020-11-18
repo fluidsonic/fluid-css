@@ -17,7 +17,7 @@ public interface TextDecorationStyle : TextDecorationStyleOrGlobal {
 }
 
 
-private class TextDecorationStyleImpl(value: String) : CssValueImpl(value), TextDecorationStyle
+private class TextDecorationStyleImpl(value: String) : CssValueBase(value), TextDecorationStyle
 
 
 @Suppress("FunctionName")

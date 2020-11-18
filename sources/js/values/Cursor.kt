@@ -48,7 +48,7 @@ public interface Cursor : CssValue {
 }
 
 
-private class CursorImpl(value: String) : CssValueImpl(value), Cursor
+private class CursorImpl(value: String) : CssValueBase(value), Cursor
 
 
 @Suppress("FunctionName")

@@ -40,7 +40,7 @@ public interface JustifyContent : JustifyContentOrGlobal {
 }
 
 
-private class JustifyContentImpl(value: String) : CssValueImpl(value), JustifyContent
+private class JustifyContentImpl(value: String) : CssValueBase(value), JustifyContent
 
 
 @Suppress("FunctionName")

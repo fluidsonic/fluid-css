@@ -18,7 +18,7 @@ public interface BackgroundImage : BackgroundImageOrGlobal {
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), BackgroundImage
+	private class Default(value: String) : CssValueBase(value), BackgroundImage
 }
 
 

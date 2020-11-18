@@ -37,7 +37,7 @@ public interface Percentage :
 	}
 
 
-	private class Default(value: String) : CssValueImpl(value), Percentage
+	private class Default(value: String) : CssValueBase(value), Percentage
 }
 
 
@@ -55,7 +55,7 @@ public interface NumericPercentage : Percentage {
 
 	private class Default(
 		override val value: Double,
-	) : CssValueImpl("$value%"), NumericPercentage
+	) : CssValueBase("$value%"), NumericPercentage
 }
 
 

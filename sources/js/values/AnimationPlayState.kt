@@ -16,7 +16,7 @@ public interface AnimationPlayState : AnimationPlayStateOrGlobal {
 }
 
 
-private class AnimationPlayStateImpl(value: String) : CssValueImpl(value), AnimationPlayState
+private class AnimationPlayStateImpl(value: String) : CssValueBase(value), AnimationPlayState
 
 
 @Suppress("FunctionName")

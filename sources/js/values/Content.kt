@@ -19,7 +19,7 @@ public interface Content : CssValue {
 }
 
 
-private class ContentImpl(value: String) : CssValueImpl(value), Content
+private class ContentImpl(value: String) : CssValueBase(value), Content
 
 
 @Suppress("FunctionName")

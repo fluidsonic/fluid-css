@@ -13,7 +13,7 @@ public interface FontVariantNumeric : FontVariantNumericOrGlobal {
 }
 
 
-private class FontVariantNumericImpl(value: String) : CssValueImpl(value), FontVariantNumeric
+private class FontVariantNumericImpl(value: String) : CssValueBase(value), FontVariantNumeric
 
 
 @Suppress("FunctionName")
