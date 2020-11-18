@@ -11,8 +11,6 @@ fluidLibraryModule(description = "FIXME") {
 		js {
 			dependencies {
 				implementation(npm("@emotion/stylis", "~0.8.5"))
-
-				api("org.jetbrains:kotlin-css:1.0.0-pre.129-kotlin-1.4.10")
 			}
 		}
 	}

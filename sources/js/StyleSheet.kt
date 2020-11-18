@@ -1,32 +1,63 @@
 package io.fluidsonic.css
 
-import kotlinx.browser.*
-import kotlinx.css.*
-import org.w3c.dom.*
 import kotlin.properties.*
 import kotlin.reflect.*
+import kotlinx.browser.*
+import org.w3c.dom.*
+
+
+public typealias StyleBuilder = CssDeclarationBlockBuilder.Hierarchical
 
 
 public abstract class StyleSheet(
 	private val name: String? = null,
 ) {
 
+	private val pendingFontFaces = mutableListOf<() -> String>()
+	private val pendingKeyframes = mutableListOf<() -> String>()
 	private val pendingStyles = mutableListOf<Style>()
 
 	public var isInjected: Boolean = false
 		private set
 
 
-	public open fun generateClassName(sheetName: String?, styleName: String?): String =
-		generateDefaultClassName(sheetName, styleName)
+	@CssDsl
+	public open fun fontFace(declarations: CssFontFaceBuilder.() -> Unit) {
+		pendingFontFaces += { with(CssFontFaceBuilder.default().apply(declarations)) { Unit.build() }.toString() }
+	}
 
 
-	public open fun globalStyle(build: CSSBuilder.() -> Unit): Style.Global =
+	public open fun generateClassName(sheetName: String?, localName: String?): String =
+		generateDefaultName(sheetName, localName)
+
+
+	public open fun generateKeyframeName(sheetName: String?, localName: String?): String =
+		generateDefaultName(sheetName, localName)
+
+
+	@CssDsl
+	public open fun global(build: StyleBuilder.() -> Unit): Style.Global =
 		LazyGlobalStyle(
 			build = build,
 			sheet = this@StyleSheet
 		)
 			.also(pendingStyles::add)
+
+
+	@CssDsl
+	public open fun keyframes(build: CssKeyframesBuilder.() -> Unit): PropertyDelegateProvider<StyleSheet, ReadOnlyProperty<StyleSheet, String>> =
+		PropertyDelegateProvider { _, property ->
+			check(!isInjected) { "Cannot add more keyframes after the stylesheet has been injected." }
+
+			val name = generateDefaultName(sheetName = name, localName = property.name)
+
+			pendingKeyframes += {
+				val keyframes = with(CssKeyframesBuilder.default(name = name).apply(build)) { Unit.build() }
+				keyframes.toString()
+			}
+
+			ReadOnlyProperty { _, _ -> name }
+		}
 
 
 	public open fun inject() {
@@ -37,14 +68,29 @@ public abstract class StyleSheet(
 
 		isInjected = true
 
-		val css = CSSBuilder(allowClasses = false)
+		val css = CssDeclarationBlockBuilder.default()
 			.apply {
 				for (style in pendingStyles)
 					style.injectTo(this)
 			}
-			.toString()
+			.let { with(it) { Unit.build().toString() } }
+			.let { styles ->
+				if (pendingFontFaces.isNotEmpty() || pendingKeyframes.isNotEmpty())
+					buildString {
+						for (fontFace in pendingFontFaces)
+							append(fontFace())
+
+						for (keyframe in pendingKeyframes)
+							append(keyframe())
+
+						append(styles)
+					}
+				else
+					styles
+			}
 			.let { stylis("", it) }
 
+		pendingKeyframes.clear()
 		pendingStyles.clear()
 
 		val style = document.createElement("style") as HTMLStyleElement
@@ -57,17 +103,19 @@ public abstract class StyleSheet(
 	}
 
 
+	@CssDsl
 	public open fun marker(): PropertyDelegateProvider<StyleSheet, Style.Local> =
 		style {}
 
 
-	public open fun style(build: CSSBuilder.() -> Unit): PropertyDelegateProvider<StyleSheet, Style.Local> =
-		PropertyDelegateProvider<StyleSheet, Style.Local> { _, property ->
+	@CssDsl
+	public open fun style(build: StyleBuilder.() -> Unit): PropertyDelegateProvider<StyleSheet, Style.Local> =
+		PropertyDelegateProvider { _, property ->
 			check(!isInjected) { "Cannot add more styles after the stylesheet has been injected." }
 
 			LazyLocalStyle(
 				build = build,
-				className = generateClassName(sheetName = name, styleName = property.name),
+				className = generateClassName(sheetName = name, localName = property.name),
 				sheet = this@StyleSheet
 			)
 				.also(pendingStyles::add)
@@ -84,7 +132,7 @@ public abstract class StyleSheet(
 		}
 
 
-		public fun generateDefaultClassName(sheetName: String?, styleName: String?): String {
+		public fun generateDefaultName(sheetName: String?, localName: String?): String {
 			if (js("process.env.NODE_ENV === 'production'") as Boolean)
 				return "_${nextId++}"
 
@@ -94,7 +142,7 @@ public abstract class StyleSheet(
 				append("-")
 				append(sheetName ?: "unnamed")
 				append("-")
-				append(styleName ?: "unnamed")
+				append(localName ?: "unnamed")
 			}
 		}
 	}
@@ -104,7 +152,7 @@ public abstract class StyleSheet(
 public interface Style {
 
 	public fun inject()
-	public fun injectTo(builder: CSSBuilder)
+	public fun injectTo(builder: StyleBuilder)
 
 
 	public companion object;
@@ -123,7 +171,7 @@ public interface Style {
 
 
 private class LazyGlobalStyle(
-	private var build: (CSSBuilder.() -> Unit)?,
+	private var build: (StyleBuilder.() -> Unit)?,
 	private val sheet: StyleSheet,
 ) : Style.Global {
 
@@ -131,7 +179,7 @@ private class LazyGlobalStyle(
 		sheet.inject()
 
 
-	override fun injectTo(builder: CSSBuilder) {
+	override fun injectTo(builder: StyleBuilder) {
 		build?.invoke(builder)
 		build = null
 	}
@@ -143,7 +191,7 @@ private class LazyGlobalStyle(
 
 
 private class LazyLocalStyle(
-	private var build: (CSSBuilder.() -> Unit)?,
+	private var build: (StyleBuilder.() -> Unit)?,
 	override val className: String,
 	private val sheet: StyleSheet,
 ) : Style.Local {
@@ -156,12 +204,14 @@ private class LazyLocalStyle(
 		sheet.inject()
 
 
-	override fun injectTo(builder: CSSBuilder) {
+	override fun injectTo(builder: StyleBuilder) {
 		val build = build ?: return
 		this.build = null
 
 		with(builder) {
-			".$className"(build)
+			".$className" {
+				build()
+			}
 		}
 	}
 
