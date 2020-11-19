@@ -2,70 +2,94 @@
 
 package io.fluidsonic.css
 
-// FIXME support multiple
 
-
-public interface BoxShadowOrGlobal : CssValue
-public interface BoxShadow : BoxShadowOrGlobal {
+public interface BoxShadow : CssValue, Internal {
 
 	public companion object {
 
-		public val none: BoxShadow = NoneValue.none
+		@CssDsl
+		public val none: BoxShadow = raw("none")
+
+
+		public inline fun build(values: BoxShadowBuilder.() -> Unit): BoxShadow =
+			with(BoxShadowBuilder.default().apply(values)) { Unit.build() }
+
+
+		public fun combine(vararg values: Single): BoxShadow =
+			when (values.size) {
+				1 -> values.first()
+				0 -> CssValue.initial
+				else -> raw(values.joinToString(","))
+			}
+
+
+		public fun raw(value: String): BoxShadow =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+
+
+		public fun with(
+			offsetX: Length = Length.zero,
+			offsetY: Length = Length.zero,
+			isInset: Boolean = false,
+			blurRadius: Length? = null,
+			spreadRadius: Length? = null,
+			color: Color? = null,
+		): Single =
+			GenericValue(buildString {
+				if (isInset)
+					append("inset ")
+
+				append(offsetX)
+				append(" ")
+				append(offsetY)
+
+				if (blurRadius != null) {
+					append(" ")
+					append(blurRadius)
+				}
+				if (spreadRadius != null) {
+					if (blurRadius == null) append(" 0")
+					append(" ")
+					append(spreadRadius)
+				}
+				if (color != null) {
+					append(" ")
+					append(color)
+				}
+			})
 	}
+
+
+	public interface Single : BoxShadow
+
+
+	public interface Variable : BoxShadow, CssVariable<BoxShadow>
 }
 
 
-private class BoxShadowImpl(
-	blurRadius: Length?,
-	color: Color?,
-	isInset: Boolean,
-	offsetX: Length,
-	offsetY: Length,
-	spreadRadius: Length?,
-) :
-	CssValueBase(buildString {
-		if (isInset)
-			append("inset ")
-
-		append(offsetX)
-		append(" ")
-		append(offsetY)
-
-		if (blurRadius != null) {
-			append(" ")
-			append(blurRadius)
-		}
-		if (spreadRadius != null) {
-			append(" ")
-			append(spreadRadius)
-		}
-		if (color != null) {
-			append(" ")
-			append(color)
-		}
-	}),
-	BoxShadow
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadow) {
+	property(boxShadow, value)
+}
 
 
-@Suppress("FunctionName")
-public fun BoxShadow(
-	offsetX: Length = Length.zero,
-	offsetY: Length = Length.zero,
-	isInset: Boolean = false,
-	blurRadius: Length? = null,
-	spreadRadius: Length? = null,
-	color: Color? = null,
-): BoxShadow =
-	BoxShadowImpl(
-		blurRadius = blurRadius,
-		color = color,
-		isInset = isInset,
-		offsetX = offsetX,
-		offsetY = offsetY,
-		spreadRadius = spreadRadius,
-	)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadow.Single) {
+	property(boxShadow, value)
+}
 
 
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.boxShadow(vararg values: BoxShadow.Single) {
+	boxShadow(BoxShadow.combine(*values))
+}
+
+
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.boxShadow(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
@@ -73,7 +97,7 @@ public inline fun CssDeclarationBlockBuilder.boxShadow(
 	spreadRadius: Length? = null,
 	color: Color? = null,
 ) {
-	boxShadow(BoxShadow(
+	boxShadow(BoxShadow.with(
 		blurRadius = blurRadius,
 		color = color,
 		isInset = false,
@@ -84,6 +108,7 @@ public inline fun CssDeclarationBlockBuilder.boxShadow(
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.boxShadowInset(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
@@ -91,7 +116,7 @@ public inline fun CssDeclarationBlockBuilder.boxShadowInset(
 	spreadRadius: Length? = null,
 	color: Color? = null,
 ) {
-	boxShadow(BoxShadow(
+	boxShadow(BoxShadow.with(
 		blurRadius = blurRadius,
 		color = color,
 		isInset = true,
@@ -102,24 +127,12 @@ public inline fun CssDeclarationBlockBuilder.boxShadowInset(
 }
 
 
-public inline fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadow) {
-	property(CssProperty.boxShadow, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.boxShadow(values: BoxShadowBuilder.() -> Unit) {
+	boxShadow(BoxShadow.build(values))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadowOrGlobal) {
-	property(CssProperty.boxShadow, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.boxShadow(value: GlobalValue) {
-	property(CssProperty.boxShadow, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.boxShadow(value: CustomCssProperty<out BoxShadowOrGlobal>) {
-	property(CssProperty.boxShadow, value)
-}
-
-
-public inline val CssProperty.Companion.boxShadow: CssProperty get() = CssProperty("box-shadow")
+@Suppress("unused")
+public inline val CssProperties.boxShadow: CssProperty<BoxShadow>
+	get() = CssProperty("box-shadow")

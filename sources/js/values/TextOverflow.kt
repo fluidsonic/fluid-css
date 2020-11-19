@@ -3,42 +3,49 @@
 package io.fluidsonic.css
 
 
-public interface TextOverflow : CssValue {
+public interface TextOverflow : CssValue, Internal {
 
 	public companion object {
 
-		public val clip: TextOverflow = TextOverflow("clip")
-		public val ellipsis: TextOverflow = TextOverflow("ellipsis")
+		@CssDsl
+		public val clip: Single = GenericValue("clip")
+
+		@CssDsl
+		public val ellipsis: Single = GenericValue("ellipsis")
+
+
+		public fun raw(value: String): TextOverflow =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+
+
+		public inline fun with(left: Single, right: Single): TextOverflow =
+			raw("$left $right")
 	}
+
+
+	public interface Single : TextOverflow
+
+
+	public interface Variable : TextOverflow, CssVariable<TextOverflow>
 }
 
 
-private class TextOverflowImpl(value: String) : CssValueBase(value), TextOverflow
-
-
-@Suppress("FunctionName")
-public fun TextOverflow(value: String): TextOverflow =
-	TextOverflowImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.textOverflow(value: TextOverflow) {
-	property(CssProperty.textOverflow, value)
+	property(textOverflow, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.textOverflow(left: TextOverflow, right: TextOverflow) {
-	property(CssProperty.textOverflow, "$left $right")
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.textOverflow(left: TextOverflow.Single, right: TextOverflow.Single) {
+	textOverflow(TextOverflow.with(left = left, right = right))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.textOverflow(value: GlobalValue) {
-	property(CssProperty.textOverflow, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textOverflow(value: CustomCssProperty<out TextOverflow>) {
-	property(CssProperty.textOverflow, value)
-}
-
-
-public inline val CssProperty.Companion.textOverflow: CssProperty get() = CssProperty("text-overflow")
+@Suppress("unused")
+public inline val CssProperties.textOverflow: CssProperty<TextOverflow>
+	get() = CssProperty("text-overflow")

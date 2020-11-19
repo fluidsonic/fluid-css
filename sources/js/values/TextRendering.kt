@@ -3,38 +3,42 @@
 package io.fluidsonic.css
 
 
-public interface TextRendering : CssValue {
+public interface TextRendering : CssValue, Internal {
 
 	public companion object {
 
+		@CssDsl
 		public val auth: TextRendering = raw("auto")
+
+		@CssDsl
 		public val optimizeSpeed: TextRendering = raw("optimizeSpeed")
+
+		@CssDsl
 		public val optimizeLegibility: TextRendering = raw("optimizeLegibility")
+
+		@CssDsl
 		public val geometricPrecision: TextRendering = raw("geometricPrecision")
 
 
 		public fun raw(value: String): TextRendering =
-			Default(value)
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
 
 
-	private class Default(value: String) : CssValueBase(value), TextRendering
+	public interface Variable : TextRendering, CssVariable<TextRendering>
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.textRendering(value: TextRendering) {
-	property(CssProperty.textRendering, value)
+	property(textRendering, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.textRendering(value: GlobalValue) {
-	property(CssProperty.textRendering, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textRendering(value: CustomCssProperty<out TextRendering>) {
-	property(CssProperty.textRendering, value)
-}
-
-
-public inline val CssProperty.Companion.textRendering: CssProperty get() = CssProperty("text-rendering")
+@Suppress("unused")
+public inline val CssProperties.textRendering: CssProperty<TextRendering>
+	get() = CssProperty("text-rendering")

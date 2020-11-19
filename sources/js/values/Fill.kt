@@ -3,14 +3,12 @@
 package io.fluidsonic.css
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.fill(value: Color) {
-	property(CssProperty.fill, value)
+	property(fill, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.fill(value: GlobalValue) {
-	property(CssProperty.fill, value)
-}
-
-
-public inline val CssProperty.Companion.fill: CssProperty get() = CssProperty("fill")
+@Suppress("unused")
+public inline val CssProperties.fill: CssProperty<Color>
+	get() = CssProperty("fill")

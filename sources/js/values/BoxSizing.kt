@@ -3,37 +3,36 @@
 package io.fluidsonic.css
 
 
-public interface BoxSizing : CssValue {
+public interface BoxSizing : CssValue, Internal {
 
 	public companion object {
 
-		public val contentBox: BoxSizing = BoxSizing("content-box")
-		public val borderBox: BoxSizing = BoxSizing("border-box")
+		@CssDsl
+		public val contentBox: BoxSizing = raw("content-box")
+
+		@CssDsl
+		public val borderBox: BoxSizing = raw("border-box")
+
+
+		public fun raw(value: String): BoxSizing =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : BoxSizing, CssVariable<BoxSizing>
 }
 
 
-private class BoxSizingImpl(value: String) : CssValueBase(value), BoxSizing
-
-
-@Suppress("FunctionName")
-public fun BoxSizing(value: String): BoxSizing =
-	BoxSizingImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.boxSizing(value: BoxSizing) {
-	property(CssProperty.boxSizing, value)
+	property(boxSizing, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.boxSizing(value: GlobalValue) {
-	property(CssProperty.boxSizing, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.boxSizing(value: CustomCssProperty<out BoxSizing>) {
-	property(CssProperty.boxSizing, value)
-}
-
-
-public inline val CssProperty.Companion.boxSizing: CssProperty get() = CssProperty("box-sizing")
+@Suppress("unused")
+public inline val CssProperties.boxSizing: CssProperty<BoxSizing>
+	get() = CssProperty("box-sizing")

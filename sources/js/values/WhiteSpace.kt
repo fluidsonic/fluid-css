@@ -3,47 +3,48 @@
 package io.fluidsonic.css
 
 
-public interface WhiteSpaceOrGlobal : CssValue
-public interface WhiteSpace : WhiteSpaceOrGlobal {
+public interface WhiteSpace : CssValue, Internal {
 
 	public companion object {
 
-		public val breakSpaces: WhiteSpace = WhiteSpace("break-spaces")
-		public val normal: WhiteSpace = WhiteSpace("normal")
-		public val nowrap: WhiteSpace = WhiteSpace("nowrap")
-		public val pre: WhiteSpace = WhiteSpace("pre")
-		public val preLine: WhiteSpace = WhiteSpace("pre-line")
-		public val preWrap: WhiteSpace = WhiteSpace("pre-wrap")
+		@CssDsl
+		public val breakSpaces: WhiteSpace = raw("break-spaces")
+
+		@CssDsl
+		public val normal: WhiteSpace = raw("normal")
+
+		@CssDsl
+		public val nowrap: WhiteSpace = raw("nowrap")
+
+		@CssDsl
+		public val pre: WhiteSpace = raw("pre")
+
+		@CssDsl
+		public val preLine: WhiteSpace = raw("pre-line")
+
+		@CssDsl
+		public val preWrap: WhiteSpace = raw("pre-wrap")
+
+
+		public fun raw(value: String): WhiteSpace =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : WhiteSpace, CssVariable<WhiteSpace>
 }
 
 
-private class WhiteSpaceImpl(value: String) : CssValueBase(value), WhiteSpace
-
-
-@Suppress("FunctionName")
-public fun WhiteSpace(value: String): WhiteSpace =
-	WhiteSpaceImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.whiteSpace(value: WhiteSpace) {
-	property(CssProperty.whiteSpace, value)
+	property(whiteSpace, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.whiteSpace(value: WhiteSpaceOrGlobal) {
-	property(CssProperty.whiteSpace, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.whiteSpace(value: GlobalValue) {
-	property(CssProperty.whiteSpace, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.whiteSpace(value: CustomCssProperty<out WhiteSpaceOrGlobal>) {
-	property(CssProperty.whiteSpace, value)
-}
-
-
-public inline val CssProperty.Companion.whiteSpace: CssProperty get() = CssProperty("white-space")
+@Suppress("unused")
+public inline val CssProperties.whiteSpace: CssProperty<WhiteSpace>
+	get() = CssProperty("white-space")

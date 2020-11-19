@@ -3,57 +3,43 @@
 package io.fluidsonic.css
 
 
-public interface ZIndexOrGlobal : CssValue
-public interface ZIndex : ZIndexOrGlobal {
+public interface ZIndex : CssValue.IntConstructable, Internal {
 
 	public companion object {
 
-		public val auto: ZIndex = AutoValue.auto
+		@CssDsl
+		public val auto: ZIndex = raw("auto")
+
+
+		public inline fun of(value: Int): ZIndex =
+			raw(value.toString())
+
+
+		public fun raw(value: String): ZIndex =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : ZIndex, CssVariable<ZIndex>
 }
 
 
-private class ZIndexImpl(value: String) : CssValueBase(value), ZIndex
-
-
-@Suppress("FunctionName")
-public inline fun ZIndex(value: Int): ZIndex =
-	ZIndex(value.toString())
-
-
-@Suppress("FunctionName")
-public fun ZIndex(value: String): ZIndex =
-	CssValue(value, ::ZIndexImpl)
-
-
-public inline fun CssDeclarationBlockBuilder.zIndex(value: Int) {
-	property(CssProperty.zIndex, value)
-}
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.zIndex(value: ZIndex) {
-	property(CssProperty.zIndex, value)
+	property(zIndex, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.zIndex(value: ZIndexOrGlobal) {
-	property(CssProperty.zIndex, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.zIndex(value: Int) {
+	property(zIndex, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.zIndex(value: GlobalValue) {
-	property(CssProperty.zIndex, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.zIndex(value: CustomCssProperty<out ZIndexOrGlobal>) {
-	property(CssProperty.zIndex, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.zIndex(value: CustomCssProperty<out Int>) {
-	property(CssProperty.zIndex, value)
-}
-
-
-public inline val CssProperty.Companion.zIndex: CssProperty get() = CssProperty("z-index")
+@Suppress("unused")
+public inline val CssProperties.zIndex: CssProperty<ZIndex>
+	get() = CssProperty("z-index")

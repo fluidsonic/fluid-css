@@ -3,53 +3,100 @@
 package io.fluidsonic.css
 
 
-public inline fun CssDeclarationBlockBuilder.padding(all: LengthOrPercentageOrGlobal) {
-	property(CssProperty.padding, all)
+public interface Padding : CssValue, Internal {
+
+	public companion object {
+
+		@CssDsl
+		public val auto: Single = GenericValue("auto")
+
+
+		public inline fun all(value: Single): Padding =
+			value
+
+
+		public inline fun of(vertical: Single, horizontal: Single): Padding =
+			if (vertical == horizontal)
+				all(vertical)
+			else
+				raw("$vertical $horizontal")
+
+
+		public inline fun of(top: Single, horizontal: Single, bottom: Single): Padding =
+			if (top == bottom)
+				of(vertical = top, horizontal = horizontal)
+			else
+				raw("$top $horizontal $bottom")
+
+
+		public inline fun of(
+			top: Single,
+			right: Single,
+			bottom: Single,
+			left: Single,
+		): Padding =
+			if (left == right)
+				of(top = top, horizontal = left, bottom = bottom)
+			else
+				raw("$top $right $bottom $left")
+
+
+		public fun raw(value: String): Padding =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Single : Padding
+
+
+	public interface Variable : Padding, CssVariable<Padding>
 }
 
 
-public inline fun CssDeclarationBlockBuilder.padding(vertical: LengthOrPercentage, horizontal: LengthOrPercentage) {
-	if (vertical == horizontal)
-		padding(all = vertical)
-	else
-		property(CssProperty.padding, "$vertical $horizontal")
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.padding(all: Padding) {
+	property(padding, all)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.padding(top: LengthOrPercentage, horizontal: LengthOrPercentage, bottom: LengthOrPercentage) {
-	if (top == bottom)
-		padding(vertical = top, horizontal = horizontal)
-	else
-		property(CssProperty.padding, "$top $horizontal $bottom")
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.padding(vertical: Padding.Single, horizontal: Padding.Single) {
+	padding(Padding.of(vertical = vertical, horizontal = horizontal))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.padding(top: LengthOrPercentage, right: LengthOrPercentage, bottom: LengthOrPercentage, left: LengthOrPercentage) {
-	if (left == right)
-		padding(top = top, horizontal = left, bottom = bottom)
-	else
-		property(CssProperty.padding, "$top $left $bottom $right")
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.padding(top: Padding.Single, horizontal: Padding.Single, bottom: Padding.Single) {
+	padding(Padding.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.padding(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.padding(
+	top: Padding.Single,
+	right: Padding.Single,
+	bottom: Padding.Single,
+	left: Padding.Single,
 ) {
-	property(CssProperty.padding, value, *defaultValues)
+	padding(Padding.of(top = top, right = right, bottom = bottom, left = left))
 }
 
 
+@CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.padding(
-	all: LengthOrPercentage? = null,
-	vertical: LengthOrPercentage? = all,
-	horizontal: LengthOrPercentage? = all,
-	top: LengthOrPercentage? = vertical,
-	right: LengthOrPercentage? = horizontal,
-	bottom: LengthOrPercentage? = vertical,
-	left: LengthOrPercentage? = horizontal,
+	all: Padding.Single? = null,
+	vertical: Padding.Single? = all,
+	horizontal: Padding.Single? = all,
+	top: Padding.Single? = vertical,
+	right: Padding.Single? = horizontal,
+	bottom: Padding.Single? = vertical,
+	left: Padding.Single? = horizontal,
 ) {
 	if (top != null && left != null && right != null && bottom != null)
 		padding(top = top, right = right, bottom = bottom, left = left)
@@ -66,60 +113,50 @@ public inline fun CssDeclarationBlockBuilder.padding(
 }
 
 
-public inline fun CssDeclarationBlockBuilder.paddingBottom(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.paddingBottom, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.paddingBottom(value: Padding.Single) {
+	property(paddingBottom, value)
 }
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.paddingBottom(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.paddingBottom, value, *defaultValues)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.paddingLeft(value: Padding.Single) {
+	property(paddingLeft, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.paddingLeft(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.paddingLeft, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.paddingRight(value: Padding.Single) {
+	property(paddingRight, value)
 }
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.paddingLeft(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.paddingLeft, value, *defaultValues)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.paddingTop(value: Padding.Single) {
+	property(paddingTop, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.paddingRight(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.paddingRight, value)
-}
+@Suppress("unused")
+public inline val CssProperties.padding: CssProperty<Padding>
+	get() = CssProperty("padding")
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.paddingRight(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.paddingRight, value, *defaultValues)
-}
+@Suppress("unused")
+public inline val CssProperties.paddingBottom: CssProperty<Padding.Single>
+	get() = CssProperty("padding-bottom")
 
 
-public inline fun CssDeclarationBlockBuilder.paddingTop(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.paddingTop, value)
-}
+@Suppress("unused")
+public inline val CssProperties.paddingLeft: CssProperty<Padding.Single>
+	get() = CssProperty("padding-left")
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.paddingTop(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.paddingTop, value, *defaultValues)
-}
+@Suppress("unused")
+public inline val CssProperties.paddingRight: CssProperty<Padding.Single>
+	get() = CssProperty("padding-right")
 
 
-public inline val CssProperty.Companion.padding: CssProperty get() = CssProperty("padding")
-public inline val CssProperty.Companion.paddingBottom: CssProperty get() = CssProperty("padding-bottom")
-public inline val CssProperty.Companion.paddingLeft: CssProperty get() = CssProperty("padding-left")
-public inline val CssProperty.Companion.paddingRight: CssProperty get() = CssProperty("padding-right")
-public inline val CssProperty.Companion.paddingTop: CssProperty get() = CssProperty("padding-top")
+@Suppress("unused")
+public inline val CssProperties.paddingTop: CssProperty<Padding.Single>
+	get() = CssProperty("padding-top")

@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package io.fluidsonic.css
 
 
@@ -8,35 +10,120 @@ public interface CssValue {
 	override fun toString(): String
 
 
-	public companion object
-}
+	public companion object {
+
+		@CssDsl
+		public val inherit: Global = global("inherit")
+
+		@CssDsl
+		public val initial: Global = global("initial")
+
+		@CssDsl
+		public val unset: Global = global("unset")
 
 
-internal abstract class CssValueBase(private val value: String) : CssValue {
+		public fun global(value: String): Global =
+			GenericValue(value)
 
-	init {
-		require(value.isNotBlank()) { "CSS value must not be empty or blank." }
+
+		public inline fun raw(value: String): CssValue =
+			global(value)
 	}
 
 
-	override fun equals(other: Any?) =
-		other === this || (other is CssValueBase && value == other.value)
+	public interface Global :
+		AlignItems,
+		Angle,
+		AnimationIterationCount,
+		AnimationName,
+		AnimationPlayState,
+		Appearance,
+		Background,
+		BackgroundAttachment,
+		BackgroundClip,
+		BackgroundImage,
+		BackgroundOrigin,
+		BackgroundPosition,
+		BackgroundPositionX.Align,
+		BackgroundPositionY.Align,
+		BackgroundRepeat,
+		BackgroundRepeatAxis,
+		BackgroundSize,
+		Border,
+		BorderCollapse,
+		BorderColor.Single,
+		BorderStyle.Single,
+		BorderWidth.Single,
+		BoxOffset,
+		BoxShadow.Single,
+		BoxSizing,
+		CaretColor,
+		Color,
+		Content,
+		CounterIncrement,
+		CounterReset,
+		CssImage,
+		CssUrl,
+		Cursor,
+		Display,
+		Flex,
+		FlexBasis,
+		FlexDirection,
+		FlexGrow,
+		FlexShrink,
+		FontFamily,
+		FontSize,
+		FontStyle,
+		FontVariantNumeric,
+		FontVariantNumericFigure,
+		FontVariantNumericFraction,
+		FontVariantNumericSpacing,
+		FontWeight,
+		GridArea,
+		GridTemplate,
+		GridTemplateRows,
+		JustifyContent,
+		Length,
+		LineHeight,
+		ListStyleType,
+		Margin.Single,
+		Opacity,
+		Outline,
+		OutlineColor,
+		OutlineStyle,
+		OutlineWidth,
+		Overflow.Axis,
+		Padding.Single,
+		Percentage,
+		PointerEvents,
+		Position,
+		Resize,
+		Size,
+		SizeLimit,
+		StrokeWidth,
+		TableLayout,
+		TextAlign,
+		TextDecoration,
+		TextDecorationLine,
+		TextDecorationStyle,
+		TextDecorationThickness,
+		TextOverflow.Single,
+		TextRendering,
+		Time,
+		TimingFunction,
+		Transform,
+		TransformOrigin,
+		TransformOriginX,
+		TransformOriginY,
+		Transition.Single,
+		UserSelect,
+		VerticalAlign,
+		Visibility,
+		WhiteSpace,
+		ZIndex
 
 
-	override fun hashCode() =
-		value.hashCode()
-
-
-	override fun toString() =
-		value
+	public interface IntConstructable : CssValue
+	public interface NumberConstructable : IntConstructable
+	public interface StringConstructable : CssValue
 }
-
-
-@Suppress("FunctionName", "UNCHECKED_CAST")
-internal inline fun <Value : CssValue> CssValue(value: String, create: (String) -> Value): Value =
-	when (value) {
-		"inherit" -> GlobalValue.inherit as Value // FIXME will fail
-		"initial" -> GlobalValue.initial as Value
-		"unset" -> GlobalValue.unset as Value
-		else -> create(value)
-	}

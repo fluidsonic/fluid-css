@@ -3,47 +3,43 @@
 package io.fluidsonic.css
 
 
-public interface AppearanceOrGlobal : CssValue
-public interface Appearance : AppearanceOrGlobal {
+public interface Appearance : CssValue, Internal {
 
 	public companion object {
 
-		public val auto: Appearance = AutoValue.auto
-		public val none: Appearance = NoneValue.none
+		@CssDsl
+		public val auto: Appearance = raw("auto")
 
-		public val menulistButton: Appearance = Appearance("menulist-button")
-		public val textfield: Appearance = Appearance("textfield")
+		@CssDsl
+		public val none: Appearance = raw("none")
+
+
+		@CssDsl
+		public val menulistButton: Appearance = raw("menulist-button")
+
+		@CssDsl
+		public val textfield: Appearance = raw("textfield")
+
+
+		public fun raw(value: String): Appearance =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : Appearance, CssVariable<Appearance>
 }
 
 
-private class AppearanceImpl(value: String) : CssValueBase(value), Appearance
-
-
-@Suppress("FunctionName")
-public fun Appearance(value: String): Appearance =
-	CssValue(value, ::AppearanceImpl)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.appearance(value: Appearance) {
-	property(CssProperty.appearance, value)
+	property(appearance, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.appearance(value: AppearanceOrGlobal) {
-	property(CssProperty.appearance, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.appearance(value: GlobalValue) {
-	property(CssProperty.appearance, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.appearance(value: CustomCssProperty<out AppearanceOrGlobal>) {
-	property(CssProperty.appearance, value)
-}
-
-
-public inline val CssProperty.Companion.appearance: CssProperty get() = CssProperty("appearance")
-
+@Suppress("unused")
+public inline val CssProperties.appearance: CssProperty<Appearance>
+	get() = CssProperty("appearance")

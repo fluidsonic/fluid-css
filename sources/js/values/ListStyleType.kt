@@ -3,47 +3,46 @@
 package io.fluidsonic.css
 
 
-public interface ListStyleTypeOrGlobal : CssValue
-public interface ListStyleType : ListStyleTypeOrGlobal {
+public interface ListStyleType : CssValue, Internal {
 
 	public companion object {
 
-		public val none: ListStyleType = NoneValue.none
+		@CssDsl
+		public val none: ListStyleType = raw("none")
 
-		public val circle: ListStyleType = ListStyleType("circle")
-		public val decimal: ListStyleType = ListStyleType("decimal")
-		public val disc: ListStyleType = ListStyleType("disc")
-		public val square: ListStyleType = ListStyleType("square")
+
+		@CssDsl
+		public val circle: ListStyleType = raw("circle")
+
+		@CssDsl
+		public val decimal: ListStyleType = raw("decimal")
+
+		@CssDsl
+		public val disc: ListStyleType = raw("disc")
+
+		@CssDsl
+		public val square: ListStyleType = raw("square")
+
+
+		public fun raw(value: String): ListStyleType =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : ListStyleType, CssVariable<ListStyleType>
 }
 
 
-private class ListStyleTypeImpl(value: String) : CssValueBase(value), ListStyleType
-
-
-@Suppress("FunctionName")
-public fun ListStyleType(value: String): ListStyleType =
-	ListStyleTypeImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.listStyleType(value: ListStyleType) {
-	property(CssProperty.listStyleType, value)
+	property(listStyleType, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.listStyleType(value: ListStyleTypeOrGlobal) {
-	property(CssProperty.listStyleType, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.listStyleType(value: GlobalValue) {
-	property(CssProperty.listStyleType, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.listStyleType(value: CustomCssProperty<out ListStyleTypeOrGlobal>) {
-	property(CssProperty.listStyleType, value)
-}
-
-
-public inline val CssProperty.Companion.listStyleType: CssProperty get() = CssProperty("list-style-type")
+@Suppress("unused")
+public inline val CssProperties.listStyleType: CssProperty<ListStyleType>
+	get() = CssProperty("list-style-type")

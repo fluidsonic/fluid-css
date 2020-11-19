@@ -5,33 +5,29 @@ package io.fluidsonic.css
 // FIXME support
 
 
-public interface GridTemplate : CssValue {
+public interface GridTemplate : CssValue, Internal {
 
-	public companion object
+	public companion object {
+
+		public fun raw(value: String): GridTemplate =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Variable : GridTemplate, CssVariable<GridTemplate>
 }
 
 
-private class GridTemplateImpl(value: String) : CssValueBase(value), GridTemplate
-
-
-@Suppress("FunctionName")
-public fun GridTemplate(value: String): GridTemplate =
-	GridTemplateImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.gridTemplate(value: GridTemplate) {
-	property(CssProperty.gridTemplate, value)
+	property(gridTemplate, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.gridTemplate(value: GlobalValue) {
-	property(CssProperty.gridTemplate, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.gridTemplate(value: CustomCssProperty<out GridTemplate>) {
-	property(CssProperty.gridTemplate, value)
-}
-
-
-public inline val CssProperty.Companion.gridTemplate: CssProperty get() = CssProperty("grid-template")
+@Suppress("unused")
+public inline val CssProperties.gridTemplate: CssProperty<GridTemplate>
+	get() = CssProperty("grid-template")

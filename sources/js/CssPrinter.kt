@@ -5,8 +5,9 @@ public interface CssPrinter {
 
 	public fun print(destination: Appendable, declaration: CssDeclaration)
 	public fun print(destination: Appendable, declarationBlock: CssDeclarationBlock)
-	public fun print(destination: Appendable, keyframe: CssKeyframe)
-	public fun print(destination: Appendable, keyframes: CssKeyframes)
+	public fun print(destination: Appendable, fontFace: FontFace)
+	public fun print(destination: Appendable, keyframe: Keyframe)
+	public fun print(destination: Appendable, keyframes: Keyframes)
 	public fun print(destination: Appendable, rule: CssRule)
 	public fun print(destination: Appendable, selector: CssSelector)
 
@@ -21,18 +22,16 @@ public interface CssPrinter {
 	private object Default : CssPrinter {
 
 		override fun print(destination: Appendable, declaration: CssDeclaration) {
-			destination.append(declaration.property.name)
+			destination.append(declaration.property)
 			destination.append(":")
 			destination.append(declaration.value)
 		}
 
 
 		override fun print(destination: Appendable, declarationBlock: CssDeclarationBlock) {
-			declarationBlock.declarations.forEachIndexed { index, declaration ->
-				if (index > 0)
-					destination.append(";")
-
+			for (declaration in declarationBlock.declarations) {
 				print(destination, declaration)
+				destination.append(";")
 			}
 
 			if (declarationBlock is CssDeclarationBlock.Hierarchical && declarationBlock.children.isNotEmpty()) {
@@ -49,7 +48,14 @@ public interface CssPrinter {
 		}
 
 
-		override fun print(destination: Appendable, keyframe: CssKeyframe) {
+		override fun print(destination: Appendable, fontFace: FontFace) {
+			destination.append("@font-face {")
+			print(destination, fontFace.declarations)
+			destination.append("}")
+		}
+
+
+		override fun print(destination: Appendable, keyframe: Keyframe) {
 			destination.append(keyframe.key)
 			destination.append("{")
 			print(destination, keyframe.style)
@@ -57,7 +63,7 @@ public interface CssPrinter {
 		}
 
 
-		override fun print(destination: Appendable, keyframes: CssKeyframes) {
+		override fun print(destination: Appendable, keyframes: Keyframes) {
 			destination.append("@keyframes ")
 			destination.append(keyframes.name)
 			destination.append("{")
@@ -90,11 +96,15 @@ public fun CssPrinter.print(declarations: CssDeclarationBlock): String =
 	buildString { print(this, declarations) }
 
 
-public fun CssPrinter.print(keyframe: CssKeyframe): String =
+public fun CssPrinter.print(fontFace: FontFace): String =
+	buildString { print(this, fontFace) }
+
+
+public fun CssPrinter.print(keyframe: Keyframe): String =
 	buildString { print(this, keyframe) }
 
 
-public fun CssPrinter.print(keyframes: CssKeyframes): String =
+public fun CssPrinter.print(keyframes: Keyframes): String =
 	buildString { print(this, keyframes) }
 
 

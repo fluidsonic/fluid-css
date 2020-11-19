@@ -3,72 +3,139 @@
 package io.fluidsonic.css
 
 
-public interface Cursor : CssValue {
+public interface Cursor : CssValue, Internal {
 
 	public companion object {
 
-		public val auto: Cursor = AutoValue.auto
-		public val none: Cursor = NoneValue.none
+		@CssDsl
+		public val auto: Cursor = raw("auto")
 
-		public val alias: Cursor = Cursor("alias")
-		public val allScroll: Cursor = Cursor("all-scroll")
-		public val cell: Cursor = Cursor("cell")
-		public val colResize: Cursor = Cursor("col-resize")
-		public val contextMenu: Cursor = Cursor("context-menu")
-		public val copy: Cursor = Cursor("copy")
-		public val crosshair: Cursor = Cursor("crosshair")
-		public val default: Cursor = Cursor("default")
-		public val eResize: Cursor = Cursor("e-resize")
-		public val ewResize: Cursor = Cursor("ew-resize")
-		public val grab: Cursor = Cursor("grab")
-		public val grabbing: Cursor = Cursor("grabbing")
-		public val help: Cursor = Cursor("help")
-		public val move: Cursor = Cursor("move")
-		public val nResize: Cursor = Cursor("n-resize")
-		public val neResize: Cursor = Cursor("ne-resize")
-		public val neswResize: Cursor = Cursor("nesw-resize")
-		public val noDrop: Cursor = Cursor("no-drop")
-		public val notAllowed: Cursor = Cursor("not-allowed")
-		public val nsResize: Cursor = Cursor("ns-resize")
-		public val nwResize: Cursor = Cursor("nw-resize")
-		public val nwseResize: Cursor = Cursor("nwse-resize")
-		public val pointer: Cursor = Cursor("pointer")
-		public val progress: Cursor = Cursor("progress")
-		public val rowResize: Cursor = Cursor("row-resize")
-		public val sResize: Cursor = Cursor("s-resize")
-		public val seResize: Cursor = Cursor("se-resize")
-		public val swResize: Cursor = Cursor("sw-resize")
-		public val text: Cursor = Cursor("text")
-		public val verticalText: Cursor = Cursor("vertical-text")
-		public val wResize: Cursor = Cursor("w-resize")
-		public val wait: Cursor = Cursor("wait")
-		public val zooIn: Cursor = Cursor("zoom-in")
-		public val zoomOut: Cursor = Cursor("zoom-out")
+		@CssDsl
+		public val none: Cursor = raw("none")
+
+
+		@CssDsl
+		public val alias: Cursor = raw("alias")
+
+		@CssDsl
+		public val allScroll: Cursor = raw("all-scroll")
+
+		@CssDsl
+		public val cell: Cursor = raw("cell")
+
+		@CssDsl
+		public val colResize: Cursor = raw("col-resize")
+
+		@CssDsl
+		public val contextMenu: Cursor = raw("context-menu")
+
+		@CssDsl
+		public val copy: Cursor = raw("copy")
+
+		@CssDsl
+		public val crosshair: Cursor = raw("crosshair")
+
+		@CssDsl
+		public val default: Cursor = raw("default")
+
+		@CssDsl
+		public val eResize: Cursor = raw("e-resize")
+
+		@CssDsl
+		public val ewResize: Cursor = raw("ew-resize")
+
+		@CssDsl
+		public val grab: Cursor = raw("grab")
+
+		@CssDsl
+		public val grabbing: Cursor = raw("grabbing")
+
+		@CssDsl
+		public val help: Cursor = raw("help")
+
+		@CssDsl
+		public val move: Cursor = raw("move")
+
+		@CssDsl
+		public val nResize: Cursor = raw("n-resize")
+
+		@CssDsl
+		public val neResize: Cursor = raw("ne-resize")
+
+		@CssDsl
+		public val neswResize: Cursor = raw("nesw-resize")
+
+		@CssDsl
+		public val noDrop: Cursor = raw("no-drop")
+
+		@CssDsl
+		public val notAllowed: Cursor = raw("not-allowed")
+
+		@CssDsl
+		public val nsResize: Cursor = raw("ns-resize")
+
+		@CssDsl
+		public val nwResize: Cursor = raw("nw-resize")
+
+		@CssDsl
+		public val nwseResize: Cursor = raw("nwse-resize")
+
+		@CssDsl
+		public val pointer: Cursor = raw("pointer")
+
+		@CssDsl
+		public val progress: Cursor = raw("progress")
+
+		@CssDsl
+		public val rowResize: Cursor = raw("row-resize")
+
+		@CssDsl
+		public val sResize: Cursor = raw("s-resize")
+
+		@CssDsl
+		public val seResize: Cursor = raw("se-resize")
+
+		@CssDsl
+		public val swResize: Cursor = raw("sw-resize")
+
+		@CssDsl
+		public val text: Cursor = raw("text")
+
+		@CssDsl
+		public val verticalText: Cursor = raw("vertical-text")
+
+		@CssDsl
+		public val wResize: Cursor = raw("w-resize")
+
+		@CssDsl
+		public val wait: Cursor = raw("wait")
+
+		@CssDsl
+		public val zooIn: Cursor = raw("zoom-in")
+
+		@CssDsl
+		public val zoomOut: Cursor = raw("zoom-out")
+
+
+		public fun raw(value: String): Cursor =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : Cursor, CssVariable<Cursor>
 }
 
 
-private class CursorImpl(value: String) : CssValueBase(value), Cursor
-
-
-@Suppress("FunctionName")
-public fun Cursor(value: String): Cursor =
-	CursorImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.cursor(value: Cursor) {
-	property(CssProperty.cursor, value)
+	property(cursor, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.cursor(value: GlobalValue) {
-	property(CssProperty.cursor, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.cursor(value: CustomCssProperty<out Cursor>) {
-	property(CssProperty.cursor, value)
-}
-
-
-public inline val CssProperty.Companion.cursor: CssProperty get() = CssProperty("cursor")
+@Suppress("unused")
+public inline val CssProperties.cursor: CssProperty<Cursor>
+	get() = CssProperty("cursor")

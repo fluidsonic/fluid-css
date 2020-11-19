@@ -4,14 +4,12 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public interface CssDeclarationBlockBuilder {
+public interface CssDeclarationBlockBuilder : CssProperties {
 
-	@CssDsl
 	public fun declaration(value: CssDeclaration)
 
-	@CssDsl
-	public fun property(property: CssProperty, value: String) {
-		declaration(CssDeclaration(property, value))
+	public fun property(name: String, value: String) {
+		declaration(CssDeclaration(property = name, value = value))
 	}
 
 	public fun Unit.build(): CssDeclarationBlock
@@ -24,11 +22,10 @@ public interface CssDeclarationBlockBuilder {
 
 		@CssDsl
 		public operator fun CssSelector.invoke(declarations: Hierarchical.() -> Unit) {
-			with(Default()) {
-				declarations()
-
-				child(CssRule.default(selector = this@invoke, declarations = Unit.build()))
-			}
+			child(CssRule.default(
+				selector = this,
+				declarations = with(Default().apply(declarations)) { Unit.build() }
+			))
 		}
 
 		// TODO Move to extension once we have multiple receivers.
@@ -74,78 +71,90 @@ public interface CssDeclarationBlockBuilder {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.property(
-	property: CssProperty,
-	value: CssValue,
-) {
+public inline fun CssDeclarationBlockBuilder.property(property: String, value: Int) {
 	property(property, value.toString())
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.property(
-	property: CssProperty,
+public inline fun CssDeclarationBlockBuilder.property(property: String, value: Number) {
+	property(property, value.toString())
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.property(property: String, value: CssValue) {
+	property(property, value.toString())
+}
+
+
+@CssDsl
+public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(property: CssProperty<in Value>, value: Value) {
+	property(property.name, value.toString())
+}
+
+
+@CssDsl
+public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
+	property: CssProperty<Value>,
+	value: Int,
+) {
+	property(property.name, value.toString())
+}
+
+
+@CssDsl
+public inline fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
+	property: CssProperty<Value>,
 	value: Number,
 ) {
-	property(property, value.toString())
+	property(property.name, value.toString())
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.property(
-	property: CssProperty,
-	value: CustomCssProperty<*>,
-) {
-	property(property, value.reference())
-}
-
-
-@CssDsl
-public inline fun <Value : Any> CssDeclarationBlockBuilder.property(
-	property: CssProperty,
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(property, value.reference(*defaultValues))
-}
-
-
-@CssDsl
-public inline fun CssDeclarationBlockBuilder.property(
-	property: CustomCssProperty<*>,
+public inline fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
+	property: CssProperty<Value>,
 	value: String,
 ) {
-	property(CssProperty(property.toString()), value)
-}
-
-
-@CssDsl
-public inline fun CssDeclarationBlockBuilder.property(
-	property: CustomCssProperty<Number>,
-	value: Number,
-) {
-	property(CssProperty(property.toString()), value)
+	property(property.name, value)
 }
 
 
 @CssDsl
 public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
-	variable: CssVariable<Value>,
+	variable: CssVariable<in Value>,
 	value: Value,
 ) {
-	property(variable.toProperty(), value)
+	property(variable.propertyName, value.toString())
 }
 
-// FIXME
-//
-//@CssDsl
-//public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
-//	property: CustomCssProperty<Value>,
-//	value: CustomCssProperty<Value>,
-//	vararg defaultValues: Value?,
-//) {
-//	property(CssProperty(property.toString()), value, *defaultValues)
-//}
+
+@CssDsl
+public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
+	variable: CssVariable<in Value>,
+	value: Int,
+) {
+	property(variable.propertyName, value.toString())
+}
+
+
+@CssDsl
+public inline fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
+	variable: CssVariable<in Value>,
+	value: Number,
+) {
+	property(variable.propertyName, value.toString())
+}
+
+
+@CssDsl
+public inline fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
+	variable: CssVariable<in Value>,
+	value: String,
+) {
+	property(variable.propertyName, value)
+}
 
 
 // FIXME refactor

@@ -2,45 +2,42 @@
 
 package io.fluidsonic.css
 
+// FIXME support multiple values
 
-public interface BackgroundClipOrGlobal : CssValue
-public interface BackgroundClip : BackgroundClipOrGlobal {
+
+public interface BackgroundClip : CssValue, Internal {
 
 	public companion object {
 
-		public val borderBox: BackgroundClip = BackgroundClip("border-box")
-		public val contentBox: BackgroundClip = BackgroundClip("content-box")
-		public val paddingBox: BackgroundClip = BackgroundClip("padding-box")
+		@CssDsl
+		public val borderBox: BackgroundClip = raw("border-box")
+
+		@CssDsl
+		public val contentBox: BackgroundClip = raw("content-box")
+
+		@CssDsl
+		public val paddingBox: BackgroundClip = raw("padding-box")
+
+
+		public fun raw(value: String): BackgroundClip =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : BackgroundClip, CssVariable<BackgroundClip>
 }
 
 
-private class BackgroundClipImpl(value: String) : CssValueBase(value), BackgroundClip
-
-
-@Suppress("FunctionName")
-public fun BackgroundClip(value: String): BackgroundClip =
-	BackgroundClipImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.backgroundClip(value: BackgroundClip) {
-	property(CssProperty.backgroundClip, value)
+	property(backgroundClip, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.backgroundClip(value: BackgroundClipOrGlobal) {
-	property(CssProperty.backgroundClip, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundClip(value: GlobalValue) {
-	property(CssProperty.backgroundClip, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundClip(value: CustomCssProperty<out BackgroundClipOrGlobal>) {
-	property(CssProperty.backgroundClip, value)
-}
-
-
-public inline val CssProperty.Companion.backgroundClip: CssProperty get() = CssProperty("background-clip")
+@Suppress("unused")
+public inline val CssProperties.backgroundClip: CssProperty<BackgroundClip>
+	get() = CssProperty("background-clip")

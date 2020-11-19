@@ -3,30 +3,33 @@
 package io.fluidsonic.css
 
 
-public interface CaretColor : CssValue {
+public interface CaretColor : CssValue, Internal {
 
 	public companion object {
 
+		@CssDsl
 		public val auto: CaretColor = raw("auto")
 
 
 		public fun raw(value: String): CaretColor =
-			Default(value)
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
 
 
-	private class Default(value: String) : CssValueBase(value), CaretColor
+	public interface Variable : CaretColor, CssVariable<CaretColor>
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.caretColor(all: CaretColor) {
-	property(CssProperty.caretColor, all)
+	property(caretColor, all)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.caretColor(all: GlobalValue) {
-	property(CssProperty.caretColor, all)
-}
-
-
-public inline val CssProperty.Companion.caretColor: CssProperty get() = CssProperty("caret-color")
+@Suppress("unused")
+public inline val CssProperties.caretColor: CssProperty<CaretColor>
+	get() = CssProperty("caret-color")

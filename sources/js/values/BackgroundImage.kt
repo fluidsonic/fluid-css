@@ -2,44 +2,36 @@
 
 package io.fluidsonic.css
 
-// FIXME support multiple
+// FIXME support multiple values
 
 
-public interface BackgroundImageOrGlobal : CssValue
-public interface BackgroundImage : BackgroundImageOrGlobal {
+public interface BackgroundImage : Background, Internal {
 
 	public companion object {
 
-		public val none: BackgroundImage = NoneValue.none
+		@CssDsl
+		public val none: BackgroundImage = raw("none")
 
 
 		public fun raw(value: String): BackgroundImage =
-			Default(value)
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
 
 
-	private class Default(value: String) : CssValueBase(value), BackgroundImage
+	public interface Variable : BackgroundImage, CssVariable<BackgroundImage>
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.backgroundImage(value: BackgroundImage) {
-	property(CssProperty.backgroundImage, value)
+	property(backgroundImage, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.backgroundImage(value: BackgroundImageOrGlobal) {
-	property(CssProperty.backgroundImage, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundImage(value: GlobalValue) {
-	property(CssProperty.backgroundImage, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundImage(value: CustomCssProperty<out BackgroundImageOrGlobal>) {
-	property(CssProperty.backgroundImage, value)
-}
-
-
-public inline val CssProperty.Companion.backgroundImage: CssProperty get() = CssProperty("background-image")
+@Suppress("unused")
+public inline val CssProperties.backgroundImage: CssProperty<BackgroundImage>
+	get() = CssProperty("background-image")

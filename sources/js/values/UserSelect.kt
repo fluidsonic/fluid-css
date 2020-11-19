@@ -3,47 +3,46 @@
 package io.fluidsonic.css
 
 
-public interface UserSelectOrGlobal : CssValue
-public interface UserSelect : UserSelectOrGlobal {
+public interface UserSelect : CssValue, Internal {
 
 	public companion object {
 
-		public val auto: UserSelect = AutoValue.auto
-		public val none: UserSelect = NoneValue.none
+		@CssDsl
+		public val auto: UserSelect = raw("auto")
 
-		public val all: UserSelect = UserSelect("all")
-		public val contain: UserSelect = UserSelect("contain")
-		public val text: UserSelect = UserSelect("text")
+		@CssDsl
+		public val none: UserSelect = raw("none")
+
+
+		@CssDsl
+		public val all: UserSelect = raw("all")
+
+		@CssDsl
+		public val contain: UserSelect = raw("contain")
+
+		@CssDsl
+		public val text: UserSelect = raw("text")
+
+
+		public fun raw(value: String): UserSelect =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : UserSelect, CssVariable<UserSelect>
 }
 
 
-private class UserSelectImpl(value: String) : CssValueBase(value), UserSelect
-
-
-@Suppress("FunctionName")
-public fun UserSelect(value: String): UserSelect =
-	UserSelectImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.userSelect(value: UserSelect) {
-	property(CssProperty.userSelect, value)
+	property(userSelect, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.userSelect(value: UserSelectOrGlobal) {
-	property(CssProperty.userSelect, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.userSelect(value: GlobalValue) {
-	property(CssProperty.userSelect, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.userSelect(value: CustomCssProperty<out UserSelectOrGlobal>) {
-	property(CssProperty.userSelect, value)
-}
-
-
-public inline val CssProperty.Companion.userSelect: CssProperty get() = CssProperty("user-select")
+@Suppress("unused")
+public inline val CssProperties.userSelect: CssProperty<UserSelect>
+	get() = CssProperty("user-select")

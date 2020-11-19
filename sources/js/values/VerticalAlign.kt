@@ -3,43 +3,54 @@
 package io.fluidsonic.css
 
 
-public interface VerticalAlign : CssValue {
+public interface VerticalAlign : CssValue, Internal {
 
 	public companion object {
 
-		public val baseline: VerticalAlign = VerticalAlign("baseline")
-		public val bottom: VerticalAlign = VerticalAlign("bottom")
-		public val middle: VerticalAlign = VerticalAlign("middle")
-		public val sub: VerticalAlign = VerticalAlign("sub")
-		public val `super`: VerticalAlign = VerticalAlign("super")
-		public val textBottom: VerticalAlign = VerticalAlign("text-bottom")
-		public val textTop: VerticalAlign = VerticalAlign("text-top")
-		public val top: VerticalAlign = VerticalAlign("top")
+		@CssDsl
+		public val baseline: VerticalAlign = raw("baseline")
+
+		@CssDsl
+		public val bottom: VerticalAlign = raw("bottom")
+
+		@CssDsl
+		public val middle: VerticalAlign = raw("middle")
+
+		@CssDsl
+		public val sub: VerticalAlign = raw("sub")
+
+		@CssDsl
+		public val `super`: VerticalAlign = raw("super")
+
+		@CssDsl
+		public val textBottom: VerticalAlign = raw("text-bottom")
+
+		@CssDsl
+		public val textTop: VerticalAlign = raw("text-top")
+
+		@CssDsl
+		public val top: VerticalAlign = raw("top")
+
+
+		public fun raw(value: String): VerticalAlign =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : VerticalAlign, CssVariable<VerticalAlign>
 }
 
 
-private class VerticalAlignImpl(value: String) : CssValueBase(value), VerticalAlign
-
-
-@Suppress("FunctionName")
-public fun VerticalAlign(value: String): VerticalAlign =
-	VerticalAlignImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.verticalAlign(value: VerticalAlign) {
-	property(CssProperty.verticalAlign, value)
+	property(verticalAlign, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.verticalAlign(value: GlobalValue) {
-	property(CssProperty.verticalAlign, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.verticalAlign(value: CustomCssProperty<out VerticalAlign>) {
-	property(CssProperty.verticalAlign, value)
-}
-
-
-public inline val CssProperty.Companion.verticalAlign: CssProperty get() = CssProperty("vertical-align")
+@Suppress("unused")
+public inline val CssProperties.verticalAlign: CssProperty<VerticalAlign>
+	get() = CssProperty("vertical-align")

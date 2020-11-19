@@ -3,52 +3,61 @@
 package io.fluidsonic.css
 
 
-public interface PointerEventsOrGlobal : CssValue
-public interface PointerEvents : PointerEventsOrGlobal {
+public interface PointerEvents : CssValue, Internal {
 
 	public companion object {
 
-		public val auto: PointerEvents = AutoValue.auto
-		public val none: PointerEvents = NoneValue.none
+		@CssDsl
+		public val auto: PointerEvents = raw("auto")
 
-		public val all: PointerEvents = PointerEvents("all")
-		public val fill: PointerEvents = PointerEvents("fill")
-		public val painted: PointerEvents = PointerEvents("painted")
-		public val stroke: PointerEvents = PointerEvents("stroke")
-		public val visible: PointerEvents = PointerEvents("visible")
-		public val visibleFill: PointerEvents = PointerEvents("visibleFill")
-		public val visiblePainted: PointerEvents = PointerEvents("visiblePainted")
-		public val visibleStroke: PointerEvents = PointerEvents("visibleStroke")
+		@CssDsl
+		public val none: PointerEvents = raw("none")
+
+
+		@CssDsl
+		public val all: PointerEvents = raw("all")
+
+		@CssDsl
+		public val fill: PointerEvents = raw("fill")
+
+		@CssDsl
+		public val painted: PointerEvents = raw("painted")
+
+		@CssDsl
+		public val stroke: PointerEvents = raw("stroke")
+
+		@CssDsl
+		public val visible: PointerEvents = raw("visible")
+
+		@CssDsl
+		public val visibleFill: PointerEvents = raw("visibleFill")
+
+		@CssDsl
+		public val visiblePainted: PointerEvents = raw("visiblePainted")
+
+		@CssDsl
+		public val visibleStroke: PointerEvents = raw("visibleStroke")
+
+
+		public fun raw(value: String): PointerEvents =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : PointerEvents, CssVariable<PointerEvents>
 }
 
 
-private class PointerEventsImpl(value: String) : CssValueBase(value), PointerEvents
-
-
-@Suppress("FunctionName")
-public fun PointerEvents(value: String): PointerEvents =
-	PointerEventsImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.pointerEvents(value: PointerEvents) {
-	property(CssProperty.pointerEvents, value)
+	property(pointerEvents, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.pointerEvents(value: PointerEventsOrGlobal) {
-	property(CssProperty.pointerEvents, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.pointerEvents(value: GlobalValue) {
-	property(CssProperty.pointerEvents, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.pointerEvents(value: CustomCssProperty<out PointerEventsOrGlobal>) {
-	property(CssProperty.pointerEvents, value)
-}
-
-
-public inline val CssProperty.Companion.pointerEvents: CssProperty get() = CssProperty("pointer-events")
+@Suppress("unused")
+public inline val CssProperties.pointerEvents: CssProperty<PointerEvents>
+	get() = CssProperty("pointer-events")

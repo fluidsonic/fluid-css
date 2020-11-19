@@ -3,44 +3,46 @@
 package io.fluidsonic.css
 
 
-public interface CounterReset : CssValue {
+public interface CounterReset : CssValue, Internal {
 
 	public companion object {
 
-		public val none: CounterReset = NoneValue.none
+		@CssDsl
+		public val none: CounterReset = raw("none")
+
+
+		public fun raw(value: String): CounterReset =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+
+
+		public inline fun with(name: String, value: Int = 0): CounterReset =
+			raw(
+				if (value == 0) name
+				else "$name $value"
+			)
 	}
+
+
+	public interface Variable : CounterReset, CssVariable<CounterReset>
 }
 
 
-private class CounterResetImpl(value: String) : CssValueBase(value), CounterReset
-
-
-@Suppress("FunctionName")
-public fun CounterReset(name: String, value: Int = 0): CounterReset =
-	CounterResetImpl(
-		if (value == 0) name
-		else "$name $value"
-	)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.counterReset(value: CounterReset) {
-	property(CssProperty.counterReset, value)
+	property(counterReset, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.counterReset(value: GlobalValue) {
-	property(CssProperty.counterReset, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.counterReset(name: String, value: Int = 0) {
+	counterReset(CounterReset.with(name = name, value = value))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.counterReset(value: CustomCssProperty<out CounterReset>) {
-	property(CssProperty.counterReset, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.counterReset(name: String, increment: Int = 0) {
-	counterReset(CounterReset(value = increment, name = name))
-}
-
-
-public inline val CssProperty.Companion.counterReset: CssProperty get() = CssProperty("counter-reset")
+@Suppress("unused")
+public inline val CssProperties.counterReset: CssProperty<CounterReset>
+	get() = CssProperty("counter-reset")

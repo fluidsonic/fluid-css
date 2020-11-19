@@ -5,46 +5,43 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface TextDecorationLineOrGlobal : CssValue
-public interface TextDecorationLine : TextDecorationLineOrGlobal {
+public interface TextDecorationLine : CssValue, Internal {
 
 	public companion object {
 
-		public val none: TextDecorationLine = NoneValue.none
+		@CssDsl
+		public val none: TextDecorationLine = raw("none")
 
-		public val lineThrough: TextDecorationLine = TextDecorationLine("line-through")
-		public val overline: TextDecorationLine = TextDecorationLine("overline")
-		public val underline: TextDecorationLine = TextDecorationLine("underline")
+
+		@CssDsl
+		public val lineThrough: TextDecorationLine = raw("line-through")
+
+		@CssDsl
+		public val overline: TextDecorationLine = raw("overline")
+
+		@CssDsl
+		public val underline: TextDecorationLine = raw("underline")
+
+
+		public fun raw(value: String): TextDecorationLine =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : TextDecorationLine, CssVariable<TextDecorationLine>
 }
 
 
-private class TextDecorationLineImpl(value: String) : CssValueBase(value), TextDecorationLine
-
-
-@Suppress("FunctionName")
-public fun TextDecorationLine(value: String): TextDecorationLine =
-	TextDecorationLineImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.textDecorationLine(value: TextDecorationLine) {
-	property(CssProperty.textDecorationLine, value)
+	property(textDecorationLine, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.textDecorationLine(value: TextDecorationLineOrGlobal) {
-	property(CssProperty.textDecorationLine, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textDecorationLine(value: GlobalValue) {
-	property(CssProperty.textDecorationLine, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textDecorationLine(value: CustomCssProperty<out TextDecorationLineOrGlobal>) {
-	property(CssProperty.textDecorationLine, value)
-}
-
-
-public inline val CssProperty.Companion.textDecorationLine: CssProperty get() = CssProperty("text-decoration-line")
+@Suppress("unused")
+public inline val CssProperties.textDecorationLine: CssProperty<TextDecorationLine>
+	get() = CssProperty("text-decoration-line")

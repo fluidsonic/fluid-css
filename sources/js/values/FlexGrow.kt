@@ -3,54 +3,39 @@
 package io.fluidsonic.css
 
 
-public interface FlexGrowOrGlobal : CssValue
-public interface FlexGrow : FlexGrowOrGlobal {
+public interface FlexGrow : CssValue.NumberConstructable, Internal {
 
-	public companion object
+	public companion object {
+
+		public inline fun of(value: Number): FlexGrow =
+			raw(value.toString())
+
+
+		public fun raw(value: String): FlexGrow =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Variable : FlexGrow, CssVariable<FlexGrow>
 }
 
 
-private class FlexGrowImpl(value: String) : CssValueBase(value), FlexGrow
-
-
-@Suppress("FunctionName")
-public inline fun FlexGrow(value: Number): FlexGrow =
-	FlexGrow(value.toString())
-
-
-@Suppress("FunctionName")
-public fun FlexGrow(value: String): FlexGrow =
-	CssValue(value, ::FlexGrowImpl)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.flexGrow(value: FlexGrow) {
-	property(CssProperty.flexGrow, value)
+	property(flexGrow, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.flexGrow(value: FlexGrowOrGlobal) {
-	property(CssProperty.flexGrow, value)
-}
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.flexGrow(value: Number) {
-	property(CssProperty.flexGrow, value)
+	property(flexGrow, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.flexGrow(value: GlobalValue) {
-	property(CssProperty.flexGrow, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.flexGrow(value: CustomCssProperty<out FlexGrowOrGlobal>) {
-	property(CssProperty.flexGrow, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.flexGrow(value: CustomCssProperty<out Number>) {
-	property(CssProperty.flexGrow, value)
-}
-
-
-public inline val CssProperty.Companion.flexGrow: CssProperty get() = CssProperty("flex-grow")
+@Suppress("unused")
+public inline val CssProperties.flexGrow: CssProperty<FlexGrow>
+	get() = CssProperty("flex-grow")

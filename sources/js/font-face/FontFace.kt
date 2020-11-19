@@ -1,16 +1,19 @@
 package io.fluidsonic.css
 
 
-public interface FontFace : CssDeclarationBlock {
+public interface FontFace {
+
+	public val declarations: CssDeclarationBlock
+
 
 	public companion object {
 
-		public fun default(declarations: List<CssDeclaration>): FontFace =
-			Default(declarations = declarations.toList())
+		public fun default(declarations: CssDeclarationBlock): FontFace =
+			Default(declarations = declarations)
 	}
 
 
-	private class Default(override val declarations: List<CssDeclaration>) : FontFace {
+	private class Default(override val declarations: CssDeclarationBlock) : FontFace {
 
 		override fun toString() =
 			CssPrinter.default().print(this)

@@ -3,66 +3,83 @@
 package io.fluidsonic.css
 
 
-public interface TransformOrigin : CssValue {
+public interface TransformOrigin : CssValue, Internal {
 
-	public companion object
+	public companion object {
+
+		public inline fun of(
+			xy: LengthOrPercentage,
+		): TransformOrigin =
+			raw(xy.toString())
+
+
+		public inline fun of(
+			x: TransformOriginX,
+		): TransformOrigin =
+			raw(x.toString())
+
+
+		public inline fun of(
+			y: TransformOriginY,
+		): TransformOrigin =
+			raw("50% $y")
+
+
+		public inline fun of(
+			x: TransformOriginX = 50.percent,
+			y: TransformOriginY = 50.percent,
+			z: Length = Length.zero,
+		): TransformOrigin =
+			raw("$x $y $z")
+
+
+		public fun raw(value: String): TransformOrigin =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Variable : TransformOrigin, CssVariable<TransformOrigin>
 }
 
 
-private class TransformOriginImpl(value: String) : CssValueBase(value), TransformOrigin
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.transformOrigin(value: TransformOrigin) {
+	property(transformOrigin, value)
+}
 
 
-@Suppress("FunctionName")
-public fun TransformOrigin(value: String): TransformOrigin =
-	TransformOriginImpl(value)
-
-
-@Suppress("FunctionName")
-public fun TransformOrigin(
-	x: TransformOriginX = 50.percent,
-	y: TransformOriginY = 50.percent,
-	z: Length = Length.zero,
-): TransformOrigin =
-	TransformOriginImpl("$x $y $z")
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.transformOrigin(xy: LengthOrPercentage) {
-	property(CssProperty.transformOrigin, xy)
+	transformOrigin(TransformOrigin.of(xy = xy))
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.transformOrigin(x: TransformOriginX) {
-	property(CssProperty.transformOrigin, x)
+	transformOrigin(TransformOrigin.of(x = x))
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.transformOrigin(y: TransformOriginY) {
-	property(CssProperty.transformOrigin, "50% $y")
+	transformOrigin(TransformOrigin.of(y = y))
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.transformOrigin(
 	x: TransformOriginX = 50.percent,
 	y: TransformOriginY = 50.percent,
 	z: Length = Length.zero,
 ) {
-	transformOrigin(TransformOrigin(x = x, y = y, z = z))
+	transformOrigin(TransformOrigin.of(x = x, y = y, z = z))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.transformOrigin(value: TransformOrigin) {
-	property(CssProperty.transformOrigin, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.transformOrigin(value: GlobalValue) {
-	property(CssProperty.transformOrigin, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.transformOrigin(value: CustomCssProperty<out TransformOrigin>) {
-	property(CssProperty.transformOrigin, value)
-}
-
-
-public inline val CssProperty.Companion.transformOrigin: CssProperty get() = CssProperty("transform-origin")
+@Suppress("unused")
+public inline val CssProperties.transformOrigin: CssProperty<TransformOrigin>
+	get() = CssProperty("transform-origin")

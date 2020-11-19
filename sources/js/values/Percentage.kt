@@ -3,26 +3,13 @@
 package io.fluidsonic.css
 
 
-public interface PercentageOrAutoOrGlobal : CssValue
-public interface PercentageOrAuto : PercentageOrAutoOrGlobal, LengthOrPercentageOrAuto
-public interface PercentageOrGlobal : PercentageOrAutoOrGlobal, LengthOrPercentageOrGlobal
-
 public interface Percentage :
 	FontFace.Stretch,
-	FontSize,
-	Height,
 	LengthOrPercentage,
-	LineHeight,
 	Opacity,
-	PercentageOrAuto,
-	PercentageOrGlobal,
-	TextDecorationThickness,
-	Width {
+	Internal {
 
 	public companion object {
-
-		public val auto: PercentageOrAuto = AutoValue.auto
-
 
 		public inline fun calc(value: String): Percentage =
 			raw("calc($value)")
@@ -33,11 +20,15 @@ public interface Percentage :
 
 
 		public fun raw(value: String): Percentage =
-			Default(value)
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
 
 
-	private class Default(value: String) : CssValueBase(value), Percentage
+	public interface Variable : Percentage, CssVariable<Percentage>
 }
 
 
@@ -55,10 +46,11 @@ public interface NumericPercentage : Percentage {
 
 	private class Default(
 		override val value: Double,
-	) : CssValueBase("$value%"), NumericPercentage
+	) : GenericValue("$value%"), NumericPercentage
 }
 
 
+@CssDsl
 public operator fun Percentage.div(other: Number): Percentage =
 	when {
 		other == 1.0 -> this
@@ -70,6 +62,7 @@ public operator fun Percentage.div(other: Number): Percentage =
 	}
 
 
+@CssDsl
 public operator fun Percentage.minus(other: Percentage): Percentage =
 	when {
 		this is NumericPercentage && other is NumericPercentage -> Percentage.of(value - other.value)
@@ -77,6 +70,7 @@ public operator fun Percentage.minus(other: Percentage): Percentage =
 	}
 
 
+@CssDsl
 public operator fun Percentage.times(other: Number): Percentage =
 	when {
 		other == 1.0 -> this
@@ -88,6 +82,7 @@ public operator fun Percentage.times(other: Number): Percentage =
 	}
 
 
+@CssDsl
 public operator fun Percentage.plus(other: Percentage): Percentage =
 	when {
 		this is NumericPercentage && other is NumericPercentage -> Percentage.of(value + other.value)
@@ -95,16 +90,21 @@ public operator fun Percentage.plus(other: Percentage): Percentage =
 	}
 
 
+@CssDsl
 public inline operator fun Percentage.unaryPlus(): Percentage =
 	this
 
 
+@CssDsl
 public inline operator fun Percentage.unaryMinus(): Percentage =
 	this * -1
 
 
+@CssDsl
 public inline operator fun Number.times(other: Percentage): Percentage =
 	other * this
 
 
-public val Number.percent: Percentage get() = Percentage.of(this)
+@CssDsl
+public val Number.percent: Percentage
+	get() = Percentage.of(this)

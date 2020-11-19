@@ -3,20 +3,21 @@
 package io.fluidsonic.css
 
 
-public interface TransformOriginY : CssValue {
+public interface TransformOriginY : CssValue, Internal {
 
 	public companion object {
 
-		public val center: TransformOriginY = TransformOriginY("center")
-		public val bottom: TransformOriginY = TransformOriginY("bottom")
-		public val top: TransformOriginY = TransformOriginY("top")
+		@CssDsl
+		public val bottom: TransformOriginY = raw("bottom")
+
+		@CssDsl
+		public val center: TransformOriginY = raw("center")
+
+		@CssDsl
+		public val top: TransformOriginY = raw("top")
+
+
+		public fun raw(value: String): TransformOriginY =
+			GenericValue(value)
 	}
 }
-
-
-private class TransformOriginYImpl(value: String) : CssValueBase(value), TransformOriginY
-
-
-@Suppress("FunctionName")
-public fun TransformOriginY(value: String): TransformOriginY =
-	TransformOriginYImpl(value)

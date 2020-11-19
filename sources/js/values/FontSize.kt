@@ -3,49 +3,54 @@
 package io.fluidsonic.css
 
 
-public interface FontSizeOrGlobal : CssValue
-public interface FontSize : FontSizeOrGlobal {
+public interface FontSize : CssValue, Internal {
 
 	public companion object {
 
-		public val xxSmall: FontSize = FontSize("xx-small")
-		public val xSmall: FontSize = FontSize("x-small")
-		public val small: FontSize = FontSize("small")
-		public val medium: FontSize = FontSize("medium")
-		public val large: FontSize = FontSize("large")
-		public val xLarge: FontSize = FontSize("x-large")
-		public val xxLarge: FontSize = FontSize("xx-large")
-		public val xxxLarge: FontSize = FontSize("xxx-large")
+		@CssDsl
+		public val xxSmall: FontSize = raw("xx-small")
+
+		@CssDsl
+		public val xSmall: FontSize = raw("x-small")
+
+		@CssDsl
+		public val small: FontSize = raw("small")
+
+		@CssDsl
+		public val medium: FontSize = raw("medium")
+
+		@CssDsl
+		public val large: FontSize = raw("large")
+
+		@CssDsl
+		public val xLarge: FontSize = raw("x-large")
+
+		@CssDsl
+		public val xxLarge: FontSize = raw("xx-large")
+
+		@CssDsl
+		public val xxxLarge: FontSize = raw("xxx-large")
+
+
+		public fun raw(value: String): FontSize =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : FontSize, CssVariable<FontSize>
 }
 
 
-private class FontSizeImpl(value: String) : CssValueBase(value), FontSize
-
-
-@Suppress("FunctionName")
-public fun FontSize(value: String): FontSize =
-	CssValue(value, ::FontSizeImpl)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.fontSize(value: FontSize) {
-	property(CssProperty.fontSize, value)
+	property(fontSize, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.fontSize(value: FontSizeOrGlobal) {
-	property(CssProperty.fontSize, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.fontSize(value: GlobalValue) {
-	property(CssProperty.fontSize, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.fontSize(value: CustomCssProperty<out FontSizeOrGlobal>) {
-	property(CssProperty.fontSize, value)
-}
-
-
-public inline val CssProperty.Companion.fontSize: CssProperty get() = CssProperty("font-size")
+@Suppress("unused")
+public inline val CssProperties.fontSize: CssProperty<FontSize>
+	get() = CssProperty("font-size")

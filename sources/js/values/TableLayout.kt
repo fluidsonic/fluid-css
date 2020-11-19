@@ -3,38 +3,37 @@
 package io.fluidsonic.css
 
 
-public interface TableLayout : CssValue {
+public interface TableLayout : CssValue, Internal {
 
 	public companion object {
 
-		public val auto: TableLayout = AutoValue.auto
+		@CssDsl
+		public val auto: TableLayout = raw("auto")
 
-		public val fixed: TableLayout = TableLayout("fixed")
+
+		@CssDsl
+		public val fixed: TableLayout = raw("fixed")
+
+
+		public fun raw(value: String): TableLayout =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : TableLayout, CssVariable<TableLayout>
 }
 
 
-private class TableLayoutImpl(value: String) : CssValueBase(value), TableLayout
-
-
-@Suppress("FunctionName")
-public fun TableLayout(value: String): TableLayout =
-	TableLayoutImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.tableLayout(value: TableLayout) {
-	property(CssProperty.tableLayout, value)
+	property(tableLayout, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.tableLayout(value: GlobalValue) {
-	property(CssProperty.tableLayout, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.tableLayout(value: CustomCssProperty<out TableLayout>) {
-	property(CssProperty.tableLayout, value)
-}
-
-
-public inline val CssProperty.Companion.tableLayout: CssProperty get() = CssProperty("table-layout")
+@Suppress("unused")
+public inline val CssProperties.tableLayout: CssProperty<TableLayout>
+	get() = CssProperty("table-layout")

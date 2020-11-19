@@ -2,49 +2,47 @@
 
 package io.fluidsonic.css
 
-// FIXME support
+// FIXME support fully
 
 
-public interface Content : CssValue {
+public interface Content : CssValue, Internal {
 
 	public companion object {
 
-		public fun counter(name: String): Content =
-			Content("counter($name)")
+		@CssDsl
+		public inline fun counter(name: String): Content =
+			raw("counter($name)")
 
 
-		public fun string(value: String): Content =
-			Content("'$value'") // FIXME escaping
+		public fun raw(value: String): Content =
+			GenericValue(value)
+
+
+		public inline fun string(value: String): Content =
+			raw("'$value'") // FIXME escaping
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : Content, CssVariable<Content>
 }
 
 
-private class ContentImpl(value: String) : CssValueBase(value), Content
-
-
-@Suppress("FunctionName")
-public fun Content(value: String): Content =
-	ContentImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.content(value: Content) {
-	property(CssProperty.content, value)
+	property(content, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.content(value: GlobalValue) {
-	property(CssProperty.content, value)
-}
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.content(value: String = "") {
 	content(Content.string(value))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.content(value: CustomCssProperty<out Content>) {
-	property(CssProperty.content, value)
-}
-
-
-public inline val CssProperty.Companion.content: CssProperty get() = CssProperty("content")
+@Suppress("unused")
+public inline val CssProperties.content: CssProperty<Content>
+	get() = CssProperty("content")

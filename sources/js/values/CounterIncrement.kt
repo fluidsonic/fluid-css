@@ -3,44 +3,46 @@
 package io.fluidsonic.css
 
 
-public interface CounterIncrement : CssValue {
+public interface CounterIncrement : CssValue, Internal {
 
 	public companion object {
 
-		public val none: CounterIncrement = NoneValue.none
+		@CssDsl
+		public val none: CounterIncrement = raw("none")
+
+
+		public fun raw(value: String): CounterIncrement =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+
+
+		public inline fun with(name: String, increment: Int = 1): CounterIncrement =
+			raw(
+                if (increment == 1) name
+                else "$name $increment"
+            )
 	}
+
+
+	public interface Variable : CounterIncrement, CssVariable<CounterIncrement>
 }
 
 
-private class CounterIncrementImpl(value: String) : CssValueBase(value), CounterIncrement
-
-
-@Suppress("FunctionName")
-public fun CounterIncrement(name: String, increment: Int = 1): CounterIncrement =
-	CounterIncrementImpl(
-		if (increment == 1) name
-		else "$name $increment"
-	)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.counterIncrement(value: CounterIncrement) {
-	property(CssProperty.counterIncrement, value)
+	property(counterIncrement, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.counterIncrement(value: GlobalValue) {
-	property(CssProperty.counterIncrement, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.counterIncrement(value: CustomCssProperty<out CounterIncrement>) {
-	property(CssProperty.counterIncrement, value)
-}
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.counterIncrement(name: String, increment: Int = 1) {
-	counterIncrement(CounterIncrement(increment = increment, name = name))
+	counterIncrement(CounterIncrement.with(increment = increment, name = name))
 }
 
 
-public inline val CssProperty.Companion.counterIncrement: CssProperty get() = CssProperty("counter-increment")
+@Suppress("unused")
+public inline val CssProperties.counterIncrement: CssProperty<CounterIncrement>
+	get() = CssProperty("counter-increment")

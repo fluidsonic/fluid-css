@@ -5,43 +5,36 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface AnimationPlayStateOrGlobal : CssValue
-public interface AnimationPlayState : AnimationPlayStateOrGlobal {
+public interface AnimationPlayState : CssValue, Internal {
 
 	public companion object {
 
-		public val paused: AnimationPlayState = AnimationPlayState("paused")
-		public val running: AnimationPlayState = AnimationPlayState("running")
+		@CssDsl
+		public val paused: AnimationPlayState = raw("paused")
+
+		@CssDsl
+		public val running: AnimationPlayState = raw("running")
+
+
+		public fun raw(value: String): AnimationPlayState =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : AnimationPlayState, CssVariable<AnimationPlayState>
 }
 
 
-private class AnimationPlayStateImpl(value: String) : CssValueBase(value), AnimationPlayState
-
-
-@Suppress("FunctionName")
-public fun AnimationPlayState(value: String): AnimationPlayState =
-	AnimationPlayStateImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.animationPlayState(value: AnimationPlayState) {
-	property(CssProperty.animationPlayState, value)
+	property(animationPlayState, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.animationPlayState(value: AnimationPlayStateOrGlobal) {
-	property(CssProperty.animationPlayState, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.animationPlayState(value: GlobalValue) {
-	property(CssProperty.animationPlayState, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.animationPlayState(value: CustomCssProperty<out AnimationPlayStateOrGlobal>) {
-	property(CssProperty.animationPlayState, value)
-}
-
-
-public inline val CssProperty.Companion.animationPlayState: CssProperty get() = CssProperty("animation-play-state")
+@Suppress("unused")
+public inline val CssProperties.animationPlayState: CssProperty<AnimationPlayState>
+	get() = CssProperty("animation-play-state")

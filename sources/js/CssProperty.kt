@@ -1,17 +1,16 @@
 package io.fluidsonic.css
 
 
-public inline class CssProperty(
+@Suppress("unused")
+public inline class CssProperty<Value : CssValue>(
 	public val name: String,
 ) {
 
 	override fun toString(): String =
 		name
-
-
-	public companion object
 }
 
 
-public val CssProperty.Companion.all: CssProperty get() = CssProperty("all")
-
+@Suppress("unused")
+public val CssProperties.all: CssProperty<CssValue.Global>
+	get() = CssProperty("all")

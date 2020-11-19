@@ -22,8 +22,8 @@ public abstract class StyleSheet(
 
 
 	@CssDsl
-	public open fun fontFace(declarations: CssFontFaceBuilder.() -> Unit) {
-		pendingFontFaces += { with(CssFontFaceBuilder.default().apply(declarations)) { Unit.build() }.toString() }
+	public open fun fontFace(declarations: FontFaceBuilder.() -> Unit) {
+		pendingFontFaces += { with(FontFaceBuilder.default().apply(declarations)) { Unit.build() }.toString() }
 	}
 
 
@@ -45,14 +45,14 @@ public abstract class StyleSheet(
 
 
 	@CssDsl
-	public open fun keyframes(build: CssKeyframesBuilder.() -> Unit): PropertyDelegateProvider<StyleSheet, ReadOnlyProperty<StyleSheet, String>> =
+	public open fun keyframes(build: KeyframesBuilder.() -> Unit): PropertyDelegateProvider<StyleSheet, ReadOnlyProperty<StyleSheet, String>> =
 		PropertyDelegateProvider { _, property ->
 			check(!isInjected) { "Cannot add more keyframes after the stylesheet has been injected." }
 
 			val name = generateDefaultName(sheetName = name, localName = property.name)
 
 			pendingKeyframes += {
-				val keyframes = with(CssKeyframesBuilder.default(name = name).apply(build)) { Unit.build() }
+				val keyframes = with(KeyframesBuilder.default(name = name).apply(build)) { Unit.build() }
 				keyframes.toString()
 			}
 

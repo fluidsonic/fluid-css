@@ -2,7 +2,7 @@ package io.fluidsonic.css
 
 
 public class CssDeclaration(
-	public val property: CssProperty,
+	public val property: String,
 	public val value: String,
 ) {
 

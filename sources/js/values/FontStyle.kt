@@ -3,47 +3,44 @@
 package io.fluidsonic.css
 
 
-public interface FontStyleOrGlobal : CssValue
-public interface FontStyle : FontStyleOrGlobal {
+public interface FontStyle : CssValue, Internal {
 
 	public companion object {
 
-		public val italic: FontStyle = FontStyle("italic")
-		public val normal: FontStyle = FontStyle("normal")
-		public val oblique: FontStyle = FontStyle("oblique")
+		@CssDsl
+		public val italic: FontStyle = raw("italic")
 
+		@CssDsl
+		public val normal: FontStyle = raw("normal")
+
+		@CssDsl
+		public val oblique: FontStyle = raw("oblique")
+
+
+		@CssDsl
 		public fun oblique(angle: Angle): FontStyle =
-			FontStyle("oblique $angle")
+			raw("oblique $angle")
+
+
+		public fun raw(value: String): FontStyle =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : FontStyle, CssVariable<FontStyle>
 }
 
 
-private class FontStyleImpl(value: String) : CssValueBase(value), FontStyle
-
-
-@Suppress("FunctionName")
-public fun FontStyle(value: String): FontStyle =
-	FontStyleImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.fontStyle(value: FontStyle) {
-	property(CssProperty.fontStyle, value)
+	property(fontStyle, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.fontStyle(value: FontStyleOrGlobal) {
-	property(CssProperty.fontStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.fontStyle(value: GlobalValue) {
-	property(CssProperty.fontStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.fontStyle(value: CustomCssProperty<out FontStyleOrGlobal>) {
-	property(CssProperty.fontStyle, value)
-}
-
-
-public inline val CssProperty.Companion.fontStyle: CssProperty get() = CssProperty("font-style")
+@Suppress("unused")
+public inline val CssProperties.fontStyle: CssProperty<FontStyle>
+	get() = CssProperty("font-style")

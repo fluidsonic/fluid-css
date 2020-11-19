@@ -5,61 +5,98 @@ package io.fluidsonic.css
 // FIXME support 2nd radius w/ builder
 
 
-public inline fun CssDeclarationBlockBuilder.borderRadius(all: LengthOrPercentageOrGlobal) {
-	property(CssProperty.borderRadius, all)
+public interface BorderRadius : CssValue, Internal {
+
+	public companion object {
+
+		public inline fun all(value: Single): BorderRadius =
+			value
+
+
+		public inline fun of(topLeftBottomRight: Single, topRightBottomLeft: Single): BorderRadius =
+			if (topLeftBottomRight == topRightBottomLeft)
+				all(topLeftBottomRight)
+			else
+				raw("$topLeftBottomRight $topRightBottomLeft")
+
+
+		public inline fun of(topLeft: Single, topRightBottomLeft: Single, bottomRight: Single): BorderRadius =
+			if (topLeft == bottomRight)
+				of(topLeftBottomRight = topLeft, topRightBottomLeft = topRightBottomLeft)
+			else
+				raw("$topLeft $topRightBottomLeft $bottomRight")
+
+
+		public inline fun of(
+			topLeft: Single,
+			topRight: Single,
+			bottomRight: Single,
+			bottomLeft: Single,
+		): BorderRadius =
+			if (bottomLeft == topRight)
+				of(topLeft = topLeft, topRightBottomLeft = bottomLeft, bottomRight = bottomRight)
+			else
+				raw("$topLeft $topRight $bottomRight $bottomLeft")
+
+
+		public fun raw(value: String): BorderRadius =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Single : BorderRadius
+
+
+	public interface Variable : BorderRadius, CssVariable<BorderRadius>
 }
 
 
-// FIXME improve this & apply to all properties
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.borderRadius(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.borderRadius, value, *defaultValues)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderRadius(all: BorderRadius) {
+	property(borderRadius, all)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderRadius(topLeftBottomRight: LengthOrPercentage, topRightBottomLeft: LengthOrPercentage) {
-	if (topLeftBottomRight == topRightBottomLeft)
-		borderRadius(all = topLeftBottomRight)
-	else
-		property(CssProperty.borderRadius, "$topLeftBottomRight $topRightBottomLeft")
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderRadius(topLeftBottomRight: BorderRadius.Single, topRightBottomLeft: BorderRadius.Single) {
+	borderRadius(BorderRadius.of(topLeftBottomRight = topLeftBottomRight, topRightBottomLeft = topRightBottomLeft))
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.borderRadius(
-	topLeft: LengthOrPercentage,
-	topRightBottomLeft: LengthOrPercentage,
-	bottomRight: LengthOrPercentage,
+	topLeft: BorderRadius.Single,
+	topRightBottomLeft: BorderRadius.Single,
+	bottomRight: BorderRadius.Single,
 ) {
-	if (topLeft == bottomRight)
-		borderRadius(topLeftBottomRight = topLeft, topRightBottomLeft = topRightBottomLeft)
-	else
-		property(CssProperty.borderRadius, "$topLeft $topRightBottomLeft $bottomRight")
+	borderRadius(BorderRadius.of(topLeft = topLeft, topRightBottomLeft = topRightBottomLeft, bottomRight = bottomRight))
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.borderRadius(
-	topLeft: LengthOrPercentage,
-	topRight: LengthOrPercentage,
-	bottomRight: LengthOrPercentage,
-	bottomLeft: LengthOrPercentage,
+	topLeft: BorderRadius.Single,
+	topRight: BorderRadius.Single,
+	bottomRight: BorderRadius.Single,
+	bottomLeft: BorderRadius.Single,
 ) {
-	if (topRight == bottomLeft)
-		borderRadius(topLeft = topLeft, topRightBottomLeft = topRight, bottomRight = bottomRight)
-	else
-		property(CssProperty.borderRadius, "$topLeft $topRight $bottomRight $bottomLeft")
+	borderRadius(BorderRadius.of(topLeft = topLeft, topRight = topRight, bottomRight = bottomRight, bottomLeft = bottomLeft))
 }
 
 
+@CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.borderRadius(
-	all: LengthOrPercentage? = null,
-	topLeft: LengthOrPercentage? = all,
-	topRight: LengthOrPercentage? = all,
-	bottomRight: LengthOrPercentage? = all,
-	bottomLeft: LengthOrPercentage? = all,
+	all: BorderRadius.Single? = null,
+	topLeft: BorderRadius.Single? = all,
+	topRight: BorderRadius.Single? = all,
+	bottomRight: BorderRadius.Single? = all,
+	bottomLeft: BorderRadius.Single? = all,
 ) {
 	if (topLeft != null && topRight != null && bottomRight != null && bottomLeft != null)
 		borderRadius(topLeft = topLeft, topRight = topRight, bottomRight = bottomRight, bottomLeft = bottomLeft)
@@ -76,84 +113,78 @@ public inline fun CssDeclarationBlockBuilder.borderRadius(
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomRadius(value: LengthOrPercentageOrGlobal) {
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderBottomRadius(value: BorderRadius.Single) {
 	borderBottomLeftRadius(value)
 	borderBottomRightRadius(value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomLeftRadius(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.borderBottomLeftRadius, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderBottomLeftRadius(value: BorderRadius.Single) {
+	property(borderBottomLeftRadius, value)
 }
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.borderBottomLeftRadius(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.borderBottomLeftRadius, value, *defaultValues)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderBottomRightRadius(value: BorderRadius.Single) {
+	property(borderBottomRightRadius, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomRightRadius(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.borderBottomRightRadius, value)
-}
-
-
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.borderBottomRightRadius(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.borderBottomRightRadius, value, *defaultValues)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderLeftRadius(value: LengthOrPercentageOrGlobal) {
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderLeftRadius(value: BorderRadius.Single) {
 	borderBottomLeftRadius(value)
 	borderTopLeftRadius(value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderRightRadius(value: LengthOrPercentageOrGlobal) {
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderRightRadius(value: BorderRadius.Single) {
 	borderBottomRightRadius(value)
 	borderTopRightRadius(value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderTopRadius(value: LengthOrPercentageOrGlobal) {
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderTopRadius(value: BorderRadius.Single) {
 	borderTopLeftRadius(value)
 	borderTopRightRadius(value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderTopLeftRadius(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.borderTopLeftRadius, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderTopLeftRadius(value: BorderRadius.Single) {
+	property(borderTopLeftRadius, value)
 }
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.borderTopLeftRadius(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.borderTopLeftRadius, value, *defaultValues)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderTopRightRadius(value: BorderRadius.Single) {
+	property(borderTopRightRadius, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderTopRightRadius(value: LengthOrPercentageOrGlobal) {
-	property(CssProperty.borderTopRightRadius, value)
-}
+@Suppress("unused")
+public inline val CssProperties.borderRadius: CssProperty<BorderRadius>
+	get() = CssProperty("border-radius")
 
 
-public inline fun <Value : LengthOrPercentageOrGlobal> CssDeclarationBlockBuilder.borderTopRightRadius(
-	value: CustomCssProperty<Value>,
-	vararg defaultValues: Value?,
-) {
-	property(CssProperty.borderTopRightRadius, value, *defaultValues)
-}
+@Suppress("unused")
+public inline val CssProperties.borderBottomLeftRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty("border-bottom-left-radius")
 
 
-public inline val CssProperty.Companion.borderRadius: CssProperty get() = CssProperty("border-radius")
-public inline val CssProperty.Companion.borderBottomLeftRadius: CssProperty get() = CssProperty("border-bottom-left-radius")
-public inline val CssProperty.Companion.borderBottomRightRadius: CssProperty get() = CssProperty("border-bottom-right-radius")
-public inline val CssProperty.Companion.borderTopLeftRadius: CssProperty get() = CssProperty("border-top-left-radius")
-public inline val CssProperty.Companion.borderTopRightRadius: CssProperty get() = CssProperty("border-top-right-radius")
+@Suppress("unused")
+public inline val CssProperties.borderBottomRightRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty("border-bottom-right-radius")
+
+
+@Suppress("unused")
+public inline val CssProperties.borderTopLeftRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty("border-top-left-radius")
+
+
+@Suppress("unused")
+public inline val CssProperties.borderTopRightRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty("border-top-right-radius")

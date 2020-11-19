@@ -3,15 +3,21 @@
 package io.fluidsonic.css
 
 
-public interface LengthOrPercentageOrAutoOrGlobal : CssValue
-public interface LengthOrPercentageOrAuto : LengthOrPercentageOrAutoOrGlobal
-public interface LengthOrPercentageOrGlobal : LengthOrPercentageOrAutoOrGlobal
-
 public interface LengthOrPercentage :
+	BackgroundPositionX,
+	BackgroundPositionY,
+	BackgroundSize,
+	BorderRadius.Single,
+	BoxOffset,
 	FlexBasis,
-	LengthOrPercentageOrAuto,
-	LengthOrPercentageOrGlobal,
+	FontSize,
+	LineHeight,
+	Margin.Single,
+	Padding.Single,
+	Size,
+	SizeLimit,
 	StrokeWidth,
+	TextDecorationThickness,
 	TransformOriginX,
 	TransformOriginY,
 	VerticalAlign {
@@ -23,14 +29,19 @@ public interface LengthOrPercentage :
 
 
 		public fun raw(value: String): LengthOrPercentage =
-			Default(value)
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
 
 
-	private class Default(value: String) : CssValueBase(value), LengthOrPercentage
+	public interface Variable : LengthOrPercentage, CssVariable<LengthOrPercentage>
 }
 
 
+@CssDsl
 public operator fun LengthOrPercentage.div(other: Number): LengthOrPercentage =
 	when {
 		other == 1.0 -> this
@@ -40,6 +51,7 @@ public operator fun LengthOrPercentage.div(other: Number): LengthOrPercentage =
 	}
 
 
+@CssDsl
 public operator fun LengthOrPercentage.minus(other: LengthOrPercentage): LengthOrPercentage =
 	when {
 		this is Length && other is Length -> this - other
@@ -48,6 +60,7 @@ public operator fun LengthOrPercentage.minus(other: LengthOrPercentage): LengthO
 	}
 
 
+@CssDsl
 public operator fun LengthOrPercentage.times(other: Number): LengthOrPercentage =
 	when {
 		other == 1.0 -> this
@@ -57,6 +70,7 @@ public operator fun LengthOrPercentage.times(other: Number): LengthOrPercentage 
 	}
 
 
+@CssDsl
 public operator fun LengthOrPercentage.plus(other: LengthOrPercentage): LengthOrPercentage =
 	when {
 		this is Length && other is Length -> this + other
@@ -65,13 +79,16 @@ public operator fun LengthOrPercentage.plus(other: LengthOrPercentage): LengthOr
 	}
 
 
+@CssDsl
 public inline operator fun LengthOrPercentage.unaryPlus(): LengthOrPercentage =
 	this
 
 
+@CssDsl
 public inline operator fun LengthOrPercentage.unaryMinus(): LengthOrPercentage =
 	this * -1
 
 
+@CssDsl
 public inline operator fun Number.times(other: LengthOrPercentage): LengthOrPercentage =
 	other * this

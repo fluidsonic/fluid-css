@@ -3,19 +3,18 @@
 package io.fluidsonic.css
 
 
-public interface FontVariantNumericSpacing : CssValue {
+public interface FontVariantNumericSpacing : CssValue, Internal {
 
 	public companion object {
 
-		public val proportionalNums: FontVariantNumericSpacing = FontVariantNumericSpacing("proportional-nums")
-		public val tabularNums: FontVariantNumericSpacing = FontVariantNumericSpacing("tabular-nums")
+		@CssDsl
+		public val proportionalNums: FontVariantNumericSpacing = raw("proportional-nums")
+
+		@CssDsl
+		public val tabularNums: FontVariantNumericSpacing = raw("tabular-nums")
+
+
+		public fun raw(value: String): FontVariantNumericSpacing =
+			GenericValue(value)
 	}
 }
-
-
-private class FontVariantNumericSpacingImpl(value: String) : CssValueBase(value), FontVariantNumericSpacing
-
-
-@Suppress("FunctionName")
-public fun FontVariantNumericSpacing(value: String): FontVariantNumericSpacing =
-	FontVariantNumericSpacingImpl(value)

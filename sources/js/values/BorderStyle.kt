@@ -3,88 +3,128 @@
 package io.fluidsonic.css
 
 
-public interface BorderStyleOrGlobal : CssValue
-public interface BorderStyle : BorderStyleOrGlobal {
+public interface BorderStyle : CssValue, Internal {
 
 	public companion object {
 
-		public val none: BorderStyle = NoneValue.none
+		@CssDsl
+		public val none: Single = GenericValue("none")
 
-		public val dashed: BorderStyle = BorderStyle("dashed")
-		public val dotted: BorderStyle = BorderStyle("dotted")
-		public val double: BorderStyle = BorderStyle("double")
-		public val groove: BorderStyle = BorderStyle("groove")
-		public val hidden: BorderStyle = BorderStyle("hidden")
-		public val inset: BorderStyle = BorderStyle("inset")
-		public val outset: BorderStyle = BorderStyle("outset")
-		public val ridge: BorderStyle = BorderStyle("ridge")
-		public val solid: BorderStyle = BorderStyle("solid")
+
+		@CssDsl
+		public val dashed: Single = GenericValue("dashed")
+
+		@CssDsl
+		public val dotted: Single = GenericValue("dotted")
+
+		@CssDsl
+		public val double: Single = GenericValue("double")
+
+		@CssDsl
+		public val groove: Single = GenericValue("groove")
+
+		@CssDsl
+		public val hidden: Single = GenericValue("hidden")
+
+		@CssDsl
+		public val inset: Single = GenericValue("inset")
+
+		@CssDsl
+		public val outset: Single = GenericValue("outset")
+
+		@CssDsl
+		public val ridge: Single = GenericValue("ridge")
+
+		@CssDsl
+		public val solid: Single = GenericValue("solid")
+
+
+		public inline fun all(value: Single): BorderStyle =
+			value
+
+
+		public inline fun of(vertical: Single, horizontal: Single): BorderStyle =
+			if (vertical == horizontal)
+				all(vertical)
+			else
+				raw("$vertical $horizontal")
+
+
+		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderStyle =
+			if (top == bottom)
+				of(vertical = top, horizontal = horizontal)
+			else
+				raw("$top $horizontal $bottom")
+
+
+		public inline fun of(
+			top: Single,
+			right: Single,
+			bottom: Single,
+			left: Single,
+		): BorderStyle =
+			if (left == right)
+				of(top = top, horizontal = left, bottom = bottom)
+			else
+				raw("$top $right $bottom $left")
+
+
+		public fun raw(value: String): BorderStyle =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Single : BorderStyle
+
+
+	public interface Variable : BorderStyle, CssVariable<BorderStyle>
 }
 
 
-private class BorderStyleImpl(value: String) : CssValueBase(value), BorderStyle
-
-
-@Suppress("FunctionName")
-public fun BorderStyle(value: String): BorderStyle =
-	BorderStyleImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.borderStyle(all: BorderStyle) {
-	property(CssProperty.borderStyle, all)
+	property(borderStyle, all)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderStyle(all: BorderStyleOrGlobal) {
-	property(CssProperty.borderStyle, all)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderStyle(vertical: BorderStyle.Single, horizontal: BorderStyle.Single) {
+	borderStyle(BorderStyle.of(vertical = vertical, horizontal = horizontal))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderStyle(all: GlobalValue) {
-	property(CssProperty.borderStyle, all)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderStyle(top: BorderStyle.Single, horizontal: BorderStyle.Single, bottom: BorderStyle.Single) {
+	borderStyle(BorderStyle.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderStyle(all: CustomCssProperty<out BorderStyleOrGlobal>) {
-	property(CssProperty.borderStyle, all)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderStyle(
+	top: BorderStyle.Single,
+	right: BorderStyle.Single,
+	bottom: BorderStyle.Single,
+	left: BorderStyle.Single,
+) {
+	borderStyle(BorderStyle.of(top = top, right = right, bottom = bottom, left = left))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderStyle(vertical: BorderStyle, horizontal: BorderStyle) {
-	if (vertical == horizontal)
-		borderStyle(all = vertical)
-	else
-		property(CssProperty.borderStyle, "$vertical $horizontal")
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderStyle(top: BorderStyle, horizontal: BorderStyle, bottom: BorderStyle) {
-	if (top == bottom)
-		borderStyle(vertical = top, horizontal = horizontal)
-	else
-		property(CssProperty.borderStyle, "$top $horizontal $bottom")
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderStyle(top: BorderStyle, right: BorderStyle, bottom: BorderStyle, left: BorderStyle) {
-	if (left == right)
-		borderStyle(top = top, horizontal = left, bottom = bottom)
-	else
-		property(CssProperty.borderStyle, "$top $left $bottom $right")
-}
-
-
+@CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.borderStyle(
-	all: BorderStyle? = null,
-	vertical: BorderStyle? = all,
-	horizontal: BorderStyle? = all,
-	top: BorderStyle? = vertical,
-	right: BorderStyle? = horizontal,
-	bottom: BorderStyle? = vertical,
-	left: BorderStyle? = horizontal,
+	all: BorderStyle.Single? = null,
+	vertical: BorderStyle.Single? = all,
+	horizontal: BorderStyle.Single? = all,
+	top: BorderStyle.Single? = vertical,
+	right: BorderStyle.Single? = horizontal,
+	bottom: BorderStyle.Single? = vertical,
+	left: BorderStyle.Single? = horizontal,
 ) {
 	if (top != null && left != null && right != null && bottom != null)
 		borderStyle(top = top, right = right, bottom = bottom, left = left)
@@ -101,88 +141,50 @@ public inline fun CssDeclarationBlockBuilder.borderStyle(
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomStyle(value: BorderStyle) {
-	property(CssProperty.borderBottomStyle, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderBottomStyle(value: BorderStyle.Single) {
+	property(borderBottomStyle, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomStyle(value: BorderStyleOrGlobal) {
-	property(CssProperty.borderBottomStyle, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderLeftStyle(value: BorderStyle.Single) {
+	property(borderLeftStyle, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomStyle(value: GlobalValue) {
-	property(CssProperty.borderBottomStyle, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderRightStyle(value: BorderStyle.Single) {
+	property(borderRightStyle, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderBottomStyle(value: CustomCssProperty<out BorderStyleOrGlobal>) {
-	property(CssProperty.borderBottomStyle, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.borderTopStyle(value: BorderStyle.Single) {
+	property(borderTopStyle, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderLeftStyle(value: BorderStyle) {
-	property(CssProperty.borderLeftStyle, value)
-}
+@Suppress("unused")
+public inline val CssProperties.borderStyle: CssProperty<BorderStyle>
+	get() = CssProperty("border-style")
 
 
-public inline fun CssDeclarationBlockBuilder.borderLeftStyle(value: BorderStyleOrGlobal) {
-	property(CssProperty.borderLeftStyle, value)
-}
+@Suppress("unused")
+public inline val CssProperties.borderBottomStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty("border-bottom-style")
 
 
-public inline fun CssDeclarationBlockBuilder.borderLeftStyle(value: GlobalValue) {
-	property(CssProperty.borderLeftStyle, value)
-}
+@Suppress("unused")
+public inline val CssProperties.borderLeftStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty("border-left-style")
 
 
-public inline fun CssDeclarationBlockBuilder.borderLeftStyle(value: CustomCssProperty<out BorderStyleOrGlobal>) {
-	property(CssProperty.borderLeftStyle, value)
-}
+@Suppress("unused")
+public inline val CssProperties.borderRightStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty("border-right-style")
 
 
-public inline fun CssDeclarationBlockBuilder.borderRightStyle(value: BorderStyle) {
-	property(CssProperty.borderRightStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderRightStyle(value: BorderStyleOrGlobal) {
-	property(CssProperty.borderRightStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderRightStyle(value: GlobalValue) {
-	property(CssProperty.borderRightStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderRightStyle(value: CustomCssProperty<out BorderStyleOrGlobal>) {
-	property(CssProperty.borderRightStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderTopStyle(value: BorderStyle) {
-	property(CssProperty.borderTopStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderTopStyle(value: BorderStyleOrGlobal) {
-	property(CssProperty.borderTopStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderTopStyle(value: GlobalValue) {
-	property(CssProperty.borderTopStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderTopStyle(value: CustomCssProperty<out BorderStyleOrGlobal>) {
-	property(CssProperty.borderTopStyle, value)
-}
-
-
-public inline val CssProperty.Companion.borderStyle: CssProperty get() = CssProperty("border-style")
-public inline val CssProperty.Companion.borderBottomStyle: CssProperty get() = CssProperty("border-bottom-style")
-public inline val CssProperty.Companion.borderLeftStyle: CssProperty get() = CssProperty("border-left-style")
-public inline val CssProperty.Companion.borderRightStyle: CssProperty get() = CssProperty("border-right-style")
-public inline val CssProperty.Companion.borderTopStyle: CssProperty get() = CssProperty("border-top-style")
+@Suppress("unused")
+public inline val CssProperties.borderTopStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty("border-top-style")

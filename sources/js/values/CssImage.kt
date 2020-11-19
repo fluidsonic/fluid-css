@@ -1,22 +1,24 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package io.fluidsonic.css
 
-// FIXME support more types
+// FIXME support more image types
 
 
-public interface CssImageOrGlobal : CssValue
 public interface CssImage :
 	BackgroundImage,
-	CssImageOrGlobal {
+	Cursor {
 
 	public companion object {
 
 		public fun raw(value: String): CssImage =
-			Default(value)
+			GenericValue(value)
 
-		public fun url(value: String): CssImage =
-			raw("url('$value')") // FIXME escaping
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
 
 
-	private class Default(value: String) : CssValueBase(value), CssImage
+	public interface Variable : CssImage, CssVariable<CssImage>
 }

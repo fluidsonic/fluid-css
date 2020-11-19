@@ -3,44 +3,39 @@
 package io.fluidsonic.css
 
 
-public interface VisibilityOrGlobal : CssValue
-public interface Visibility : VisibilityOrGlobal {
+public interface Visibility : CssValue, Internal {
 
 	public companion object {
 
-		public val collapse: Visibility = Visibility("collapse")
-		public val hidden: Visibility = Visibility("hidden")
-		public val visible: Visibility = Visibility("visible")
+		@CssDsl
+		public val collapse: Visibility = raw("collapse")
+
+		@CssDsl
+		public val hidden: Visibility = raw("hidden")
+
+		@CssDsl
+		public val visible: Visibility = raw("visible")
+
+
+		public fun raw(value: String): Visibility =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : Visibility, CssVariable<Visibility>
 }
 
 
-private class VisibilityImpl(value: String) : CssValueBase(value), Visibility
-
-
-@Suppress("FunctionName")
-public fun Visibility(value: String): Visibility =
-	VisibilityImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.visibility(value: Visibility) {
-	property(CssProperty.visibility, value)
+	property(visibility, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.visibility(value: VisibilityOrGlobal) {
-	property(CssProperty.visibility, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.visibility(value: GlobalValue) {
-	property(CssProperty.visibility, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.visibility(value: CustomCssProperty<out VisibilityOrGlobal>) {
-	property(CssProperty.visibility, value)
-}
-
-
-public inline val CssProperty.Companion.visibility: CssProperty get() = CssProperty("visibility")
+@Suppress("unused")
+public inline val CssProperties.visibility: CssProperty<Visibility>
+	get() = CssProperty("visibility")

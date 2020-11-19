@@ -3,37 +3,36 @@
 package io.fluidsonic.css
 
 
-public interface BorderCollapse : CssValue {
+public interface BorderCollapse : CssValue, Internal {
 
 	public companion object {
 
-		public val collapse: BorderCollapse = BorderCollapse("collapse")
-		public val separate: BorderCollapse = BorderCollapse("separate")
+		@CssDsl
+		public val collapse: BorderCollapse = raw("collapse")
+
+		@CssDsl
+		public val separate: BorderCollapse = raw("separate")
+
+
+		public fun raw(value: String): BorderCollapse =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : BorderCollapse, CssVariable<BorderCollapse>
 }
 
 
-private class BorderCollapseImpl(value: String) : CssValueBase(value), BorderCollapse
-
-
-@Suppress("FunctionName")
-public fun BorderCollapse(value: String): BorderCollapse =
-	BorderCollapseImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.borderCollapse(value: BorderCollapse) {
-	property(CssProperty.borderCollapse, value)
+	property(borderCollapse, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.borderCollapse(value: GlobalValue) {
-	property(CssProperty.borderCollapse, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.borderCollapse(value: CustomCssProperty<out BorderCollapse>) {
-	property(CssProperty.borderCollapse, value)
-}
-
-
-public inline val CssProperty.Companion.borderCollapse: CssProperty get() = CssProperty("border-collapse")
+@Suppress("unused")
+public inline val CssProperties.borderCollapse: CssProperty<BorderCollapse>
+	get() = CssProperty("border-collapse")

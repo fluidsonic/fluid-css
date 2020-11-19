@@ -3,19 +3,18 @@
 package io.fluidsonic.css
 
 
-public interface FontVariantNumericFigure : CssValue {
+public interface FontVariantNumericFigure : CssValue, Internal {
 
 	public companion object {
 
-		public val liningNums: FontVariantNumericFigure = FontVariantNumericFigure("lining-nums")
-		public val oldstyleNums: FontVariantNumericFigure = FontVariantNumericFigure("oldstyle-nums")
+		@CssDsl
+		public val liningNums: FontVariantNumericFigure = raw("lining-nums")
+
+		@CssDsl
+		public val oldstyleNums: FontVariantNumericFigure = raw("oldstyle-nums")
+
+
+		public fun raw(value: String): FontVariantNumericFigure =
+			GenericValue(value)
 	}
 }
-
-
-private class FontVariantNumericFigureImpl(value: String) : CssValueBase(value), FontVariantNumericFigure
-
-
-@Suppress("FunctionName")
-public fun FontVariantNumericFigure(value: String): FontVariantNumericFigure =
-	FontVariantNumericFigureImpl(value)

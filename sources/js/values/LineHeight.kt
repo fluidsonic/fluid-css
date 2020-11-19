@@ -3,57 +3,43 @@
 package io.fluidsonic.css
 
 
-public interface LineHeightOrGlobal : CssValue
-public interface LineHeight : LineHeightOrGlobal {
+public interface LineHeight : CssValue.NumberConstructable, Internal {
 
 	public companion object {
 
-		public val normal: LineHeight = LineHeight("normal")
+		@CssDsl
+		public val normal: LineHeight = raw("normal")
+
+
+		public inline fun multiple(value: Number): LineHeight =
+			raw(value.toString())
+
+
+		public fun raw(value: String): LineHeight =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : LineHeight, CssVariable<LineHeight>
 }
 
 
-private class LineHeightImpl(value: String) : CssValueBase(value), LineHeight
-
-
-@Suppress("FunctionName")
-public fun LineHeight(value: Number): LineHeight =
-	LineHeightImpl(value.toString())
-
-
-@Suppress("FunctionName")
-public fun LineHeight(value: String): LineHeight =
-	LineHeightImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.lineHeight(value: LineHeight) {
-	property(CssProperty.lineHeight, value)
+	property(lineHeight, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.lineHeight(value: LineHeightOrGlobal) {
-	property(CssProperty.lineHeight, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.lineHeight(value: GlobalValue) {
-	property(CssProperty.lineHeight, value)
-}
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.lineHeight(value: Number) {
-	property(CssProperty.lineHeight, value)
+	property(lineHeight, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.lineHeight(value: CustomCssProperty<out LineHeightOrGlobal>) {
-	property(CssProperty.lineHeight, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.lineHeight(value: CustomCssProperty<out Number>) {
-	property(CssProperty.lineHeight, value)
-}
-
-
-public inline val CssProperty.Companion.lineHeight: CssProperty get() = CssProperty("line-height")
+@Suppress("unused")
+public inline val CssProperties.lineHeight: CssProperty<LineHeight>
+	get() = CssProperty("line-height")

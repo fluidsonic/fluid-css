@@ -3,45 +3,42 @@
 package io.fluidsonic.css
 
 
-public interface FlexDirectionOrGlobal : CssValue
-public interface FlexDirection : FlexDirectionOrGlobal {
+public interface FlexDirection : CssValue, Internal {
 
 	public companion object {
 
-		public val column: FlexDirection = FlexDirection("column")
-		public val columnReverse: FlexDirection = FlexDirection("column-reverse")
-		public val row: FlexDirection = FlexDirection("row")
-		public val rowReverse: FlexDirection = FlexDirection("row-reverse")
+		@CssDsl
+		public val column: FlexDirection = raw("column")
+
+		@CssDsl
+		public val columnReverse: FlexDirection = raw("column-reverse")
+
+		@CssDsl
+		public val row: FlexDirection = raw("row")
+
+		@CssDsl
+		public val rowReverse: FlexDirection = raw("row-reverse")
+
+
+		public fun raw(value: String): FlexDirection =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : FlexDirection, CssVariable<FlexDirection>
 }
 
 
-private class FlexDirectionImpl(value: String) : CssValueBase(value), FlexDirection
-
-
-@Suppress("FunctionName")
-public fun FlexDirection(value: String): FlexDirection =
-	CssValue(value, ::FlexDirectionImpl)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.flexDirection(value: FlexDirection) {
-	property(CssProperty.flexDirection, value)
+	property(flexDirection, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.flexDirection(value: FlexDirectionOrGlobal) {
-	property(CssProperty.flexDirection, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.flexDirection(value: GlobalValue) {
-	property(CssProperty.flexDirection, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.flexDirection(value: CustomCssProperty<out FlexDirectionOrGlobal>) {
-	property(CssProperty.flexDirection, value)
-}
-
-
-public inline val CssProperty.Companion.flexDirection: CssProperty get() = CssProperty("flex-direction")
+@Suppress("unused")
+public inline val CssProperties.flexDirection: CssProperty<FlexDirection>
+	get() = CssProperty("flex-direction")

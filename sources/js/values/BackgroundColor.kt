@@ -3,9 +3,12 @@
 package io.fluidsonic.css
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.backgroundColor(value: Color) {
-	property(CssProperty.backgroundColor, value)
+	property(backgroundColor, value)
 }
 
 
-public inline val CssProperty.Companion.backgroundColor: CssProperty get() = CssProperty("background-color")
+@Suppress("unused")
+public inline val CssProperties.backgroundColor: CssProperty<Color>
+	get() = CssProperty("background-color")

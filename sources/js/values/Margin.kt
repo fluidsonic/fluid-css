@@ -3,55 +3,100 @@
 package io.fluidsonic.css
 
 
-public inline fun CssDeclarationBlockBuilder.margin(all: LengthOrPercentageOrAutoOrGlobal) {
-	property(CssProperty.margin, all)
+public interface Margin : CssValue, Internal {
+
+	public companion object {
+
+		@CssDsl
+		public val auto: Single = GenericValue("auto")
+
+
+		public inline fun all(value: Single): Margin =
+			value
+
+
+		public inline fun of(vertical: Single, horizontal: Single): Margin =
+			if (vertical == horizontal)
+				all(vertical)
+			else
+				raw("$vertical $horizontal")
+
+
+		public inline fun of(top: Single, horizontal: Single, bottom: Single): Margin =
+			if (top == bottom)
+				of(vertical = top, horizontal = horizontal)
+			else
+				raw("$top $horizontal $bottom")
+
+
+		public inline fun of(
+			top: Single,
+			right: Single,
+			bottom: Single,
+			left: Single,
+		): Margin =
+			if (left == right)
+				of(top = top, horizontal = left, bottom = bottom)
+			else
+				raw("$top $right $bottom $left")
+
+
+		public fun raw(value: String): Margin =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Single : Margin
+
+
+	public interface Variable : Margin, CssVariable<Margin>
 }
 
 
-public inline fun CssDeclarationBlockBuilder.margin(value: CustomCssProperty<out LengthOrPercentageOrAutoOrGlobal>) {
-	property(CssProperty.margin, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.margin(all: Margin) {
+	property(margin, all)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.margin(vertical: LengthOrPercentageOrAuto, horizontal: LengthOrPercentageOrAuto) {
-	if (vertical == horizontal)
-		margin(all = vertical)
-	else
-		property(CssProperty.margin, "$vertical $horizontal")
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.margin(vertical: Margin.Single, horizontal: Margin.Single) {
+	margin(Margin.of(vertical = vertical, horizontal = horizontal))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.margin(top: LengthOrPercentageOrAuto, horizontal: LengthOrPercentageOrAuto, bottom: LengthOrPercentageOrAuto) {
-	if (top == bottom)
-		margin(vertical = top, horizontal = horizontal)
-	else
-		property(CssProperty.margin, "$top $horizontal $bottom")
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.margin(top: Margin.Single, horizontal: Margin.Single, bottom: Margin.Single) {
+	margin(Margin.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.margin(
-	top: LengthOrPercentageOrAuto,
-	right: LengthOrPercentageOrAuto,
-	bottom: LengthOrPercentageOrAuto,
-	left: LengthOrPercentageOrAuto,
+	top: Margin.Single,
+	right: Margin.Single,
+	bottom: Margin.Single,
+	left: Margin.Single,
 ) {
-	if (left == right)
-		margin(top = top, horizontal = left, bottom = bottom)
-	else
-		property(CssProperty.margin, "$top $left $bottom $right")
+	margin(Margin.of(top = top, right = right, bottom = bottom, left = left))
 }
 
 
+@CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.margin(
-	all: LengthOrPercentageOrAuto? = null,
-	vertical: LengthOrPercentageOrAuto? = all,
-	horizontal: LengthOrPercentageOrAuto? = all,
-	top: LengthOrPercentageOrAuto? = vertical,
-	right: LengthOrPercentageOrAuto? = horizontal,
-	bottom: LengthOrPercentageOrAuto? = vertical,
-	left: LengthOrPercentageOrAuto? = horizontal,
+	all: Margin.Single? = null,
+	vertical: Margin.Single? = all,
+	horizontal: Margin.Single? = all,
+	top: Margin.Single? = vertical,
+	right: Margin.Single? = horizontal,
+	bottom: Margin.Single? = vertical,
+	left: Margin.Single? = horizontal,
 ) {
 	if (top != null && left != null && right != null && bottom != null)
 		margin(top = top, right = right, bottom = bottom, left = left)
@@ -68,48 +113,50 @@ public inline fun CssDeclarationBlockBuilder.margin(
 }
 
 
-public inline fun CssDeclarationBlockBuilder.marginBottom(value: LengthOrPercentageOrAutoOrGlobal) {
-	property(CssProperty.marginBottom, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.marginBottom(value: Margin.Single) {
+	property(marginBottom, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.marginBottom(value: CustomCssProperty<out LengthOrPercentageOrAutoOrGlobal>) {
-	property(CssProperty.marginBottom, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.marginLeft(value: Margin.Single) {
+	property(marginLeft, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.marginLeft(value: LengthOrPercentageOrAutoOrGlobal) {
-	property(CssProperty.marginLeft, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.marginRight(value: Margin.Single) {
+	property(marginRight, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.marginLeft(value: CustomCssProperty<out LengthOrPercentageOrAutoOrGlobal>) {
-	property(CssProperty.marginLeft, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.marginTop(value: Margin.Single) {
+	property(marginTop, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.marginRight(value: LengthOrPercentageOrAutoOrGlobal) {
-	property(CssProperty.marginRight, value)
-}
+@Suppress("unused")
+public inline val CssProperties.margin: CssProperty<Margin>
+	get() = CssProperty("margin")
 
 
-public inline fun CssDeclarationBlockBuilder.marginRight(value: CustomCssProperty<out LengthOrPercentageOrAutoOrGlobal>) {
-	property(CssProperty.marginRight, value)
-}
+@Suppress("unused")
+public inline val CssProperties.marginBottom: CssProperty<Margin.Single>
+	get() = CssProperty("margin-bottom")
 
 
-public inline fun CssDeclarationBlockBuilder.marginTop(value: LengthOrPercentageOrAutoOrGlobal) {
-	property(CssProperty.marginTop, value)
-}
+@Suppress("unused")
+public inline val CssProperties.marginLeft: CssProperty<Margin.Single>
+	get() = CssProperty("margin-left")
 
 
-public inline fun CssDeclarationBlockBuilder.marginTop(value: CustomCssProperty<out LengthOrPercentageOrAutoOrGlobal>) {
-	property(CssProperty.marginTop, value)
-}
+@Suppress("unused")
+public inline val CssProperties.marginRight: CssProperty<Margin.Single>
+	get() = CssProperty("margin-right")
 
 
-public inline val CssProperty.Companion.margin: CssProperty get() = CssProperty("margin")
-public inline val CssProperty.Companion.marginBottom: CssProperty get() = CssProperty("margin-bottom")
-public inline val CssProperty.Companion.marginLeft: CssProperty get() = CssProperty("margin-left")
-public inline val CssProperty.Companion.marginRight: CssProperty get() = CssProperty("margin-right")
-public inline val CssProperty.Companion.marginTop: CssProperty get() = CssProperty("margin-top")
+@Suppress("unused")
+public inline val CssProperties.marginTop: CssProperty<Margin.Single>
+	get() = CssProperty("margin-top")

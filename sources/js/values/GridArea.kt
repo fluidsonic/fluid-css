@@ -5,33 +5,29 @@ package io.fluidsonic.css
 // FIXME support
 
 
-public interface GridArea : CssValue {
+public interface GridArea : CssValue, Internal {
 
-	public companion object
+	public companion object {
+
+		public fun raw(value: String): GridArea =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Variable : GridArea, CssVariable<GridArea>
 }
 
 
-private class GridAreaImpl(value: String) : CssValueBase(value), GridArea
-
-
-@Suppress("FunctionName")
-public fun GridArea(value: String): GridArea =
-	GridAreaImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.gridArea(value: GridArea) {
-	property(CssProperty.gridArea, value)
+	property(gridArea, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.gridArea(value: GlobalValue) {
-	property(CssProperty.gridArea, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.gridArea(value: CustomCssProperty<out GridArea>) {
-	property(CssProperty.gridArea, value)
-}
-
-
-public inline val CssProperty.Companion.gridArea: CssProperty get() = CssProperty("grid-area")
+@Suppress("unused")
+public inline val CssProperties.gridArea: CssProperty<GridArea>
+	get() = CssProperty("grid-area")

@@ -2,56 +2,65 @@
 
 package io.fluidsonic.css
 
+// FIXME support multiple values
 
-public interface BackgroundRepeatOrGlobal : CssValue
-public interface BackgroundRepeat : BackgroundRepeatOrGlobal {
+
+public interface BackgroundRepeat : CssValue, Internal {
 
 	public companion object {
 
-		public val noRepeat: BackgroundRepeat = BackgroundRepeat("no-repeat")
-		public val repeat: BackgroundRepeat = BackgroundRepeat("repeat")
-		public val repeatX: BackgroundRepeat = BackgroundRepeat("repeat-x")
-		public val repeatY: BackgroundRepeat = BackgroundRepeat("repeat-y")
-		public val round: BackgroundRepeat = BackgroundRepeat("round")
-		public val space: BackgroundRepeat = BackgroundRepeat("space")
+		@CssDsl
+		public inline val noRepeat: BackgroundRepeat
+			get() = BackgroundRepeatAxis.noRepeat
 
-		public fun axis(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis): BackgroundRepeat =
-			BackgroundRepeat("$x $y")
+		@CssDsl
+		public inline val repeat: BackgroundRepeat
+			get() = BackgroundRepeatAxis.repeat
+
+		@CssDsl
+		public val repeatX: BackgroundRepeat = raw("repeat-x")
+
+		@CssDsl
+		public val repeatY: BackgroundRepeat = raw("repeat-y")
+
+		@CssDsl
+		public inline val round: BackgroundRepeat
+			get() = BackgroundRepeatAxis.round
+
+		@CssDsl
+		public inline val space: BackgroundRepeat
+			get() = BackgroundRepeatAxis.space
+
+
+		public fun raw(value: String): BackgroundRepeat =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+
+
+		public inline fun with(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis): BackgroundRepeat =
+			raw("$x $y")
 	}
+
+
+	public interface Variable : BackgroundRepeat, CssVariable<BackgroundRepeat>
 }
 
 
-private class BackgroundRepeatImpl(value: String) : CssValueBase(value), BackgroundRepeat
-
-
-@Suppress("FunctionName")
-public fun BackgroundRepeat(value: String): BackgroundRepeat =
-	BackgroundRepeatImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.backgroundRepeat(value: BackgroundRepeat) {
-	property(CssProperty.backgroundRepeat, value)
+	property(backgroundRepeat, value)
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.backgroundRepeat(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis) {
-	property(CssProperty.backgroundRepeat, "$x $y")
+	backgroundRepeat(BackgroundRepeat.with(x, y))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.backgroundRepeat(value: BackgroundRepeatOrGlobal) {
-	property(CssProperty.backgroundRepeat, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundRepeat(value: GlobalValue) {
-	property(CssProperty.backgroundRepeat, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundRepeat(value: CustomCssProperty<out BackgroundRepeatOrGlobal>) {
-	property(CssProperty.backgroundRepeat, value)
-}
-
-
-public inline val CssProperty.Companion.backgroundRepeat: CssProperty get() = CssProperty("background-repeat")
+@Suppress("unused")
+public inline val CssProperties.backgroundRepeat: CssProperty<BackgroundRepeat>
+	get() = CssProperty("background-repeat")

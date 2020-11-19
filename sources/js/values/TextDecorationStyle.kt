@@ -3,46 +3,45 @@
 package io.fluidsonic.css
 
 
-public interface TextDecorationStyleOrGlobal : CssValue
-public interface TextDecorationStyle : TextDecorationStyleOrGlobal {
+public interface TextDecorationStyle : CssValue, Internal {
 
 	public companion object {
 
-		public val dashed: TextDecorationStyle = TextDecorationStyle("dashed")
-		public val dotted: TextDecorationStyle = TextDecorationStyle("dotted")
-		public val double: TextDecorationStyle = TextDecorationStyle("double")
-		public val solid: TextDecorationStyle = TextDecorationStyle("solid")
-		public val wavy: TextDecorationStyle = TextDecorationStyle("wavy")
+		@CssDsl
+		public val dashed: TextDecorationStyle = raw("dashed")
+
+		@CssDsl
+		public val dotted: TextDecorationStyle = raw("dotted")
+
+		@CssDsl
+		public val double: TextDecorationStyle = raw("double")
+
+		@CssDsl
+		public val solid: TextDecorationStyle = raw("solid")
+
+		@CssDsl
+		public val wavy: TextDecorationStyle = raw("wavy")
+
+
+		public fun raw(value: String): TextDecorationStyle =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : TextDecorationStyle, CssVariable<TextDecorationStyle>
 }
 
 
-private class TextDecorationStyleImpl(value: String) : CssValueBase(value), TextDecorationStyle
-
-
-@Suppress("FunctionName")
-public fun TextDecorationStyle(value: String): TextDecorationStyle =
-	TextDecorationStyleImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.textDecorationStyle(value: TextDecorationStyle) {
-	property(CssProperty.textDecorationStyle, value)
+	property(textDecorationStyle, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.textDecorationStyle(value: TextDecorationStyleOrGlobal) {
-	property(CssProperty.textDecorationStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textDecorationStyle(value: GlobalValue) {
-	property(CssProperty.textDecorationStyle, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textDecorationStyle(value: CustomCssProperty<out TextDecorationStyleOrGlobal>) {
-	property(CssProperty.textDecorationStyle, value)
-}
-
-
-public inline val CssProperty.Companion.textDecorationStyle: CssProperty get() = CssProperty("text-decoration-style")
+@Suppress("unused")
+public inline val CssProperties.textDecorationStyle: CssProperty<TextDecorationStyle>
+	get() = CssProperty("text-decoration-style")

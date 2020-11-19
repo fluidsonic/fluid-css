@@ -3,96 +3,83 @@
 package io.fluidsonic.css
 
 
-public interface OverflowOrGlobal : CssValue
-public interface Overflow : OverflowOrGlobal {
+public interface Overflow : CssValue, Internal {
 
 	public companion object {
 
-		public val auto: Overflow = AutoValue.auto
+		@CssDsl
+		public val auto: Axis = GenericValue("auto")
 
-		public val hidden: Overflow = Overflow("hidden")
-		public val scroll: Overflow = Overflow("scroll")
-		public val visible: Overflow = Overflow("visible")
+
+		@CssDsl
+		public val hidden: Axis = GenericValue("hidden")
+
+		@CssDsl
+		public val scroll: Axis = GenericValue("scroll")
+
+		@CssDsl
+		public val visible: Axis = GenericValue("visible")
+
+
+		public inline fun of(xy: Axis): Overflow =
+			xy
+
+
+		public inline fun of(x: Axis, y: Axis): Overflow =
+			if (x == y) x
+			else raw("$x $y")
+
+
+		public fun raw(value: String): Overflow =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Axis : Overflow
+
+
+	public interface Variable : Overflow, CssVariable<Overflow>
 }
 
 
-private class OverflowImpl(value: String) : CssValueBase(value), Overflow
-
-
-@Suppress("FunctionName")
-public fun Overflow(value: String): Overflow =
-	OverflowImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.overflow(all: Overflow) {
-	property(CssProperty.overflow, all)
+	property(overflow, all)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.overflow(all: OverflowOrGlobal) {
-	property(CssProperty.overflow, all)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.overflow(x: Overflow.Axis, y: Overflow.Axis) {
+	overflow(Overflow.of(x, y))
 }
 
 
-public inline fun CssDeclarationBlockBuilder.overflow(all: GlobalValue) {
-	property(CssProperty.overflow, all)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.overflowX(value: Overflow.Axis) {
+	property(overflowX, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.overflow(all: CustomCssProperty<out OverflowOrGlobal>) {
-	property(CssProperty.overflow, all)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.overflowY(value: Overflow.Axis) {
+	property(overflowY, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.overflow(x: Overflow, y: Overflow) {
-	if (x == y)
-		overflow(x)
-	else
-		property(CssProperty.overflow, "$x $y")
-}
+@Suppress("unused")
+public inline val CssProperties.overflow: CssProperty<Overflow>
+	get() = CssProperty("overflow")
 
 
-public inline fun CssDeclarationBlockBuilder.overflowX(value: Overflow) {
-	property(CssProperty.overflowX, value)
-}
+@Suppress("unused")
+public inline val CssProperties.overflowX: CssProperty<Overflow.Axis>
+	get() = CssProperty("overflow-x")
 
 
-public inline fun CssDeclarationBlockBuilder.overflowX(value: OverflowOrGlobal) {
-	property(CssProperty.overflowX, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.overflowX(value: GlobalValue) {
-	property(CssProperty.overflowX, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.overflowX(value: CustomCssProperty<out OverflowOrGlobal>) {
-	property(CssProperty.overflowX, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.overflowY(value: Overflow) {
-	property(CssProperty.overflowY, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.overflowY(value: OverflowOrGlobal) {
-	property(CssProperty.overflowY, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.overflowY(value: GlobalValue) {
-	property(CssProperty.overflowY, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.overflowY(value: CustomCssProperty<out OverflowOrGlobal>) {
-	property(CssProperty.overflowY, value)
-}
-
-
-public inline val CssProperty.Companion.overflow: CssProperty get() = CssProperty("overflow")
-public inline val CssProperty.Companion.overflowX: CssProperty get() = CssProperty("overflow-x")
-public inline val CssProperty.Companion.overflowY: CssProperty get() = CssProperty("overflow-y")
+@Suppress("unused")
+public inline val CssProperties.overflowY: CssProperty<Overflow.Axis>
+	get() = CssProperty("overflow-y")

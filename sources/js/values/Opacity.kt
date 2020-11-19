@@ -3,58 +3,39 @@
 package io.fluidsonic.css
 
 
-public interface OpacityOrGlobal : CssValue
-public interface Opacity : OpacityOrGlobal {
+public interface Opacity : CssValue.NumberConstructable, Internal {
 
 	public companion object {
 
-		public val full: Opacity = Opacity(1)
-		public val none: Opacity = Opacity(0)
+		public inline fun of(value: Number): Opacity =
+			raw(value.toString())
+
+
+		public fun raw(value: String): Opacity =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : Opacity, CssVariable<Opacity>
 }
 
 
-private class OpacityImpl(value: String) : CssValueBase(value), Opacity
-
-
-@Suppress("FunctionName")
-public inline fun Opacity(value: Number): Opacity =
-	Opacity(value.toString())
-
-
-@Suppress("FunctionName")
-public fun Opacity(value: String): Opacity =
-	CssValue(value, ::OpacityImpl)
-
-
-public inline fun CssDeclarationBlockBuilder.opacity(value: Number) {
-	property(CssProperty.opacity, value)
-}
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.opacity(value: Opacity) {
-	property(CssProperty.opacity, value)
+	property(opacity, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.opacity(value: OpacityOrGlobal) {
-	property(CssProperty.opacity, value)
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.opacity(value: Number) {
+	property(opacity, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.opacity(value: GlobalValue) {
-	property(CssProperty.opacity, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.opacity(value: CustomCssProperty<out OpacityOrGlobal>) {
-	property(CssProperty.opacity, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.opacity(value: CustomCssProperty<out Number>) {
-	property(CssProperty.opacity, value)
-}
-
-
-public inline val CssProperty.Companion.opacity: CssProperty get() = CssProperty("opacity")
+@Suppress("unused")
+public inline val CssProperties.opacity: CssProperty<Opacity>
+	get() = CssProperty("opacity")

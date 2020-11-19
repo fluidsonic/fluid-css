@@ -1,0 +1,60 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
+package io.fluidsonic.css
+
+
+@CssDsl
+public interface KeyframesBuilder {
+
+	public fun frame(value: Keyframe)
+
+	public fun KeyframesBuilder.frame(key: String, style: CssDeclarationBlockBuilder.() -> Unit) {
+		frame(Keyframe.default(
+			key = key,
+			style = with(CssDeclarationBlockBuilder.default().apply(style)) { Unit.build() }
+		))
+	}
+
+	public fun Unit.build(): Keyframes
+
+
+	// TODO Move to extension once we have multiple receivers.
+	@CssDsl
+	public operator fun Percentage.invoke(style: CssDeclarationBlockBuilder.() -> Unit) {
+		frame(key = toString(), style)
+	}
+
+
+	public companion object {
+
+		public fun default(name: String): KeyframesBuilder =
+			Default(name = name)
+	}
+
+
+	private class Default(private val name: String) : KeyframesBuilder {
+
+		private val frames = mutableListOf<Keyframe>()
+
+
+		override fun frame(value: Keyframe) {
+			frames += value
+		}
+
+
+		override fun Unit.build(): Keyframes =
+			Keyframes.default(name = name, frames = frames)
+	}
+}
+
+
+@CssDsl
+public inline fun KeyframesBuilder.from(noinline style: CssDeclarationBlockBuilder.() -> Unit) {
+	frame(key = "from", style)
+}
+
+
+@CssDsl
+public inline fun KeyframesBuilder.to(noinline style: CssDeclarationBlockBuilder.() -> Unit) {
+	frame(key = "to", style)
+}

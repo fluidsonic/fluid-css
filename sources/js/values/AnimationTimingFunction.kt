@@ -5,24 +5,12 @@ package io.fluidsonic.css
 // FIXME support multiple
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.animationTimingFunction(value: TimingFunction) {
-	property(CssProperty.animationTimingFunction, value)
+	property(animationTimingFunction, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.animationTimingFunction(value: TimingFunctionOrGlobal) {
-	property(CssProperty.animationTimingFunction, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.animationTimingFunction(value: GlobalValue) {
-	property(CssProperty.animationTimingFunction, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.animationTimingFunction(value: CustomCssProperty<out TimingFunctionOrGlobal>) {
-	property(CssProperty.animationTimingFunction, value)
-}
-
-
-public inline val CssProperty.Companion.animationTimingFunction: CssProperty get() = CssProperty("animation-timing-function")
+@Suppress("unused")
+public inline val CssProperties.animationTimingFunction: CssProperty<TimingFunction>
+	get() = CssProperty("animation-timing-function")

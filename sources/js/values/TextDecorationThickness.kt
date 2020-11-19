@@ -3,44 +3,37 @@
 package io.fluidsonic.css
 
 
-public interface TextDecorationThicknessOrGlobal : CssValue
-public interface TextDecorationThickness : TextDecorationThicknessOrGlobal {
+public interface TextDecorationThickness : CssValue, Internal {
 
 	public companion object {
 
-		public val auto: TextDecorationThickness = AutoValue.auto
+		@CssDsl
+		public val auto: TextDecorationThickness = raw("auto")
 
-		public val fromFont: TextDecorationThickness = TextDecorationThickness("from-font")
+
+		@CssDsl
+		public val fromFont: TextDecorationThickness = raw("from-font")
+
+
+		public fun raw(value: String): TextDecorationThickness =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : TextDecorationThickness, CssVariable<TextDecorationThickness>
 }
 
 
-private class TextDecorationThicknessImpl(value: String) : CssValueBase(value), TextDecorationThickness
-
-
-@Suppress("FunctionName")
-public fun TextDecorationThickness(value: String): TextDecorationThickness =
-	TextDecorationThicknessImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.textDecorationThickness(value: TextDecorationThickness) {
-	property(CssProperty.textDecorationThickness, value)
+	property(textDecorationThickness, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.textDecorationThickness(value: TextDecorationThicknessOrGlobal) {
-	property(CssProperty.textDecorationThickness, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textDecorationThickness(value: GlobalValue) {
-	property(CssProperty.textDecorationThickness, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.textDecorationThickness(value: CustomCssProperty<out TextDecorationThicknessOrGlobal>) {
-	property(CssProperty.textDecorationThickness, value)
-}
-
-
-public inline val CssProperty.Companion.textDecorationThickness: CssProperty get() = CssProperty("text-decoration-thickness")
+@Suppress("unused")
+public inline val CssProperties.textDecorationThickness: CssProperty<TextDecorationThickness>
+	get() = CssProperty("text-decoration-thickness")

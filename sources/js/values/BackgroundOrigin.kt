@@ -2,45 +2,42 @@
 
 package io.fluidsonic.css
 
+// FIXME support multiple values
 
-public interface BackgroundOriginOrGlobal : CssValue
-public interface BackgroundOrigin : BackgroundOriginOrGlobal {
+
+public interface BackgroundOrigin : CssValue, Internal {
 
 	public companion object {
 
-		public val borderBox: BackgroundOrigin = BackgroundOrigin("border-box")
-		public val contentBox: BackgroundOrigin = BackgroundOrigin("content-box")
-		public val paddingBox: BackgroundOrigin = BackgroundOrigin("padding-box")
+		@CssDsl
+		public val borderBox: BackgroundOrigin = raw("border-box")
+
+		@CssDsl
+		public val contentBox: BackgroundOrigin = raw("content-box")
+
+		@CssDsl
+		public val paddingBox: BackgroundOrigin = raw("padding-box")
+
+
+		public fun raw(value: String): BackgroundOrigin =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
 	}
+
+
+	public interface Variable : BackgroundOrigin, CssVariable<BackgroundOrigin>
 }
 
 
-private class BackgroundOriginImpl(value: String) : CssValueBase(value), BackgroundOrigin
-
-
-@Suppress("FunctionName")
-public fun BackgroundOrigin(value: String): BackgroundOrigin =
-	BackgroundOriginImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.backgroundOrigin(value: BackgroundOrigin) {
-	property(CssProperty.backgroundOrigin, value)
+	property(backgroundOrigin, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.backgroundOrigin(value: BackgroundOriginOrGlobal) {
-	property(CssProperty.backgroundOrigin, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundOrigin(value: GlobalValue) {
-	property(CssProperty.backgroundOrigin, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.backgroundOrigin(value: CustomCssProperty<out BackgroundOriginOrGlobal>) {
-	property(CssProperty.backgroundOrigin, value)
-}
-
-
-public inline val CssProperty.Companion.backgroundOrigin: CssProperty get() = CssProperty("background-origin")
+@Suppress("unused")
+public inline val CssProperties.backgroundOrigin: CssProperty<BackgroundOrigin>
+	get() = CssProperty("background-origin")

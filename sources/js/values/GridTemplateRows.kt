@@ -5,33 +5,29 @@ package io.fluidsonic.css
 // FIXME support
 
 
-public interface GridTemplateRows : CssValue {
+public interface GridTemplateRows : CssValue, Internal {
 
-	public companion object
+	public companion object {
+
+		public fun raw(value: String): GridTemplateRows =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+	}
+
+
+	public interface Variable : GridTemplateRows, CssVariable<GridTemplateRows>
 }
 
 
-private class GridTemplateRowsImpl(value: String) : CssValueBase(value), GridTemplateRows
-
-
-@Suppress("FunctionName")
-public fun GridTemplateRows(value: String): GridTemplateRows =
-	GridTemplateRowsImpl(value)
-
-
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.gridTemplateRows(value: GridTemplateRows) {
-	property(CssProperty.gridTemplateRows, value)
+	property(gridTemplateRows, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.gridTemplateRows(value: GlobalValue) {
-	property(CssProperty.gridTemplateRows, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.gridTemplateRows(value: CustomCssProperty<out GridTemplateRows>) {
-	property(CssProperty.gridTemplateRows, value)
-}
-
-
-public inline val CssProperty.Companion.gridTemplateRows: CssProperty get() = CssProperty("grid-template-rows")
+@Suppress("unused")
+public inline val CssProperties.gridTemplateRows: CssProperty<GridTemplateRows>
+	get() = CssProperty("grid-template-rows")

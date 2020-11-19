@@ -3,14 +3,12 @@
 package io.fluidsonic.css
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.stroke(value: Color) {
-	property(CssProperty.stroke, value)
+	property(stroke, value)
 }
 
 
-public inline fun CssDeclarationBlockBuilder.stroke(value: GlobalValue) {
-	property(CssProperty.stroke, value)
-}
-
-
-public inline val CssProperty.Companion.stroke: CssProperty get() = CssProperty("stroke")
+@Suppress("unused")
+public inline val CssProperties.stroke: CssProperty<Color>
+	get() = CssProperty("stroke")

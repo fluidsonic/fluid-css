@@ -3,60 +3,67 @@
 package io.fluidsonic.css
 
 
-public interface FontVariantNumericOrGlobal : CssValue
-public interface FontVariantNumeric : FontVariantNumericOrGlobal {
+public interface FontVariantNumeric : CssValue, Internal {
 
 	public companion object {
 
-		public val normal: FontVariantNumeric = FontVariantNumeric("normal")
+		@CssDsl
+		public val normal: FontVariantNumeric = raw("normal")
+
+
+		public fun raw(value: String): FontVariantNumeric =
+			GenericValue(value)
+
+
+		public fun variable(name: String): Variable =
+			GenericVariable(name)
+
+
+		public fun with(
+			figure: FontVariantNumericFigure? = null,
+			spacing: FontVariantNumericSpacing? = null,
+			fraction: FontVariantNumericFraction? = null,
+			isOrdinal: Boolean = false,
+			isSlashedZero: Boolean = false,
+		): FontVariantNumeric =
+			if (figure != null || spacing != null || fraction != null || isOrdinal || isSlashedZero)
+				raw(buildString {
+					if (figure != null)
+						append(figure)
+
+					if (spacing != null) {
+						if (isNotEmpty()) append(" ")
+						append(spacing)
+					}
+					if (fraction != null) {
+						if (isNotEmpty()) append(" ")
+						append(fraction)
+					}
+					if (isOrdinal) {
+						if (isNotEmpty()) append(" ")
+						append("ordinal")
+					}
+					if (isSlashedZero) {
+						if (isNotEmpty()) append(" ")
+						append("slashed-zero")
+					}
+				})
+			else
+				CssValue.initial
 	}
+
+
+	public interface Variable : FontVariantNumeric, CssVariable<FontVariantNumeric>
 }
 
 
-private class FontVariantNumericImpl(value: String) : CssValueBase(value), FontVariantNumeric
-
-
-@Suppress("FunctionName")
-public fun FontVariantNumeric(value: String): FontVariantNumeric =
-	FontVariantNumericImpl(value)
-
-
-@Suppress("FunctionName")
-public fun FontVariantNumeric(
-	figure: FontVariantNumericFigure? = null,
-	spacing: FontVariantNumericSpacing? = null,
-	fraction: FontVariantNumericFraction? = null,
-	isOrdinal: Boolean = false,
-	isSlashedZero: Boolean = false,
-): FontVariantNumeric {
-	require(figure != null || spacing != null || fraction != null || isOrdinal || isSlashedZero) {
-		"At least one of figure, spacing, fraction, isOrdinal or isSlashedZero must be specified."
-	}
-
-	return FontVariantNumeric(buildString {
-		if (figure != null)
-			append(figure)
-
-		if (spacing != null) {
-			if (isNotEmpty()) append(" ")
-			append(spacing)
-		}
-		if (fraction != null) {
-			if (isNotEmpty()) append(" ")
-			append(fraction)
-		}
-		if (isOrdinal) {
-			if (isNotEmpty()) append(" ")
-			append("ordinal")
-		}
-		if (isSlashedZero) {
-			if (isNotEmpty()) append(" ")
-			append("slashed-zero")
-		}
-	})
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(value: FontVariantNumeric) {
+	property(fontVariantNumeric, value)
 }
 
 
+@CssDsl
 public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(
 	figure: FontVariantNumericFigure? = null,
 	spacing: FontVariantNumericSpacing? = null,
@@ -64,7 +71,7 @@ public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(
 	isOrdinal: Boolean = false,
 	isSlashedZero: Boolean = false,
 ) {
-	fontVariantNumeric(FontVariantNumeric(
+	fontVariantNumeric(FontVariantNumeric.with(
 		figure = figure,
 		fraction = fraction,
 		isOrdinal = isOrdinal,
@@ -74,24 +81,6 @@ public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(
 }
 
 
-public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(value: FontVariantNumeric) {
-	property(CssProperty.fontVariantNumeric, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(value: FontVariantNumericOrGlobal) {
-	property(CssProperty.fontVariantNumeric, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(value: GlobalValue) {
-	property(CssProperty.fontVariantNumeric, value)
-}
-
-
-public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(value: CustomCssProperty<out FontVariantNumericOrGlobal>) {
-	property(CssProperty.fontVariantNumeric, value)
-}
-
-
-public inline val CssProperty.Companion.fontVariantNumeric: CssProperty get() = CssProperty("font-variant-numeric")
+@Suppress("unused")
+public inline val CssProperties.fontVariantNumeric: CssProperty<FontVariantNumeric>
+	get() = CssProperty("font-variant-numeric")
