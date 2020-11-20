@@ -95,11 +95,11 @@ public interface Display : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.display(value: Display) {
+public fun CssDeclarationBlockBuilder.display(value: Display) {
 	property(display, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.display: CssProperty<Display>
+public val CssProperties.display: CssProperty<Display>
 	get() = CssProperty("display")

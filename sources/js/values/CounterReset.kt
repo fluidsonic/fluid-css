@@ -19,7 +19,7 @@ public interface CounterReset : CssValue, Internal {
 			GenericVariable(name)
 
 
-		public inline fun with(name: String, value: Int = 0): CounterReset =
+		public fun with(name: String, value: Int = 0): CounterReset =
 			raw(
 				if (value == 0) name
 				else "$name $value"
@@ -32,17 +32,17 @@ public interface CounterReset : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.counterReset(value: CounterReset) {
+public fun CssDeclarationBlockBuilder.counterReset(value: CounterReset) {
 	property(counterReset, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.counterReset(name: String, value: Int = 0) {
+public fun CssDeclarationBlockBuilder.counterReset(name: String, value: Int = 0) {
 	counterReset(CounterReset.with(name = name, value = value))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.counterReset: CssProperty<CounterReset>
+public val CssProperties.counterReset: CssProperty<CounterReset>
 	get() = CssProperty("counter-reset")

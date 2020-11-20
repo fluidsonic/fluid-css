@@ -48,7 +48,7 @@ public interface FontWeight : CssValue.NumberConstructable, Internal {
 
 
 		@CssDsl
-		public inline fun of(value: Number): FontWeight =
+		public fun of(value: Number): FontWeight =
 			raw(value.toString())
 
 
@@ -66,17 +66,17 @@ public interface FontWeight : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontWeight(value: FontWeight) {
+public fun CssDeclarationBlockBuilder.fontWeight(value: FontWeight) {
 	property(fontWeight, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontWeight(value: Number) {
+public fun CssDeclarationBlockBuilder.fontWeight(value: Number) {
 	property(fontWeight, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.fontWeight: CssProperty<FontWeight>
+public val CssProperties.fontWeight: CssProperty<FontWeight>
 	get() = CssProperty("font-weight")

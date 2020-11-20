@@ -119,13 +119,13 @@ public interface Background : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.background(value: Background) {
+public fun CssDeclarationBlockBuilder.background(value: Background) {
 	property(background, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.background(
+public fun CssDeclarationBlockBuilder.background(
 	color: Color? = null,
 	image: CssImage? = null,
 	position: BackgroundPosition? = null,
@@ -151,7 +151,7 @@ public inline fun CssDeclarationBlockBuilder.background(
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public inline fun CssDeclarationBlockBuilder.background(
+public fun CssDeclarationBlockBuilder.background(
 	color: Color? = null,
 	image: CssImage? = null,
 	x: BackgroundPositionX? = null,
@@ -177,5 +177,5 @@ public inline fun CssDeclarationBlockBuilder.background(
 
 
 @Suppress("unused")
-public inline val CssProperties.background: CssProperty<Background>
+public val CssProperties.background: CssProperty<Background>
 	get() = CssProperty("background")

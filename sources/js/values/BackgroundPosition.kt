@@ -25,19 +25,19 @@ public interface BackgroundPosition : CssValue, Internal {
 		public val top: BackgroundPosition = raw("top")
 
 
-		public inline fun of(
+		public fun of(
 			x: BackgroundPositionX,
 		): BackgroundPosition =
 			raw("$x 50%")
 
 
-		public inline fun of(
+		public fun of(
 			y: BackgroundPositionY,
 		): BackgroundPosition =
 			raw("50% $y")
 
 
-		public inline fun of(
+		public fun of(
 			x: BackgroundPositionX? = null,
 			y: BackgroundPositionY? = null,
 		): BackgroundPosition =
@@ -58,29 +58,29 @@ public interface BackgroundPosition : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundPosition(value: BackgroundPosition) {
+public fun CssDeclarationBlockBuilder.backgroundPosition(value: BackgroundPosition) {
 	property(backgroundPosition, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX) {
+public fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX) {
 	backgroundPosition(BackgroundPosition.of(x = x))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundPosition(y: BackgroundPositionY) {
+public fun CssDeclarationBlockBuilder.backgroundPosition(y: BackgroundPositionY) {
 	backgroundPosition(BackgroundPosition.of(y = y))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX, y: BackgroundPositionY) {
+public fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX, y: BackgroundPositionY) {
 	backgroundPosition(BackgroundPosition.of(x = x, y = y))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundPosition: CssProperty<BackgroundPosition>
+public val CssProperties.backgroundPosition: CssProperty<BackgroundPosition>
 	get() = CssProperty("background-position")

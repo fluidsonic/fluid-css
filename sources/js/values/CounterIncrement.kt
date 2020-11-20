@@ -19,11 +19,11 @@ public interface CounterIncrement : CssValue, Internal {
 			GenericVariable(name)
 
 
-		public inline fun with(name: String, increment: Int = 1): CounterIncrement =
+		public fun with(name: String, increment: Int = 1): CounterIncrement =
 			raw(
-                if (increment == 1) name
-                else "$name $increment"
-            )
+				if (increment == 1) name
+				else "$name $increment"
+			)
 	}
 
 
@@ -32,17 +32,17 @@ public interface CounterIncrement : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.counterIncrement(value: CounterIncrement) {
+public fun CssDeclarationBlockBuilder.counterIncrement(value: CounterIncrement) {
 	property(counterIncrement, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.counterIncrement(name: String, increment: Int = 1) {
+public fun CssDeclarationBlockBuilder.counterIncrement(name: String, increment: Int = 1) {
 	counterIncrement(CounterIncrement.with(increment = increment, name = name))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.counterIncrement: CssProperty<CounterIncrement>
+public val CssProperties.counterIncrement: CssProperty<CounterIncrement>
 	get() = CssProperty("counter-increment")

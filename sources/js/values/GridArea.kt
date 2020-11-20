@@ -23,11 +23,11 @@ public interface GridArea : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.gridArea(value: GridArea) {
+public fun CssDeclarationBlockBuilder.gridArea(value: GridArea) {
 	property(gridArea, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.gridArea: CssProperty<GridArea>
+public val CssProperties.gridArea: CssProperty<GridArea>
 	get() = CssProperty("grid-area")

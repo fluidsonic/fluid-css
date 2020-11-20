@@ -10,7 +10,7 @@ public interface Content : CssValue, Internal {
 	public companion object {
 
 		@CssDsl
-		public inline fun counter(name: String): Content =
+		public fun counter(name: String): Content =
 			raw("counter($name)")
 
 
@@ -18,7 +18,7 @@ public interface Content : CssValue, Internal {
 			GenericValue(value)
 
 
-		public inline fun string(value: String): Content =
+		public fun string(value: String): Content =
 			raw("'$value'") // FIXME escaping
 
 
@@ -32,17 +32,17 @@ public interface Content : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.content(value: Content) {
+public fun CssDeclarationBlockBuilder.content(value: Content) {
 	property(content, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.content(value: String = "") {
+public fun CssDeclarationBlockBuilder.content(value: String = "") {
 	content(Content.string(value))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.content: CssProperty<Content>
+public val CssProperties.content: CssProperty<Content>
 	get() = CssProperty("content")

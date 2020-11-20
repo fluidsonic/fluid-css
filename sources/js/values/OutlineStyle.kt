@@ -53,11 +53,11 @@ public interface OutlineStyle : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.outlineStyle(all: OutlineStyle) {
+public fun CssDeclarationBlockBuilder.outlineStyle(all: OutlineStyle) {
 	property(outlineStyle, all)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.outlineStyle: CssProperty<OutlineStyle>
+public val CssProperties.outlineStyle: CssProperty<OutlineStyle>
 	get() = CssProperty("outline-style")

@@ -24,7 +24,7 @@ public interface LengthOrPercentage :
 
 	public companion object {
 
-		public inline fun calc(value: String): LengthOrPercentage =
+		public fun calc(value: String): LengthOrPercentage =
 			raw("calc($value)")
 
 
@@ -80,15 +80,15 @@ public operator fun LengthOrPercentage.plus(other: LengthOrPercentage): LengthOr
 
 
 @CssDsl
-public inline operator fun LengthOrPercentage.unaryPlus(): LengthOrPercentage =
+public operator fun LengthOrPercentage.unaryPlus(): LengthOrPercentage =
 	this
 
 
 @CssDsl
-public inline operator fun LengthOrPercentage.unaryMinus(): LengthOrPercentage =
+public operator fun LengthOrPercentage.unaryMinus(): LengthOrPercentage =
 	this * -1
 
 
 @CssDsl
-public inline operator fun Number.times(other: LengthOrPercentage): LengthOrPercentage =
+public operator fun Number.times(other: LengthOrPercentage): LengthOrPercentage =
 	other * this

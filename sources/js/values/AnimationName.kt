@@ -11,7 +11,7 @@ public interface AnimationName : CssValue.StringConstructable, Internal {
 		public val none: AnimationName = raw("none")
 
 
-		public inline fun of(value: String): AnimationName =
+		public fun of(value: String): AnimationName =
 			raw(value)
 
 
@@ -29,17 +29,17 @@ public interface AnimationName : CssValue.StringConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.animationName(value: AnimationName) {
+public fun CssDeclarationBlockBuilder.animationName(value: AnimationName) {
 	property(animationName, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.animationName(value: String) {
+public fun CssDeclarationBlockBuilder.animationName(value: String) {
 	property(animationName, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.animationName: CssProperty<AnimationName>
+public val CssProperties.animationName: CssProperty<AnimationName>
 	get() = CssProperty("animation-name")

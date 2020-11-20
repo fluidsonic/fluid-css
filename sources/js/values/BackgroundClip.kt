@@ -33,11 +33,11 @@ public interface BackgroundClip : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundClip(value: BackgroundClip) {
+public fun CssDeclarationBlockBuilder.backgroundClip(value: BackgroundClip) {
 	property(backgroundClip, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundClip: CssProperty<BackgroundClip>
+public val CssProperties.backgroundClip: CssProperty<BackgroundClip>
 	get() = CssProperty("background-clip")

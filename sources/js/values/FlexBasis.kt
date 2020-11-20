@@ -41,11 +41,11 @@ public interface FlexBasis : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flexBasis(value: FlexBasis) {
+public fun CssDeclarationBlockBuilder.flexBasis(value: FlexBasis) {
 	property(flexBasis, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.flexBasis: CssProperty<FlexBasis>
+public val CssProperties.flexBasis: CssProperty<FlexBasis>
 	get() = CssProperty("flex-basis")

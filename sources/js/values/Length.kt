@@ -15,7 +15,7 @@ public interface Length :
 		public val zero: Length = numeric(0, "")
 
 
-		public inline fun calc(value: String): Length =
+		public fun calc(value: String): Length =
 			raw("calc($value)")
 
 
@@ -89,85 +89,85 @@ public operator fun Length.plus(other: Length): Length =
 
 
 @CssDsl
-public inline operator fun Length.unaryPlus(): Length =
+public operator fun Length.unaryPlus(): Length =
 	this
 
 
 @CssDsl
-public inline operator fun Length.unaryMinus(): Length =
+public operator fun Length.unaryMinus(): Length =
 	this * -1
 
 
 @CssDsl
-public inline operator fun Number.times(other: Length): Length =
+public operator fun Number.times(other: Length): Length =
 	other * this
 
 
 @CssDsl
-public inline val Number.ch: Length.Numeric
+public val Number.ch: Length.Numeric
 	get() = Length.numeric(this, "ch")
 
 
 @CssDsl
-public inline val Number.cm: Length.Numeric
+public val Number.cm: Length.Numeric
 	get() = Length.numeric(this, "cm2")
 
 
 @CssDsl
-public inline val Number.mm: Length.Numeric
+public val Number.mm: Length.Numeric
 	get() = Length.numeric(this, "mm2")
 
 
 @CssDsl
-public inline val Number.em: Length.Numeric
+public val Number.em: Length.Numeric
 	get() = Length.numeric(this, "em")
 
 
 @CssDsl
-public inline val Number.ex: Length.Numeric
+public val Number.ex: Length.Numeric
 	get() = Length.numeric(this, "ex")
 
 
 @CssDsl
-public inline val Number.inch: Length.Numeric
+public val Number.inch: Length.Numeric
 	get() = Length.numeric(this, "in")
 
 
 @CssDsl
-public inline val Number.pc: Length.Numeric
+public val Number.pc: Length.Numeric
 	get() = Length.numeric(this, "pc")
 
 
 @CssDsl
-public inline val Number.pt: Length.Numeric
+public val Number.pt: Length.Numeric
 	get() = Length.numeric(this, "pt")
 
 
 @CssDsl
-public inline val Number.px: Length.Numeric
+public val Number.px: Length.Numeric
 	get() = Length.numeric(this, "px")
 
 
 @CssDsl
-public inline val Number.rem: Length.Numeric
+public val Number.rem: Length.Numeric
 	get() = Length.numeric(this, "rem")
 
 
 @CssDsl
-public inline val Number.vh: Length.Numeric
+public val Number.vh: Length.Numeric
 	get() = Length.numeric(this, "vh")
 
 
 @CssDsl
-public inline val Number.vmax: Length.Numeric
+public val Number.vmax: Length.Numeric
 	get() = Length.numeric(this, "vmax")
 
 
 @CssDsl
-public inline val Number.vmin: Length.Numeric
+public val Number.vmin: Length.Numeric
 	get() = Length.numeric(this, "vmin")
 
 
 @CssDsl
-public inline val Number.vw: Length.Numeric
+public val Number.vw: Length.Numeric
 	get() = Length.numeric(this, "vw")

@@ -28,11 +28,11 @@ public interface OutlineColor : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.outlineColor(all: OutlineColor) {
+public fun CssDeclarationBlockBuilder.outlineColor(all: OutlineColor) {
 	property(outlineColor, all)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.outlineColor: CssProperty<OutlineColor>
+public val CssProperties.outlineColor: CssProperty<OutlineColor>
 	get() = CssProperty("outline-color")

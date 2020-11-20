@@ -4,11 +4,11 @@ import io.fluidsonic.css.*
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.maxWidth(value: SizeLimit) {
+public fun CssDeclarationBlockBuilder.maxWidth(value: SizeLimit) {
 	property(maxWidth, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.maxWidth: CssProperty<SizeLimit>
+public val CssProperties.maxWidth: CssProperty<SizeLimit>
 	get() = CssProperty("max-width")

@@ -21,5 +21,5 @@ public interface CssUrl : CssImage {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.url(value: String): CssUrl =
+public fun CssDeclarationBlockBuilder.url(value: String): CssUrl =
 	CssUrl.of(value)

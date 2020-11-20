@@ -41,60 +41,60 @@ public interface FontFaceBuilder {
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontDisplay(value: FontFace.Display) {
+public fun FontFaceBuilder.fontDisplay(value: FontFace.Display) {
 	property("font-display", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontFamily(value: String) {
+public fun FontFaceBuilder.fontFamily(value: String) {
 	property("font-family", value)
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontFeatureSettings(value: FontFace.FeatureSettings) {
+public fun FontFaceBuilder.fontFeatureSettings(value: FontFace.FeatureSettings) {
 	property("font-feature-settings", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontStretch(value: FontFace.Stretch) {
+public fun FontFaceBuilder.fontStretch(value: FontFace.Stretch) {
 	property("font-stretch", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontStyle(value: FontFace.Style) {
+public fun FontFaceBuilder.fontStyle(value: FontFace.Style) {
 	property("font-style", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontVariationSettings(value: FontFace.VariationSettings) {
+public fun FontFaceBuilder.fontVariationSettings(value: FontFace.VariationSettings) {
 	property("font-variation-settings", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontVariant(value: FontFace.Variant) {
+public fun FontFaceBuilder.fontVariant(value: FontFace.Variant) {
 	property("font-variant", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.fontWeight(value: FontFace.Weight) {
+public fun FontFaceBuilder.fontWeight(value: FontFace.Weight) {
 	property("font-weight", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.src(value: FontFace.Source) {
+public fun FontFaceBuilder.src(value: FontFace.Source) {
 	property("src", value.toString())
 }
 
 
 @CssDsl
-public inline fun FontFaceBuilder.unicodeRange(value: FontFace.UnicodeRange) {
+public fun FontFaceBuilder.unicodeRange(value: FontFace.UnicodeRange) {
 	property("unicode-range", value.toString())
 }

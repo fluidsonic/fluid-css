@@ -21,11 +21,11 @@ public interface Overflow : CssValue, Internal {
 		public val visible: Axis = GenericValue("visible")
 
 
-		public inline fun of(xy: Axis): Overflow =
+		public fun of(xy: Axis): Overflow =
 			xy
 
 
-		public inline fun of(x: Axis, y: Axis): Overflow =
+		public fun of(x: Axis, y: Axis): Overflow =
 			if (x == y) x
 			else raw("$x $y")
 
@@ -47,39 +47,39 @@ public interface Overflow : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.overflow(all: Overflow) {
+public fun CssDeclarationBlockBuilder.overflow(all: Overflow) {
 	property(overflow, all)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.overflow(x: Overflow.Axis, y: Overflow.Axis) {
+public fun CssDeclarationBlockBuilder.overflow(x: Overflow.Axis, y: Overflow.Axis) {
 	overflow(Overflow.of(x, y))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.overflowX(value: Overflow.Axis) {
+public fun CssDeclarationBlockBuilder.overflowX(value: Overflow.Axis) {
 	property(overflowX, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.overflowY(value: Overflow.Axis) {
+public fun CssDeclarationBlockBuilder.overflowY(value: Overflow.Axis) {
 	property(overflowY, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.overflow: CssProperty<Overflow>
+public val CssProperties.overflow: CssProperty<Overflow>
 	get() = CssProperty("overflow")
 
 
 @Suppress("unused")
-public inline val CssProperties.overflowX: CssProperty<Overflow.Axis>
+public val CssProperties.overflowX: CssProperty<Overflow.Axis>
 	get() = CssProperty("overflow-x")
 
 
 @Suppress("unused")
-public inline val CssProperties.overflowY: CssProperty<Overflow.Axis>
+public val CssProperties.overflowY: CssProperty<Overflow.Axis>
 	get() = CssProperty("overflow-y")

@@ -31,10 +31,10 @@ public interface OutlineWidth : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.outlineWidth(all: OutlineWidth) {
+public fun CssDeclarationBlockBuilder.outlineWidth(all: OutlineWidth) {
 	property(outlineWidth, all)
 }
 
 @Suppress("unused")
-public inline val CssProperties.outlineWidth: CssProperty<OutlineWidth>
+public val CssProperties.outlineWidth: CssProperty<OutlineWidth>
 	get() = CssProperty("outline-width")

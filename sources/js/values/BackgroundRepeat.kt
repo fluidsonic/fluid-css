@@ -10,11 +10,11 @@ public interface BackgroundRepeat : CssValue, Internal {
 	public companion object {
 
 		@CssDsl
-		public inline val noRepeat: BackgroundRepeat
+		public val noRepeat: BackgroundRepeat
 			get() = BackgroundRepeatAxis.noRepeat
 
 		@CssDsl
-		public inline val repeat: BackgroundRepeat
+		public val repeat: BackgroundRepeat
 			get() = BackgroundRepeatAxis.repeat
 
 		@CssDsl
@@ -24,11 +24,11 @@ public interface BackgroundRepeat : CssValue, Internal {
 		public val repeatY: BackgroundRepeat = raw("repeat-y")
 
 		@CssDsl
-		public inline val round: BackgroundRepeat
+		public val round: BackgroundRepeat
 			get() = BackgroundRepeatAxis.round
 
 		@CssDsl
-		public inline val space: BackgroundRepeat
+		public val space: BackgroundRepeat
 			get() = BackgroundRepeatAxis.space
 
 
@@ -40,7 +40,7 @@ public interface BackgroundRepeat : CssValue, Internal {
 			GenericVariable(name)
 
 
-		public inline fun with(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis): BackgroundRepeat =
+		public fun with(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis): BackgroundRepeat =
 			raw("$x $y")
 	}
 
@@ -50,17 +50,17 @@ public interface BackgroundRepeat : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundRepeat(value: BackgroundRepeat) {
+public fun CssDeclarationBlockBuilder.backgroundRepeat(value: BackgroundRepeat) {
 	property(backgroundRepeat, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundRepeat(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis) {
+public fun CssDeclarationBlockBuilder.backgroundRepeat(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis) {
 	backgroundRepeat(BackgroundRepeat.with(x, y))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundRepeat: CssProperty<BackgroundRepeat>
+public val CssProperties.backgroundRepeat: CssProperty<BackgroundRepeat>
 	get() = CssProperty("background-repeat")

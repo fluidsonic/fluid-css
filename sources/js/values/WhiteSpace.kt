@@ -40,11 +40,11 @@ public interface WhiteSpace : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.whiteSpace(value: WhiteSpace) {
+public fun CssDeclarationBlockBuilder.whiteSpace(value: WhiteSpace) {
 	property(whiteSpace, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.whiteSpace: CssProperty<WhiteSpace>
+public val CssProperties.whiteSpace: CssProperty<WhiteSpace>
 	get() = CssProperty("white-space")

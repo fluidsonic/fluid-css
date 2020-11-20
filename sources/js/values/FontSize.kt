@@ -46,11 +46,11 @@ public interface FontSize : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontSize(value: FontSize) {
+public fun CssDeclarationBlockBuilder.fontSize(value: FontSize) {
 	property(fontSize, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.fontSize: CssProperty<FontSize>
+public val CssProperties.fontSize: CssProperty<FontSize>
 	get() = CssProperty("font-size")

@@ -131,11 +131,11 @@ public interface Cursor : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.cursor(value: Cursor) {
+public fun CssDeclarationBlockBuilder.cursor(value: Cursor) {
 	property(cursor, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.cursor: CssProperty<Cursor>
+public val CssProperties.cursor: CssProperty<Cursor>
 	get() = CssProperty("cursor")

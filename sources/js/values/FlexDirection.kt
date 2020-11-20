@@ -34,11 +34,11 @@ public interface FlexDirection : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flexDirection(value: FlexDirection) {
+public fun CssDeclarationBlockBuilder.flexDirection(value: FlexDirection) {
 	property(flexDirection, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.flexDirection: CssProperty<FlexDirection>
+public val CssProperties.flexDirection: CssProperty<FlexDirection>
 	get() = CssProperty("flex-direction")

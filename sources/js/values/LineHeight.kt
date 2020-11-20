@@ -11,7 +11,7 @@ public interface LineHeight : CssValue.NumberConstructable, Internal {
 		public val normal: LineHeight = raw("normal")
 
 
-		public inline fun multiple(value: Number): LineHeight =
+		public fun multiple(value: Number): LineHeight =
 			raw(value.toString())
 
 
@@ -29,17 +29,17 @@ public interface LineHeight : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.lineHeight(value: LineHeight) {
+public fun CssDeclarationBlockBuilder.lineHeight(value: LineHeight) {
 	property(lineHeight, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.lineHeight(value: Number) {
+public fun CssDeclarationBlockBuilder.lineHeight(value: Number) {
 	property(lineHeight, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.lineHeight: CssProperty<LineHeight>
+public val CssProperties.lineHeight: CssProperty<LineHeight>
 	get() = CssProperty("line-height")

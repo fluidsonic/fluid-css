@@ -52,13 +52,13 @@ public interface TextDecoration : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textDecoration(value: TextDecoration) {
+public fun CssDeclarationBlockBuilder.textDecoration(value: TextDecoration) {
 	property(textDecoration, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textDecoration(
+public fun CssDeclarationBlockBuilder.textDecoration(
 	line: TextDecorationLine? = null,
 	style: TextDecorationStyle? = null,
 	color: Color? = null,
@@ -69,5 +69,5 @@ public inline fun CssDeclarationBlockBuilder.textDecoration(
 
 
 @Suppress("unused")
-public inline val CssProperties.textDecoration: CssProperty<TextDecoration>
+public val CssProperties.textDecoration: CssProperty<TextDecoration>
 	get() = CssProperty("text-decoration")

@@ -29,11 +29,11 @@ public interface TextDecorationThickness : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textDecorationThickness(value: TextDecorationThickness) {
+public fun CssDeclarationBlockBuilder.textDecorationThickness(value: TextDecorationThickness) {
 	property(textDecorationThickness, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.textDecorationThickness: CssProperty<TextDecorationThickness>
+public val CssProperties.textDecorationThickness: CssProperty<TextDecorationThickness>
 	get() = CssProperty("text-decoration-thickness")

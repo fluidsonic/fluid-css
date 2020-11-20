@@ -102,11 +102,11 @@ public interface AlignItems : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.alignItems(value: AlignItems) {
+public fun CssDeclarationBlockBuilder.alignItems(value: AlignItems) {
 	property(alignItems, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.alignItems: CssProperty<AlignItems>
+public val CssProperties.alignItems: CssProperty<AlignItems>
 	get() = CssProperty("align-items")

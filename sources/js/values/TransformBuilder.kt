@@ -38,11 +38,11 @@ public interface TransformBuilder {
 
 
 @CssDsl
-public inline fun TransformBuilder.matrix(a: Number, b: Number, c: Number, d: Number, tx: Number, ty: Number) {
+public fun TransformBuilder.matrix(a: Number, b: Number, c: Number, d: Number, tx: Number, ty: Number) {
 	add("matrix($a,$b,$c,$d,$tx,$ty)")
 }
 
-public inline fun TransformBuilder.matrix3d(
+public fun TransformBuilder.matrix3d(
 	a1: Number, b1: Number, c1: Number, d1: Number,
 	a2: Number, b2: Number, c2: Number, d2: Number,
 	a3: Number, b3: Number, c3: Number, d3: Number,
@@ -53,132 +53,132 @@ public inline fun TransformBuilder.matrix3d(
 
 
 @CssDsl
-public inline fun TransformBuilder.perspective(distance: Length) {
+public fun TransformBuilder.perspective(distance: Length) {
 	add("perspective($distance)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.rotate(xy: Angle) {
+public fun TransformBuilder.rotate(xy: Angle) {
 	add("rotate($xy)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.rotate3d(x: Number, y: Number, z: Number, angle: Angle) {
+public fun TransformBuilder.rotate3d(x: Number, y: Number, z: Number, angle: Angle) {
 	add("rotate3d($x,$y,$z,$angle)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.rotateX(x: Angle) {
+public fun TransformBuilder.rotateX(x: Angle) {
 	add("rotateX($x)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.rotateY(y: Angle) {
+public fun TransformBuilder.rotateY(y: Angle) {
 	add("rotateY($y)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.rotateZ(z: Angle) {
+public fun TransformBuilder.rotateZ(z: Angle) {
 	add("rotateZ($z)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.scale(xy: Number) {
+public fun TransformBuilder.scale(xy: Number) {
 	add("scale($xy)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.scale(x: Number, y: Number) {
+public fun TransformBuilder.scale(x: Number, y: Number) {
 	add("scale($x, $y)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.scale3d(x: Number, y: Number, z: Number) {
+public fun TransformBuilder.scale3d(x: Number, y: Number, z: Number) {
 	add("scale3d($x,$y,$z)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.scaleX(x: Number) {
+public fun TransformBuilder.scaleX(x: Number) {
 	add("scaleX($x)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.scaleY(y: Number) {
+public fun TransformBuilder.scaleY(y: Number) {
 	add("scaleY($y)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.scaleZ(z: Number) {
+public fun TransformBuilder.scaleZ(z: Number) {
 	add("scaleZ($z)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.skew(xy: Angle) {
+public fun TransformBuilder.skew(xy: Angle) {
 	add("skew($xy)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.skew(x: Angle, y: Angle) {
+public fun TransformBuilder.skew(x: Angle, y: Angle) {
 	add("skew($x, $y)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.skewX(x: Angle) {
+public fun TransformBuilder.skewX(x: Angle) {
 	add("skewX($x)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.skewY(y: Angle) {
+public fun TransformBuilder.skewY(y: Angle) {
 	add("skewY($y)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.translate(xy: LengthOrPercentage) {
+public fun TransformBuilder.translate(xy: LengthOrPercentage) {
 	add("translate($xy)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.translate(x: LengthOrPercentage, y: LengthOrPercentage) {
+public fun TransformBuilder.translate(x: LengthOrPercentage, y: LengthOrPercentage) {
 	add("translate($x, $y)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.translate3d(x: LengthOrPercentage, y: LengthOrPercentage, z: Length) {
+public fun TransformBuilder.translate3d(x: LengthOrPercentage, y: LengthOrPercentage, z: Length) {
 	add("translate3d($x,$y,$z)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.translateX(x: LengthOrPercentage) {
+public fun TransformBuilder.translateX(x: LengthOrPercentage) {
 	add("translateX($x)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.translateY(y: LengthOrPercentage) {
+public fun TransformBuilder.translateY(y: LengthOrPercentage) {
 	add("translateY($y)")
 }
 
 
 @CssDsl
-public inline fun TransformBuilder.translateZ(z: LengthOrPercentage) {
+public fun TransformBuilder.translateZ(z: LengthOrPercentage) {
 	add("translateZ($z)")
 }

@@ -33,11 +33,11 @@ public interface BackgroundOrigin : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundOrigin(value: BackgroundOrigin) {
+public fun CssDeclarationBlockBuilder.backgroundOrigin(value: BackgroundOrigin) {
 	property(backgroundOrigin, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundOrigin: CssProperty<BackgroundOrigin>
+public val CssProperties.backgroundOrigin: CssProperty<BackgroundOrigin>
 	get() = CssProperty("background-origin")

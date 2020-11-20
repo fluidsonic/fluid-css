@@ -23,70 +23,70 @@ public fun CssSelector(value: String): CssSelector =
 
 // FIXME refactor
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.active(noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+public fun CssDeclarationBlockBuilder.Hierarchical.active(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
 	"&:active"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.after(noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+public fun CssDeclarationBlockBuilder.Hierarchical.after(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
 	"&::after"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.before(noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+public fun CssDeclarationBlockBuilder.Hierarchical.before(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
 	"&::before"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.children(noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+public fun CssDeclarationBlockBuilder.Hierarchical.children(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
 	"& > *"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.children(
+public fun CssDeclarationBlockBuilder.Hierarchical.children(
 	selector: String,
-	noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit,
+	declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit,
 ) {
 	"& > $selector"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.focus(noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+public fun CssDeclarationBlockBuilder.Hierarchical.focus(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
 	"&:focus"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.hover(noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+public fun CssDeclarationBlockBuilder.Hierarchical.hover(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
 	"&:hover"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.nthChild(
+public fun CssDeclarationBlockBuilder.Hierarchical.nthChild(
 	index: Int,
-	noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit,
+	declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit,
 ) {
 	"&:nth-child($index)"(declarations)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.placeholder(noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+public fun CssDeclarationBlockBuilder.Hierarchical.placeholder(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
 	"&::placeholder"(declarations)
 }
 
 
 // FIXME test
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.Hierarchical.specific(
+public fun CssDeclarationBlockBuilder.Hierarchical.specific(
 	specificity: Int = 1,
-	noinline declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit,
+	declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit,
 ) {
 	"&".repeat(specificity + 1)(declarations)
 }

@@ -44,17 +44,17 @@ public interface Outline : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.outline(value: Outline) {
+public fun CssDeclarationBlockBuilder.outline(value: Outline) {
 	property(outline, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.outline(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null) {
+public fun CssDeclarationBlockBuilder.outline(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null) {
 	outline(Outline.with(color = color, style = style, width = width))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.outline: CssProperty<Outline>
+public val CssProperties.outline: CssProperty<Outline>
 	get() = CssProperty("outline")

@@ -39,7 +39,7 @@ public interface TransitionBuilder : CssProperties {
 
 
 @CssDsl
-public inline fun TransitionBuilder.add(
+public fun TransitionBuilder.add(
 	property: CssProperty<*>? = null,
 	duration: Time? = null,
 	timingFunction: TimingFunction? = null,

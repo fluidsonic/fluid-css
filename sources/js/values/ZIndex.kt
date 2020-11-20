@@ -11,7 +11,7 @@ public interface ZIndex : CssValue.IntConstructable, Internal {
 		public val auto: ZIndex = raw("auto")
 
 
-		public inline fun of(value: Int): ZIndex =
+		public fun of(value: Int): ZIndex =
 			raw(value.toString())
 
 
@@ -29,17 +29,17 @@ public interface ZIndex : CssValue.IntConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.zIndex(value: ZIndex) {
+public fun CssDeclarationBlockBuilder.zIndex(value: ZIndex) {
 	property(zIndex, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.zIndex(value: Int) {
+public fun CssDeclarationBlockBuilder.zIndex(value: Int) {
 	property(zIndex, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.zIndex: CssProperty<ZIndex>
+public val CssProperties.zIndex: CssProperty<ZIndex>
 	get() = CssProperty("z-index")

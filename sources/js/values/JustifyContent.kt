@@ -103,11 +103,11 @@ public interface JustifyContent : JustifyContentOrGlobal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.justifyContent(value: JustifyContent) {
+public fun CssDeclarationBlockBuilder.justifyContent(value: JustifyContent) {
 	property(justifyContent, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.justifyContent: CssProperty<JustifyContent>
+public val CssProperties.justifyContent: CssProperty<JustifyContent>
 	get() = CssProperty("justify-content")

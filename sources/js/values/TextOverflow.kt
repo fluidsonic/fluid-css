@@ -22,7 +22,7 @@ public interface TextOverflow : CssValue, Internal {
 			GenericVariable(name)
 
 
-		public inline fun with(left: Single, right: Single): TextOverflow =
+		public fun with(left: Single, right: Single): TextOverflow =
 			raw("$left $right")
 	}
 
@@ -35,17 +35,17 @@ public interface TextOverflow : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textOverflow(value: TextOverflow) {
+public fun CssDeclarationBlockBuilder.textOverflow(value: TextOverflow) {
 	property(textOverflow, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textOverflow(left: TextOverflow.Single, right: TextOverflow.Single) {
+public fun CssDeclarationBlockBuilder.textOverflow(left: TextOverflow.Single, right: TextOverflow.Single) {
 	textOverflow(TextOverflow.with(left = left, right = right))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.textOverflow: CssProperty<TextOverflow>
+public val CssProperties.textOverflow: CssProperty<TextOverflow>
 	get() = CssProperty("text-overflow")

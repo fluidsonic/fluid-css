@@ -71,31 +71,31 @@ public interface CssDeclarationBlockBuilder : CssProperties {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.property(property: String, value: Int) {
+public fun CssDeclarationBlockBuilder.property(property: String, value: Int) {
 	property(property, value.toString())
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.property(property: String, value: Number) {
+public fun CssDeclarationBlockBuilder.property(property: String, value: Number) {
 	property(property, value.toString())
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.property(property: String, value: CssValue) {
+public fun CssDeclarationBlockBuilder.property(property: String, value: CssValue) {
 	property(property, value.toString())
 }
 
 
 @CssDsl
-public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(property: CssProperty<in Value>, value: Value) {
+public fun <Value : CssValue> CssDeclarationBlockBuilder.property(property: CssProperty<in Value>, value: Value) {
 	property(property.name, value.toString())
 }
 
 
 @CssDsl
-public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
+public fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
 	property: CssProperty<Value>,
 	value: Int,
 ) {
@@ -104,7 +104,7 @@ public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder
 
 
 @CssDsl
-public inline fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
+public fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
 	property: CssProperty<Value>,
 	value: Number,
 ) {
@@ -113,7 +113,7 @@ public inline fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuil
 
 
 @CssDsl
-public inline fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
+public fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
 	property: CssProperty<Value>,
 	value: String,
 ) {
@@ -122,7 +122,7 @@ public inline fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuil
 
 
 @CssDsl
-public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
+public fun <Value : CssValue> CssDeclarationBlockBuilder.property(
 	variable: CssVariable<in Value>,
 	value: Value,
 ) {
@@ -131,7 +131,7 @@ public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
 
 
 @CssDsl
-public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
+public fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
 	variable: CssVariable<in Value>,
 	value: Int,
 ) {
@@ -140,7 +140,7 @@ public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder
 
 
 @CssDsl
-public inline fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
+public fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
 	variable: CssVariable<in Value>,
 	value: Number,
 ) {
@@ -149,7 +149,7 @@ public inline fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuil
 
 
 @CssDsl
-public inline fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
+public fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
 	variable: CssVariable<in Value>,
 	value: String,
 ) {

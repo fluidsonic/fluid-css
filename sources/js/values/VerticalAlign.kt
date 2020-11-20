@@ -46,11 +46,11 @@ public interface VerticalAlign : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.verticalAlign(value: VerticalAlign) {
+public fun CssDeclarationBlockBuilder.verticalAlign(value: VerticalAlign) {
 	property(verticalAlign, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.verticalAlign: CssProperty<VerticalAlign>
+public val CssProperties.verticalAlign: CssProperty<VerticalAlign>
 	get() = CssProperty("vertical-align")

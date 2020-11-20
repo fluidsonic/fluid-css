@@ -23,17 +23,17 @@ public interface FontFamily : CssValue.StringConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontFamily(value: FontFamily) {
+public fun CssDeclarationBlockBuilder.fontFamily(value: FontFamily) {
 	property(fontFamily, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontFamily(value: String) {
+public fun CssDeclarationBlockBuilder.fontFamily(value: String) {
 	property(fontFamily, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.fontFamily: CssProperty<FontFamily>
+public val CssProperties.fontFamily: CssProperty<FontFamily>
 	get() = CssProperty("font-family")

@@ -35,11 +35,11 @@ public interface Appearance : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.appearance(value: Appearance) {
+public fun CssDeclarationBlockBuilder.appearance(value: Appearance) {
 	property(appearance, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.appearance: CssProperty<Appearance>
+public val CssProperties.appearance: CssProperty<Appearance>
 	get() = CssProperty("appearance")

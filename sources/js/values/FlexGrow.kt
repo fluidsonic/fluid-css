@@ -7,7 +7,7 @@ public interface FlexGrow : CssValue.NumberConstructable, Internal {
 
 	public companion object {
 
-		public inline fun of(value: Number): FlexGrow =
+		public fun of(value: Number): FlexGrow =
 			raw(value.toString())
 
 
@@ -25,17 +25,17 @@ public interface FlexGrow : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flexGrow(value: FlexGrow) {
+public fun CssDeclarationBlockBuilder.flexGrow(value: FlexGrow) {
 	property(flexGrow, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flexGrow(value: Number) {
+public fun CssDeclarationBlockBuilder.flexGrow(value: Number) {
 	property(flexGrow, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.flexGrow: CssProperty<FlexGrow>
+public val CssProperties.flexGrow: CssProperty<FlexGrow>
 	get() = CssProperty("flex-grow")

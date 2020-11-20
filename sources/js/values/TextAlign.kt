@@ -43,11 +43,11 @@ public interface TextAlign : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textAlign(value: TextAlign) {
+public fun CssDeclarationBlockBuilder.textAlign(value: TextAlign) {
 	property(textAlign, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.textAlign: CssProperty<TextAlign>
+public val CssProperties.textAlign: CssProperty<TextAlign>
 	get() = CssProperty("text-align")

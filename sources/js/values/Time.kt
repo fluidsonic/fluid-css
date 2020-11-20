@@ -11,7 +11,7 @@ public interface Time : CssValue, Internal {
 		public val zero: Time = numeric(0, "")
 
 
-		public inline fun calc(value: String): Time =
+		public fun calc(value: String): Time =
 			raw("calc($value)")
 
 
@@ -86,25 +86,25 @@ public operator fun Time.plus(other: Time): Time =
 
 
 @CssDsl
-public inline operator fun Time.unaryPlus(): Time =
+public operator fun Time.unaryPlus(): Time =
 	this
 
 
 @CssDsl
-public inline operator fun Time.unaryMinus(): Time =
+public operator fun Time.unaryMinus(): Time =
 	this * -1
 
 
 @CssDsl
-public inline operator fun Number.times(other: Time): Time =
+public operator fun Number.times(other: Time): Time =
 	other * this
 
 
 @CssDsl
-public inline val Number.s: Time
+public val Number.s: Time
 	get() = Time.numeric(this, "s")
 
 
 @CssDsl
-public inline val Number.ms: Time
+public val Number.ms: Time
 	get() = Time.numeric(this, "ms")

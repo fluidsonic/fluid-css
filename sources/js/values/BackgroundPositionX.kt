@@ -44,17 +44,17 @@ public interface BackgroundPositionX : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundPositionX(value: BackgroundPositionX) {
+public fun CssDeclarationBlockBuilder.backgroundPositionX(value: BackgroundPositionX) {
 	property(backgroundPositionX, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundPositionX(align: BackgroundPositionX.Align, offset: LengthOrPercentage) {
+public fun CssDeclarationBlockBuilder.backgroundPositionX(align: BackgroundPositionX.Align, offset: LengthOrPercentage) {
 	backgroundPositionX(BackgroundPositionX.with(align = align, offset = offset))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundPositionX: CssProperty<BackgroundPositionX>
+public val CssProperties.backgroundPositionX: CssProperty<BackgroundPositionX>
 	get() = CssProperty("background-position-x")

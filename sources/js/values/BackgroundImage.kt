@@ -27,11 +27,11 @@ public interface BackgroundImage : Background, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundImage(value: BackgroundImage) {
+public fun CssDeclarationBlockBuilder.backgroundImage(value: BackgroundImage) {
 	property(backgroundImage, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundImage: CssProperty<BackgroundImage>
+public val CssProperties.backgroundImage: CssProperty<BackgroundImage>
 	get() = CssProperty("background-image")

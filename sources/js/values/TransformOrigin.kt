@@ -7,25 +7,25 @@ public interface TransformOrigin : CssValue, Internal {
 
 	public companion object {
 
-		public inline fun of(
+		public fun of(
 			xy: LengthOrPercentage,
 		): TransformOrigin =
 			raw(xy.toString())
 
 
-		public inline fun of(
+		public fun of(
 			x: TransformOriginX,
 		): TransformOrigin =
 			raw(x.toString())
 
 
-		public inline fun of(
+		public fun of(
 			y: TransformOriginY,
 		): TransformOrigin =
 			raw("50% $y")
 
 
-		public inline fun of(
+		public fun of(
 			x: TransformOriginX = 50.percent,
 			y: TransformOriginY = 50.percent,
 			z: Length = Length.zero,
@@ -47,31 +47,31 @@ public interface TransformOrigin : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transformOrigin(value: TransformOrigin) {
+public fun CssDeclarationBlockBuilder.transformOrigin(value: TransformOrigin) {
 	property(transformOrigin, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transformOrigin(xy: LengthOrPercentage) {
+public fun CssDeclarationBlockBuilder.transformOrigin(xy: LengthOrPercentage) {
 	transformOrigin(TransformOrigin.of(xy = xy))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transformOrigin(x: TransformOriginX) {
+public fun CssDeclarationBlockBuilder.transformOrigin(x: TransformOriginX) {
 	transformOrigin(TransformOrigin.of(x = x))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transformOrigin(y: TransformOriginY) {
+public fun CssDeclarationBlockBuilder.transformOrigin(y: TransformOriginY) {
 	transformOrigin(TransformOrigin.of(y = y))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transformOrigin(
+public fun CssDeclarationBlockBuilder.transformOrigin(
 	x: TransformOriginX = 50.percent,
 	y: TransformOriginY = 50.percent,
 	z: Length = Length.zero,
@@ -81,5 +81,5 @@ public inline fun CssDeclarationBlockBuilder.transformOrigin(
 
 
 @Suppress("unused")
-public inline val CssProperties.transformOrigin: CssProperty<TransformOrigin>
+public val CssProperties.transformOrigin: CssProperty<TransformOrigin>
 	get() = CssProperty("transform-origin")

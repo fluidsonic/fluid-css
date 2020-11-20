@@ -14,7 +14,7 @@ public interface Transition : CssValue, Internal {
 		public val none: Transition = raw("none")
 
 
-		public inline fun build(values: TransitionBuilder.() -> Unit): Transition =
+		public fun build(values: TransitionBuilder.() -> Unit): Transition =
 			with(TransitionBuilder.default().apply(values)) { Unit.build() }
 
 
@@ -71,25 +71,25 @@ public interface Transition : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transition(value: Transition) {
+public fun CssDeclarationBlockBuilder.transition(value: Transition) {
 	property(transition, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transition(value: Transition.Single) {
+public fun CssDeclarationBlockBuilder.transition(value: Transition.Single) {
 	property(transition, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transition(vararg values: Transition.Single) {
+public fun CssDeclarationBlockBuilder.transition(vararg values: Transition.Single) {
 	transition(Transition.combine(*values))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transition(
+public fun CssDeclarationBlockBuilder.transition(
 	property: CssProperty<*>? = null,
 	duration: Time? = null,
 	timingFunction: TimingFunction? = null,
@@ -105,11 +105,11 @@ public inline fun CssDeclarationBlockBuilder.transition(
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transition(values: TransitionBuilder.() -> Unit) {
+public fun CssDeclarationBlockBuilder.transition(values: TransitionBuilder.() -> Unit) {
 	transition(Transition.build(values))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.transition: CssProperty<Transition>
+public val CssProperties.transition: CssProperty<Transition>
 	get() = CssProperty("transition")

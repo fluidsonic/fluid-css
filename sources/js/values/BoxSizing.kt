@@ -28,11 +28,11 @@ public interface BoxSizing : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.boxSizing(value: BoxSizing) {
+public fun CssDeclarationBlockBuilder.boxSizing(value: BoxSizing) {
 	property(boxSizing, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.boxSizing: CssProperty<BoxSizing>
+public val CssProperties.boxSizing: CssProperty<BoxSizing>
 	get() = CssProperty("box-sizing")

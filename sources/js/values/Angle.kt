@@ -11,7 +11,7 @@ public interface Angle : CssValue, Internal {
 		public val zero: Angle = numeric(0, "")
 
 
-		public inline fun calc(value: String): Angle =
+		public fun calc(value: String): Angle =
 			raw("calc($value)")
 
 
@@ -36,9 +36,9 @@ public interface Angle : CssValue, Internal {
 
 
 	private class NumericDefault(
-        override val unit: String,
-        override val value: Double,
-    ) : GenericValue("$value$unit"), Numeric
+		override val unit: String,
+		override val value: Double,
+	) : GenericValue("$value$unit"), Numeric
 
 
 	public interface Variable : Angle, CssVariable<Angle>
@@ -50,7 +50,7 @@ public operator fun Angle.div(other: Number): Angle =
 	when {
 		other == 1.0 -> this
 		this is Angle.Numeric -> when (value) {
-            0.0 -> this
+			0.0 -> this
 			else -> Angle.numeric(value / other.toDouble(), unit)
 		}
 		else -> Angle.calc("($this) / $other")
@@ -70,7 +70,7 @@ public operator fun Angle.times(other: Number): Angle =
 	when {
 		other == 1.0 -> this
 		this is Angle.Numeric -> when (value) {
-            0.0 -> this
+			0.0 -> this
 			else -> Angle.numeric(value * other.toDouble(), unit)
 		}
 		else -> Angle.calc("($this) * $other")
@@ -86,35 +86,35 @@ public operator fun Angle.plus(other: Angle): Angle =
 
 
 @CssDsl
-public inline operator fun Angle.unaryPlus(): Angle =
+public operator fun Angle.unaryPlus(): Angle =
 	this
 
 
 @CssDsl
-public inline operator fun Angle.unaryMinus(): Angle =
+public operator fun Angle.unaryMinus(): Angle =
 	this * -1
 
 
 @CssDsl
-public inline operator fun Number.times(other: Angle): Angle =
+public operator fun Number.times(other: Angle): Angle =
 	other * this
 
 
 @CssDsl
-public inline val Number.deg: Angle
+public val Number.deg: Angle
 	get() = Angle.numeric(this, "deg")
 
 
 @CssDsl
-public inline val Number.grad: Angle
+public val Number.grad: Angle
 	get() = Angle.numeric(this, "grad")
 
 
 @CssDsl
-public inline val Number.rad: Angle
+public val Number.rad: Angle
 	get() = Angle.numeric(this, "rad")
 
 
 @CssDsl
-public inline val Number.turn: Angle
+public val Number.turn: Angle
 	get() = Angle.numeric(this, "turn")

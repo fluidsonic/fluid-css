@@ -58,13 +58,13 @@ public interface FontVariantNumeric : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(value: FontVariantNumeric) {
+public fun CssDeclarationBlockBuilder.fontVariantNumeric(value: FontVariantNumeric) {
 	property(fontVariantNumeric, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(
+public fun CssDeclarationBlockBuilder.fontVariantNumeric(
 	figure: FontVariantNumericFigure? = null,
 	spacing: FontVariantNumericSpacing? = null,
 	fraction: FontVariantNumericFraction? = null,
@@ -82,5 +82,5 @@ public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(
 
 
 @Suppress("unused")
-public inline val CssProperties.fontVariantNumeric: CssProperty<FontVariantNumeric>
+public val CssProperties.fontVariantNumeric: CssProperty<FontVariantNumeric>
 	get() = CssProperty("font-variant-numeric")

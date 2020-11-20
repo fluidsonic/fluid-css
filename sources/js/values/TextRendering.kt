@@ -34,11 +34,11 @@ public interface TextRendering : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textRendering(value: TextRendering) {
+public fun CssDeclarationBlockBuilder.textRendering(value: TextRendering) {
 	property(textRendering, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.textRendering: CssProperty<TextRendering>
+public val CssProperties.textRendering: CssProperty<TextRendering>
 	get() = CssProperty("text-rendering")

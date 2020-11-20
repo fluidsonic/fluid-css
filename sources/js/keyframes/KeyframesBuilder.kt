@@ -49,12 +49,12 @@ public interface KeyframesBuilder {
 
 
 @CssDsl
-public inline fun KeyframesBuilder.from(noinline style: CssDeclarationBlockBuilder.() -> Unit) {
+public fun KeyframesBuilder.from(style: CssDeclarationBlockBuilder.() -> Unit) {
 	frame(key = "from", style)
 }
 
 
 @CssDsl
-public inline fun KeyframesBuilder.to(noinline style: CssDeclarationBlockBuilder.() -> Unit) {
+public fun KeyframesBuilder.to(style: CssDeclarationBlockBuilder.() -> Unit) {
 	frame(key = "to", style)
 }

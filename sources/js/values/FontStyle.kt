@@ -36,11 +36,11 @@ public interface FontStyle : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.fontStyle(value: FontStyle) {
+public fun CssDeclarationBlockBuilder.fontStyle(value: FontStyle) {
 	property(fontStyle, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.fontStyle: CssProperty<FontStyle>
+public val CssProperties.fontStyle: CssProperty<FontStyle>
 	get() = CssProperty("font-style")

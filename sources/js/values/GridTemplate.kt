@@ -23,11 +23,11 @@ public interface GridTemplate : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.gridTemplate(value: GridTemplate) {
+public fun CssDeclarationBlockBuilder.gridTemplate(value: GridTemplate) {
 	property(gridTemplate, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.gridTemplate: CssProperty<GridTemplate>
+public val CssProperties.gridTemplate: CssProperty<GridTemplate>
 	get() = CssProperty("grid-template")

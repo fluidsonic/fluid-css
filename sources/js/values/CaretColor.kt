@@ -25,11 +25,11 @@ public interface CaretColor : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.caretColor(all: CaretColor) {
+public fun CssDeclarationBlockBuilder.caretColor(all: CaretColor) {
 	property(caretColor, all)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.caretColor: CssProperty<CaretColor>
+public val CssProperties.caretColor: CssProperty<CaretColor>
 	get() = CssProperty("caret-color")

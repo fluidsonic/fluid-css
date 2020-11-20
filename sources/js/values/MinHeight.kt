@@ -4,11 +4,11 @@ import io.fluidsonic.css.*
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.minHeight(value: SizeLimit) {
+public fun CssDeclarationBlockBuilder.minHeight(value: SizeLimit) {
 	property(minHeight, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.minHeight: CssProperty<SizeLimit>
+public val CssProperties.minHeight: CssProperty<SizeLimit>
 	get() = CssProperty("min-height")

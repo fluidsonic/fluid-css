@@ -11,25 +11,25 @@ public interface Margin : CssValue, Internal {
 		public val auto: Single = GenericValue("auto")
 
 
-		public inline fun all(value: Single): Margin =
+		public fun all(value: Single): Margin =
 			value
 
 
-		public inline fun of(vertical: Single, horizontal: Single): Margin =
+		public fun of(vertical: Single, horizontal: Single): Margin =
 			if (vertical == horizontal)
 				all(vertical)
 			else
 				raw("$vertical $horizontal")
 
 
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): Margin =
+		public fun of(top: Single, horizontal: Single, bottom: Single): Margin =
 			if (top == bottom)
 				of(vertical = top, horizontal = horizontal)
 			else
 				raw("$top $horizontal $bottom")
 
 
-		public inline fun of(
+		public fun of(
 			top: Single,
 			right: Single,
 			bottom: Single,
@@ -58,25 +58,25 @@ public interface Margin : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.margin(all: Margin) {
+public fun CssDeclarationBlockBuilder.margin(all: Margin) {
 	property(margin, all)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.margin(vertical: Margin.Single, horizontal: Margin.Single) {
+public fun CssDeclarationBlockBuilder.margin(vertical: Margin.Single, horizontal: Margin.Single) {
 	margin(Margin.of(vertical = vertical, horizontal = horizontal))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.margin(top: Margin.Single, horizontal: Margin.Single, bottom: Margin.Single) {
+public fun CssDeclarationBlockBuilder.margin(top: Margin.Single, horizontal: Margin.Single, bottom: Margin.Single) {
 	margin(Margin.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.margin(
+public fun CssDeclarationBlockBuilder.margin(
 	top: Margin.Single,
 	right: Margin.Single,
 	bottom: Margin.Single,
@@ -89,7 +89,7 @@ public inline fun CssDeclarationBlockBuilder.margin(
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public inline fun CssDeclarationBlockBuilder.margin(
+public fun CssDeclarationBlockBuilder.margin(
 	all: Margin.Single? = null,
 	vertical: Margin.Single? = all,
 	horizontal: Margin.Single? = all,
@@ -114,49 +114,49 @@ public inline fun CssDeclarationBlockBuilder.margin(
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.marginBottom(value: Margin.Single) {
+public fun CssDeclarationBlockBuilder.marginBottom(value: Margin.Single) {
 	property(marginBottom, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.marginLeft(value: Margin.Single) {
+public fun CssDeclarationBlockBuilder.marginLeft(value: Margin.Single) {
 	property(marginLeft, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.marginRight(value: Margin.Single) {
+public fun CssDeclarationBlockBuilder.marginRight(value: Margin.Single) {
 	property(marginRight, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.marginTop(value: Margin.Single) {
+public fun CssDeclarationBlockBuilder.marginTop(value: Margin.Single) {
 	property(marginTop, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.margin: CssProperty<Margin>
+public val CssProperties.margin: CssProperty<Margin>
 	get() = CssProperty("margin")
 
 
 @Suppress("unused")
-public inline val CssProperties.marginBottom: CssProperty<Margin.Single>
+public val CssProperties.marginBottom: CssProperty<Margin.Single>
 	get() = CssProperty("margin-bottom")
 
 
 @Suppress("unused")
-public inline val CssProperties.marginLeft: CssProperty<Margin.Single>
+public val CssProperties.marginLeft: CssProperty<Margin.Single>
 	get() = CssProperty("margin-left")
 
 
 @Suppress("unused")
-public inline val CssProperties.marginRight: CssProperty<Margin.Single>
+public val CssProperties.marginRight: CssProperty<Margin.Single>
 	get() = CssProperty("margin-right")
 
 
 @Suppress("unused")
-public inline val CssProperties.marginTop: CssProperty<Margin.Single>
+public val CssProperties.marginTop: CssProperty<Margin.Single>
 	get() = CssProperty("margin-top")

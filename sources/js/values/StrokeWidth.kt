@@ -21,11 +21,11 @@ public interface StrokeWidth : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.strokeWidth(value: StrokeWidth) {
+public fun CssDeclarationBlockBuilder.strokeWidth(value: StrokeWidth) {
 	property(strokeWidth, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.strokeWidth: CssProperty<StrokeWidth>
+public val CssProperties.strokeWidth: CssProperty<StrokeWidth>
 	get() = CssProperty("stroke-width")

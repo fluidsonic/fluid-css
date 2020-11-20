@@ -11,7 +11,7 @@ public interface BoxShadow : CssValue, Internal {
 		public val none: BoxShadow = raw("none")
 
 
-		public inline fun build(values: BoxShadowBuilder.() -> Unit): BoxShadow =
+		public fun build(values: BoxShadowBuilder.() -> Unit): BoxShadow =
 			with(BoxShadowBuilder.default().apply(values)) { Unit.build() }
 
 
@@ -72,25 +72,25 @@ public interface BoxShadow : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadow) {
+public fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadow) {
 	property(boxShadow, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadow.Single) {
+public fun CssDeclarationBlockBuilder.boxShadow(value: BoxShadow.Single) {
 	property(boxShadow, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.boxShadow(vararg values: BoxShadow.Single) {
+public fun CssDeclarationBlockBuilder.boxShadow(vararg values: BoxShadow.Single) {
 	boxShadow(BoxShadow.combine(*values))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.boxShadow(
+public fun CssDeclarationBlockBuilder.boxShadow(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
 	blurRadius: Length? = null,
@@ -109,7 +109,7 @@ public inline fun CssDeclarationBlockBuilder.boxShadow(
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.boxShadowInset(
+public fun CssDeclarationBlockBuilder.boxShadowInset(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
 	blurRadius: Length? = null,
@@ -128,11 +128,11 @@ public inline fun CssDeclarationBlockBuilder.boxShadowInset(
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.boxShadow(values: BoxShadowBuilder.() -> Unit) {
+public fun CssDeclarationBlockBuilder.boxShadow(values: BoxShadowBuilder.() -> Unit) {
 	boxShadow(BoxShadow.build(values))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.boxShadow: CssProperty<BoxShadow>
+public val CssProperties.boxShadow: CssProperty<BoxShadow>
 	get() = CssProperty("box-shadow")

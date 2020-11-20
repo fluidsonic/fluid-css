@@ -25,44 +25,44 @@ public interface BoxOffset : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.bottom(value: BoxOffset) {
+public fun CssDeclarationBlockBuilder.bottom(value: BoxOffset) {
 	property(bottom, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.left(value: BoxOffset) {
+public fun CssDeclarationBlockBuilder.left(value: BoxOffset) {
 	property(left, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.right(value: BoxOffset) {
+public fun CssDeclarationBlockBuilder.right(value: BoxOffset) {
 	property(right, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.top(value: BoxOffset) {
+public fun CssDeclarationBlockBuilder.top(value: BoxOffset) {
 	property(top, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.bottom: CssProperty<BoxOffset>
+public val CssProperties.bottom: CssProperty<BoxOffset>
 	get() = CssProperty("bottom")
 
 
 @Suppress("unused")
-public inline val CssProperties.left: CssProperty<BoxOffset>
+public val CssProperties.left: CssProperty<BoxOffset>
 	get() = CssProperty("left")
 
 
 @Suppress("unused")
-public inline val CssProperties.right: CssProperty<BoxOffset>
+public val CssProperties.right: CssProperty<BoxOffset>
 	get() = CssProperty("right")
 
 
 @Suppress("unused")
-public inline val CssProperties.top: CssProperty<BoxOffset>
+public val CssProperties.top: CssProperty<BoxOffset>
 	get() = CssProperty("top")

@@ -11,7 +11,7 @@ public interface AnimationIterationCount : CssValue.NumberConstructable, Interna
 		public val infinite: AnimationIterationCount = raw("infinite")
 
 
-		public inline fun of(value: Number): AnimationIterationCount =
+		public fun of(value: Number): AnimationIterationCount =
 			raw(value.toString())
 
 
@@ -29,17 +29,17 @@ public interface AnimationIterationCount : CssValue.NumberConstructable, Interna
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.animationIterationCount(value: AnimationIterationCount) {
+public fun CssDeclarationBlockBuilder.animationIterationCount(value: AnimationIterationCount) {
 	property(animationIterationCount, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.animationIterationCount(value: Number) {
+public fun CssDeclarationBlockBuilder.animationIterationCount(value: Number) {
 	property(animationIterationCount, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.animationIterationCount: CssProperty<AnimationIterationCount>
+public val CssProperties.animationIterationCount: CssProperty<AnimationIterationCount>
 	get() = CssProperty("animation-iteration-count")

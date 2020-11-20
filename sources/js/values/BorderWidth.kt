@@ -17,25 +17,25 @@ public interface BorderWidth : CssValue, Internal {
 		public val thick: Single = GenericValue("thick")
 
 
-		public inline fun all(value: Single): BorderWidth =
+		public fun all(value: Single): BorderWidth =
 			value
 
 
-		public inline fun of(vertical: Single, horizontal: Single): BorderWidth =
+		public fun of(vertical: Single, horizontal: Single): BorderWidth =
 			if (vertical == horizontal)
 				all(vertical)
 			else
 				raw("$vertical $horizontal")
 
 
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderWidth =
+		public fun of(top: Single, horizontal: Single, bottom: Single): BorderWidth =
 			if (top == bottom)
 				of(vertical = top, horizontal = horizontal)
 			else
 				raw("$top $horizontal $bottom")
 
 
-		public inline fun of(
+		public fun of(
 			top: Single,
 			right: Single,
 			bottom: Single,
@@ -64,25 +64,25 @@ public interface BorderWidth : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderWidth(all: BorderWidth) {
+public fun CssDeclarationBlockBuilder.borderWidth(all: BorderWidth) {
 	property(borderWidth, all)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderWidth(vertical: BorderWidth.Single, horizontal: BorderWidth.Single) {
+public fun CssDeclarationBlockBuilder.borderWidth(vertical: BorderWidth.Single, horizontal: BorderWidth.Single) {
 	borderWidth(BorderWidth.of(vertical = vertical, horizontal = horizontal))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderWidth(top: BorderWidth.Single, horizontal: BorderWidth.Single, bottom: BorderWidth.Single) {
+public fun CssDeclarationBlockBuilder.borderWidth(top: BorderWidth.Single, horizontal: BorderWidth.Single, bottom: BorderWidth.Single) {
 	borderWidth(BorderWidth.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderWidth(
+public fun CssDeclarationBlockBuilder.borderWidth(
 	top: BorderWidth.Single,
 	right: BorderWidth.Single,
 	bottom: BorderWidth.Single,
@@ -95,7 +95,7 @@ public inline fun CssDeclarationBlockBuilder.borderWidth(
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public inline fun CssDeclarationBlockBuilder.borderWidth(
+public fun CssDeclarationBlockBuilder.borderWidth(
 	all: BorderWidth.Single? = null,
 	vertical: BorderWidth.Single? = all,
 	horizontal: BorderWidth.Single? = all,
@@ -120,49 +120,49 @@ public inline fun CssDeclarationBlockBuilder.borderWidth(
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderBottomWidth(value: BorderWidth.Single) {
+public fun CssDeclarationBlockBuilder.borderBottomWidth(value: BorderWidth.Single) {
 	property(borderBottomWidth, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderLeftWidth(value: BorderWidth.Single) {
+public fun CssDeclarationBlockBuilder.borderLeftWidth(value: BorderWidth.Single) {
 	property(borderLeftWidth, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderRightWidth(value: BorderWidth.Single) {
+public fun CssDeclarationBlockBuilder.borderRightWidth(value: BorderWidth.Single) {
 	property(borderRightWidth, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderTopWidth(value: BorderWidth.Single) {
+public fun CssDeclarationBlockBuilder.borderTopWidth(value: BorderWidth.Single) {
 	property(borderTopWidth, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.borderWidth: CssProperty<BorderWidth>
+public val CssProperties.borderWidth: CssProperty<BorderWidth>
 	get() = CssProperty("border-width")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderBottomWidth: CssProperty<BorderWidth.Single>
+public val CssProperties.borderBottomWidth: CssProperty<BorderWidth.Single>
 	get() = CssProperty("border-bottom-width")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderLeftWidth: CssProperty<BorderWidth.Single>
+public val CssProperties.borderLeftWidth: CssProperty<BorderWidth.Single>
 	get() = CssProperty("border-left-width")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderRightWidth: CssProperty<BorderWidth.Single>
+public val CssProperties.borderRightWidth: CssProperty<BorderWidth.Single>
 	get() = CssProperty("border-right-width")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderTopWidth: CssProperty<BorderWidth.Single>
+public val CssProperties.borderTopWidth: CssProperty<BorderWidth.Single>
 	get() = CssProperty("border-top-width")

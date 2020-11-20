@@ -7,7 +7,7 @@ public interface Opacity : CssValue.NumberConstructable, Internal {
 
 	public companion object {
 
-		public inline fun of(value: Number): Opacity =
+		public fun of(value: Number): Opacity =
 			raw(value.toString())
 
 
@@ -25,17 +25,17 @@ public interface Opacity : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.opacity(value: Opacity) {
+public fun CssDeclarationBlockBuilder.opacity(value: Opacity) {
 	property(opacity, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.opacity(value: Number) {
+public fun CssDeclarationBlockBuilder.opacity(value: Number) {
 	property(opacity, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.opacity: CssProperty<Opacity>
+public val CssProperties.opacity: CssProperty<Opacity>
 	get() = CssProperty("opacity")

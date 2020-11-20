@@ -4,11 +4,11 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transitionTimingFunction(value: TimingFunction) {
+public fun CssDeclarationBlockBuilder.transitionTimingFunction(value: TimingFunction) {
 	property(transitionTimingFunction, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.transitionTimingFunction: CssProperty<TimingFunction>
+public val CssProperties.transitionTimingFunction: CssProperty<TimingFunction>
 	get() = CssProperty("transition-timing-function")

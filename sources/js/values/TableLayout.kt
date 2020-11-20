@@ -29,11 +29,11 @@ public interface TableLayout : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.tableLayout(value: TableLayout) {
+public fun CssDeclarationBlockBuilder.tableLayout(value: TableLayout) {
 	property(tableLayout, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.tableLayout: CssProperty<TableLayout>
+public val CssProperties.tableLayout: CssProperty<TableLayout>
 	get() = CssProperty("table-layout")

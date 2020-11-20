@@ -37,12 +37,12 @@ public interface Position : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.position(value: Position) {
+public fun CssDeclarationBlockBuilder.position(value: Position) {
 	property(position, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.position: CssProperty<Position>
+public val CssProperties.position: CssProperty<Position>
 	get() = CssProperty("position")
 

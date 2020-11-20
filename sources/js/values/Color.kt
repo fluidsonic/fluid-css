@@ -573,13 +573,13 @@ public interface Color :
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.color(value: Color) {
+public fun CssDeclarationBlockBuilder.color(value: Color) {
 	property(color, value)
 }
 
 
 private fun hslToString(hue: Number, saturation: Percentage, lightness: Percentage, alpha: Number) = buildString {
-	val alpha = alpha.toDouble().coerceIn(0.0 .. 1.0)
+	val alpha = alpha.toDouble().coerceIn(0.0, 1.0)
 
 	if (alpha < 1) append("hsla(")
 	else append("hsl(")
@@ -600,7 +600,7 @@ private fun hslToString(hue: Number, saturation: Percentage, lightness: Percenta
 
 
 private fun rgbToString(red: Int, green: Int, blue: Int, alpha: Number) = buildString {
-	val alpha = alpha.toDouble().coerceIn(0.0 .. 1.0)
+	val alpha = alpha.toDouble().coerceIn(0.0, 1.0)
 
 	if (alpha < 1) append("rgba(")
 	else append("rgb(")
@@ -621,12 +621,12 @@ private fun rgbToString(red: Int, green: Int, blue: Int, alpha: Number) = buildS
 
 
 @CssDsl
-public inline val Int.rgb: Color.Rgb
+public val Int.rgb: Color.Rgb
 	get() = rgb(alpha = 1)
 
 
 @CssDsl
-public inline fun Int.rgb(alpha: Number): Color.Rgb =
+public fun Int.rgb(alpha: Number): Color.Rgb =
 	Color.rgb(
 		red = (this shr 16) and 0xFF,
 		green = (this shr 8) and 0xFF,
@@ -636,12 +636,12 @@ public inline fun Int.rgb(alpha: Number): Color.Rgb =
 
 
 @CssDsl
-public inline val Int.rgba: Color.Rgb
+public val Int.rgba: Color.Rgb
 	get() = toLong().rgba
 
 
 @CssDsl
-public inline val Long.rgba: Color.Rgb
+public val Long.rgba: Color.Rgb
 	get() = Color.rgb(
 		red = ((this shr 24) and 0xFF).toInt(),
 		green = ((this shr 16) and 0xFF).toInt(),
@@ -651,5 +651,5 @@ public inline val Long.rgba: Color.Rgb
 
 
 @Suppress("unused")
-public inline val CssProperties.color: CssProperty<Color>
+public val CssProperties.color: CssProperty<Color>
 	get() = CssProperty("color")

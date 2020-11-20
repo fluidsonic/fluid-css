@@ -33,11 +33,11 @@ public interface BackgroundSize : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundSize(value: BackgroundSize) {
+public fun CssDeclarationBlockBuilder.backgroundSize(value: BackgroundSize) {
 	property(backgroundSize, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundSize: CssProperty<BackgroundSize>
+public val CssProperties.backgroundSize: CssProperty<BackgroundSize>
 	get() = CssProperty("background-size")

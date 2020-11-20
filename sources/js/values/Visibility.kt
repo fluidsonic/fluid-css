@@ -31,11 +31,11 @@ public interface Visibility : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.visibility(value: Visibility) {
+public fun CssDeclarationBlockBuilder.visibility(value: Visibility) {
 	property(visibility, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.visibility: CssProperty<Visibility>
+public val CssProperties.visibility: CssProperty<Visibility>
 	get() = CssProperty("visibility")

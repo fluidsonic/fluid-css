@@ -28,11 +28,11 @@ public interface BorderCollapse : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderCollapse(value: BorderCollapse) {
+public fun CssDeclarationBlockBuilder.borderCollapse(value: BorderCollapse) {
 	property(borderCollapse, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.borderCollapse: CssProperty<BorderCollapse>
+public val CssProperties.borderCollapse: CssProperty<BorderCollapse>
 	get() = CssProperty("border-collapse")

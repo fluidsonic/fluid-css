@@ -38,11 +38,11 @@ public interface UserSelect : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.userSelect(value: UserSelect) {
+public fun CssDeclarationBlockBuilder.userSelect(value: UserSelect) {
 	property(userSelect, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.userSelect: CssProperty<UserSelect>
+public val CssProperties.userSelect: CssProperty<UserSelect>
 	get() = CssProperty("user-select")

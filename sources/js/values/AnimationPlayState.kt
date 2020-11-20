@@ -30,11 +30,11 @@ public interface AnimationPlayState : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.animationPlayState(value: AnimationPlayState) {
+public fun CssDeclarationBlockBuilder.animationPlayState(value: AnimationPlayState) {
 	property(animationPlayState, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.animationPlayState: CssProperty<AnimationPlayState>
+public val CssProperties.animationPlayState: CssProperty<AnimationPlayState>
 	get() = CssProperty("animation-play-state")

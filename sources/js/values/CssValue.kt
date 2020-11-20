@@ -26,7 +26,7 @@ public interface CssValue {
 			GenericValue(value)
 
 
-		public inline fun raw(value: String): CssValue =
+		public fun raw(value: String): CssValue =
 			global(value)
 	}
 

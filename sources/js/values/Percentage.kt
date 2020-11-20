@@ -11,11 +11,11 @@ public interface Percentage :
 
 	public companion object {
 
-		public inline fun calc(value: String): Percentage =
+		public fun calc(value: String): Percentage =
 			raw("calc($value)")
 
 
-		public inline fun of(value: Number): Percentage =
+		public fun of(value: Number): Percentage =
 			NumericPercentage.of(value)
 
 
@@ -91,17 +91,17 @@ public operator fun Percentage.plus(other: Percentage): Percentage =
 
 
 @CssDsl
-public inline operator fun Percentage.unaryPlus(): Percentage =
+public operator fun Percentage.unaryPlus(): Percentage =
 	this
 
 
 @CssDsl
-public inline operator fun Percentage.unaryMinus(): Percentage =
+public operator fun Percentage.unaryMinus(): Percentage =
 	this * -1
 
 
 @CssDsl
-public inline operator fun Number.times(other: Percentage): Percentage =
+public operator fun Number.times(other: Percentage): Percentage =
 	other * this
 
 

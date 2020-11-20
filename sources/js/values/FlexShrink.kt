@@ -7,7 +7,7 @@ public interface FlexShrink : CssValue.NumberConstructable, Internal {
 
 	public companion object {
 
-		public inline fun of(value: Number): FlexShrink =
+		public fun of(value: Number): FlexShrink =
 			raw(value.toString())
 
 
@@ -25,17 +25,17 @@ public interface FlexShrink : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flexShrink(value: FlexShrink) {
+public fun CssDeclarationBlockBuilder.flexShrink(value: FlexShrink) {
 	property(flexShrink, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flexShrink(value: Number) {
+public fun CssDeclarationBlockBuilder.flexShrink(value: Number) {
 	property(flexShrink, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.flexShrink: CssProperty<FlexShrink>
+public val CssProperties.flexShrink: CssProperty<FlexShrink>
 	get() = CssProperty("flex-shrink")

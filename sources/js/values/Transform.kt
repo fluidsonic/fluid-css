@@ -19,7 +19,7 @@ public interface Transform : CssValue, Internal {
 			GenericVariable(name)
 
 
-		public inline fun with(functions: TransformBuilder.() -> Unit): Transform =
+		public fun with(functions: TransformBuilder.() -> Unit): Transform =
 			with(TransformBuilder.default()) {
 				functions()
 				Unit.build()
@@ -32,17 +32,17 @@ public interface Transform : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transform(value: Transform) {
+public fun CssDeclarationBlockBuilder.transform(value: Transform) {
 	property(transform, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.transform(functions: TransformBuilder.() -> Unit) {
+public fun CssDeclarationBlockBuilder.transform(functions: TransformBuilder.() -> Unit) {
 	transform(Transform.with(functions))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.transform: CssProperty<Transform>
+public val CssProperties.transform: CssProperty<Transform>
 	get() = CssProperty("transform")

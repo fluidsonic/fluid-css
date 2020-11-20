@@ -91,7 +91,7 @@ internal class GenericVariable(override val name: String) :
 	ZIndex.Variable {
 
 	init {
-		require(name.isNotBlank()) { "CSS variable name must not be empty or blank." }
+		require(name.isNotEmpty()) { "CSS variable name must not be empty." }
 	}
 
 

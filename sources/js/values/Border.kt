@@ -44,85 +44,85 @@ public interface Border : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.border(value: Border) {
+public fun CssDeclarationBlockBuilder.border(value: Border) {
 	property(border, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.border(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
+public fun CssDeclarationBlockBuilder.border(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
 	border(Border.with(color = color, style = style, width = width))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderBottom(value: Border) {
+public fun CssDeclarationBlockBuilder.borderBottom(value: Border) {
 	property(borderBottom, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderBottom(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
+public fun CssDeclarationBlockBuilder.borderBottom(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
 	borderBottom(Border.with(color = color, style = style, width = width))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderLeft(value: Border) {
+public fun CssDeclarationBlockBuilder.borderLeft(value: Border) {
 	property(borderLeft, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderLeft(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
+public fun CssDeclarationBlockBuilder.borderLeft(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
 	borderLeft(Border.with(color = color, style = style, width = width))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderRight(value: Border) {
+public fun CssDeclarationBlockBuilder.borderRight(value: Border) {
 	property(borderRight, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderRight(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
+public fun CssDeclarationBlockBuilder.borderRight(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
 	borderRight(Border.with(color = color, style = style, width = width))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderTop(value: Border) {
+public fun CssDeclarationBlockBuilder.borderTop(value: Border) {
 	property(borderTop, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderTop(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
+public fun CssDeclarationBlockBuilder.borderTop(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null) {
 	borderTop(Border.with(color = color, style = style, width = width))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.border: CssProperty<Border>
+public val CssProperties.border: CssProperty<Border>
 	get() = CssProperty("border")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderBottom: CssProperty<Border>
+public val CssProperties.borderBottom: CssProperty<Border>
 	get() = CssProperty("border-bottom")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderLeft: CssProperty<Border>
+public val CssProperties.borderLeft: CssProperty<Border>
 	get() = CssProperty("border-left")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderRight: CssProperty<Border>
+public val CssProperties.borderRight: CssProperty<Border>
 	get() = CssProperty("border-right")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderTop: CssProperty<Border>
+public val CssProperties.borderTop: CssProperty<Border>
 	get() = CssProperty("border-top")

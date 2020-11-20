@@ -7,25 +7,25 @@ public interface BorderColor : CssValue, Internal {
 
 	public companion object {
 
-		public inline fun all(value: Single): BorderColor =
+		public fun all(value: Single): BorderColor =
 			value
 
 
-		public inline fun of(vertical: Single, horizontal: Single): BorderColor =
+		public fun of(vertical: Single, horizontal: Single): BorderColor =
 			if (vertical == horizontal)
 				all(vertical)
 			else
 				raw("$vertical $horizontal")
 
 
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderColor =
+		public fun of(top: Single, horizontal: Single, bottom: Single): BorderColor =
 			if (top == bottom)
 				of(vertical = top, horizontal = horizontal)
 			else
 				raw("$top $horizontal $bottom")
 
 
-		public inline fun of(
+		public fun of(
 			top: Single,
 			right: Single,
 			bottom: Single,
@@ -54,25 +54,25 @@ public interface BorderColor : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderColor(all: BorderColor) {
+public fun CssDeclarationBlockBuilder.borderColor(all: BorderColor) {
 	property(borderColor, all)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderColor(vertical: BorderColor.Single, horizontal: BorderColor.Single) {
+public fun CssDeclarationBlockBuilder.borderColor(vertical: BorderColor.Single, horizontal: BorderColor.Single) {
 	borderColor(BorderColor.of(vertical = vertical, horizontal = horizontal))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderColor(top: BorderColor.Single, horizontal: BorderColor.Single, bottom: BorderColor.Single) {
+public fun CssDeclarationBlockBuilder.borderColor(top: BorderColor.Single, horizontal: BorderColor.Single, bottom: BorderColor.Single) {
 	borderColor(BorderColor.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderColor(
+public fun CssDeclarationBlockBuilder.borderColor(
 	top: BorderColor.Single,
 	right: BorderColor.Single,
 	bottom: BorderColor.Single,
@@ -85,7 +85,7 @@ public inline fun CssDeclarationBlockBuilder.borderColor(
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public inline fun CssDeclarationBlockBuilder.borderColor(
+public fun CssDeclarationBlockBuilder.borderColor(
 	all: BorderColor.Single? = null,
 	vertical: BorderColor.Single? = all,
 	horizontal: BorderColor.Single? = all,
@@ -110,49 +110,49 @@ public inline fun CssDeclarationBlockBuilder.borderColor(
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderBottomColor(value: BorderColor.Single) {
+public fun CssDeclarationBlockBuilder.borderBottomColor(value: BorderColor.Single) {
 	property(borderBottomColor, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderLeftColor(value: BorderColor.Single) {
+public fun CssDeclarationBlockBuilder.borderLeftColor(value: BorderColor.Single) {
 	property(borderLeftColor, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderRightColor(value: BorderColor.Single) {
+public fun CssDeclarationBlockBuilder.borderRightColor(value: BorderColor.Single) {
 	property(borderRightColor, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.borderTopColor(value: BorderColor.Single) {
+public fun CssDeclarationBlockBuilder.borderTopColor(value: BorderColor.Single) {
 	property(borderTopColor, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.borderColor: CssProperty<BorderColor>
+public val CssProperties.borderColor: CssProperty<BorderColor>
 	get() = CssProperty("border-color")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderBottomColor: CssProperty<BorderColor.Single>
+public val CssProperties.borderBottomColor: CssProperty<BorderColor.Single>
 	get() = CssProperty("border-bottom-color")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderLeftColor: CssProperty<BorderColor.Single>
+public val CssProperties.borderLeftColor: CssProperty<BorderColor.Single>
 	get() = CssProperty("border-left-color")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderRightColor: CssProperty<BorderColor.Single>
+public val CssProperties.borderRightColor: CssProperty<BorderColor.Single>
 	get() = CssProperty("border-right-color")
 
 
 @Suppress("unused")
-public inline val CssProperties.borderTopColor: CssProperty<BorderColor.Single>
+public val CssProperties.borderTopColor: CssProperty<BorderColor.Single>
 	get() = CssProperty("border-top-color")

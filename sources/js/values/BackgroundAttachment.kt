@@ -31,11 +31,11 @@ public interface BackgroundAttachment : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.backgroundAttachment(value: BackgroundAttachment) {
+public fun CssDeclarationBlockBuilder.backgroundAttachment(value: BackgroundAttachment) {
 	property(backgroundAttachment, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.backgroundAttachment: CssProperty<BackgroundAttachment>
+public val CssProperties.backgroundAttachment: CssProperty<BackgroundAttachment>
 	get() = CssProperty("background-attachment")

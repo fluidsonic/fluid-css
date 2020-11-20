@@ -38,11 +38,11 @@ public interface ListStyleType : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.listStyleType(value: ListStyleType) {
+public fun CssDeclarationBlockBuilder.listStyleType(value: ListStyleType) {
 	property(listStyleType, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.listStyleType: CssProperty<ListStyleType>
+public val CssProperties.listStyleType: CssProperty<ListStyleType>
 	get() = CssProperty("list-style-type")

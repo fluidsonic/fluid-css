@@ -41,11 +41,11 @@ public interface Resize : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.resize(value: Resize) {
+public fun CssDeclarationBlockBuilder.resize(value: Resize) {
 	property(resize, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.resize: CssProperty<Resize>
+public val CssProperties.resize: CssProperty<Resize>
 	get() = CssProperty("resize")

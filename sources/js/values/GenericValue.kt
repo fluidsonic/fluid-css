@@ -4,7 +4,7 @@ package io.fluidsonic.css
 internal open class GenericValue(private val value: String) : CssValue.Global {
 
 	init {
-		require(value.isNotBlank()) { "CSS value must not be empty or blank." }
+		require(value.isNotEmpty()) { "CSS value must not be empty." }
 	}
 
 

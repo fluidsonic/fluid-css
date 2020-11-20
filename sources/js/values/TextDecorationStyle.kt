@@ -37,11 +37,11 @@ public interface TextDecorationStyle : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.textDecorationStyle(value: TextDecorationStyle) {
+public fun CssDeclarationBlockBuilder.textDecorationStyle(value: TextDecorationStyle) {
 	property(textDecorationStyle, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.textDecorationStyle: CssProperty<TextDecorationStyle>
+public val CssProperties.textDecorationStyle: CssProperty<TextDecorationStyle>
 	get() = CssProperty("text-decoration-style")

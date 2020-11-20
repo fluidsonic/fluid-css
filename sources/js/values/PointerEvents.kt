@@ -53,11 +53,11 @@ public interface PointerEvents : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.pointerEvents(value: PointerEvents) {
+public fun CssDeclarationBlockBuilder.pointerEvents(value: PointerEvents) {
 	property(pointerEvents, value)
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.pointerEvents: CssProperty<PointerEvents>
+public val CssProperties.pointerEvents: CssProperty<PointerEvents>
 	get() = CssProperty("pointer-events")

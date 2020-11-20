@@ -39,7 +39,7 @@ public interface BoxShadowBuilder {
 
 
 @CssDsl
-public inline fun BoxShadowBuilder.add(
+public fun BoxShadowBuilder.add(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
 	blurRadius: Length? = null,
@@ -58,7 +58,7 @@ public inline fun BoxShadowBuilder.add(
 
 
 @CssDsl
-public inline fun BoxShadowBuilder.addInset(
+public fun BoxShadowBuilder.addInset(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
 	blurRadius: Length? = null,

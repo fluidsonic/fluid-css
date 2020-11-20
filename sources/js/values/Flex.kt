@@ -22,7 +22,7 @@ public interface Flex : CssValue, Internal {
 			GenericVariable(name)
 
 
-		public inline fun with(grow: Number? = null, shrink: Number? = null, basis: FlexBasis? = null): Flex =
+		public fun with(grow: Number? = null, shrink: Number? = null, basis: FlexBasis? = null): Flex =
 			with(grow = grow?.let(FlexGrow::of), shrink = shrink?.let(FlexShrink::of), basis = basis)
 
 
@@ -54,23 +54,23 @@ public interface Flex : CssValue, Internal {
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flex(value: Flex) {
+public fun CssDeclarationBlockBuilder.flex(value: Flex) {
 	property(flex, value)
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flex(grow: FlexGrow? = null, shrink: FlexShrink? = null, basis: FlexBasis? = null) {
+public fun CssDeclarationBlockBuilder.flex(grow: FlexGrow? = null, shrink: FlexShrink? = null, basis: FlexBasis? = null) {
 	flex(Flex.with(grow = grow, shrink = shrink, basis = basis))
 }
 
 
 @CssDsl
-public inline fun CssDeclarationBlockBuilder.flex(grow: Number? = null, shrink: Number? = null, basis: FlexBasis? = null) {
+public fun CssDeclarationBlockBuilder.flex(grow: Number? = null, shrink: Number? = null, basis: FlexBasis? = null) {
 	flex(Flex.with(grow = grow, shrink = shrink, basis = basis))
 }
 
 
 @Suppress("unused")
-public inline val CssProperties.flex: CssProperty<Flex>
+public val CssProperties.flex: CssProperty<Flex>
 	get() = CssProperty("flex")
