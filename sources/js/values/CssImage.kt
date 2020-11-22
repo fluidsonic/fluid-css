@@ -2,8 +2,6 @@
 
 package io.fluidsonic.css
 
-// FIXME support more image types
-
 
 public interface CssImage :
 	BackgroundImage,

@@ -82,6 +82,12 @@ public fun CssDeclarationBlockBuilder.Hierarchical.placeholder(declarations: Css
 }
 
 
+@CssDsl
+public fun CssDeclarationBlockBuilder.Hierarchical.selection(declarations: CssDeclarationBlockBuilder.Hierarchical.() -> Unit) {
+	"&::selection, & ::selection"(declarations)
+}
+
+
 // FIXME test
 @CssDsl
 public fun CssDeclarationBlockBuilder.Hierarchical.specific(

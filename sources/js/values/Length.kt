@@ -6,8 +6,9 @@ package io.fluidsonic.css
 public interface Length :
 	BorderWidth.Single,
 	LengthOrPercentage,
-	Internal,
-	OutlineWidth {
+	LetterSpacing,
+	OutlineWidth,
+	Internal {
 
 	public companion object {
 
@@ -110,12 +111,12 @@ public val Number.ch: Length.Numeric
 
 @CssDsl
 public val Number.cm: Length.Numeric
-	get() = Length.numeric(this, "cm2")
+	get() = Length.numeric(this, "cm")
 
 
 @CssDsl
 public val Number.mm: Length.Numeric
-	get() = Length.numeric(this, "mm2")
+	get() = Length.numeric(this, "mm")
 
 
 @CssDsl

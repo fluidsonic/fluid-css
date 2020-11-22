@@ -5,7 +5,7 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface BackgroundImage : Background, Internal {
+public interface BackgroundImage : Background.Single, Internal {
 
 	public companion object {
 

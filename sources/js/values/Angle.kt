@@ -3,7 +3,10 @@
 package io.fluidsonic.css
 
 
-public interface Angle : CssValue, Internal {
+public interface Angle :
+	CssGradient.Direction,
+	CssValue,
+	Internal {
 
 	public companion object {
 

@@ -11,6 +11,14 @@ public interface Background : CssValue, Internal {
 		public val none: Background = raw("none")
 
 
+		public fun combine(vararg values: Single): Background =
+			when (values.size) {
+				1 -> values.first()
+				0 -> CssValue.initial
+				else -> raw(values.joinToString(","))
+			}
+
+
 		public fun raw(value: String): Background =
 			GenericValue(value)
 
@@ -28,7 +36,7 @@ public interface Background : CssValue, Internal {
 			attachment: BackgroundAttachment? = null,
 			origin: BackgroundOrigin? = null,
 			clip: BackgroundClip? = null,
-		): Background =
+		): Single =
 			if (
 				color != null ||
 				image != null ||
@@ -39,7 +47,7 @@ public interface Background : CssValue, Internal {
 				origin != null ||
 				clip != null
 			)
-				raw(buildString {
+				GenericValue(buildString {
 					if (color != null)
 						append(color)
 
@@ -97,7 +105,7 @@ public interface Background : CssValue, Internal {
 			attachment: BackgroundAttachment? = null,
 			origin: BackgroundOrigin? = null,
 			clip: BackgroundClip? = null,
-		): Background =
+		): Single =
 			with(
 				color = color,
 				image = image,
@@ -114,13 +122,34 @@ public interface Background : CssValue, Internal {
 	}
 
 
+	public interface Single : Background
+
+
 	public interface Variable : Background, CssVariable<Background>
 }
 
 
 @CssDsl
+@kotlin.internal.LowPriorityInOverloadResolution
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public fun CssDeclarationBlockBuilder.background(value: Background) {
 	property(background, value)
+}
+
+
+@CssDsl
+@kotlin.internal.LowPriorityInOverloadResolution
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+public fun CssDeclarationBlockBuilder.background(value: Background.Single) {
+	property(background, value)
+}
+
+
+@CssDsl
+@kotlin.internal.LowPriorityInOverloadResolution
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+public fun CssDeclarationBlockBuilder.background(vararg values: Background.Single) {
+	background(Background.combine(*values))
 }
 
 

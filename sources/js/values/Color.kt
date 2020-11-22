@@ -4,10 +4,11 @@ package io.fluidsonic.css
 
 
 public interface Color :
-	Background,
+	Background.Single,
 	BorderColor.Single,
-	OutlineColor,
-	CaretColor {
+	CaretColor,
+	ColorStop,
+	OutlineColor {
 
 	public companion object {
 
@@ -520,18 +521,20 @@ public interface Color :
 	}
 
 
-	public interface Named : WithComponents {
+	public interface Named : Rgb {
 
 		public val name: String
-		public val rgbColor: Rgb
-
-		override fun withAlpha(alpha: Number): Rgb
 	}
 
 	private class NamedDefault(
 		override val name: String,
-		override val rgbColor: Rgb,
+		private val rgbColor: Rgb,
 	) : GenericValue(name), Named {
+
+		override val alpha: Number get() = rgbColor.alpha
+		override val blue: Int get() = rgbColor.blue
+		override val green: Int get() = rgbColor.green
+		override val red: Int get() = rgbColor.red
 
 		override fun withAlpha(alpha: Number) =
 			rgbColor.withAlpha(alpha)

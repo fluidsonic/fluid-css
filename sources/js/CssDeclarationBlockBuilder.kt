@@ -8,6 +8,7 @@ public interface CssDeclarationBlockBuilder : CssProperties {
 
 	public fun declaration(value: CssDeclaration)
 
+	@CssDsl
 	public fun property(name: String, value: String) {
 		declaration(CssDeclaration(property = name, value = value))
 	}
@@ -17,7 +18,6 @@ public interface CssDeclarationBlockBuilder : CssProperties {
 
 	public interface Hierarchical : CssDeclarationBlockBuilder {
 
-		@CssDsl
 		public fun child(value: CssRule)
 
 		@CssDsl

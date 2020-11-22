@@ -64,7 +64,21 @@ public interface BoxShadow : CssValue, Internal {
 	}
 
 
-	public interface Single : BoxShadow
+	public interface Single : BoxShadow {
+
+		public companion object {
+
+			public fun raw(value: String): Single =
+				GenericValue(value)
+
+
+			public fun variable(name: String): Variable =
+				GenericVariable(name)
+		}
+
+
+		public interface Variable : Single, CssVariable<Single>
+	}
 
 
 	public interface Variable : BoxShadow, CssVariable<BoxShadow>
