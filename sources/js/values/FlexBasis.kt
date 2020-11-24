@@ -3,36 +3,43 @@
 package io.fluidsonic.css
 
 
-public interface FlexBasis : CssValue, Internal {
+public external interface FlexBasis : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: FlexBasis = raw("auto")
+		public inline val auto: FlexBasis
+			get() = unsafe("auto")
 
 
 		@CssDsl
-		public val content: FlexBasis = raw("content")
+		public inline val content: FlexBasis
+			get() = unsafe("content")
 
 		@CssDsl
-		public val fill: FlexBasis = raw("fill")
+		public inline val fill: FlexBasis
+			get() = unsafe("fill")
 
 		@CssDsl
-		public val fitContent: FlexBasis = raw("fit-content")
+		public inline val fitContent: FlexBasis
+			get() = unsafe("fit-content")
 
 		@CssDsl
-		public val maxContent: FlexBasis = raw("max-content")
+		public inline val maxContent: FlexBasis
+			get() = unsafe("max-content")
 
 		@CssDsl
-		public val minContent: FlexBasis = raw("min-content")
+		public inline val minContent: FlexBasis
+			get() = unsafe("min-content")
 
 
-		public fun raw(value: String): FlexBasis =
-			GenericValue(value)
+		public inline fun unsafe(value: String): FlexBasis =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -41,11 +48,11 @@ public interface FlexBasis : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flexBasis(value: FlexBasis) {
+public inline fun CssDeclarationBlockBuilder.flexBasis(value: FlexBasis) {
 	property(flexBasis, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.flexBasis: CssProperty<FlexBasis>
-	get() = CssProperty("flex-basis")
+public inline val CssProperties.flexBasis: CssProperty<FlexBasis>
+	get() = CssProperty.unsafe("flex-basis")

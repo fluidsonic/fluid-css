@@ -3,13 +3,13 @@ package io.fluidsonic.css
 
 public interface CssPrinter {
 
-	public fun print(destination: Appendable, declaration: CssDeclaration)
-	public fun print(destination: Appendable, declarationBlock: CssDeclarationBlock)
-	public fun print(destination: Appendable, fontFace: FontFace)
-	public fun print(destination: Appendable, keyframe: Keyframe)
-	public fun print(destination: Appendable, keyframes: Keyframes)
-	public fun print(destination: Appendable, rule: CssRule)
-	public fun print(destination: Appendable, selector: CssSelector)
+	public fun print(destination: StringBuilder, declaration: CssDeclaration)
+	public fun print(destination: StringBuilder, declarationBlock: CssDeclarationBlock)
+	public fun print(destination: StringBuilder, fontFace: FontFace)
+	public fun print(destination: StringBuilder, keyframe: Keyframe)
+	public fun print(destination: StringBuilder, keyframes: Keyframes)
+	public fun print(destination: StringBuilder, rule: CssRule)
+	public fun print(destination: StringBuilder, selector: CssSelector)
 
 
 	public companion object {
@@ -21,14 +21,14 @@ public interface CssPrinter {
 
 	private object Default : CssPrinter {
 
-		override fun print(destination: Appendable, declaration: CssDeclaration) {
+		override fun print(destination: StringBuilder, declaration: CssDeclaration) {
 			destination.append(declaration.property)
 			destination.append(":")
 			destination.append(declaration.value)
 		}
 
 
-		override fun print(destination: Appendable, declarationBlock: CssDeclarationBlock) {
+		override fun print(destination: StringBuilder, declarationBlock: CssDeclarationBlock) {
 			for (declaration in declarationBlock.declarations) {
 				print(destination, declaration)
 				destination.append(";")
@@ -48,14 +48,14 @@ public interface CssPrinter {
 		}
 
 
-		override fun print(destination: Appendable, fontFace: FontFace) {
+		override fun print(destination: StringBuilder, fontFace: FontFace) {
 			destination.append("@font-face {")
 			print(destination, fontFace.declarations)
 			destination.append("}")
 		}
 
 
-		override fun print(destination: Appendable, keyframe: Keyframe) {
+		override fun print(destination: StringBuilder, keyframe: Keyframe) {
 			destination.append(keyframe.key)
 			destination.append("{")
 			print(destination, keyframe.style)
@@ -63,7 +63,7 @@ public interface CssPrinter {
 		}
 
 
-		override fun print(destination: Appendable, keyframes: Keyframes) {
+		override fun print(destination: StringBuilder, keyframes: Keyframes) {
 			destination.append("@keyframes ")
 			destination.append(keyframes.name)
 			destination.append("{")
@@ -73,7 +73,7 @@ public interface CssPrinter {
 		}
 
 
-		override fun print(destination: Appendable, rule: CssRule) {
+		override fun print(destination: StringBuilder, rule: CssRule) {
 			print(destination, rule.selector)
 			destination.append("{")
 			print(destination, rule.declarations)
@@ -81,8 +81,8 @@ public interface CssPrinter {
 		}
 
 
-		override fun print(destination: Appendable, selector: CssSelector) {
-			destination.append(selector.value)
+		override fun print(destination: StringBuilder, selector: CssSelector) {
+			destination.append(selector.asString())
 		}
 	}
 }

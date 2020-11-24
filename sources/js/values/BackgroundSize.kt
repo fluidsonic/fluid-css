@@ -5,26 +5,30 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface BackgroundSize : CssValue, Internal {
+public external interface BackgroundSize : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: BackgroundSize = raw("auto")
+		public inline val auto: BackgroundSize
+			get() = unsafe("auto")
 
 		@CssDsl
-		public val contain: BackgroundSize = raw("contain")
+		public inline val contain: BackgroundSize
+			get() = unsafe("contain")
 
 		@CssDsl
-		public val cover: BackgroundSize = raw("cover")
+		public inline val cover: BackgroundSize
+			get() = unsafe("cover")
 
 
-		public fun raw(value: String): BackgroundSize =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BackgroundSize =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -33,11 +37,11 @@ public interface BackgroundSize : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundSize(value: BackgroundSize) {
+public inline fun CssDeclarationBlockBuilder.backgroundSize(value: BackgroundSize) {
 	property(backgroundSize, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.backgroundSize: CssProperty<BackgroundSize>
-	get() = CssProperty("background-size")
+public inline val CssProperties.backgroundSize: CssProperty<BackgroundSize>
+	get() = CssProperty.unsafe("background-size")

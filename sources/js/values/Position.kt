@@ -3,32 +3,38 @@
 package io.fluidsonic.css
 
 
-public interface Position : CssValue, Internal {
+public external interface Position : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val absolute: Position = raw("absolute")
+		public inline val absolute: Position
+			get() = unsafe("absolute")
 
 		@CssDsl
-		public val fixed: Position = raw("fixed")
+		public inline val fixed: Position
+			get() = unsafe("fixed")
 
 		@CssDsl
-		public val relative: Position = raw("relative")
+		public inline val relative: Position
+			get() = unsafe("relative")
 
 		@CssDsl
-		public val static: Position = raw("static")
+		public inline val static: Position
+			get() = unsafe("static")
 
 		@CssDsl
-		public val sticky: Position = raw("sticky")
+		public inline val sticky: Position
+			get() = unsafe("sticky")
 
 
-		public fun raw(value: String): Position =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Position =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -37,12 +43,12 @@ public interface Position : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.position(value: Position) {
+public inline fun CssDeclarationBlockBuilder.position(value: Position) {
 	property(position, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.position: CssProperty<Position>
-	get() = CssProperty("position")
+public inline val CssProperties.position: CssProperty<Position>
+	get() = CssProperty.unsafe("position")
 

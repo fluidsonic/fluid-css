@@ -5,50 +5,66 @@ package io.fluidsonic.css
 // FIXME support 2nd radius w/ builder
 
 
-public interface BorderRadius : CssValue, Internal {
+public external interface BorderRadius : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun all(value: Single): BorderRadius =
+		public inline fun all(value: Single): BorderRadius =
 			value
 
 
-		public fun of(topLeftBottomRight: Single, topRightBottomLeft: Single): BorderRadius =
-			if (topLeftBottomRight == topRightBottomLeft)
+		public inline fun of(topLeftBottomRight: Single, topRightBottomLeft: Single): BorderRadius =
+			if (topLeftBottomRight eq topRightBottomLeft)
 				all(topLeftBottomRight)
 			else
-				raw("$topLeftBottomRight $topRightBottomLeft")
+				unsafe("$topLeftBottomRight $topRightBottomLeft")
 
 
-		public fun of(topLeft: Single, topRightBottomLeft: Single, bottomRight: Single): BorderRadius =
-			if (topLeft == bottomRight)
+		public inline fun of(topLeft: Single, topRightBottomLeft: Single, bottomRight: Single): BorderRadius =
+			if (topLeft eq bottomRight)
 				of(topLeftBottomRight = topLeft, topRightBottomLeft = topRightBottomLeft)
 			else
-				raw("$topLeft $topRightBottomLeft $bottomRight")
+				unsafe("$topLeft $topRightBottomLeft $bottomRight")
 
 
-		public fun of(
+		public inline fun of(
 			topLeft: Single,
 			topRight: Single,
 			bottomRight: Single,
 			bottomLeft: Single,
 		): BorderRadius =
-			if (bottomLeft == topRight)
+			if (bottomLeft eq topRight)
 				of(topLeft = topLeft, topRightBottomLeft = bottomLeft, bottomRight = bottomRight)
 			else
-				raw("$topLeft $topRight $bottomRight $bottomLeft")
+				unsafe("$topLeft $topRight $bottomRight $bottomLeft")
 
 
-		public fun raw(value: String): BorderRadius =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BorderRadius =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
-	public interface Single : BorderRadius
+	public interface Single : BorderRadius {
+
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+		public companion object {
+
+			public inline fun unsafe(value: String): Single =
+				CssValue.unsafe(value)
+
+
+			public inline fun variable(name: String): Variable =
+				CssVariable.unsafe(name)
+		}
+
+
+		public interface Variable : Single, CssVariable<Single>
+	}
 
 
 	public interface Variable : BorderRadius, CssVariable<BorderRadius>
@@ -56,19 +72,19 @@ public interface BorderRadius : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderRadius(all: BorderRadius) {
+public inline fun CssDeclarationBlockBuilder.borderRadius(all: BorderRadius) {
 	property(borderRadius, all)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderRadius(topLeftBottomRight: BorderRadius.Single, topRightBottomLeft: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderRadius(topLeftBottomRight: BorderRadius.Single, topRightBottomLeft: BorderRadius.Single) {
 	borderRadius(BorderRadius.of(topLeftBottomRight = topLeftBottomRight, topRightBottomLeft = topRightBottomLeft))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderRadius(
+public inline fun CssDeclarationBlockBuilder.borderRadius(
 	topLeft: BorderRadius.Single,
 	topRightBottomLeft: BorderRadius.Single,
 	bottomRight: BorderRadius.Single,
@@ -78,7 +94,7 @@ public fun CssDeclarationBlockBuilder.borderRadius(
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderRadius(
+public inline fun CssDeclarationBlockBuilder.borderRadius(
 	topLeft: BorderRadius.Single,
 	topRight: BorderRadius.Single,
 	bottomRight: BorderRadius.Single,
@@ -90,8 +106,8 @@ public fun CssDeclarationBlockBuilder.borderRadius(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public fun CssDeclarationBlockBuilder.borderRadius(
+@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+public inline fun CssDeclarationBlockBuilder.borderRadius(
 	all: BorderRadius.Single? = null,
 	topLeft: BorderRadius.Single? = all,
 	topRight: BorderRadius.Single? = all,
@@ -114,77 +130,77 @@ public fun CssDeclarationBlockBuilder.borderRadius(
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderBottomRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderBottomRadius(value: BorderRadius.Single) {
 	borderBottomLeftRadius(value)
 	borderBottomRightRadius(value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderBottomLeftRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderBottomLeftRadius(value: BorderRadius.Single) {
 	property(borderBottomLeftRadius, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderBottomRightRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderBottomRightRadius(value: BorderRadius.Single) {
 	property(borderBottomRightRadius, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderLeftRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderLeftRadius(value: BorderRadius.Single) {
 	borderBottomLeftRadius(value)
 	borderTopLeftRadius(value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderRightRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderRightRadius(value: BorderRadius.Single) {
 	borderBottomRightRadius(value)
 	borderTopRightRadius(value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderTopRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderTopRadius(value: BorderRadius.Single) {
 	borderTopLeftRadius(value)
 	borderTopRightRadius(value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderTopLeftRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderTopLeftRadius(value: BorderRadius.Single) {
 	property(borderTopLeftRadius, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderTopRightRadius(value: BorderRadius.Single) {
+public inline fun CssDeclarationBlockBuilder.borderTopRightRadius(value: BorderRadius.Single) {
 	property(borderTopRightRadius, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.borderRadius: CssProperty<BorderRadius>
-	get() = CssProperty("border-radius")
+public inline val CssProperties.borderRadius: CssProperty<BorderRadius>
+	get() = CssProperty.unsafe("border-radius")
 
 
 @Suppress("unused")
-public val CssProperties.borderBottomLeftRadius: CssProperty<BorderRadius.Single>
-	get() = CssProperty("border-bottom-left-radius")
+public inline val CssProperties.borderBottomLeftRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty.unsafe("border-bottom-left-radius")
 
 
 @Suppress("unused")
-public val CssProperties.borderBottomRightRadius: CssProperty<BorderRadius.Single>
-	get() = CssProperty("border-bottom-right-radius")
+public inline val CssProperties.borderBottomRightRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty.unsafe("border-bottom-right-radius")
 
 
 @Suppress("unused")
-public val CssProperties.borderTopLeftRadius: CssProperty<BorderRadius.Single>
-	get() = CssProperty("border-top-left-radius")
+public inline val CssProperties.borderTopLeftRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty.unsafe("border-top-left-radius")
 
 
 @Suppress("unused")
-public val CssProperties.borderTopRightRadius: CssProperty<BorderRadius.Single>
-	get() = CssProperty("border-top-right-radius")
+public inline val CssProperties.borderTopRightRadius: CssProperty<BorderRadius.Single>
+	get() = CssProperty.unsafe("border-top-right-radius")

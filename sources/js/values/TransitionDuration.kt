@@ -4,11 +4,11 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.transitionDuration(value: Time) {
+public inline fun CssDeclarationBlockBuilder.transitionDuration(value: Time) {
 	property(transitionDuration, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.transitionDuration: CssProperty<Time>
-	get() = CssProperty("transition-duration")
+public inline val CssProperties.transitionDuration: CssProperty<Time>
+	get() = CssProperty.unsafe("transition-duration")

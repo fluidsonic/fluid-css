@@ -3,24 +3,27 @@
 package io.fluidsonic.css
 
 
-public interface TextDecorationThickness : CssValue, Internal {
+public external interface TextDecorationThickness : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: TextDecorationThickness = raw("auto")
+		public inline val auto: TextDecorationThickness
+			get() = unsafe("auto")
 
 
 		@CssDsl
-		public val fromFont: TextDecorationThickness = raw("from-font")
+		public inline val fromFont: TextDecorationThickness
+			get() = unsafe("from-font")
 
 
-		public fun raw(value: String): TextDecorationThickness =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TextDecorationThickness =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -29,11 +32,11 @@ public interface TextDecorationThickness : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textDecorationThickness(value: TextDecorationThickness) {
+public inline fun CssDeclarationBlockBuilder.textDecorationThickness(value: TextDecorationThickness) {
 	property(textDecorationThickness, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.textDecorationThickness: CssProperty<TextDecorationThickness>
-	get() = CssProperty("text-decoration-thickness")
+public inline val CssProperties.textDecorationThickness: CssProperty<TextDecorationThickness>
+	get() = CssProperty.unsafe("text-decoration-thickness")

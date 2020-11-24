@@ -3,36 +3,43 @@
 package io.fluidsonic.css
 
 
-public interface Resize : CssValue, Internal {
+public external interface Resize : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val none: Resize = raw("none")
+		public inline val none: Resize
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val block: Resize = raw("block")
+		public inline val block: Resize
+			get() = unsafe("block")
 
 		@CssDsl
-		public val both: Resize = raw("both")
+		public inline val both: Resize
+			get() = unsafe("both")
 
 		@CssDsl
-		public val horizontal: Resize = raw("horizontal")
+		public inline val horizontal: Resize
+			get() = unsafe("horizontal")
 
 		@CssDsl
-		public val inline: Resize = raw("inline")
+		public inline val inline: Resize
+			get() = unsafe("inline")
 
 		@CssDsl
-		public val vertical: Resize = raw("vertical")
+		public inline val vertical: Resize
+			get() = unsafe("vertical")
 
 
-		public fun raw(value: String): Resize =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Resize =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -41,11 +48,11 @@ public interface Resize : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.resize(value: Resize) {
+public inline fun CssDeclarationBlockBuilder.resize(value: Resize) {
 	property(resize, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.resize: CssProperty<Resize>
-	get() = CssProperty("resize")
+public inline val CssProperties.resize: CssProperty<Resize>
+	get() = CssProperty.unsafe("resize")

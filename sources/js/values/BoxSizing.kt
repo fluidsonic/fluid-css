@@ -3,23 +3,26 @@
 package io.fluidsonic.css
 
 
-public interface BoxSizing : CssValue, Internal {
+public external interface BoxSizing : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val contentBox: BoxSizing = raw("content-box")
+		public inline val contentBox: BoxSizing
+			get() = unsafe("content-box")
 
 		@CssDsl
-		public val borderBox: BoxSizing = raw("border-box")
+		public inline val borderBox: BoxSizing
+			get() = unsafe("border-box")
 
 
-		public fun raw(value: String): BoxSizing =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BoxSizing =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -28,11 +31,11 @@ public interface BoxSizing : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.boxSizing(value: BoxSizing) {
+public inline fun CssDeclarationBlockBuilder.boxSizing(value: BoxSizing) {
 	property(boxSizing, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.boxSizing: CssProperty<BoxSizing>
-	get() = CssProperty("box-sizing")
+public inline val CssProperties.boxSizing: CssProperty<BoxSizing>
+	get() = CssProperty.unsafe("box-sizing")

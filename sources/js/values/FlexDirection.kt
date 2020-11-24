@@ -3,29 +3,34 @@
 package io.fluidsonic.css
 
 
-public interface FlexDirection : CssValue, Internal {
+public external interface FlexDirection : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val column: FlexDirection = raw("column")
+		public inline val column: FlexDirection
+			get() = unsafe("column")
 
 		@CssDsl
-		public val columnReverse: FlexDirection = raw("column-reverse")
+		public inline val columnReverse: FlexDirection
+			get() = unsafe("column-reverse")
 
 		@CssDsl
-		public val row: FlexDirection = raw("row")
+		public inline val row: FlexDirection
+			get() = unsafe("row")
 
 		@CssDsl
-		public val rowReverse: FlexDirection = raw("row-reverse")
+		public inline val rowReverse: FlexDirection
+			get() = unsafe("row-reverse")
 
 
-		public fun raw(value: String): FlexDirection =
-			GenericValue(value)
+		public inline fun unsafe(value: String): FlexDirection =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -34,11 +39,11 @@ public interface FlexDirection : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flexDirection(value: FlexDirection) {
+public inline fun CssDeclarationBlockBuilder.flexDirection(value: FlexDirection) {
 	property(flexDirection, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.flexDirection: CssProperty<FlexDirection>
-	get() = CssProperty("flex-direction")
+public inline val CssProperties.flexDirection: CssProperty<FlexDirection>
+	get() = CssProperty.unsafe("flex-direction")

@@ -3,53 +3,27 @@
 package io.fluidsonic.css
 
 
-public interface FontVariantNumeric : CssValue, Internal {
+public external interface FontVariantNumeric : CssValue {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
 		@CssDsl
-		public val normal: FontVariantNumeric = raw("normal")
+		public inline val normal: FontVariantNumeric
+			get() = unsafe("normal")
 
 
-		public fun raw(value: String): FontVariantNumeric =
-			GenericValue(value)
+		public inline fun unsafe(value: String): FontVariantNumeric =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
-
-
-		public fun with(
-			figure: FontVariantNumericFigure? = null,
-			spacing: FontVariantNumericSpacing? = null,
-			fraction: FontVariantNumericFraction? = null,
-			isOrdinal: Boolean = false,
-			isSlashedZero: Boolean = false,
-		): FontVariantNumeric =
-			if (figure != null || spacing != null || fraction != null || isOrdinal || isSlashedZero)
-				raw(buildString {
-					if (figure != null)
-						append(figure)
-
-					if (spacing != null) {
-						if (isNotEmpty()) append(" ")
-						append(spacing)
-					}
-					if (fraction != null) {
-						if (isNotEmpty()) append(" ")
-						append(fraction)
-					}
-					if (isOrdinal) {
-						if (isNotEmpty()) append(" ")
-						append("ordinal")
-					}
-					if (isSlashedZero) {
-						if (isNotEmpty()) append(" ")
-						append("slashed-zero")
-					}
-				})
-			else
-				CssValue.initial
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -57,14 +31,51 @@ public interface FontVariantNumeric : CssValue, Internal {
 }
 
 
+@Suppress("DEPRECATION")
+public inline fun FontVariantNumeric.Companion.with(
+	figure: FontVariantNumericFigure? = null,
+	spacing: FontVariantNumericSpacing? = null,
+	fraction: FontVariantNumericFraction? = null,
+	isOrdinal: Boolean = false,
+	isSlashedZero: Boolean = false,
+): FontVariantNumeric =
+	if (figure != null || spacing != null || fraction != null || isOrdinal || isSlashedZero) {
+		var string = ""
+
+		if (figure != null)
+			string += figure
+
+		if (spacing != null) {
+			if (string.isNotEmpty()) string += " "
+			string += spacing
+		}
+		if (fraction != null) {
+			if (string.isNotEmpty()) string += " "
+			string += fraction
+		}
+		if (isOrdinal) {
+			if (string.isNotEmpty()) string += " "
+			string += "ordinal"
+		}
+		if (isSlashedZero) {
+			if (string.isNotEmpty()) string += " "
+			string += "slashed-zero"
+		}
+
+		unsafe(string)
+	}
+	else
+		CssValue.initial
+
+
 @CssDsl
-public fun CssDeclarationBlockBuilder.fontVariantNumeric(value: FontVariantNumeric) {
+public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(value: FontVariantNumeric) {
 	property(fontVariantNumeric, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.fontVariantNumeric(
+public inline fun CssDeclarationBlockBuilder.fontVariantNumeric(
 	figure: FontVariantNumericFigure? = null,
 	spacing: FontVariantNumericSpacing? = null,
 	fraction: FontVariantNumericFraction? = null,
@@ -82,5 +93,5 @@ public fun CssDeclarationBlockBuilder.fontVariantNumeric(
 
 
 @Suppress("unused")
-public val CssProperties.fontVariantNumeric: CssProperty<FontVariantNumeric>
-	get() = CssProperty("font-variant-numeric")
+public inline val CssProperties.fontVariantNumeric: CssProperty<FontVariantNumeric>
+	get() = CssProperty.unsafe("font-variant-numeric")

@@ -3,43 +3,63 @@
 package io.fluidsonic.css
 
 
-public interface Overflow : CssValue, Internal {
+public external interface Overflow : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: Axis = GenericValue("auto")
+		public inline val auto: Axis
+			get() = Axis.unsafe("auto")
 
 
 		@CssDsl
-		public val hidden: Axis = GenericValue("hidden")
+		public inline val hidden: Axis
+			get() = Axis.unsafe("hidden")
 
 		@CssDsl
-		public val scroll: Axis = GenericValue("scroll")
+		public inline val scroll: Axis
+			get() = Axis.unsafe("scroll")
 
 		@CssDsl
-		public val visible: Axis = GenericValue("visible")
+		public inline val visible: Axis
+			get() = Axis.unsafe("visible")
 
 
-		public fun of(xy: Axis): Overflow =
+		public inline fun of(xy: Axis): Overflow =
 			xy
 
 
-		public fun of(x: Axis, y: Axis): Overflow =
-			if (x == y) x
-			else raw("$x $y")
+		public inline fun of(x: Axis, y: Axis): Overflow =
+			if (x eq y) x
+			else unsafe("$x $y")
 
 
-		public fun raw(value: String): Overflow =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Overflow =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
-	public interface Axis : Overflow
+	public interface Axis : Overflow {
+
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+		public companion object {
+
+			public inline fun unsafe(value: String): Axis =
+				CssValue.unsafe(value)
+
+
+			public inline fun variable(name: String): Variable =
+				CssVariable.unsafe(name)
+		}
+
+
+		public interface Variable : Axis, CssVariable<Axis>
+	}
 
 
 	public interface Variable : Overflow, CssVariable<Overflow>
@@ -47,39 +67,39 @@ public interface Overflow : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.overflow(all: Overflow) {
+public inline fun CssDeclarationBlockBuilder.overflow(all: Overflow) {
 	property(overflow, all)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.overflow(x: Overflow.Axis, y: Overflow.Axis) {
+public inline fun CssDeclarationBlockBuilder.overflow(x: Overflow.Axis, y: Overflow.Axis) {
 	overflow(Overflow.of(x, y))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.overflowX(value: Overflow.Axis) {
+public inline fun CssDeclarationBlockBuilder.overflowX(value: Overflow.Axis) {
 	property(overflowX, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.overflowY(value: Overflow.Axis) {
+public inline fun CssDeclarationBlockBuilder.overflowY(value: Overflow.Axis) {
 	property(overflowY, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.overflow: CssProperty<Overflow>
-	get() = CssProperty("overflow")
+public inline val CssProperties.overflow: CssProperty<Overflow>
+	get() = CssProperty.unsafe("overflow")
 
 
 @Suppress("unused")
-public val CssProperties.overflowX: CssProperty<Overflow.Axis>
-	get() = CssProperty("overflow-x")
+public inline val CssProperties.overflowX: CssProperty<Overflow.Axis>
+	get() = CssProperty.unsafe("overflow-x")
 
 
 @Suppress("unused")
-public val CssProperties.overflowY: CssProperty<Overflow.Axis>
-	get() = CssProperty("overflow-y")
+public inline val CssProperties.overflowY: CssProperty<Overflow.Axis>
+	get() = CssProperty.unsafe("overflow-y")

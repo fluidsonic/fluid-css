@@ -5,26 +5,30 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface BackgroundOrigin : CssValue, Internal {
+public external interface BackgroundOrigin : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val borderBox: BackgroundOrigin = raw("border-box")
+		public inline val borderBox: BackgroundOrigin
+			get() = unsafe("border-box")
 
 		@CssDsl
-		public val contentBox: BackgroundOrigin = raw("content-box")
+		public inline val contentBox: BackgroundOrigin
+			get() = unsafe("content-box")
 
 		@CssDsl
-		public val paddingBox: BackgroundOrigin = raw("padding-box")
+		public inline val paddingBox: BackgroundOrigin
+			get() = unsafe("padding-box")
 
 
-		public fun raw(value: String): BackgroundOrigin =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BackgroundOrigin =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -33,11 +37,11 @@ public interface BackgroundOrigin : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundOrigin(value: BackgroundOrigin) {
+public inline fun CssDeclarationBlockBuilder.backgroundOrigin(value: BackgroundOrigin) {
 	property(backgroundOrigin, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.backgroundOrigin: CssProperty<BackgroundOrigin>
-	get() = CssProperty("background-origin")
+public inline val CssProperties.backgroundOrigin: CssProperty<BackgroundOrigin>
+	get() = CssProperty.unsafe("background-origin")

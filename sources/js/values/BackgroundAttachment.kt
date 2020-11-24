@@ -3,26 +3,30 @@
 package io.fluidsonic.css
 
 
-public interface BackgroundAttachment : CssValue, Internal {
+public external interface BackgroundAttachment : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val fixed: BackgroundAttachment = raw("fixed")
+		public inline val fixed: BackgroundAttachment
+			get() = unsafe("fixed")
 
 		@CssDsl
-		public val local: BackgroundAttachment = raw("local")
+		public inline val local: BackgroundAttachment
+			get() = unsafe("local")
 
 		@CssDsl
-		public val scroll: BackgroundAttachment = raw("scroll")
+		public inline val scroll: BackgroundAttachment
+			get() = unsafe("scroll")
 
 
-		public fun raw(value: String): BackgroundAttachment =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BackgroundAttachment =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -31,11 +35,11 @@ public interface BackgroundAttachment : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundAttachment(value: BackgroundAttachment) {
+public inline fun CssDeclarationBlockBuilder.backgroundAttachment(value: BackgroundAttachment) {
 	property(backgroundAttachment, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.backgroundAttachment: CssProperty<BackgroundAttachment>
-	get() = CssProperty("background-attachment")
+public inline val CssProperties.backgroundAttachment: CssProperty<BackgroundAttachment>
+	get() = CssProperty.unsafe("background-attachment")

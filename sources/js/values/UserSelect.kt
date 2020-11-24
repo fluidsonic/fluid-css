@@ -3,33 +3,39 @@
 package io.fluidsonic.css
 
 
-public interface UserSelect : CssValue, Internal {
+public external interface UserSelect : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: UserSelect = raw("auto")
+		public inline val auto: UserSelect
+			get() = unsafe("auto")
 
 		@CssDsl
-		public val none: UserSelect = raw("none")
+		public inline val none: UserSelect
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val all: UserSelect = raw("all")
+		public inline val all: UserSelect
+			get() = unsafe("all")
 
 		@CssDsl
-		public val contain: UserSelect = raw("contain")
+		public inline val contain: UserSelect
+			get() = unsafe("contain")
 
 		@CssDsl
-		public val text: UserSelect = raw("text")
+		public inline val text: UserSelect
+			get() = unsafe("text")
 
 
-		public fun raw(value: String): UserSelect =
-			GenericValue(value)
+		public inline fun unsafe(value: String): UserSelect =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -38,11 +44,11 @@ public interface UserSelect : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.userSelect(value: UserSelect) {
+public inline fun CssDeclarationBlockBuilder.userSelect(value: UserSelect) {
 	property(userSelect, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.userSelect: CssProperty<UserSelect>
-	get() = CssProperty("user-select")
+public inline val CssProperties.userSelect: CssProperty<UserSelect>
+	get() = CssProperty.unsafe("user-select")

@@ -3,20 +3,22 @@
 package io.fluidsonic.css
 
 
-public interface CaretColor : CssValue, Internal {
+public external interface CaretColor : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: CaretColor = raw("auto")
+		public inline val auto: CaretColor
+			get() = unsafe("auto")
 
 
-		public fun raw(value: String): CaretColor =
-			GenericValue(value)
+		public inline fun unsafe(value: String): CaretColor =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -25,11 +27,11 @@ public interface CaretColor : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.caretColor(all: CaretColor) {
+public inline fun CssDeclarationBlockBuilder.caretColor(all: CaretColor) {
 	property(caretColor, all)
 }
 
 
 @Suppress("unused")
-public val CssProperties.caretColor: CssProperty<CaretColor>
-	get() = CssProperty("caret-color")
+public inline val CssProperties.caretColor: CssProperty<CaretColor>
+	get() = CssProperty.unsafe("caret-color")

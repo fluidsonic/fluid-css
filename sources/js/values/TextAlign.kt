@@ -3,38 +3,46 @@
 package io.fluidsonic.css
 
 
-public interface TextAlign : CssValue, Internal {
+public external interface TextAlign : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val center: TextAlign = raw("center")
+		public inline val center: TextAlign
+			get() = unsafe("center")
 
 		@CssDsl
-		public val end: TextAlign = raw("end")
+		public inline val end: TextAlign
+			get() = unsafe("end")
 
 		@CssDsl
-		public val justify: TextAlign = raw("justify")
+		public inline val justify: TextAlign
+			get() = unsafe("justify")
 
 		@CssDsl
-		public val left: TextAlign = raw("left")
+		public inline val left: TextAlign
+			get() = unsafe("left")
 
 		@CssDsl
-		public val matchParent: TextAlign = raw("match-parent")
+		public inline val matchParent: TextAlign
+			get() = unsafe("match-parent")
 
 		@CssDsl
-		public val right: TextAlign = raw("right")
+		public inline val right: TextAlign
+			get() = unsafe("right")
 
 		@CssDsl
-		public val start: TextAlign = raw("start")
+		public inline val start: TextAlign
+			get() = unsafe("start")
 
 
-		public fun raw(value: String): TextAlign =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TextAlign =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -43,11 +51,11 @@ public interface TextAlign : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textAlign(value: TextAlign) {
+public inline fun CssDeclarationBlockBuilder.textAlign(value: TextAlign) {
 	property(textAlign, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.textAlign: CssProperty<TextAlign>
-	get() = CssProperty("text-align")
+public inline val CssProperties.textAlign: CssProperty<TextAlign>
+	get() = CssProperty.unsafe("text-align")

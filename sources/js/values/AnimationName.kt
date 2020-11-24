@@ -3,24 +3,26 @@
 package io.fluidsonic.css
 
 
-public interface AnimationName : CssValue.StringConstructable, Internal {
+public external interface AnimationName : CssValue.StringConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val none: AnimationName = raw("none")
+		public inline val none: AnimationName
+			get() = unsafe("none")
 
 
-		public fun of(value: String): AnimationName =
-			raw(value)
+		public inline fun of(value: String): AnimationName =
+			unsafe(value)
 
 
-		public fun raw(value: String): AnimationName =
-			GenericValue(value)
+		public inline fun unsafe(value: String): AnimationName =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -29,17 +31,17 @@ public interface AnimationName : CssValue.StringConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.animationName(value: AnimationName) {
+public inline fun CssDeclarationBlockBuilder.animationName(value: AnimationName) {
 	property(animationName, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.animationName(value: String) {
+public inline fun CssDeclarationBlockBuilder.animationName(value: String) {
 	property(animationName, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.animationName: CssProperty<AnimationName>
-	get() = CssProperty("animation-name")
+public inline val CssProperties.animationName: CssProperty<AnimationName>
+	get() = CssProperty.unsafe("animation-name")

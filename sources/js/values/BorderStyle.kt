@@ -3,82 +3,108 @@
 package io.fluidsonic.css
 
 
-public interface BorderStyle : CssValue, Internal {
+public external interface BorderStyle : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val none: Single = GenericValue("none")
+		public inline val none: Single
+			get() = CssValue.unsafe("none")
 
 
 		@CssDsl
-		public val dashed: Single = GenericValue("dashed")
+		public inline val dashed: Single
+			get() = CssValue.unsafe("dashed")
 
 		@CssDsl
-		public val dotted: Single = GenericValue("dotted")
+		public inline val dotted: Single
+			get() = CssValue.unsafe("dotted")
 
 		@CssDsl
-		public val double: Single = GenericValue("double")
+		public inline val double: Single
+			get() = CssValue.unsafe("double")
 
 		@CssDsl
-		public val groove: Single = GenericValue("groove")
+		public inline val groove: Single
+			get() = CssValue.unsafe("groove")
 
 		@CssDsl
-		public val hidden: Single = GenericValue("hidden")
+		public inline val hidden: Single
+			get() = CssValue.unsafe("hidden")
 
 		@CssDsl
-		public val inset: Single = GenericValue("inset")
+		public inline val inset: Single
+			get() = CssValue.unsafe("inset")
 
 		@CssDsl
-		public val outset: Single = GenericValue("outset")
+		public inline val outset: Single
+			get() = CssValue.unsafe("outset")
 
 		@CssDsl
-		public val ridge: Single = GenericValue("ridge")
+		public inline val ridge: Single
+			get() = CssValue.unsafe("ridge")
 
 		@CssDsl
-		public val solid: Single = GenericValue("solid")
+		public inline val solid: Single
+			get() = CssValue.unsafe("solid")
 
 
-		public fun all(value: Single): BorderStyle =
+		public inline fun all(value: Single): BorderStyle =
 			value
 
 
-		public fun of(vertical: Single, horizontal: Single): BorderStyle =
-			if (vertical == horizontal)
+		public inline fun of(vertical: Single, horizontal: Single): BorderStyle =
+			if (vertical eq horizontal)
 				all(vertical)
 			else
-				raw("$vertical $horizontal")
+				unsafe("$vertical $horizontal")
 
 
-		public fun of(top: Single, horizontal: Single, bottom: Single): BorderStyle =
-			if (top == bottom)
+		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderStyle =
+			if (top eq bottom)
 				of(vertical = top, horizontal = horizontal)
 			else
-				raw("$top $horizontal $bottom")
+				unsafe("$top $horizontal $bottom")
 
 
-		public fun of(
+		public inline fun of(
 			top: Single,
 			right: Single,
 			bottom: Single,
 			left: Single,
 		): BorderStyle =
-			if (left == right)
+			if (left eq right)
 				of(top = top, horizontal = left, bottom = bottom)
 			else
-				raw("$top $right $bottom $left")
+				unsafe("$top $right $bottom $left")
 
 
-		public fun raw(value: String): BorderStyle =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BorderStyle =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
-	public interface Single : BorderStyle
+	public interface Single : BorderStyle {
+
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+		public companion object {
+
+			public inline fun unsafe(value: String): Single =
+				CssValue.unsafe(value)
+
+
+			public inline fun variable(name: String): Variable =
+				CssVariable.unsafe(name)
+		}
+
+
+		public interface Variable : Single, CssVariable<Single>
+	}
 
 
 	public interface Variable : BorderStyle, CssVariable<BorderStyle>
@@ -86,25 +112,25 @@ public interface BorderStyle : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderStyle(all: BorderStyle) {
+public inline fun CssDeclarationBlockBuilder.borderStyle(all: BorderStyle) {
 	property(borderStyle, all)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderStyle(vertical: BorderStyle.Single, horizontal: BorderStyle.Single) {
+public inline fun CssDeclarationBlockBuilder.borderStyle(vertical: BorderStyle.Single, horizontal: BorderStyle.Single) {
 	borderStyle(BorderStyle.of(vertical = vertical, horizontal = horizontal))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderStyle(top: BorderStyle.Single, horizontal: BorderStyle.Single, bottom: BorderStyle.Single) {
+public inline fun CssDeclarationBlockBuilder.borderStyle(top: BorderStyle.Single, horizontal: BorderStyle.Single, bottom: BorderStyle.Single) {
 	borderStyle(BorderStyle.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderStyle(
+public inline fun CssDeclarationBlockBuilder.borderStyle(
 	top: BorderStyle.Single,
 	right: BorderStyle.Single,
 	bottom: BorderStyle.Single,
@@ -116,8 +142,8 @@ public fun CssDeclarationBlockBuilder.borderStyle(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public fun CssDeclarationBlockBuilder.borderStyle(
+@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+public inline fun CssDeclarationBlockBuilder.borderStyle(
 	all: BorderStyle.Single? = null,
 	vertical: BorderStyle.Single? = all,
 	horizontal: BorderStyle.Single? = all,
@@ -142,49 +168,49 @@ public fun CssDeclarationBlockBuilder.borderStyle(
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderBottomStyle(value: BorderStyle.Single) {
+public inline fun CssDeclarationBlockBuilder.borderBottomStyle(value: BorderStyle.Single) {
 	property(borderBottomStyle, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderLeftStyle(value: BorderStyle.Single) {
+public inline fun CssDeclarationBlockBuilder.borderLeftStyle(value: BorderStyle.Single) {
 	property(borderLeftStyle, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderRightStyle(value: BorderStyle.Single) {
+public inline fun CssDeclarationBlockBuilder.borderRightStyle(value: BorderStyle.Single) {
 	property(borderRightStyle, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderTopStyle(value: BorderStyle.Single) {
+public inline fun CssDeclarationBlockBuilder.borderTopStyle(value: BorderStyle.Single) {
 	property(borderTopStyle, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.borderStyle: CssProperty<BorderStyle>
-	get() = CssProperty("border-style")
+public inline val CssProperties.borderStyle: CssProperty<BorderStyle>
+	get() = CssProperty.unsafe("border-style")
 
 
 @Suppress("unused")
-public val CssProperties.borderBottomStyle: CssProperty<BorderStyle.Single>
-	get() = CssProperty("border-bottom-style")
+public inline val CssProperties.borderBottomStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty.unsafe("border-bottom-style")
 
 
 @Suppress("unused")
-public val CssProperties.borderLeftStyle: CssProperty<BorderStyle.Single>
-	get() = CssProperty("border-left-style")
+public inline val CssProperties.borderLeftStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty.unsafe("border-left-style")
 
 
 @Suppress("unused")
-public val CssProperties.borderRightStyle: CssProperty<BorderStyle.Single>
-	get() = CssProperty("border-right-style")
+public inline val CssProperties.borderRightStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty.unsafe("border-right-style")
 
 
 @Suppress("unused")
-public val CssProperties.borderTopStyle: CssProperty<BorderStyle.Single>
-	get() = CssProperty("border-top-style")
+public inline val CssProperties.borderTopStyle: CssProperty<BorderStyle.Single>
+	get() = CssProperty.unsafe("border-top-style")

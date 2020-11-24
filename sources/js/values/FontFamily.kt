@@ -5,16 +5,17 @@ package io.fluidsonic.css
 // FIXME support fully
 
 
-public interface FontFamily : CssValue.StringConstructable, Internal {
+public external interface FontFamily : CssValue.StringConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun raw(value: String): FontFamily =
-			GenericValue(value)
+		public inline fun unsafe(value: String): FontFamily =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -23,17 +24,17 @@ public interface FontFamily : CssValue.StringConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.fontFamily(value: FontFamily) {
+public inline fun CssDeclarationBlockBuilder.fontFamily(value: FontFamily) {
 	property(fontFamily, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.fontFamily(value: String) {
+public inline fun CssDeclarationBlockBuilder.fontFamily(value: String) {
 	property(fontFamily, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.fontFamily: CssProperty<FontFamily>
-	get() = CssProperty("font-family")
+public inline val CssProperties.fontFamily: CssProperty<FontFamily>
+	get() = CssProperty.unsafe("font-family")

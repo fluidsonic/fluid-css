@@ -5,23 +5,26 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface AnimationPlayState : CssValue, Internal {
+public external interface AnimationPlayState : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val paused: AnimationPlayState = raw("paused")
+		public inline val paused: AnimationPlayState
+			get() = unsafe("paused")
 
 		@CssDsl
-		public val running: AnimationPlayState = raw("running")
+		public inline val running: AnimationPlayState
+			get() = unsafe("running")
 
 
-		public fun raw(value: String): AnimationPlayState =
-			GenericValue(value)
+		public inline fun unsafe(value: String): AnimationPlayState =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -30,11 +33,11 @@ public interface AnimationPlayState : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.animationPlayState(value: AnimationPlayState) {
+public inline fun CssDeclarationBlockBuilder.animationPlayState(value: AnimationPlayState) {
 	property(animationPlayState, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.animationPlayState: CssProperty<AnimationPlayState>
-	get() = CssProperty("animation-play-state")
+public inline val CssProperties.animationPlayState: CssProperty<AnimationPlayState>
+	get() = CssProperty.unsafe("animation-play-state")

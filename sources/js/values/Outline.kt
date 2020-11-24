@@ -3,39 +3,27 @@
 package io.fluidsonic.css
 
 
-public interface Outline : CssValue, Internal {
+public external interface Outline : CssValue {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
 		@CssDsl
-		public val none: Outline = raw("none")
+		public inline val none: Outline
+			get() = unsafe("none")
 
 
-		public fun raw(value: String): Outline =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Outline =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
-
-
-		public fun with(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null): Outline =
-			if (width != null || style != null || color != null)
-				raw(buildString {
-					if (width != null)
-						append(width)
-
-					if (style != null) {
-						if (isNotEmpty()) append(" ")
-						append(style)
-					}
-					if (color != null) {
-						if (isNotEmpty()) append(" ")
-						append(color)
-					}
-				})
-			else
-				CssValue.initial
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -43,18 +31,43 @@ public interface Outline : CssValue, Internal {
 }
 
 
+@Suppress("DEPRECATION")
+public inline fun Outline.Companion.with(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null): Outline =
+	when {
+		width != null && style != null && color != null -> unsafe("$width $style $color")
+		width != null || style != null || color != null -> {
+			var string = ""
+
+			if (width != null)
+				string += width
+
+			if (style != null) {
+				if (string.isNotEmpty()) string += " "
+				string += style
+			}
+			if (color != null) {
+				if (string.isNotEmpty()) string += " "
+				string += color
+			}
+
+			unsafe(string)
+		}
+		else -> CssValue.initial
+	}
+
+
 @CssDsl
-public fun CssDeclarationBlockBuilder.outline(value: Outline) {
+public inline fun CssDeclarationBlockBuilder.outline(value: Outline) {
 	property(outline, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.outline(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null) {
+public inline fun CssDeclarationBlockBuilder.outline(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null) {
 	outline(Outline.with(color = color, style = style, width = width))
 }
 
 
 @Suppress("unused")
-public val CssProperties.outline: CssProperty<Outline>
-	get() = CssProperty("outline")
+public inline val CssProperties.outline: CssProperty<Outline>
+	get() = CssProperty.unsafe("outline")

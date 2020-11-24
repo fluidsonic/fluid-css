@@ -5,26 +5,30 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface BackgroundClip : CssValue, Internal {
+public external interface BackgroundClip : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val borderBox: BackgroundClip = raw("border-box")
+		public inline val borderBox: BackgroundClip
+			get() = unsafe("border-box")
 
 		@CssDsl
-		public val contentBox: BackgroundClip = raw("content-box")
+		public inline val contentBox: BackgroundClip
+			get() = unsafe("content-box")
 
 		@CssDsl
-		public val paddingBox: BackgroundClip = raw("padding-box")
+		public inline val paddingBox: BackgroundClip
+			get() = unsafe("padding-box")
 
 
-		public fun raw(value: String): BackgroundClip =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BackgroundClip =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -33,11 +37,11 @@ public interface BackgroundClip : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundClip(value: BackgroundClip) {
+public inline fun CssDeclarationBlockBuilder.backgroundClip(value: BackgroundClip) {
 	property(backgroundClip, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.backgroundClip: CssProperty<BackgroundClip>
-	get() = CssProperty("background-clip")
+public inline val CssProperties.backgroundClip: CssProperty<BackgroundClip>
+	get() = CssProperty.unsafe("background-clip")

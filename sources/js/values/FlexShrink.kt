@@ -3,20 +3,25 @@
 package io.fluidsonic.css
 
 
-public interface FlexShrink : CssValue.NumberConstructable, Internal {
+public external interface FlexShrink : CssValue.DoubleConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun of(value: Number): FlexShrink =
-			raw(value.toString())
+		public inline fun of(value: Double): FlexShrink =
+			CssValue.unsafe(value)
 
 
-		public fun raw(value: String): FlexShrink =
-			GenericValue(value)
+		public inline fun of(value: Int): FlexShrink =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): FlexShrink =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -25,17 +30,23 @@ public interface FlexShrink : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flexShrink(value: FlexShrink) {
+public inline fun CssDeclarationBlockBuilder.flexShrink(value: FlexShrink) {
 	property(flexShrink, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flexShrink(value: Number) {
+public inline fun CssDeclarationBlockBuilder.flexShrink(value: Double) {
+	property(flexShrink, value)
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.flexShrink(value: Int) {
 	property(flexShrink, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.flexShrink: CssProperty<FlexShrink>
-	get() = CssProperty("flex-shrink")
+public inline val CssProperties.flexShrink: CssProperty<FlexShrink>
+	get() = CssProperty.unsafe("flex-shrink")

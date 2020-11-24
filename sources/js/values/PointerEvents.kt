@@ -3,48 +3,59 @@
 package io.fluidsonic.css
 
 
-public interface PointerEvents : CssValue, Internal {
+public external interface PointerEvents : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: PointerEvents = raw("auto")
+		public inline val auto: PointerEvents
+			get() = unsafe("auto")
 
 		@CssDsl
-		public val none: PointerEvents = raw("none")
+		public inline val none: PointerEvents
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val all: PointerEvents = raw("all")
+		public inline val all: PointerEvents
+			get() = unsafe("all")
 
 		@CssDsl
-		public val fill: PointerEvents = raw("fill")
+		public inline val fill: PointerEvents
+			get() = unsafe("fill")
 
 		@CssDsl
-		public val painted: PointerEvents = raw("painted")
+		public inline val painted: PointerEvents
+			get() = unsafe("painted")
 
 		@CssDsl
-		public val stroke: PointerEvents = raw("stroke")
+		public inline val stroke: PointerEvents
+			get() = unsafe("stroke")
 
 		@CssDsl
-		public val visible: PointerEvents = raw("visible")
+		public inline val visible: PointerEvents
+			get() = unsafe("visible")
 
 		@CssDsl
-		public val visibleFill: PointerEvents = raw("visibleFill")
+		public inline val visibleFill: PointerEvents
+			get() = unsafe("visibleFill")
 
 		@CssDsl
-		public val visiblePainted: PointerEvents = raw("visiblePainted")
+		public inline val visiblePainted: PointerEvents
+			get() = unsafe("visiblePainted")
 
 		@CssDsl
-		public val visibleStroke: PointerEvents = raw("visibleStroke")
+		public inline val visibleStroke: PointerEvents
+			get() = unsafe("visibleStroke")
 
 
-		public fun raw(value: String): PointerEvents =
-			GenericValue(value)
+		public inline fun unsafe(value: String): PointerEvents =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -53,11 +64,11 @@ public interface PointerEvents : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.pointerEvents(value: PointerEvents) {
+public inline fun CssDeclarationBlockBuilder.pointerEvents(value: PointerEvents) {
 	property(pointerEvents, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.pointerEvents: CssProperty<PointerEvents>
-	get() = CssProperty("pointer-events")
+public inline val CssProperties.pointerEvents: CssProperty<PointerEvents>
+	get() = CssProperty.unsafe("pointer-events")

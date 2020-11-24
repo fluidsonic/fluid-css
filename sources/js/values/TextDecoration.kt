@@ -3,47 +3,27 @@
 package io.fluidsonic.css
 
 
-public interface TextDecoration : CssValue, Internal {
+public external interface TextDecoration : CssValue {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
-		public val none: TextDecoration = raw("none")
+		@CssDsl
+		public inline val none: TextDecoration
+			get() = unsafe("none")
 
 
-		public fun raw(value: String): TextDecoration =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TextDecoration =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
-
-
-		public fun with(
-			line: TextDecorationLine? = null,
-			style: TextDecorationStyle? = null,
-			color: Color? = null,
-			thickness: TextDecorationThickness? = null,
-		): TextDecoration =
-			if (line != null || style != null || color != null || thickness != null)
-				raw(buildString {
-					if (line != null)
-						append(line)
-
-					if (style != null) {
-						if (isNotEmpty()) append(" ")
-						append(style)
-					}
-					if (color != null) {
-						if (isNotEmpty()) append(" ")
-						append(color)
-					}
-					if (thickness != null) {
-						if (isNotEmpty()) append(" ")
-						append(thickness)
-					}
-				})
-			else
-				CssValue.initial
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -51,14 +31,46 @@ public interface TextDecoration : CssValue, Internal {
 }
 
 
+@Suppress("DEPRECATION")
+public inline fun TextDecoration.Companion.with(
+	line: TextDecorationLine? = null,
+	style: TextDecorationStyle? = null,
+	color: Color? = null,
+	thickness: TextDecorationThickness? = null,
+): TextDecoration =
+	if (line != null || style != null || color != null || thickness != null) {
+		var string = ""
+
+		if (line != null)
+			string += line
+
+		if (style != null) {
+			if (string.isNotEmpty()) string += " "
+			string += style
+		}
+		if (color != null) {
+			if (string.isNotEmpty()) string += " "
+			string += color
+		}
+		if (thickness != null) {
+			if (string.isNotEmpty()) string += " "
+			string += thickness
+		}
+
+		unsafe(string)
+	}
+	else
+		CssValue.initial
+
+
 @CssDsl
-public fun CssDeclarationBlockBuilder.textDecoration(value: TextDecoration) {
+public inline fun CssDeclarationBlockBuilder.textDecoration(value: TextDecoration) {
 	property(textDecoration, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textDecoration(
+public inline fun CssDeclarationBlockBuilder.textDecoration(
 	line: TextDecorationLine? = null,
 	style: TextDecorationStyle? = null,
 	color: Color? = null,
@@ -69,5 +81,5 @@ public fun CssDeclarationBlockBuilder.textDecoration(
 
 
 @Suppress("unused")
-public val CssProperties.textDecoration: CssProperty<TextDecoration>
-	get() = CssProperty("text-decoration")
+public inline val CssProperties.textDecoration: CssProperty<TextDecoration>
+	get() = CssProperty.unsafe("text-decoration")

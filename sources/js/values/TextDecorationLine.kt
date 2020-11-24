@@ -5,30 +5,35 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface TextDecorationLine : CssValue, Internal {
+public external interface TextDecorationLine : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val none: TextDecorationLine = raw("none")
+		public inline val none: TextDecorationLine
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val lineThrough: TextDecorationLine = raw("line-through")
+		public inline val lineThrough: TextDecorationLine
+			get() = unsafe("line-through")
 
 		@CssDsl
-		public val overline: TextDecorationLine = raw("overline")
+		public inline val overline: TextDecorationLine
+			get() = unsafe("overline")
 
 		@CssDsl
-		public val underline: TextDecorationLine = raw("underline")
+		public inline val underline: TextDecorationLine
+			get() = unsafe("underline")
 
 
-		public fun raw(value: String): TextDecorationLine =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TextDecorationLine =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -37,11 +42,11 @@ public interface TextDecorationLine : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textDecorationLine(value: TextDecorationLine) {
+public inline fun CssDeclarationBlockBuilder.textDecorationLine(value: TextDecorationLine) {
 	property(textDecorationLine, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.textDecorationLine: CssProperty<TextDecorationLine>
-	get() = CssProperty("text-decoration-line")
+public inline val CssProperties.textDecorationLine: CssProperty<TextDecorationLine>
+	get() = CssProperty.unsafe("text-decoration-line")

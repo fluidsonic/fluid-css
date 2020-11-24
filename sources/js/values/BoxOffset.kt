@@ -3,20 +3,22 @@
 package io.fluidsonic.css
 
 
-public interface BoxOffset : CssValue, Internal {
+public external interface BoxOffset : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: BoxOffset = raw("auto")
+		public inline val auto: BoxOffset
+			get() = unsafe("auto")
 
 
-		public fun raw(value: String): BoxOffset =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BoxOffset =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -25,44 +27,44 @@ public interface BoxOffset : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.bottom(value: BoxOffset) {
+public inline fun CssDeclarationBlockBuilder.bottom(value: BoxOffset) {
 	property(bottom, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.left(value: BoxOffset) {
+public inline fun CssDeclarationBlockBuilder.left(value: BoxOffset) {
 	property(left, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.right(value: BoxOffset) {
+public inline fun CssDeclarationBlockBuilder.right(value: BoxOffset) {
 	property(right, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.top(value: BoxOffset) {
+public inline fun CssDeclarationBlockBuilder.top(value: BoxOffset) {
 	property(top, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.bottom: CssProperty<BoxOffset>
-	get() = CssProperty("bottom")
+public inline val CssProperties.bottom: CssProperty<BoxOffset>
+	get() = CssProperty.unsafe("bottom")
 
 
 @Suppress("unused")
-public val CssProperties.left: CssProperty<BoxOffset>
-	get() = CssProperty("left")
+public inline val CssProperties.left: CssProperty<BoxOffset>
+	get() = CssProperty.unsafe("left")
 
 
 @Suppress("unused")
-public val CssProperties.right: CssProperty<BoxOffset>
-	get() = CssProperty("right")
+public inline val CssProperties.right: CssProperty<BoxOffset>
+	get() = CssProperty.unsafe("right")
 
 
 @Suppress("unused")
-public val CssProperties.top: CssProperty<BoxOffset>
-	get() = CssProperty("top")
+public inline val CssProperties.top: CssProperty<BoxOffset>
+	get() = CssProperty.unsafe("top")

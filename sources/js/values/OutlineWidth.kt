@@ -3,26 +3,30 @@
 package io.fluidsonic.css
 
 
-public interface OutlineWidth : CssValue, Internal {
+public external interface OutlineWidth : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val medium: OutlineWidth = raw("medium")
+		public inline val medium: OutlineWidth
+			get() = unsafe("medium")
 
 		@CssDsl
-		public val thin: OutlineWidth = raw("thin")
+		public inline val thin: OutlineWidth
+			get() = unsafe("thin")
 
 		@CssDsl
-		public val thick: OutlineWidth = raw("thick")
+		public inline val thick: OutlineWidth
+			get() = unsafe("thick")
 
 
-		public fun raw(value: String): OutlineWidth =
-			GenericValue(value)
+		public inline fun unsafe(value: String): OutlineWidth =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -31,10 +35,10 @@ public interface OutlineWidth : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.outlineWidth(all: OutlineWidth) {
+public inline fun CssDeclarationBlockBuilder.outlineWidth(all: OutlineWidth) {
 	property(outlineWidth, all)
 }
 
 @Suppress("unused")
-public val CssProperties.outlineWidth: CssProperty<OutlineWidth>
-	get() = CssProperty("outline-width")
+public inline val CssProperties.outlineWidth: CssProperty<OutlineWidth>
+	get() = CssProperty.unsafe("outline-width")

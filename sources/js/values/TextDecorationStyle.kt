@@ -3,32 +3,38 @@
 package io.fluidsonic.css
 
 
-public interface TextDecorationStyle : CssValue, Internal {
+public external interface TextDecorationStyle : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val dashed: TextDecorationStyle = raw("dashed")
+		public inline val dashed: TextDecorationStyle
+			get() = unsafe("dashed")
 
 		@CssDsl
-		public val dotted: TextDecorationStyle = raw("dotted")
+		public inline val dotted: TextDecorationStyle
+			get() = unsafe("dotted")
 
 		@CssDsl
-		public val double: TextDecorationStyle = raw("double")
+		public inline val double: TextDecorationStyle
+			get() = unsafe("double")
 
 		@CssDsl
-		public val solid: TextDecorationStyle = raw("solid")
+		public inline val solid: TextDecorationStyle
+			get() = unsafe("solid")
 
 		@CssDsl
-		public val wavy: TextDecorationStyle = raw("wavy")
+		public inline val wavy: TextDecorationStyle
+			get() = unsafe("wavy")
 
 
-		public fun raw(value: String): TextDecorationStyle =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TextDecorationStyle =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -37,11 +43,11 @@ public interface TextDecorationStyle : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textDecorationStyle(value: TextDecorationStyle) {
+public inline fun CssDeclarationBlockBuilder.textDecorationStyle(value: TextDecorationStyle) {
 	property(textDecorationStyle, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.textDecorationStyle: CssProperty<TextDecorationStyle>
-	get() = CssProperty("text-decoration-style")
+public inline val CssProperties.textDecorationStyle: CssProperty<TextDecorationStyle>
+	get() = CssProperty.unsafe("text-decoration-style")

@@ -3,16 +3,17 @@
 package io.fluidsonic.css
 
 
-public interface StrokeWidth : CssValue, Internal {
+public external interface StrokeWidth : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun raw(value: String): StrokeWidth =
-			GenericValue(value)
+		public inline fun unsafe(value: String): StrokeWidth =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -21,11 +22,11 @@ public interface StrokeWidth : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.strokeWidth(value: StrokeWidth) {
+public inline fun CssDeclarationBlockBuilder.strokeWidth(value: StrokeWidth) {
 	property(strokeWidth, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.strokeWidth: CssProperty<StrokeWidth>
-	get() = CssProperty("stroke-width")
+public inline val CssProperties.strokeWidth: CssProperty<StrokeWidth>
+	get() = CssProperty.unsafe("stroke-width")

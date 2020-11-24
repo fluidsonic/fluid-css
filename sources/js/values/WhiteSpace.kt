@@ -3,35 +3,42 @@
 package io.fluidsonic.css
 
 
-public interface WhiteSpace : CssValue, Internal {
+public external interface WhiteSpace : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val breakSpaces: WhiteSpace = raw("break-spaces")
+		public inline val breakSpaces: WhiteSpace
+			get() = unsafe("break-spaces")
 
 		@CssDsl
-		public val normal: WhiteSpace = raw("normal")
+		public inline val normal: WhiteSpace
+			get() = unsafe("normal")
 
 		@CssDsl
-		public val nowrap: WhiteSpace = raw("nowrap")
+		public inline val nowrap: WhiteSpace
+			get() = unsafe("nowrap")
 
 		@CssDsl
-		public val pre: WhiteSpace = raw("pre")
+		public inline val pre: WhiteSpace
+			get() = unsafe("pre")
 
 		@CssDsl
-		public val preLine: WhiteSpace = raw("pre-line")
+		public inline val preLine: WhiteSpace
+			get() = unsafe("pre-line")
 
 		@CssDsl
-		public val preWrap: WhiteSpace = raw("pre-wrap")
+		public inline val preWrap: WhiteSpace
+			get() = unsafe("pre-wrap")
 
 
-		public fun raw(value: String): WhiteSpace =
-			GenericValue(value)
+		public inline fun unsafe(value: String): WhiteSpace =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -40,11 +47,11 @@ public interface WhiteSpace : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.whiteSpace(value: WhiteSpace) {
+public inline fun CssDeclarationBlockBuilder.whiteSpace(value: WhiteSpace) {
 	property(whiteSpace, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.whiteSpace: CssProperty<WhiteSpace>
-	get() = CssProperty("white-space")
+public inline val CssProperties.whiteSpace: CssProperty<WhiteSpace>
+	get() = CssProperty.unsafe("white-space")

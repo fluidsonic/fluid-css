@@ -5,25 +5,26 @@ package io.fluidsonic.css
 // FIXME support fully
 
 
-public interface Content : CssValue, Internal {
+public external interface Content : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public fun counter(name: String): Content =
-			raw("counter($name)")
+		public inline fun counter(name: String): Content =
+			unsafe("counter($name)")
 
 
-		public fun raw(value: String): Content =
-			GenericValue(value)
+		public inline fun string(value: String): Content =
+			unsafe("'$value'") // FIXME escaping
 
 
-		public fun string(value: String): Content =
-			raw("'$value'") // FIXME escaping
+		public inline fun unsafe(value: String): Content =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -32,17 +33,17 @@ public interface Content : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.content(value: Content) {
+public inline fun CssDeclarationBlockBuilder.content(value: Content) {
 	property(content, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.content(value: String = "") {
+public inline fun CssDeclarationBlockBuilder.content(value: String = "") {
 	content(Content.string(value))
 }
 
 
 @Suppress("unused")
-public val CssProperties.content: CssProperty<Content>
-	get() = CssProperty("content")
+public inline val CssProperties.content: CssProperty<Content>
+	get() = CssProperty.unsafe("content")

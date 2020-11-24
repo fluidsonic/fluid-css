@@ -3,24 +3,26 @@
 package io.fluidsonic.css
 
 
-public interface ZIndex : CssValue.IntConstructable, Internal {
+public external interface ZIndex : CssValue.IntConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: ZIndex = raw("auto")
+		public inline val auto: ZIndex
+			get() = unsafe("auto")
 
 
-		public fun of(value: Int): ZIndex =
-			raw(value.toString())
+		public inline fun of(value: Int): ZIndex =
+			CssValue.unsafe(value)
 
 
-		public fun raw(value: String): ZIndex =
-			GenericValue(value)
+		public inline fun unsafe(value: String): ZIndex =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -29,17 +31,17 @@ public interface ZIndex : CssValue.IntConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.zIndex(value: ZIndex) {
+public inline fun CssDeclarationBlockBuilder.zIndex(value: ZIndex) {
 	property(zIndex, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.zIndex(value: Int) {
+public inline fun CssDeclarationBlockBuilder.zIndex(value: Int) {
 	property(zIndex, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.zIndex: CssProperty<ZIndex>
-	get() = CssProperty("z-index")
+public inline val CssProperties.zIndex: CssProperty<ZIndex>
+	get() = CssProperty.unsafe("z-index")

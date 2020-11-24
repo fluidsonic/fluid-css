@@ -3,29 +3,34 @@
 package io.fluidsonic.css
 
 
-public interface TextRendering : CssValue, Internal {
+public external interface TextRendering : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auth: TextRendering = raw("auto")
+		public inline val auth: TextRendering
+			get() = unsafe("auto")
 
 		@CssDsl
-		public val optimizeSpeed: TextRendering = raw("optimizeSpeed")
+		public inline val optimizeSpeed: TextRendering
+			get() = unsafe("optimizeSpeed")
 
 		@CssDsl
-		public val optimizeLegibility: TextRendering = raw("optimizeLegibility")
+		public inline val optimizeLegibility: TextRendering
+			get() = unsafe("optimizeLegibility")
 
 		@CssDsl
-		public val geometricPrecision: TextRendering = raw("geometricPrecision")
+		public inline val geometricPrecision: TextRendering
+			get() = unsafe("geometricPrecision")
 
 
-		public fun raw(value: String): TextRendering =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TextRendering =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -34,11 +39,11 @@ public interface TextRendering : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textRendering(value: TextRendering) {
+public inline fun CssDeclarationBlockBuilder.textRendering(value: TextRendering) {
 	property(textRendering, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.textRendering: CssProperty<TextRendering>
-	get() = CssProperty("text-rendering")
+public inline val CssProperties.textRendering: CssProperty<TextRendering>
+	get() = CssProperty.unsafe("text-rendering")

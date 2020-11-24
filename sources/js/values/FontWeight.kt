@@ -3,61 +3,80 @@
 package io.fluidsonic.css
 
 
-public interface FontWeight : CssValue.NumberConstructable, Internal {
+public external interface FontWeight : CssValue.DoubleConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val bold: FontWeight = raw("bold")
+		public inline val bold: FontWeight
+			get() = unsafe("bold")
 
 		@CssDsl
-		public val bolder: FontWeight = raw("bolder")
+		public inline val bolder: FontWeight
+			get() = unsafe("bolder")
 
 		@CssDsl
-		public val lighter: FontWeight = raw("lighter")
+		public inline val lighter: FontWeight
+			get() = unsafe("lighter")
 
 		@CssDsl
-		public val normal: FontWeight = raw("normal")
+		public inline val normal: FontWeight
+			get() = unsafe("normal")
 
 		@CssDsl
-		public val w100: FontWeight = raw("100")
+		public inline val w100: FontWeight
+			get() = unsafe("100")
 
 		@CssDsl
-		public val w200: FontWeight = raw("200")
+		public inline val w200: FontWeight
+			get() = unsafe("200")
 
 		@CssDsl
-		public val w300: FontWeight = raw("300")
+		public inline val w300: FontWeight
+			get() = unsafe("300")
 
 		@CssDsl
-		public val w400: FontWeight = raw("400")
+		public inline val w400: FontWeight
+			get() = unsafe("400")
 
 		@CssDsl
-		public val w500: FontWeight = raw("500")
+		public inline val w500: FontWeight
+			get() = unsafe("500")
 
 		@CssDsl
-		public val w600: FontWeight = raw("600")
+		public inline val w600: FontWeight
+			get() = unsafe("600")
 
 		@CssDsl
-		public val w700: FontWeight = raw("700")
+		public inline val w700: FontWeight
+			get() = unsafe("700")
 
 		@CssDsl
-		public val w800: FontWeight = raw("800")
+		public inline val w800: FontWeight
+			get() = unsafe("800")
 
 		@CssDsl
-		public val w900: FontWeight = raw("900")
+		public inline val w900: FontWeight
+			get() = unsafe("900")
 
 
 		@CssDsl
-		public fun of(value: Number): FontWeight =
-			raw(value.toString())
+		public inline fun of(value: Double): FontWeight =
+			CssValue.unsafe(value)
 
 
-		public fun raw(value: String): FontWeight =
-			GenericValue(value)
+		@CssDsl
+		public inline fun of(value: Int): FontWeight =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): FontWeight =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -66,17 +85,23 @@ public interface FontWeight : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.fontWeight(value: FontWeight) {
+public inline fun CssDeclarationBlockBuilder.fontWeight(value: FontWeight) {
 	property(fontWeight, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.fontWeight(value: Number) {
+public inline fun CssDeclarationBlockBuilder.fontWeight(value: Double) {
+	property(fontWeight, value)
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.fontWeight(value: Int) {
 	property(fontWeight, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.fontWeight: CssProperty<FontWeight>
-	get() = CssProperty("font-weight")
+public inline val CssProperties.fontWeight: CssProperty<FontWeight>
+	get() = CssProperty.unsafe("font-weight")

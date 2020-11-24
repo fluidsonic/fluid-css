@@ -3,31 +3,43 @@
 package io.fluidsonic.css
 
 
-public interface CssValue {
+/** Only `String` is a valid subtype of `CssValue`. */
+public external interface CssValue {
 
-	override fun equals(other: Any?): Boolean
-	override fun hashCode(): Int
-	override fun toString(): String
+	@Deprecated(
+		message = "Equality checks cannot be optimized by Terser. Use 'a eq b' or 'a ne b'. Suppress warning for null-checks.",
+		level = DeprecationLevel.WARNING,
+		replaceWith = ReplaceWith("this eq other")
+	)
+	public override operator fun equals(other: Any?): Boolean
 
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val inherit: Global = global("inherit")
+		public inline val inherit: Global
+			get() = unsafe("inherit")
 
 		@CssDsl
-		public val initial: Global = global("initial")
+		public inline val initial: Global
+			get() = unsafe("initial")
 
 		@CssDsl
-		public val unset: Global = global("unset")
+		public inline val unset: Global
+			get() = unsafe("unset")
 
 
-		public fun global(value: String): Global =
-			GenericValue(value)
+		public inline fun <Value : CssValue> unsafe(value: Double): Value =
+			unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
 
 
-		public fun raw(value: String): CssValue =
-			global(value)
+		public inline fun <Value : CssValue> unsafe(value: Int): Value =
+			unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
+
+
+		public inline fun <Value : CssValue> unsafe(value: String): Value =
+			value.unsafeCast<Value>()
 	}
 
 
@@ -38,24 +50,21 @@ public interface CssValue {
 		AnimationName,
 		AnimationPlayState,
 		Appearance,
-		Background.Single,
+		Background,
 		BackgroundAttachment,
 		BackgroundClip,
 		BackgroundImage,
 		BackgroundOrigin,
 		BackgroundPosition,
-		BackgroundPositionX.Align,
-		BackgroundPositionY.Align,
 		BackgroundRepeat,
-		BackgroundRepeatAxis,
 		BackgroundSize,
 		Border,
 		BorderCollapse,
-		BorderColor.Single,
-		BorderStyle.Single,
-		BorderWidth.Single,
+		BorderColor,
+		BorderStyle,
+		BorderWidth,
 		BoxOffset,
-		BoxShadow.Single,
+		BoxShadow,
 		BoxSizing,
 		CaretColor,
 		Color,
@@ -88,14 +97,14 @@ public interface CssValue {
 		LetterSpacing,
 		LineHeight,
 		ListStyleType,
-		Margin.Single,
+		Margin,
 		Opacity,
 		Outline,
 		OutlineColor,
 		OutlineStyle,
 		OutlineWidth,
 		Overflow.Axis,
-		Padding.Single,
+		Padding,
 		Percentage,
 		PointerEvents,
 		Position,
@@ -109,7 +118,7 @@ public interface CssValue {
 		TextDecorationLine,
 		TextDecorationStyle,
 		TextDecorationThickness,
-		TextOverflow.Single,
+		TextOverflow,
 		TextRendering,
 		Time,
 		TimingFunction,
@@ -125,7 +134,39 @@ public interface CssValue {
 		ZIndex
 
 
+	public interface DoubleConstructable : IntConstructable
 	public interface IntConstructable : CssValue
-	public interface NumberConstructable : IntConstructable
 	public interface StringConstructable : CssValue
 }
+
+
+public inline fun CssValue.asString(): String =
+	unsafeCast<String>()
+
+
+public inline infix fun CssValue.eq(other: CssValue): Boolean =
+	asString() == other.asString()
+
+
+@Suppress("DEPRECATION")
+public inline infix fun CssValue?.eq(other: CssValue?): Boolean =
+	this?.asString() == other?.asString()
+
+
+@Suppress("DEPRECATION")
+public inline infix fun CssValue?.eq(other: Nothing?): Boolean =
+	this == null
+
+
+public inline infix fun CssValue.ne(other: CssValue): Boolean =
+	asString() != other.asString()
+
+
+@Suppress("DEPRECATION")
+public inline infix fun CssValue?.ne(other: CssValue?): Boolean =
+	this?.asString() != other?.asString()
+
+
+@Suppress("DEPRECATION")
+public inline infix fun CssValue?.ne(other: Nothing?): Boolean =
+	this != null

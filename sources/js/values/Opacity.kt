@@ -3,20 +3,25 @@
 package io.fluidsonic.css
 
 
-public interface Opacity : CssValue.NumberConstructable, Internal {
+public external interface Opacity : CssValue.DoubleConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun of(value: Number): Opacity =
-			raw(value.toString())
+		public inline fun of(value: Double): Opacity =
+			CssValue.unsafe(value)
 
 
-		public fun raw(value: String): Opacity =
-			GenericValue(value)
+		public inline fun of(value: Int): Opacity =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): Opacity =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -25,17 +30,23 @@ public interface Opacity : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.opacity(value: Opacity) {
+public inline fun CssDeclarationBlockBuilder.opacity(value: Opacity) {
 	property(opacity, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.opacity(value: Number) {
+public inline fun CssDeclarationBlockBuilder.opacity(value: Double) {
+	property(opacity, value)
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.opacity(value: Int) {
 	property(opacity, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.opacity: CssProperty<Opacity>
-	get() = CssProperty("opacity")
+public inline val CssProperties.opacity: CssProperty<Opacity>
+	get() = CssProperty.unsafe("opacity")

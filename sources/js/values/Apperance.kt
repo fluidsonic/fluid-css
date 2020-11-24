@@ -3,30 +3,35 @@
 package io.fluidsonic.css
 
 
-public interface Appearance : CssValue, Internal {
+public external interface Appearance : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: Appearance = raw("auto")
+		public inline val auto: Appearance
+			get() = unsafe("auto")
 
 		@CssDsl
-		public val none: Appearance = raw("none")
+		public inline val none: Appearance
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val menulistButton: Appearance = raw("menulist-button")
+		public inline val menulistButton: Appearance
+			get() = unsafe("menulist-button")
 
 		@CssDsl
-		public val textfield: Appearance = raw("textfield")
+		public inline val textfield: Appearance
+			get() = unsafe("textfield")
 
 
-		public fun raw(value: String): Appearance =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Appearance =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -35,11 +40,11 @@ public interface Appearance : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.appearance(value: Appearance) {
+public inline fun CssDeclarationBlockBuilder.appearance(value: Appearance) {
 	property(appearance, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.appearance: CssProperty<Appearance>
-	get() = CssProperty("appearance")
+public inline val CssProperties.appearance: CssProperty<Appearance>
+	get() = CssProperty.unsafe("appearance")

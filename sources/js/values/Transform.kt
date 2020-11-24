@@ -3,27 +3,31 @@
 package io.fluidsonic.css
 
 
-public interface Transform : CssValue, Internal {
+public external interface Transform : CssValue {
 
+	@Suppress(
+		"EXTENSION_FUNCTION_IN_EXTERNAL_DECLARATION",
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION"
+	)
 	public companion object {
 
 		@CssDsl
-		public val none: Transform = raw("none")
+		public inline val none: Transform
+			get() = unsafe("none")
 
 
-		public fun raw(value: String): Transform =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Transform =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 
 
-		public fun with(functions: TransformBuilder.() -> Unit): Transform =
-			with(TransformBuilder.default()) {
-				functions()
-				Unit.build()
-			}
+		public inline fun with(functions: TransformBuilder.() -> Unit): Transform =
+			TransformBuilder.build(functions)
 	}
 
 
@@ -32,17 +36,17 @@ public interface Transform : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.transform(value: Transform) {
+public inline fun CssDeclarationBlockBuilder.transform(value: Transform) {
 	property(transform, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.transform(functions: TransformBuilder.() -> Unit) {
+public inline fun CssDeclarationBlockBuilder.transform(functions: TransformBuilder.() -> Unit) {
 	transform(Transform.with(functions))
 }
 
 
 @Suppress("unused")
-public val CssProperties.transform: CssProperty<Transform>
-	get() = CssProperty("transform")
+public inline val CssProperties.transform: CssProperty<Transform>
+	get() = CssProperty.unsafe("transform")

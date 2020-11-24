@@ -3,41 +3,50 @@
 package io.fluidsonic.css
 
 
-public interface FontSize : CssValue, Internal {
+public external interface FontSize : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val xxSmall: FontSize = raw("xx-small")
+		public inline val xxSmall: FontSize
+			get() = unsafe("xx-small")
 
 		@CssDsl
-		public val xSmall: FontSize = raw("x-small")
+		public inline val xSmall: FontSize
+			get() = unsafe("x-small")
 
 		@CssDsl
-		public val small: FontSize = raw("small")
+		public inline val small: FontSize
+			get() = unsafe("small")
 
 		@CssDsl
-		public val medium: FontSize = raw("medium")
+		public inline val medium: FontSize
+			get() = unsafe("medium")
 
 		@CssDsl
-		public val large: FontSize = raw("large")
+		public inline val large: FontSize
+			get() = unsafe("large")
 
 		@CssDsl
-		public val xLarge: FontSize = raw("x-large")
+		public inline val xLarge: FontSize
+			get() = unsafe("x-large")
 
 		@CssDsl
-		public val xxLarge: FontSize = raw("xx-large")
+		public inline val xxLarge: FontSize
+			get() = unsafe("xx-large")
 
 		@CssDsl
-		public val xxxLarge: FontSize = raw("xxx-large")
+		public inline val xxxLarge: FontSize
+			get() = unsafe("xxx-large")
 
 
-		public fun raw(value: String): FontSize =
-			GenericValue(value)
+		public inline fun unsafe(value: String): FontSize =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -46,11 +55,11 @@ public interface FontSize : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.fontSize(value: FontSize) {
+public inline fun CssDeclarationBlockBuilder.fontSize(value: FontSize) {
 	property(fontSize, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.fontSize: CssProperty<FontSize>
-	get() = CssProperty("font-size")
+public inline val CssProperties.fontSize: CssProperty<FontSize>
+	get() = CssProperty.unsafe("font-size")

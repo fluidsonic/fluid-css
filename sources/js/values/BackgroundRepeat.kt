@@ -5,43 +5,74 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface BackgroundRepeat : CssValue, Internal {
+public external interface BackgroundRepeat : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val noRepeat: BackgroundRepeat
-			get() = BackgroundRepeatAxis.noRepeat
+		public inline val noRepeat: BackgroundRepeat
+			get() = Axis.noRepeat
 
 		@CssDsl
-		public val repeat: BackgroundRepeat
-			get() = BackgroundRepeatAxis.repeat
+		public inline val repeat: BackgroundRepeat
+			get() = Axis.repeat
 
 		@CssDsl
-		public val repeatX: BackgroundRepeat = raw("repeat-x")
+		public inline val repeatX: BackgroundRepeat
+			get() = unsafe("repeat-x")
 
 		@CssDsl
-		public val repeatY: BackgroundRepeat = raw("repeat-y")
+		public inline val repeatY: BackgroundRepeat
+			get() = unsafe("repeat-y")
 
 		@CssDsl
-		public val round: BackgroundRepeat
-			get() = BackgroundRepeatAxis.round
+		public inline val round: BackgroundRepeat
+			get() = Axis.round
 
 		@CssDsl
-		public val space: BackgroundRepeat
-			get() = BackgroundRepeatAxis.space
+		public inline val space: BackgroundRepeat
+			get() = Axis.space
 
 
-		public fun raw(value: String): BackgroundRepeat =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BackgroundRepeat =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 
 
-		public fun with(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis): BackgroundRepeat =
-			raw("$x $y")
+		public inline fun with(x: Axis, y: Axis): BackgroundRepeat =
+			unsafe("$x $y")
+	}
+
+
+	public interface Axis : BackgroundRepeat {
+
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+		public companion object {
+
+			@CssDsl
+			public inline val noRepeat: Axis
+				get() = unsafe("no-repeat")
+
+			@CssDsl
+			public inline val repeat: Axis
+				get() = unsafe("repeat")
+
+			@CssDsl
+			public inline val round: Axis
+				get() = unsafe("round")
+
+			@CssDsl
+			public inline val space: Axis
+				get() = unsafe("space")
+
+
+			public inline fun unsafe(value: String): Axis =
+				CssValue.unsafe(value)
+		}
 	}
 
 
@@ -50,17 +81,17 @@ public interface BackgroundRepeat : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundRepeat(value: BackgroundRepeat) {
+public inline fun CssDeclarationBlockBuilder.backgroundRepeat(value: BackgroundRepeat) {
 	property(backgroundRepeat, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundRepeat(x: BackgroundRepeatAxis, y: BackgroundRepeatAxis) {
+public inline fun CssDeclarationBlockBuilder.backgroundRepeat(x: BackgroundRepeat.Axis, y: BackgroundRepeat.Axis) {
 	backgroundRepeat(BackgroundRepeat.with(x, y))
 }
 
 
 @Suppress("unused")
-public val CssProperties.backgroundRepeat: CssProperty<BackgroundRepeat>
-	get() = CssProperty("background-repeat")
+public inline val CssProperties.backgroundRepeat: CssProperty<BackgroundRepeat>
+	get() = CssProperty.unsafe("background-repeat")

@@ -2,634 +2,772 @@
 
 package io.fluidsonic.css
 
+import kotlin.js.RegExp
 
-public interface Color :
+
+// FIXME support #RRGGBB[AA]
+private val colorRegex = RegExp(
+	pattern = "^\\s*([a-z]+)\\(\\s*([^,\\)]+)\\s*,\\s*([^,\\)]+)\\s*,\\s*([^,\\)]+)\\s*(,\\s*(\\d+(\\.\\d*)?)\\s*)?\\)\\s*$",
+	flags = "i"
+)
+
+
+public external interface Color :
 	Background.Single,
 	BorderColor.Single,
 	CaretColor,
 	ColorStop,
 	OutlineColor {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
 		@CssDsl
-		public val currentColor: Color = raw("currentColor")
+		public inline val currentColor: Color
+			get() = unsafe("currentColor")
 
 		@CssDsl
-		public val transparent: Color = raw("transparent")
+		public inline val transparent: Color
+			get() = unsafe("transparent")
 
 
 		@CssDsl
-		public val aliceBlue: Named = named("aliceblue", 0xF0F8FF.rgb)
+		public inline val aliceBlue: Rgb
+			get() = 0xF0F8FF.rgb
 
 		@CssDsl
-		public val antiqueWhite: Named = named("antiquewhite", 0xFAEBD7.rgb)
+		public inline val antiqueWhite: Rgb
+			get() = 0xFAEBD7.rgb
 
 		@CssDsl
-		public val aqua: Named = named("aqua", 0x00FFFF.rgb)
+		public inline val aqua: Rgb
+			get() = 0x00FFFF.rgb
 
 		@CssDsl
-		public val aquamarine: Named = named("aquamarine", 0x7FFFD4.rgb)
+		public inline val aquamarine: Rgb
+			get() = 0x7FFFD4.rgb
 
 		@CssDsl
-		public val azure: Named = named("azure", 0xF0FFFF.rgb)
+		public inline val azure: Rgb
+			get() = 0xF0FFFF.rgb
 
 		@CssDsl
-		public val beige: Named = named("beige", 0xF5F5DC.rgb)
+		public inline val beige: Rgb
+			get() = 0xF5F5DC.rgb
 
 		@CssDsl
-		public val bisque: Named = named("bisque", 0xFFE4C4.rgb)
+		public inline val bisque: Rgb
+			get() = 0xFFE4C4.rgb
 
 		@CssDsl
-		public val black: Named = named("black", 0x000000.rgb)
+		public inline val black: Rgb
+			get() = 0x000000.rgb
 
 		@CssDsl
-		public val blanchedAlmond: Named = named("blanchedalmond", 0xFFEBCD.rgb)
+		public inline val blanchedAlmond: Rgb
+			get() = 0xFFEBCD.rgb
 
 		@CssDsl
-		public val blue: Named = named("blue", 0x0000FF.rgb)
+		public inline val blue: Rgb
+			get() = 0x0000FF.rgb
 
 		@CssDsl
-		public val blueViolet: Named = named("blueviolet", 0x8A2BE2.rgb)
+		public inline val blueViolet: Rgb
+			get() = 0x8A2BE2.rgb
 
 		@CssDsl
-		public val brown: Named = named("brown", 0xA52A2A.rgb)
+		public inline val brown: Rgb
+			get() = 0xA52A2A.rgb
 
 		@CssDsl
-		public val burlyWood: Named = named("burlywood", 0xDEB887.rgb)
+		public inline val burlyWood: Rgb
+			get() = 0xDEB887.rgb
 
 		@CssDsl
-		public val cadetBlue: Named = named("cadetblue", 0x5F9EA0.rgb)
+		public inline val cadetBlue: Rgb
+			get() = 0x5F9EA0.rgb
 
 		@CssDsl
-		public val chartreuse: Named = named("chartreuse", 0x7FFF00.rgb)
+		public inline val chartreuse: Rgb
+			get() = 0x7FFF00.rgb
 
 		@CssDsl
-		public val chocolate: Named = named("chocolate", 0xD2691E.rgb)
+		public inline val chocolate: Rgb
+			get() = 0xD2691E.rgb
 
 		@CssDsl
-		public val coral: Named = named("coral", 0xFF7F50.rgb)
+		public inline val coral: Rgb
+			get() = 0xFF7F50.rgb
 
 		@CssDsl
-		public val cornflowerBlue: Named = named("cornflowerblue", 0x6495ED.rgb)
+		public inline val cornflowerBlue: Rgb
+			get() = 0x6495ED.rgb
 
 		@CssDsl
-		public val cornsilk: Named = named("cornsilk", 0xFFF8DC.rgb)
+		public inline val cornsilk: Rgb
+			get() = 0xFFF8DC.rgb
 
 		@CssDsl
-		public val crimson: Named = named("crimson", 0xDC143C.rgb)
+		public inline val crimson: Rgb
+			get() = 0xDC143C.rgb
 
 		@CssDsl
-		public val cyan: Named = named("cyan", 0x00FFFF.rgb)
+		public inline val cyan: Rgb
+			get() = 0x00FFFF.rgb
 
 		@CssDsl
-		public val darkBlue: Named = named("darkblue", 0x00008B.rgb)
+		public inline val darkBlue: Rgb
+			get() = 0x00008B.rgb
 
 		@CssDsl
-		public val darkCyan: Named = named("darkcyan", 0x008B8B.rgb)
+		public inline val darkCyan: Rgb
+			get() = 0x008B8B.rgb
 
 		@CssDsl
-		public val darkGoldenrod: Named = named("darkgoldenrod", 0xB8860B.rgb)
+		public inline val darkGoldenrod: Rgb
+			get() = 0xB8860B.rgb
 
 		@CssDsl
-		public val darkGray: Named = named("darkgray", 0xA9A9A9.rgb)
+		public inline val darkGray: Rgb
+			get() = 0xA9A9A9.rgb
 
 		@CssDsl
-		public val darkGreen: Named = named("darkgreen", 0x006400.rgb)
+		public inline val darkGreen: Rgb
+			get() = 0x006400.rgb
 
 		@CssDsl
-		public val darkGrey: Named = named("darkgrey", 0xA9A9A9.rgb)
+		public inline val darkGrey: Rgb
+			get() = 0xA9A9A9.rgb
 
 		@CssDsl
-		public val darkKhaki: Named = named("darkkhaki", 0xBDB76B.rgb)
+		public inline val darkKhaki: Rgb
+			get() = 0xBDB76B.rgb
 
 		@CssDsl
-		public val darkMagenta: Named = named("darkmagenta", 0x8B008B.rgb)
+		public inline val darkMagenta: Rgb
+			get() = 0x8B008B.rgb
 
 		@CssDsl
-		public val darkOliveGreen: Named = named("darkolivegreen", 0x556B2F.rgb)
+		public inline val darkOliveGreen: Rgb
+			get() = 0x556B2F.rgb
 
 		@CssDsl
-		public val darkOrange: Named = named("darkorange", 0xFF8C00.rgb)
+		public inline val darkOrange: Rgb
+			get() = 0xFF8C00.rgb
 
 		@CssDsl
-		public val darkOrchid: Named = named("darkorchid", 0x9932CC.rgb)
+		public inline val darkOrchid: Rgb
+			get() = 0x9932CC.rgb
 
 		@CssDsl
-		public val darkRed: Named = named("darkred", 0x8B0000.rgb)
+		public inline val darkRed: Rgb
+			get() = 0x8B0000.rgb
 
 		@CssDsl
-		public val darkSalmon: Named = named("darksalmon", 0xE9967A.rgb)
+		public inline val darkSalmon: Rgb
+			get() = 0xE9967A.rgb
 
 		@CssDsl
-		public val darkSeagreen: Named = named("darkseagreen", 0x8FBC8F.rgb)
+		public inline val darkSeagreen: Rgb
+			get() = 0x8FBC8F.rgb
 
 		@CssDsl
-		public val darkSlateBlue: Named = named("darkslateblue", 0x483D8B.rgb)
+		public inline val darkSlateBlue: Rgb
+			get() = 0x483D8B.rgb
 
 		@CssDsl
-		public val darkSlateGray: Named = named("darkslategray", 0x2F4F4F.rgb)
+		public inline val darkSlateGray: Rgb
+			get() = 0x2F4F4F.rgb
 
 		@CssDsl
-		public val darkSlateGrey: Named = named("darkslategrey", 0x2F4F4F.rgb)
+		public inline val darkSlateGrey: Rgb
+			get() = 0x2F4F4F.rgb
 
 		@CssDsl
-		public val darkTurquoise: Named = named("darkturquoise", 0x00CED1.rgb)
+		public inline val darkTurquoise: Rgb
+			get() = 0x00CED1.rgb
 
 		@CssDsl
-		public val darkViolet: Named = named("darkviolet", 0x9400D3.rgb)
+		public inline val darkViolet: Rgb
+			get() = 0x9400D3.rgb
 
 		@CssDsl
-		public val deepPink: Named = named("deeppink", 0xFF1493.rgb)
+		public inline val deepPink: Rgb
+			get() = 0xFF1493.rgb
 
 		@CssDsl
-		public val deepSkyBlue: Named = named("deepskyblue", 0x00BFFF.rgb)
+		public inline val deepSkyBlue: Rgb
+			get() = 0x00BFFF.rgb
 
 		@CssDsl
-		public val dimGray: Named = named("dimgray", 0x696969.rgb)
+		public inline val dimGray: Rgb
+			get() = 0x696969.rgb
 
 		@CssDsl
-		public val dimGrey: Named = named("dimgrey", 0x696969.rgb)
+		public inline val dimGrey: Rgb
+			get() = 0x696969.rgb
 
 		@CssDsl
-		public val dodgerBlue: Named = named("dodgerblue", 0x1E90FF.rgb)
+		public inline val dodgerBlue: Rgb
+			get() = 0x1E90FF.rgb
 
 		@CssDsl
-		public val firebrick: Named = named("firebrick", 0xB22222.rgb)
+		public inline val firebrick: Rgb
+			get() = 0xB22222.rgb
 
 		@CssDsl
-		public val floralWhite: Named = named("floralwhite", 0xFFFAF0.rgb)
+		public inline val floralWhite: Rgb
+			get() = 0xFFFAF0.rgb
 
 		@CssDsl
-		public val forestGreen: Named = named("forestgreen", 0x228B22.rgb)
+		public inline val forestGreen: Rgb
+			get() = 0x228B22.rgb
 
 		@CssDsl
-		public val fuchsia: Named = named("fuchsia", 0xFF00FF.rgb)
+		public inline val fuchsia: Rgb
+			get() = 0xFF00FF.rgb
 
 		@CssDsl
-		public val gainsboro: Named = named("gainsboro", 0xDCDCDC.rgb)
+		public inline val gainsboro: Rgb
+			get() = 0xDCDCDC.rgb
 
 		@CssDsl
-		public val ghostWhite: Named = named("ghostwhite", 0xF8F8FF.rgb)
+		public inline val ghostWhite: Rgb
+			get() = 0xF8F8FF.rgb
 
 		@CssDsl
-		public val gold: Named = named("gold", 0xFFD700.rgb)
+		public inline val gold: Rgb
+			get() = 0xFFD700.rgb
 
 		@CssDsl
-		public val goldenrod: Named = named("goldenrod", 0xDAA520.rgb)
+		public inline val goldenrod: Rgb
+			get() = 0xDAA520.rgb
 
 		@CssDsl
-		public val gray: Named = named("gray", 0x808080.rgb)
+		public inline val gray: Rgb
+			get() = 0x808080.rgb
 
 		@CssDsl
-		public val green: Named = named("green", 0x008000.rgb)
+		public inline val green: Rgb
+			get() = 0x008000.rgb
 
 		@CssDsl
-		public val greenYellow: Named = named("greenyellow", 0xADFF2F.rgb)
+		public inline val greenYellow: Rgb
+			get() = 0xADFF2F.rgb
 
 		@CssDsl
-		public val grey: Named = named("grey", 0x808080.rgb)
+		public inline val grey: Rgb
+			get() = 0x808080.rgb
 
 		@CssDsl
-		public val honeydew: Named = named("honeydew", 0xF0FFF0.rgb)
+		public inline val honeydew: Rgb
+			get() = 0xF0FFF0.rgb
 
 		@CssDsl
-		public val hotPink: Named = named("hotpink", 0xFF69B4.rgb)
+		public inline val hotPink: Rgb
+			get() = 0xFF69B4.rgb
 
 		@CssDsl
-		public val indianRed: Named = named("indianred", 0xCD5C5C.rgb)
+		public inline val indianRed: Rgb
+			get() = 0xCD5C5C.rgb
 
 		@CssDsl
-		public val indigo: Named = named("indigo", 0x4B0082.rgb)
+		public inline val indigo: Rgb
+			get() = 0x4B0082.rgb
 
 		@CssDsl
-		public val ivory: Named = named("ivory", 0xFFFFF0.rgb)
+		public inline val ivory: Rgb
+			get() = 0xFFFFF0.rgb
 
 		@CssDsl
-		public val khaki: Named = named("khaki", 0xF0E68C.rgb)
+		public inline val khaki: Rgb
+			get() = 0xF0E68C.rgb
 
 		@CssDsl
-		public val lavender: Named = named("lavender", 0xE6E6FA.rgb)
+		public inline val lavender: Rgb
+			get() = 0xE6E6FA.rgb
 
 		@CssDsl
-		public val lavenderBlush: Named = named("lavenderblush", 0xFFF0F5.rgb)
+		public inline val lavenderBlush: Rgb
+			get() = 0xFFF0F5.rgb
 
 		@CssDsl
-		public val lawnGreen: Named = named("lawngreen", 0x7CFC00.rgb)
+		public inline val lawnGreen: Rgb
+			get() = 0x7CFC00.rgb
 
 		@CssDsl
-		public val lemonChiffon: Named = named("lemonchiffon", 0xFFFACD.rgb)
+		public inline val lemonChiffon: Rgb
+			get() = 0xFFFACD.rgb
 
 		@CssDsl
-		public val lightBlue: Named = named("lightblue", 0xADD8E6.rgb)
+		public inline val lightBlue: Rgb
+			get() = 0xADD8E6.rgb
 
 		@CssDsl
-		public val lightCoral: Named = named("lightcoral", 0xF08080.rgb)
+		public inline val lightCoral: Rgb
+			get() = 0xF08080.rgb
 
 		@CssDsl
-		public val lightCyan: Named = named("lightcyan", 0xE0FFFF.rgb)
+		public inline val lightCyan: Rgb
+			get() = 0xE0FFFF.rgb
 
 		@CssDsl
-		public val lightGoldenrodYellow: Named = named("lightgoldenrodyellow", 0xFAFAD2.rgb)
+		public inline val lightGoldenrodYellow: Rgb
+			get() = 0xFAFAD2.rgb
 
 		@CssDsl
-		public val lightGray: Named = named("lightgray", 0xD3D3D3.rgb)
+		public inline val lightGray: Rgb
+			get() = 0xD3D3D3.rgb
 
 		@CssDsl
-		public val lightGreen: Named = named("lightgreen", 0x90EE90.rgb)
+		public inline val lightGreen: Rgb
+			get() = 0x90EE90.rgb
 
 		@CssDsl
-		public val lightGrey: Named = named("lightgrey", 0xD3D3D3.rgb)
+		public inline val lightGrey: Rgb
+			get() = 0xD3D3D3.rgb
 
 		@CssDsl
-		public val lightPink: Named = named("lightpink", 0xFFB6C1.rgb)
+		public inline val lightPink: Rgb
+			get() = 0xFFB6C1.rgb
 
 		@CssDsl
-		public val lightSalmon: Named = named("lightsalmon", 0xFFA07A.rgb)
+		public inline val lightSalmon: Rgb
+			get() = 0xFFA07A.rgb
 
 		@CssDsl
-		public val lightSeaGreen: Named = named("lightseagreen", 0x20B2AA.rgb)
+		public inline val lightSeaGreen: Rgb
+			get() = 0x20B2AA.rgb
 
 		@CssDsl
-		public val lightSkyBlue: Named = named("lightskyblue", 0x87CEFA.rgb)
+		public inline val lightSkyBlue: Rgb
+			get() = 0x87CEFA.rgb
 
 		@CssDsl
-		public val lightSlateGray: Named = named("lightslategray", 0x778899.rgb)
+		public inline val lightSlateGray: Rgb
+			get() = 0x778899.rgb
 
 		@CssDsl
-		public val lightSlateGrey: Named = named("lightslategrey", 0x778899.rgb)
+		public inline val lightSlateGrey: Rgb
+			get() = 0x778899.rgb
 
 		@CssDsl
-		public val lightSteelBlue: Named = named("lightsteelblue", 0xB0C4DE.rgb)
+		public inline val lightSteelBlue: Rgb
+			get() = 0xB0C4DE.rgb
 
 		@CssDsl
-		public val lightYellow: Named = named("lightyellow", 0xFFFFE0.rgb)
+		public inline val lightYellow: Rgb
+			get() = 0xFFFFE0.rgb
 
 		@CssDsl
-		public val lime: Named = named("lime", 0x00FF00.rgb)
+		public inline val lime: Rgb
+			get() = 0x00FF00.rgb
 
 		@CssDsl
-		public val limeGreen: Named = named("limegreen", 0x32CD32.rgb)
+		public inline val limeGreen: Rgb
+			get() = 0x32CD32.rgb
 
 		@CssDsl
-		public val linen: Named = named("linen", 0xFAF0E6.rgb)
+		public inline val linen: Rgb
+			get() = 0xFAF0E6.rgb
 
 		@CssDsl
-		public val magenta: Named = named("magenta", 0xFF00FF.rgb)
+		public inline val magenta: Rgb
+			get() = 0xFF00FF.rgb
 
 		@CssDsl
-		public val maroon: Named = named("maroon", 0x800000.rgb)
+		public inline val maroon: Rgb
+			get() = 0x800000.rgb
 
 		@CssDsl
-		public val mediumAquamarine: Named = named("mediumaquamarine", 0x66CDAA.rgb)
+		public inline val mediumAquamarine: Rgb
+			get() = 0x66CDAA.rgb
 
 		@CssDsl
-		public val mediumBlue: Named = named("mediumblue", 0x0000CD.rgb)
+		public inline val mediumBlue: Rgb
+			get() = 0x0000CD.rgb
 
 		@CssDsl
-		public val mediumOrchid: Named = named("mediumorchid", 0xBA55D3.rgb)
+		public inline val mediumOrchid: Rgb
+			get() = 0xBA55D3.rgb
 
 		@CssDsl
-		public val mediumPurple: Named = named("mediumpurple", 0x9370DB.rgb)
+		public inline val mediumPurple: Rgb
+			get() = 0x9370DB.rgb
 
 		@CssDsl
-		public val mediumSeaGreen: Named = named("mediumseagreen", 0x3CB371.rgb)
+		public inline val mediumSeaGreen: Rgb
+			get() = 0x3CB371.rgb
 
 		@CssDsl
-		public val mediumSlateBlue: Named = named("mediumslateblue", 0x7B68EE.rgb)
+		public inline val mediumSlateBlue: Rgb
+			get() = 0x7B68EE.rgb
 
 		@CssDsl
-		public val mediumSpringGreen: Named = named("mediumspringgreen", 0x00FA9A.rgb)
+		public inline val mediumSpringGreen: Rgb
+			get() = 0x00FA9A.rgb
 
 		@CssDsl
-		public val mediumTurquoise: Named = named("mediumturquoise", 0x48D1CC.rgb)
+		public inline val mediumTurquoise: Rgb
+			get() = 0x48D1CC.rgb
 
 		@CssDsl
-		public val mediumVioletRed: Named = named("mediumvioletred", 0xC71585.rgb)
+		public inline val mediumVioletRed: Rgb
+			get() = 0xC71585.rgb
 
 		@CssDsl
-		public val midnightBlue: Named = named("midnightblue", 0x191970.rgb)
+		public inline val midnightBlue: Rgb
+			get() = 0x191970.rgb
 
 		@CssDsl
-		public val mintCream: Named = named("mintcream", 0xF5FFFA.rgb)
+		public inline val mintCream: Rgb
+			get() = 0xF5FFFA.rgb
 
 		@CssDsl
-		public val mistyRose: Named = named("mistyrose", 0xFFE4E1.rgb)
+		public inline val mistyRose: Rgb
+			get() = 0xFFE4E1.rgb
 
 		@CssDsl
-		public val moccasin: Named = named("moccasin", 0xFFE4B5.rgb)
+		public inline val moccasin: Rgb
+			get() = 0xFFE4B5.rgb
 
 		@CssDsl
-		public val navajoWhite: Named = named("navajowhite", 0xFFDEAD.rgb)
+		public inline val navajoWhite: Rgb
+			get() = 0xFFDEAD.rgb
 
 		@CssDsl
-		public val navy: Named = named("navy", 0x000080.rgb)
+		public inline val navy: Rgb
+			get() = 0x000080.rgb
 
 		@CssDsl
-		public val oldLace: Named = named("oldlace", 0xFDF5E6.rgb)
+		public inline val oldLace: Rgb
+			get() = 0xFDF5E6.rgb
 
 		@CssDsl
-		public val olive: Named = named("olive", 0x808000.rgb)
+		public inline val olive: Rgb
+			get() = 0x808000.rgb
 
 		@CssDsl
-		public val oliveDrab: Named = named("olivedrab", 0x6B8E23.rgb)
+		public inline val oliveDrab: Rgb
+			get() = 0x6B8E23.rgb
 
 		@CssDsl
-		public val orange: Named = named("orange", 0xFFA500.rgb)
+		public inline val orange: Rgb
+			get() = 0xFFA500.rgb
 
 		@CssDsl
-		public val orangeRed: Named = named("orangered", 0xFF4500.rgb)
+		public inline val orangeRed: Rgb
+			get() = 0xFF4500.rgb
 
 		@CssDsl
-		public val orchid: Named = named("orchid", 0xDA70D6.rgb)
+		public inline val orchid: Rgb
+			get() = 0xDA70D6.rgb
 
 		@CssDsl
-		public val paleGoldenrod: Named = named("palegoldenrod", 0xEEE8AA.rgb)
+		public inline val paleGoldenrod: Rgb
+			get() = 0xEEE8AA.rgb
 
 		@CssDsl
-		public val paleGreen: Named = named("palegreen", 0x98FB98.rgb)
+		public inline val paleGreen: Rgb
+			get() = 0x98FB98.rgb
 
 		@CssDsl
-		public val paleTurquoise: Named = named("paleturquoise", 0xAFEEEE.rgb)
+		public inline val paleTurquoise: Rgb
+			get() = 0xAFEEEE.rgb
 
 		@CssDsl
-		public val paleVioletRed: Named = named("palevioletred", 0xDB7093.rgb)
+		public inline val paleVioletRed: Rgb
+			get() = 0xDB7093.rgb
 
 		@CssDsl
-		public val papayaWhip: Named = named("papayawhip", 0xFFEFD5.rgb)
+		public inline val papayaWhip: Rgb
+			get() = 0xFFEFD5.rgb
 
 		@CssDsl
-		public val peachPuff: Named = named("peachpuff", 0xFFDAB9.rgb)
+		public inline val peachPuff: Rgb
+			get() = 0xFFDAB9.rgb
 
 		@CssDsl
-		public val peru: Named = named("peru", 0xCD853F.rgb)
+		public inline val peru: Rgb
+			get() = 0xCD853F.rgb
 
 		@CssDsl
-		public val pink: Named = named("pink", 0xFFC0CB.rgb)
+		public inline val pink: Rgb
+			get() = 0xFFC0CB.rgb
 
 		@CssDsl
-		public val plum: Named = named("plum", 0xDDA0DD.rgb)
+		public inline val plum: Rgb
+			get() = 0xDDA0DD.rgb
 
 		@CssDsl
-		public val powderBlue: Named = named("powderblue", 0xB0E0E6.rgb)
+		public inline val powderBlue: Rgb
+			get() = 0xB0E0E6.rgb
 
 		@CssDsl
-		public val purple: Named = named("purple", 0x800080.rgb)
+		public inline val purple: Rgb
+			get() = 0x800080.rgb
 
 		@CssDsl
-		public val rebeccaPurple: Named = named("rebeccapurple", 0x663399.rgb)
+		public inline val rebeccaPurple: Rgb
+			get() = 0x663399.rgb
 
 		@CssDsl
-		public val red: Named = named("red", 0xFF0000.rgb)
+		public inline val red: Rgb
+			get() = 0xFF0000.rgb
 
 		@CssDsl
-		public val rosyBrown: Named = named("rosybrown", 0xBC8F8F.rgb)
+		public inline val rosyBrown: Rgb
+			get() = 0xBC8F8F.rgb
 
 		@CssDsl
-		public val royalBlue: Named = named("royalblue", 0x4169E1.rgb)
+		public inline val royalBlue: Rgb
+			get() = 0x4169E1.rgb
 
 		@CssDsl
-		public val saddleBrown: Named = named("saddlebrown", 0x8B4513.rgb)
+		public inline val saddleBrown: Rgb
+			get() = 0x8B4513.rgb
 
 		@CssDsl
-		public val salmon: Named = named("salmon", 0xFA8072.rgb)
+		public inline val salmon: Rgb
+			get() = 0xFA8072.rgb
 
 		@CssDsl
-		public val sandyBrown: Named = named("sandybrown", 0xF4A460.rgb)
+		public inline val sandyBrown: Rgb
+			get() = 0xF4A460.rgb
 
 		@CssDsl
-		public val seaGreen: Named = named("seagreen", 0x2E8B57.rgb)
+		public inline val seaGreen: Rgb
+			get() = 0x2E8B57.rgb
 
 		@CssDsl
-		public val seashell: Named = named("seashell", 0xFFF5EE.rgb)
+		public inline val seashell: Rgb
+			get() = 0xFFF5EE.rgb
 
 		@CssDsl
-		public val sienna: Named = named("sienna", 0xA0522D.rgb)
+		public inline val sienna: Rgb
+			get() = 0xA0522D.rgb
 
 		@CssDsl
-		public val silver: Named = named("silver", 0xC0C0C0.rgb)
+		public inline val silver: Rgb
+			get() = 0xC0C0C0.rgb
 
 		@CssDsl
-		public val skyBlue: Named = named("skyblue", 0x87CEEB.rgb)
+		public inline val skyBlue: Rgb
+			get() = 0x87CEEB.rgb
 
 		@CssDsl
-		public val slateBlue: Named = named("slateblue", 0x6A5ACD.rgb)
+		public inline val slateBlue: Rgb
+			get() = 0x6A5ACD.rgb
 
 		@CssDsl
-		public val slateGray: Named = named("slategray", 0x708090.rgb)
+		public inline val slateGray: Rgb
+			get() = 0x708090.rgb
 
 		@CssDsl
-		public val slateGrey: Named = named("slategrey", 0x708090.rgb)
+		public inline val slateGrey: Rgb
+			get() = 0x708090.rgb
 
 		@CssDsl
-		public val snow: Named = named("snow", 0xFFFAFA.rgb)
+		public inline val snow: Rgb
+			get() = 0xFFFAFA.rgb
 
 		@CssDsl
-		public val springGreen: Named = named("springgreen", 0x00FF7F.rgb)
+		public inline val springGreen: Rgb
+			get() = 0x00FF7F.rgb
 
 		@CssDsl
-		public val steelBlue: Named = named("steelblue", 0x4682B4.rgb)
+		public inline val steelBlue: Rgb
+			get() = 0x4682B4.rgb
 
 		@CssDsl
-		public val tan: Named = named("tan", 0xD2B48C.rgb)
+		public inline val tan: Rgb
+			get() = 0xD2B48C.rgb
 
 		@CssDsl
-		public val teal: Named = named("teal", 0x008080.rgb)
+		public inline val teal: Rgb
+			get() = 0x008080.rgb
 
 		@CssDsl
-		public val thistle: Named = named("thistle", 0xD8BFD8.rgb)
+		public inline val thistle: Rgb
+			get() = 0xD8BFD8.rgb
 
 		@CssDsl
-		public val tomato: Named = named("tomato", 0xFF6347.rgb)
+		public inline val tomato: Rgb
+			get() = 0xFF6347.rgb
 
 		@CssDsl
-		public val turquoise: Named = named("turquoise", 0x40E0D0.rgb)
+		public inline val turquoise: Rgb
+			get() = 0x40E0D0.rgb
 
 		@CssDsl
-		public val violet: Named = named("violet", 0xEE82EE.rgb)
+		public inline val violet: Rgb
+			get() = 0xEE82EE.rgb
 
 		@CssDsl
-		public val wheat: Named = named("wheat", 0xF5DEB3.rgb)
+		public inline val wheat: Rgb
+			get() = 0xF5DEB3.rgb
 
 		@CssDsl
-		public val white: Named = named("white", 0xFFFFFF.rgb)
+		public inline val white: Rgb
+			get() = 0xFFFFFF.rgb
 
 		@CssDsl
-		public val whiteSmoke: Named = named("whitesmoke", 0xF5F5F5.rgb)
+		public inline val whiteSmoke: Rgb
+			get() = 0xF5F5F5.rgb
 
 		@CssDsl
-		public val yellow: Named = named("yellow", 0xFFFF00.rgb)
+		public inline val yellow: Rgb
+			get() = 0xFFFF00.rgb
 
 		@CssDsl
-		public val yellowGreen: Named = named("yellowgreen", 0x9ACD32.rgb)
+		public inline val yellowGreen: Rgb
+			get() = 0x9ACD32.rgb
 
 
 		@CssDsl
-		public fun hsl(
-			hue: Number,
+		public inline fun hsl(
+			hue: Angle,
 			saturation: Percentage,
 			lightness: Percentage,
-			alpha: Number = 1,
+			alpha: Double = 1.0,
 		): Hsl =
-			HslDefault(alpha = alpha, hue = hue, lightness = lightness, saturation = saturation)
-
-
-		public fun named(name: String, rgbColor: Rgb): Named =
-			NamedDefault(name = name, rgbColor = rgbColor)
-
-
-		public fun raw(value: String): Color =
-			GenericValue(value)
+			CssValue.unsafe(when (alpha) {
+				1.0 -> "hsl($hue,$saturation,$lightness)"
+				else -> "hsla($hue,$saturation,$lightness,$alpha)"
+			})
 
 
 		@CssDsl
-		public fun rgb(
+		public inline fun hsl(
+			hue: Double,
+			saturation: Percentage,
+			lightness: Percentage,
+			alpha: Double = 1.0,
+		): Hsl =
+			CssValue.unsafe(when (alpha) {
+				1.0 -> "hsl($hue,$saturation,$lightness)"
+				else -> "hsla($hue,$saturation,$lightness,$alpha)"
+			})
+
+
+		@CssDsl
+		public inline fun hsl(
+			hue: Int,
+			saturation: Percentage,
+			lightness: Percentage,
+			alpha: Double = 1.0,
+		): Hsl =
+			CssValue.unsafe(when (alpha) {
+				1.0 -> "hsl($hue,$saturation,$lightness)"
+				else -> "hsla($hue,$saturation,$lightness,$alpha)"
+			})
+
+
+		@CssDsl
+		public inline fun rgb(
+			red: Double,
+			green: Double,
+			blue: Double,
+			alpha: Double = 1.0,
+		): Rgb =
+			CssValue.unsafe(when (alpha) {
+				1.0 -> "rgb($red,$green,$blue)"
+				else -> "rgba($red,$green,$blue,$alpha)"
+			})
+
+
+		@CssDsl
+		public inline fun rgb(
 			red: Int,
 			green: Int,
 			blue: Int,
-			alpha: Number = 1,
+			alpha: Double = 1.0,
 		): Rgb =
-			RgbDefault(alpha = alpha, blue = blue, green = green, red = red)
+			CssValue.unsafe(when (alpha) {
+				1.0 -> "rgb($red,$green,$blue)"
+				else -> "rgba($red,$green,$blue,$alpha)"
+			})
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		@CssDsl
+		public inline fun rgb(
+			red: Percentage,
+			green: Percentage,
+			blue: Percentage,
+			alpha: Double = 1.0,
+		): Rgb =
+			CssValue.unsafe(when (alpha) {
+				1.0 -> "rgb($red,$green,$blue)"
+				else -> "rgba($red,$green,$blue,$alpha)"
+			})
+
+
+		public inline fun unsafe(value: String): Color =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
-	public interface Hsl : WithComponents {
-
-		public val alpha: Number
-		public val hue: Number // FIXME Angle
-		public val lightness: Percentage
-		public val saturation: Percentage
-
-
-		override fun withAlpha(alpha: Number): Hsl
-	}
-
-	private class HslDefault(
-		override val alpha: Number,
-		override val hue: Number,
-		override val lightness: Percentage,
-		override val saturation: Percentage,
-	) : GenericValue(hslToString(hue, saturation, lightness, alpha)), Hsl {
-
-		override fun withAlpha(alpha: Number) =
-			if (alpha == this.alpha) this
-			else HslDefault(alpha = alpha, hue = hue, lightness = lightness, saturation = saturation)
-	}
-
-
-	public interface Named : Rgb {
-
-		public val name: String
-	}
-
-	private class NamedDefault(
-		override val name: String,
-		private val rgbColor: Rgb,
-	) : GenericValue(name), Named {
-
-		override val alpha: Number get() = rgbColor.alpha
-		override val blue: Int get() = rgbColor.blue
-		override val green: Int get() = rgbColor.green
-		override val red: Int get() = rgbColor.red
-
-		override fun withAlpha(alpha: Number) =
-			rgbColor.withAlpha(alpha)
-	}
-
-
-	public interface Rgb : WithComponents {
-
-		public val alpha: Number
-		public val blue: Int
-		public val green: Int
-		public val red: Int
-
-
-		override fun withAlpha(alpha: Number): Rgb
-	}
-
-	private class RgbDefault(
-		override val alpha: Number,
-		override val blue: Int,
-		override val green: Int,
-		override val red: Int,
-	) : GenericValue(rgbToString(red, green, blue, alpha)), Rgb {
-
-		override fun withAlpha(alpha: Number) =
-			if (alpha == this.alpha) this
-			else RgbDefault(alpha = alpha, blue = blue, green = green, red = red)
-	}
-
-
+	public interface Hsl : WithComponents
+	public interface Rgb : WithComponents
 	public interface Variable : Color, CssVariable<Color>
+	public interface WithComponents : Color
+}
 
 
-	public interface WithComponents : Color {
+public fun <T : Color.WithComponents> T.withAlpha(alpha: Double): T {
+	val match = colorRegex.exec(asString()) ?: error("Cannot parse CSS component color value: $this")
+	val values = match.unsafeCast<Array<String?>>()
 
-		public fun withAlpha(alpha: Number): WithComponents
-	}
+	val type = values[1]!!.toLowerCase()
+	return CssValue.unsafe(when (type) {
+		"hsl", "hsla" -> {
+			val hue = values[2]!!
+			val saturation = values[3]!!
+			val lightness = values[4]!!
+
+			when (alpha) {
+				1.0 -> "hsl($hue,$saturation,$lightness)"
+				else -> "hsla($hue,$saturation,$lightness,$alpha)"
+			}
+		}
+		"rgb", "rgba" -> {
+			val red = values[2]!!
+			val green = values[3]!!
+			val blue = values[4]!!
+
+			when (alpha) {
+				1.0 -> "rgb($red,$green,$blue)"
+				else -> "rgba($red,$green,$blue,$alpha)"
+			}
+		}
+		else ->
+			error("Unsupported CSS color type: $type(…)")
+	})
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.color(value: Color) {
+public inline fun CssDeclarationBlockBuilder.color(value: Color) {
 	property(color, value)
 }
 
 
-private fun hslToString(hue: Number, saturation: Percentage, lightness: Percentage, alpha: Number) = buildString {
-	val alpha = alpha.toDouble().coerceIn(0.0, 1.0)
-
-	if (alpha < 1) append("hsla(")
-	else append("hsl(")
-
-	append(hue)
-	append(",")
-	append(saturation)
-	append(",")
-	append(lightness)
-
-	if (alpha < 1) {
-		append(",")
-		append(alpha)
-	}
-
-	append(")")
-}
-
-
-private fun rgbToString(red: Int, green: Int, blue: Int, alpha: Number) = buildString {
-	val alpha = alpha.toDouble().coerceIn(0.0, 1.0)
-
-	if (alpha < 1) append("rgba(")
-	else append("rgb(")
-
-	append(red)
-	append(",")
-	append(green)
-	append(",")
-	append(blue)
-
-	if (alpha < 1) {
-		append(",")
-		append(alpha)
-	}
-
-	append(")")
-}
+@CssDsl
+public inline val Int.rgb: Color.Rgb
+	get() = rgbWithAlpha(1.0)
 
 
 @CssDsl
-public val Int.rgb: Color.Rgb
-	get() = rgb(alpha = 1)
-
-
-@CssDsl
-public fun Int.rgb(alpha: Number): Color.Rgb =
+public inline fun Int.rgbWithAlpha(alpha: Double): Color.Rgb =
 	Color.rgb(
 		red = (this shr 16) and 0xFF,
 		green = (this shr 8) and 0xFF,
@@ -638,21 +776,6 @@ public fun Int.rgb(alpha: Number): Color.Rgb =
 	)
 
 
-@CssDsl
-public val Int.rgba: Color.Rgb
-	get() = toLong().rgba
-
-
-@CssDsl
-public val Long.rgba: Color.Rgb
-	get() = Color.rgb(
-		red = ((this shr 24) and 0xFF).toInt(),
-		green = ((this shr 16) and 0xFF).toInt(),
-		blue = ((this shr 8) and 0xFF).toInt(),
-		alpha = (this and 0xFF) / 255.0,
-	)
-
-
 @Suppress("unused")
-public val CssProperties.color: CssProperty<Color>
-	get() = CssProperty("color")
+public inline val CssProperties.color: CssProperty<Color>
+	get() = CssProperty.unsafe("color")

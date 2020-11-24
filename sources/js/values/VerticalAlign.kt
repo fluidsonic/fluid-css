@@ -3,41 +3,50 @@
 package io.fluidsonic.css
 
 
-public interface VerticalAlign : CssValue, Internal {
+public external interface VerticalAlign : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val baseline: VerticalAlign = raw("baseline")
+		public inline val baseline: VerticalAlign
+			get() = unsafe("baseline")
 
 		@CssDsl
-		public val bottom: VerticalAlign = raw("bottom")
+		public inline val bottom: VerticalAlign
+			get() = unsafe("bottom")
 
 		@CssDsl
-		public val middle: VerticalAlign = raw("middle")
+		public inline val middle: VerticalAlign
+			get() = unsafe("middle")
 
 		@CssDsl
-		public val sub: VerticalAlign = raw("sub")
+		public inline val sub: VerticalAlign
+			get() = unsafe("sub")
 
 		@CssDsl
-		public val `super`: VerticalAlign = raw("super")
+		public inline val `super`: VerticalAlign
+			get() = unsafe("super")
 
 		@CssDsl
-		public val textBottom: VerticalAlign = raw("text-bottom")
+		public inline val textBottom: VerticalAlign
+			get() = unsafe("text-bottom")
 
 		@CssDsl
-		public val textTop: VerticalAlign = raw("text-top")
+		public inline val textTop: VerticalAlign
+			get() = unsafe("text-top")
 
 		@CssDsl
-		public val top: VerticalAlign = raw("top")
+		public inline val top: VerticalAlign
+			get() = unsafe("top")
 
 
-		public fun raw(value: String): VerticalAlign =
-			GenericValue(value)
+		public inline fun unsafe(value: String): VerticalAlign =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -46,11 +55,11 @@ public interface VerticalAlign : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.verticalAlign(value: VerticalAlign) {
+public inline fun CssDeclarationBlockBuilder.verticalAlign(value: VerticalAlign) {
 	property(verticalAlign, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.verticalAlign: CssProperty<VerticalAlign>
-	get() = CssProperty("vertical-align")
+public inline val CssProperties.verticalAlign: CssProperty<VerticalAlign>
+	get() = CssProperty.unsafe("vertical-align")

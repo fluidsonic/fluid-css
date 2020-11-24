@@ -3,24 +3,31 @@
 package io.fluidsonic.css
 
 
-public interface CounterIncrement : CssValue, Internal {
+public external interface CounterIncrement : CssValue {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
 		@CssDsl
-		public val none: CounterIncrement = raw("none")
+		public inline val none: CounterIncrement
+			get() = unsafe("none")
 
 
-		public fun raw(value: String): CounterIncrement =
-			GenericValue(value)
+		public inline fun unsafe(value: String): CounterIncrement =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 
 
-		public fun with(name: String, increment: Int = 1): CounterIncrement =
-			raw(
+		public inline fun with(name: String, increment: Int = 1): CounterIncrement =
+			unsafe(
 				if (increment == 1) name
 				else "$name $increment"
 			)
@@ -32,17 +39,17 @@ public interface CounterIncrement : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.counterIncrement(value: CounterIncrement) {
+public inline fun CssDeclarationBlockBuilder.counterIncrement(value: CounterIncrement) {
 	property(counterIncrement, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.counterIncrement(name: String, increment: Int = 1) {
+public inline fun CssDeclarationBlockBuilder.counterIncrement(name: String, increment: Int = 1) {
 	counterIncrement(CounterIncrement.with(increment = increment, name = name))
 }
 
 
 @Suppress("unused")
-public val CssProperties.counterIncrement: CssProperty<CounterIncrement>
-	get() = CssProperty("counter-increment")
+public inline val CssProperties.counterIncrement: CssProperty<CounterIncrement>
+	get() = CssProperty.unsafe("counter-increment")

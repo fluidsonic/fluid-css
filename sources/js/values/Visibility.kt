@@ -3,26 +3,30 @@
 package io.fluidsonic.css
 
 
-public interface Visibility : CssValue, Internal {
+public external interface Visibility : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val collapse: Visibility = raw("collapse")
+		public inline val collapse: Visibility
+			get() = unsafe("collapse")
 
 		@CssDsl
-		public val hidden: Visibility = raw("hidden")
+		public inline val hidden: Visibility
+			get() = unsafe("hidden")
 
 		@CssDsl
-		public val visible: Visibility = raw("visible")
+		public inline val visible: Visibility
+			get() = unsafe("visible")
 
 
-		public fun raw(value: String): Visibility =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Visibility =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -31,11 +35,11 @@ public interface Visibility : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.visibility(value: Visibility) {
+public inline fun CssDeclarationBlockBuilder.visibility(value: Visibility) {
 	property(visibility, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.visibility: CssProperty<Visibility>
-	get() = CssProperty("visibility")
+public inline val CssProperties.visibility: CssProperty<Visibility>
+	get() = CssProperty.unsafe("visibility")

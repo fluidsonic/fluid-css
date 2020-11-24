@@ -3,126 +3,163 @@
 package io.fluidsonic.css
 
 
-public interface Cursor : CssValue, Internal {
+public external interface Cursor : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: Cursor = raw("auto")
+		public inline val auto: Cursor
+			get() = unsafe("auto")
 
 		@CssDsl
-		public val none: Cursor = raw("none")
+		public inline val none: Cursor
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val alias: Cursor = raw("alias")
+		public inline val alias: Cursor
+			get() = unsafe("alias")
 
 		@CssDsl
-		public val allScroll: Cursor = raw("all-scroll")
+		public inline val allScroll: Cursor
+			get() = unsafe("all-scroll")
 
 		@CssDsl
-		public val cell: Cursor = raw("cell")
+		public inline val cell: Cursor
+			get() = unsafe("cell")
 
 		@CssDsl
-		public val colResize: Cursor = raw("col-resize")
+		public inline val colResize: Cursor
+			get() = unsafe("col-resize")
 
 		@CssDsl
-		public val contextMenu: Cursor = raw("context-menu")
+		public inline val contextMenu: Cursor
+			get() = unsafe("context-menu")
 
 		@CssDsl
-		public val copy: Cursor = raw("copy")
+		public inline val copy: Cursor
+			get() = unsafe("copy")
 
 		@CssDsl
-		public val crosshair: Cursor = raw("crosshair")
+		public inline val crosshair: Cursor
+			get() = unsafe("crosshair")
 
 		@CssDsl
-		public val default: Cursor = raw("default")
+		public inline val default: Cursor
+			get() = unsafe("default")
 
 		@CssDsl
-		public val eResize: Cursor = raw("e-resize")
+		public inline val eResize: Cursor
+			get() = unsafe("e-resize")
 
 		@CssDsl
-		public val ewResize: Cursor = raw("ew-resize")
+		public inline val ewResize: Cursor
+			get() = unsafe("ew-resize")
 
 		@CssDsl
-		public val grab: Cursor = raw("grab")
+		public inline val grab: Cursor
+			get() = unsafe("grab")
 
 		@CssDsl
-		public val grabbing: Cursor = raw("grabbing")
+		public inline val grabbing: Cursor
+			get() = unsafe("grabbing")
 
 		@CssDsl
-		public val help: Cursor = raw("help")
+		public inline val help: Cursor
+			get() = unsafe("help")
 
 		@CssDsl
-		public val move: Cursor = raw("move")
+		public inline val move: Cursor
+			get() = unsafe("move")
 
 		@CssDsl
-		public val nResize: Cursor = raw("n-resize")
+		public inline val nResize: Cursor
+			get() = unsafe("n-resize")
 
 		@CssDsl
-		public val neResize: Cursor = raw("ne-resize")
+		public inline val neResize: Cursor
+			get() = unsafe("ne-resize")
 
 		@CssDsl
-		public val neswResize: Cursor = raw("nesw-resize")
+		public inline val neswResize: Cursor
+			get() = unsafe("nesw-resize")
 
 		@CssDsl
-		public val noDrop: Cursor = raw("no-drop")
+		public inline val noDrop: Cursor
+			get() = unsafe("no-drop")
 
 		@CssDsl
-		public val notAllowed: Cursor = raw("not-allowed")
+		public inline val notAllowed: Cursor
+			get() = unsafe("not-allowed")
 
 		@CssDsl
-		public val nsResize: Cursor = raw("ns-resize")
+		public inline val nsResize: Cursor
+			get() = unsafe("ns-resize")
 
 		@CssDsl
-		public val nwResize: Cursor = raw("nw-resize")
+		public inline val nwResize: Cursor
+			get() = unsafe("nw-resize")
 
 		@CssDsl
-		public val nwseResize: Cursor = raw("nwse-resize")
+		public inline val nwseResize: Cursor
+			get() = unsafe("nwse-resize")
 
 		@CssDsl
-		public val pointer: Cursor = raw("pointer")
+		public inline val pointer: Cursor
+			get() = unsafe("pointer")
 
 		@CssDsl
-		public val progress: Cursor = raw("progress")
+		public inline val progress: Cursor
+			get() = unsafe("progress")
 
 		@CssDsl
-		public val rowResize: Cursor = raw("row-resize")
+		public inline val rowResize: Cursor
+			get() = unsafe("row-resize")
 
 		@CssDsl
-		public val sResize: Cursor = raw("s-resize")
+		public inline val sResize: Cursor
+			get() = unsafe("s-resize")
 
 		@CssDsl
-		public val seResize: Cursor = raw("se-resize")
+		public inline val seResize: Cursor
+			get() = unsafe("se-resize")
 
 		@CssDsl
-		public val swResize: Cursor = raw("sw-resize")
+		public inline val swResize: Cursor
+			get() = unsafe("sw-resize")
 
 		@CssDsl
-		public val text: Cursor = raw("text")
+		public inline val text: Cursor
+			get() = unsafe("text")
 
 		@CssDsl
-		public val verticalText: Cursor = raw("vertical-text")
+		public inline val verticalText: Cursor
+			get() = unsafe("vertical-text")
 
 		@CssDsl
-		public val wResize: Cursor = raw("w-resize")
+		public inline val wResize: Cursor
+			get() = unsafe("w-resize")
 
 		@CssDsl
-		public val wait: Cursor = raw("wait")
+		public inline val wait: Cursor
+			get() = unsafe("wait")
 
 		@CssDsl
-		public val zooIn: Cursor = raw("zoom-in")
+		public inline val zooIn: Cursor
+			get() = unsafe("zoom-in")
 
 		@CssDsl
-		public val zoomOut: Cursor = raw("zoom-out")
+		public inline val zoomOut: Cursor
+			get() = unsafe("zoom-out")
 
 
-		public fun raw(value: String): Cursor =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Cursor =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -131,11 +168,11 @@ public interface Cursor : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.cursor(value: Cursor) {
+public inline fun CssDeclarationBlockBuilder.cursor(value: Cursor) {
 	property(cursor, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.cursor: CssProperty<Cursor>
-	get() = CssProperty("cursor")
+public inline val CssProperties.cursor: CssProperty<Cursor>
+	get() = CssProperty.unsafe("cursor")

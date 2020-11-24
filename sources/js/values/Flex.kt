@@ -3,49 +3,39 @@
 package io.fluidsonic.css
 
 
-public interface Flex : CssValue, Internal {
+public external interface Flex : CssValue {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
 		@CssDsl
-		public val auto: Flex = raw("auto")
+		public inline val auto: Flex
+			get() = unsafe("auto")
 
 		@CssDsl
-		public val none: Flex = raw("none")
+		public inline val none: Flex
+			get() = unsafe("none")
 
 
-		public fun raw(value: String): Flex =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Flex =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 
 
-		public fun with(grow: Number? = null, shrink: Number? = null, basis: FlexBasis? = null): Flex =
+		public inline fun with(grow: Int? = null, shrink: Int? = null, basis: FlexBasis? = null): Flex =
 			with(grow = grow?.let(FlexGrow::of), shrink = shrink?.let(FlexShrink::of), basis = basis)
 
 
-		public fun with(grow: FlexGrow? = null, shrink: FlexShrink? = null, basis: FlexBasis? = null): Flex =
-			if (grow != null || shrink != null || basis != null)
-				raw(buildString {
-					if (grow != null)
-						append(grow)
-
-					if (shrink != null) {
-						if (grow == null)
-							append("0")
-
-						if (isNotEmpty()) append(" ")
-						append(shrink)
-					}
-					if (basis != null) {
-						if (isNotEmpty()) append(" ")
-						append(basis)
-					}
-				})
-			else
-				CssValue.initial
+		public inline fun with(grow: Double? = null, shrink: Double? = null, basis: FlexBasis? = null): Flex =
+			with(grow = grow?.let(FlexGrow::of), shrink = shrink?.let(FlexShrink::of), basis = basis)
 	}
 
 
@@ -53,24 +43,61 @@ public interface Flex : CssValue, Internal {
 }
 
 
+@Suppress("DEPRECATION")
+public inline fun Flex.Companion.with(grow: FlexGrow? = null, shrink: FlexShrink? = null, basis: FlexBasis? = null): Flex =
+	when {
+		grow != null && shrink != null && basis != null ->
+			unsafe("$grow $shrink $basis")
+
+		grow != null || shrink != null || basis != null -> {
+			var string = ""
+
+			if (grow != null)
+				string += grow
+
+			if (shrink != null) {
+				if (grow == null)
+					string += "0"
+
+				if (string.isNotEmpty()) string += " "
+				string += shrink
+			}
+			if (basis != null) {
+				if (string.isNotEmpty()) string += " "
+				string += basis
+			}
+
+			unsafe(string)
+		}
+
+		else -> CssValue.initial
+	}
+
+
 @CssDsl
-public fun CssDeclarationBlockBuilder.flex(value: Flex) {
+public inline fun CssDeclarationBlockBuilder.flex(value: Flex) {
 	property(flex, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flex(grow: FlexGrow? = null, shrink: FlexShrink? = null, basis: FlexBasis? = null) {
+public inline fun CssDeclarationBlockBuilder.flex(grow: FlexGrow? = null, shrink: FlexShrink? = null, basis: FlexBasis? = null) {
 	flex(Flex.with(grow = grow, shrink = shrink, basis = basis))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flex(grow: Number? = null, shrink: Number? = null, basis: FlexBasis? = null) {
+public inline fun CssDeclarationBlockBuilder.flex(grow: Int? = null, shrink: Int? = null, basis: FlexBasis? = null) {
+	flex(Flex.with(grow = grow, shrink = shrink, basis = basis))
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.flex(grow: Double? = null, shrink: Double? = null, basis: FlexBasis? = null) {
 	flex(Flex.with(grow = grow, shrink = shrink, basis = basis))
 }
 
 
 @Suppress("unused")
-public val CssProperties.flex: CssProperty<Flex>
-	get() = CssProperty("flex")
+public inline val CssProperties.flex: CssProperty<Flex>
+	get() = CssProperty.unsafe("flex")

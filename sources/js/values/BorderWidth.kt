@@ -3,60 +3,79 @@
 package io.fluidsonic.css
 
 
-public interface BorderWidth : CssValue, Internal {
+public external interface BorderWidth : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val medium: Single = GenericValue("medium")
+		public inline val medium: Single
+			get() = CssValue.unsafe("medium")
 
 		@CssDsl
-		public val thin: Single = GenericValue("thin")
+		public inline val thin: Single
+			get() = CssValue.unsafe("thin")
 
 		@CssDsl
-		public val thick: Single = GenericValue("thick")
+		public inline val thick: Single
+			get() = CssValue.unsafe("thick")
 
 
-		public fun all(value: Single): BorderWidth =
+		public inline fun all(value: Single): BorderWidth =
 			value
 
 
-		public fun of(vertical: Single, horizontal: Single): BorderWidth =
-			if (vertical == horizontal)
+		public inline fun of(vertical: Single, horizontal: Single): BorderWidth =
+			if (vertical eq horizontal)
 				all(vertical)
 			else
-				raw("$vertical $horizontal")
+				unsafe("$vertical $horizontal")
 
 
-		public fun of(top: Single, horizontal: Single, bottom: Single): BorderWidth =
-			if (top == bottom)
+		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderWidth =
+			if (top eq bottom)
 				of(vertical = top, horizontal = horizontal)
 			else
-				raw("$top $horizontal $bottom")
+				unsafe("$top $horizontal $bottom")
 
 
-		public fun of(
+		public inline fun of(
 			top: Single,
 			right: Single,
 			bottom: Single,
 			left: Single,
 		): BorderWidth =
-			if (left == right)
+			if (left eq right)
 				of(top = top, horizontal = left, bottom = bottom)
 			else
-				raw("$top $right $bottom $left")
+				unsafe("$top $right $bottom $left")
 
 
-		public fun raw(value: String): BorderWidth =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BorderWidth =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
-	public interface Single : BorderWidth
+	public interface Single : BorderWidth {
+
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+		public companion object {
+
+			public inline fun unsafe(value: String): Single =
+				CssValue.unsafe(value)
+
+
+			public inline fun variable(name: String): Variable =
+				CssVariable.unsafe(name)
+		}
+
+
+		public interface Variable : Single, CssVariable<Single>
+	}
 
 
 	public interface Variable : BorderWidth, CssVariable<BorderWidth>
@@ -64,25 +83,25 @@ public interface BorderWidth : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderWidth(all: BorderWidth) {
+public inline fun CssDeclarationBlockBuilder.borderWidth(all: BorderWidth) {
 	property(borderWidth, all)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderWidth(vertical: BorderWidth.Single, horizontal: BorderWidth.Single) {
+public inline fun CssDeclarationBlockBuilder.borderWidth(vertical: BorderWidth.Single, horizontal: BorderWidth.Single) {
 	borderWidth(BorderWidth.of(vertical = vertical, horizontal = horizontal))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderWidth(top: BorderWidth.Single, horizontal: BorderWidth.Single, bottom: BorderWidth.Single) {
+public inline fun CssDeclarationBlockBuilder.borderWidth(top: BorderWidth.Single, horizontal: BorderWidth.Single, bottom: BorderWidth.Single) {
 	borderWidth(BorderWidth.of(top = top, horizontal = horizontal, bottom = bottom))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderWidth(
+public inline fun CssDeclarationBlockBuilder.borderWidth(
 	top: BorderWidth.Single,
 	right: BorderWidth.Single,
 	bottom: BorderWidth.Single,
@@ -94,8 +113,8 @@ public fun CssDeclarationBlockBuilder.borderWidth(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public fun CssDeclarationBlockBuilder.borderWidth(
+@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+public inline fun CssDeclarationBlockBuilder.borderWidth(
 	all: BorderWidth.Single? = null,
 	vertical: BorderWidth.Single? = all,
 	horizontal: BorderWidth.Single? = all,
@@ -120,49 +139,49 @@ public fun CssDeclarationBlockBuilder.borderWidth(
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderBottomWidth(value: BorderWidth.Single) {
+public inline fun CssDeclarationBlockBuilder.borderBottomWidth(value: BorderWidth.Single) {
 	property(borderBottomWidth, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderLeftWidth(value: BorderWidth.Single) {
+public inline fun CssDeclarationBlockBuilder.borderLeftWidth(value: BorderWidth.Single) {
 	property(borderLeftWidth, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderRightWidth(value: BorderWidth.Single) {
+public inline fun CssDeclarationBlockBuilder.borderRightWidth(value: BorderWidth.Single) {
 	property(borderRightWidth, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderTopWidth(value: BorderWidth.Single) {
+public inline fun CssDeclarationBlockBuilder.borderTopWidth(value: BorderWidth.Single) {
 	property(borderTopWidth, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.borderWidth: CssProperty<BorderWidth>
-	get() = CssProperty("border-width")
+public inline val CssProperties.borderWidth: CssProperty<BorderWidth>
+	get() = CssProperty.unsafe("border-width")
 
 
 @Suppress("unused")
-public val CssProperties.borderBottomWidth: CssProperty<BorderWidth.Single>
-	get() = CssProperty("border-bottom-width")
+public inline val CssProperties.borderBottomWidth: CssProperty<BorderWidth.Single>
+	get() = CssProperty.unsafe("border-bottom-width")
 
 
 @Suppress("unused")
-public val CssProperties.borderLeftWidth: CssProperty<BorderWidth.Single>
-	get() = CssProperty("border-left-width")
+public inline val CssProperties.borderLeftWidth: CssProperty<BorderWidth.Single>
+	get() = CssProperty.unsafe("border-left-width")
 
 
 @Suppress("unused")
-public val CssProperties.borderRightWidth: CssProperty<BorderWidth.Single>
-	get() = CssProperty("border-right-width")
+public inline val CssProperties.borderRightWidth: CssProperty<BorderWidth.Single>
+	get() = CssProperty.unsafe("border-right-width")
 
 
 @Suppress("unused")
-public val CssProperties.borderTopWidth: CssProperty<BorderWidth.Single>
-	get() = CssProperty("border-top-width")
+public inline val CssProperties.borderTopWidth: CssProperty<BorderWidth.Single>
+	get() = CssProperty.unsafe("border-top-width")

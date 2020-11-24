@@ -3,24 +3,30 @@
 package io.fluidsonic.css
 
 
-public interface AnimationIterationCount : CssValue.NumberConstructable, Internal {
+public external interface AnimationIterationCount : CssValue.DoubleConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val infinite: AnimationIterationCount = raw("infinite")
+		public inline val infinite: AnimationIterationCount
+			get() = unsafe("infinite")
 
 
-		public fun of(value: Number): AnimationIterationCount =
-			raw(value.toString())
+		public inline fun of(value: Double): AnimationIterationCount =
+			CssValue.unsafe(value)
 
 
-		public fun raw(value: String): AnimationIterationCount =
-			GenericValue(value)
+		public inline fun of(value: Int): AnimationIterationCount =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): AnimationIterationCount =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -29,17 +35,23 @@ public interface AnimationIterationCount : CssValue.NumberConstructable, Interna
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.animationIterationCount(value: AnimationIterationCount) {
+public inline fun CssDeclarationBlockBuilder.animationIterationCount(value: AnimationIterationCount) {
 	property(animationIterationCount, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.animationIterationCount(value: Number) {
+public inline fun CssDeclarationBlockBuilder.animationIterationCount(value: Double) {
+	property(animationIterationCount, value)
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.animationIterationCount(value: Int) {
 	property(animationIterationCount, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.animationIterationCount: CssProperty<AnimationIterationCount>
-	get() = CssProperty("animation-iteration-count")
+public inline val CssProperties.animationIterationCount: CssProperty<AnimationIterationCount>
+	get() = CssProperty.unsafe("animation-iteration-count")

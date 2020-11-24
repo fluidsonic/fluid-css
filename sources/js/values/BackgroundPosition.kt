@@ -5,51 +5,68 @@ package io.fluidsonic.css
 // FIXME support multiple values
 
 
-public interface BackgroundPosition : CssValue, Internal {
+public external interface BackgroundPosition : CssValue {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
 		@CssDsl
-		public val bottom: BackgroundPosition = raw("bottom")
+		public inline val bottom: BackgroundPosition
+			get() = unsafe("bottom")
 
 		@CssDsl
-		public val center: BackgroundPosition = raw("center")
+		public inline val center: BackgroundPosition
+			get() = unsafe("center")
 
 		@CssDsl
-		public val left: BackgroundPosition = raw("left")
+		public inline val left: BackgroundPosition
+			get() = unsafe("left")
 
 		@CssDsl
-		public val right: BackgroundPosition = raw("right")
+		public inline val right: BackgroundPosition
+			get() = unsafe("right")
 
 		@CssDsl
-		public val top: BackgroundPosition = raw("top")
+		public inline val top: BackgroundPosition
+			get() = unsafe("top")
 
 
-		public fun of(
+		public inline fun of(
 			x: BackgroundPositionX,
 		): BackgroundPosition =
-			raw("$x 50%")
+			unsafe("$x 50%")
 
 
-		public fun of(
+		public inline fun of(
 			y: BackgroundPositionY,
 		): BackgroundPosition =
-			raw("50% $y")
+			unsafe("50% $y")
 
 
-		public fun of(
+		@Suppress("DEPRECATION")
+		public inline fun of(
 			x: BackgroundPositionX? = null,
 			y: BackgroundPositionY? = null,
 		): BackgroundPosition =
-			raw("${x?.toString() ?: "50%"} ${y?.toString() ?: "50%"}")
+			when {
+				x != null && y != null -> unsafe("$x $y")
+				x != null -> of(x = x)
+				y != null -> of(y = y)
+				else -> unsafe("50% 50%")
+			}
 
 
-		public fun raw(value: String): BackgroundPosition =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BackgroundPosition =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -58,29 +75,29 @@ public interface BackgroundPosition : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundPosition(value: BackgroundPosition) {
+public inline fun CssDeclarationBlockBuilder.backgroundPosition(value: BackgroundPosition) {
 	property(backgroundPosition, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX) {
+public inline fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX) {
 	backgroundPosition(BackgroundPosition.of(x = x))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundPosition(y: BackgroundPositionY) {
+public inline fun CssDeclarationBlockBuilder.backgroundPosition(y: BackgroundPositionY) {
 	backgroundPosition(BackgroundPosition.of(y = y))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX, y: BackgroundPositionY) {
+public inline fun CssDeclarationBlockBuilder.backgroundPosition(x: BackgroundPositionX, y: BackgroundPositionY) {
 	backgroundPosition(BackgroundPosition.of(x = x, y = y))
 }
 
 
 @Suppress("unused")
-public val CssProperties.backgroundPosition: CssProperty<BackgroundPosition>
-	get() = CssProperty("background-position")
+public inline val CssProperties.backgroundPosition: CssProperty<BackgroundPosition>
+	get() = CssProperty.unsafe("background-position")

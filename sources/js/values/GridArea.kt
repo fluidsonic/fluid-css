@@ -5,16 +5,17 @@ package io.fluidsonic.css
 // FIXME support
 
 
-public interface GridArea : CssValue, Internal {
+public external interface GridArea : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun raw(value: String): GridArea =
-			GenericValue(value)
+		public inline fun unsafe(value: String): GridArea =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -23,11 +24,11 @@ public interface GridArea : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.gridArea(value: GridArea) {
+public inline fun CssDeclarationBlockBuilder.gridArea(value: GridArea) {
 	property(gridArea, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.gridArea: CssProperty<GridArea>
-	get() = CssProperty("grid-area")
+public inline val CssProperties.gridArea: CssProperty<GridArea>
+	get() = CssProperty.unsafe("grid-area")

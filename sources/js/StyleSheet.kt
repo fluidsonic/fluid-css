@@ -23,7 +23,7 @@ public abstract class StyleSheet(
 
 	@CssDsl
 	public open fun fontFace(declarations: FontFaceBuilder.() -> Unit) {
-		pendingFontFaces += { with(FontFaceBuilder.default().apply(declarations)) { Unit.build() }.toString() }
+		pendingFontFaces += { CssPrinter.default().print(with(FontFaceBuilder.default().apply(declarations)) { Unit.build() }) }
 	}
 
 
@@ -51,10 +51,7 @@ public abstract class StyleSheet(
 
 			val name = generateDefaultName(sheetName = name, localName = property.name)
 
-			pendingKeyframes += {
-				val keyframes = with(KeyframesBuilder.default(name = name).apply(build)) { Unit.build() }
-				keyframes.toString()
-			}
+			pendingKeyframes += { CssPrinter.default().print(with(KeyframesBuilder.default(name = name).apply(build)) { Unit.build() }) }
 
 			ReadOnlyProperty { _, _ -> name }
 		}
@@ -73,7 +70,7 @@ public abstract class StyleSheet(
 				for (style in pendingStyles)
 					style.injectTo(this)
 			}
-			.let { with(it) { Unit.build().toString() } }
+			.let { CssPrinter.default().print(with(it) { Unit.build() }) }
 			.let { styles ->
 				if (pendingFontFaces.isNotEmpty() || pendingKeyframes.isNotEmpty())
 					buildString {
@@ -93,8 +90,8 @@ public abstract class StyleSheet(
 		pendingKeyframes.clear()
 		pendingStyles.clear()
 
-		val style = document.createElement("style") as HTMLStyleElement
-		if (js("process.env.NODE_ENV !== 'production'") as Boolean && name != null)
+		val style = document.createElement("style").unsafeCast<HTMLStyleElement>()
+		if (js("process.env.NODE_ENV !== 'production'").unsafeCast<Boolean>() && name != null)
 			style.dataset["name"] = name
 
 		style.appendChild(document.createTextNode(css))
@@ -133,7 +130,7 @@ public abstract class StyleSheet(
 
 
 		public fun generateDefaultName(sheetName: String?, localName: String?): String {
-			if (js("process.env.NODE_ENV === 'production'") as Boolean)
+			if (js("process.env.NODE_ENV === 'production'").unsafeCast<Boolean>())
 				return "_${nextId++}"
 
 			return buildString {

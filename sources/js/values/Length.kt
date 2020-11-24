@@ -2,47 +2,45 @@
 
 package io.fluidsonic.css
 
+import kotlin.js.RegExp
 
-public interface Length :
+
+private val numericLengthRegex = RegExp("^\\s*(-?\\d+)([a-z]+)\\s*$", "i")
+
+
+public external interface Length :
 	BorderWidth.Single,
 	LengthOrPercentage,
 	LetterSpacing,
-	OutlineWidth,
-	Internal {
+	OutlineWidth {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val zero: Length = numeric(0, "")
+		public inline val zero: Length
+			get() = unsafe("0")
 
 
-		public fun calc(value: String): Length =
-			raw("calc($value)")
+		public inline fun calc(value: String): Length =
+			unsafe("calc($value)")
 
 
-		public fun numeric(value: Number, unit: String): Numeric =
-			NumericDefault(unit = unit, value = value.toDouble())
+		public inline fun of(value: Double, unit: String): Length =
+			CssValue.unsafe("$value$unit")
 
 
-		public fun raw(value: String): Length =
-			GenericValue(value)
+		public inline fun of(value: Int, unit: String): Length =
+			CssValue.unsafe("$value$unit")
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): Length =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
-
-
-	public interface Numeric : Length {
-
-		public val value: Double
-		public val unit: String
-	}
-
-	private class NumericDefault(
-		override val unit: String,
-		override val value: Double,
-	) : GenericValue("$value$unit"), Numeric
 
 
 	public interface Variable : Length, CssVariable<Length>
@@ -50,125 +48,260 @@ public interface Length :
 
 
 @CssDsl
-public operator fun Length.div(other: Number): Length =
-	when {
-		other == 1.0 -> this
-		this is Length.Numeric -> when (value) {
+public operator fun Length.div(other: Double): Length {
+	if (other == 1.0)
+		return this
+
+	ifNumeric { value, unit ->
+		return when (value) {
 			0.0 -> this
-			else -> Length.numeric(value / other.toDouble(), unit)
+			else -> Length.of(value / other, unit)
 		}
-		else -> Length.calc("($this) / $other")
 	}
+
+	return Length.calc("$this / $other")
+}
 
 
 @CssDsl
-public operator fun Length.minus(other: Length): Length =
-	when {
-		this is Length.Numeric && other is Length.Numeric && unit == other.unit -> Length.numeric(value - other.value, unit)
-		else -> Length.calc("($this) - ($other)")
-	}
+public operator fun Length.div(other: Int): Length {
+	if (other == 1)
+		return this
 
-
-@CssDsl
-public operator fun Length.times(other: Number): Length =
-	when {
-		other == 1.0 -> this
-		this is Length.Numeric -> when (value) {
+	ifNumeric { value, unit ->
+		return when (value) {
 			0.0 -> this
-			else -> Length.numeric(value * other.toDouble(), unit)
+			else -> Length.of(value / other, unit)
 		}
-		else -> Length.calc("($this) * $other")
 	}
+
+	return Length.calc("$this / $other")
+}
+
+
+@kotlin.internal.InlineOnly
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+private inline fun Length.ifNumeric(block: (value: Double, unit: String) -> Unit) {
+	val match = numericLengthRegex.exec(asString()) ?: return
+	val values = match.unsafeCast<Array<String>>()
+
+	block(values[1].toDouble(), values[2])
+}
 
 
 @CssDsl
-public operator fun Length.plus(other: Length): Length =
-	when {
-		this is Length.Numeric && other is Length.Numeric && unit == other.unit -> Length.numeric(value + other.value, unit)
-		else -> Length.calc("($this) + ($other)")
+public operator fun Length.minus(other: Length): Length {
+	ifNumeric { value, unit ->
+		other.ifNumeric { otherValue, otherUnit ->
+			if (unit == otherUnit)
+				return Length.of(value - otherValue, unit)
+		}
 	}
+
+	return Length.calc("$this - $other")
+}
 
 
 @CssDsl
-public operator fun Length.unaryPlus(): Length =
+public operator fun Length.times(other: Double): Length {
+	if (other == 1.0)
+		return this
+
+	ifNumeric { value, unit ->
+		return when (value) {
+			0.0 -> this
+			else -> Length.of(value * other, unit)
+		}
+	}
+
+	return Length.calc("$this * $other")
+}
+
+
+@CssDsl
+public operator fun Length.times(other: Int): Length {
+	if (other == 1)
+		return this
+
+	ifNumeric { value, unit ->
+		return when (value) {
+			0.0 -> this
+			else -> Length.of(value * other, unit)
+		}
+	}
+
+	return Length.calc("$this * $other")
+}
+
+
+@CssDsl
+public operator fun Length.plus(other: Length): Length {
+	ifNumeric { value, unit ->
+		other.ifNumeric { otherValue, otherUnit ->
+			if (unit == otherUnit)
+				return Length.of(value + otherValue, unit)
+		}
+	}
+
+	return Length.calc("$this + $other")
+}
+
+
+@CssDsl
+public inline operator fun Length.unaryPlus(): Length =
 	this
 
 
 @CssDsl
-public operator fun Length.unaryMinus(): Length =
+public inline operator fun Length.unaryMinus(): Length =
 	this * -1
 
 
 @CssDsl
-public operator fun Number.times(other: Length): Length =
+public inline operator fun Double.times(other: Length): Length =
 	other * this
 
 
 @CssDsl
-public val Number.ch: Length.Numeric
-	get() = Length.numeric(this, "ch")
+public inline operator fun Int.times(other: Length): Length =
+	other * this
 
 
 @CssDsl
-public val Number.cm: Length.Numeric
-	get() = Length.numeric(this, "cm")
+public inline val Double.ch: Length
+	get() = Length.of(this, "ch")
 
 
 @CssDsl
-public val Number.mm: Length.Numeric
-	get() = Length.numeric(this, "mm")
+public inline val Double.cm: Length
+	get() = Length.of(this, "cm")
 
 
 @CssDsl
-public val Number.em: Length.Numeric
-	get() = Length.numeric(this, "em")
+public inline val Double.mm: Length
+	get() = Length.of(this, "mm")
 
 
 @CssDsl
-public val Number.ex: Length.Numeric
-	get() = Length.numeric(this, "ex")
+public inline val Double.em: Length
+	get() = Length.of(this, "em")
 
 
 @CssDsl
-public val Number.inch: Length.Numeric
-	get() = Length.numeric(this, "in")
+public inline val Double.ex: Length
+	get() = Length.of(this, "ex")
 
 
 @CssDsl
-public val Number.pc: Length.Numeric
-	get() = Length.numeric(this, "pc")
+public inline val Double.inch: Length
+	get() = Length.of(this, "in")
 
 
 @CssDsl
-public val Number.pt: Length.Numeric
-	get() = Length.numeric(this, "pt")
+public inline val Double.pc: Length
+	get() = Length.of(this, "pc")
 
 
 @CssDsl
-public val Number.px: Length.Numeric
-	get() = Length.numeric(this, "px")
+public inline val Double.pt: Length
+	get() = Length.of(this, "pt")
 
 
 @CssDsl
-public val Number.rem: Length.Numeric
-	get() = Length.numeric(this, "rem")
+public inline val Double.px: Length
+	get() = Length.of(this, "px")
 
 
 @CssDsl
-public val Number.vh: Length.Numeric
-	get() = Length.numeric(this, "vh")
+public inline val Double.rem: Length
+	get() = Length.of(this, "rem")
 
 
 @CssDsl
-public val Number.vmax: Length.Numeric
-	get() = Length.numeric(this, "vmax")
+public inline val Double.vh: Length
+	get() = Length.of(this, "vh")
 
 
 @CssDsl
-public val Number.vmin: Length.Numeric
-	get() = Length.numeric(this, "vmin")
+public inline val Double.vmax: Length
+	get() = Length.of(this, "vmax")
 
 
 @CssDsl
-public val Number.vw: Length.Numeric
-	get() = Length.numeric(this, "vw")
+public inline val Double.vmin: Length
+	get() = Length.of(this, "vmin")
+
+
+@CssDsl
+public inline val Double.vw: Length
+	get() = Length.of(this, "vw")
+
+
+@CssDsl
+public inline val Int.ch: Length
+	get() = Length.of(this, "ch")
+
+
+@CssDsl
+public inline val Int.cm: Length
+	get() = Length.of(this, "cm")
+
+
+@CssDsl
+public inline val Int.mm: Length
+	get() = Length.of(this, "mm")
+
+
+@CssDsl
+public inline val Int.em: Length
+	get() = Length.of(this, "em")
+
+
+@CssDsl
+public inline val Int.ex: Length
+	get() = Length.of(this, "ex")
+
+
+@CssDsl
+public inline val Int.inch: Length
+	get() = Length.of(this, "in")
+
+
+@CssDsl
+public inline val Int.pc: Length
+	get() = Length.of(this, "pc")
+
+
+@CssDsl
+public inline val Int.pt: Length
+	get() = Length.of(this, "pt")
+
+
+@CssDsl
+public inline val Int.px: Length
+	get() = Length.of(this, "px")
+
+
+@CssDsl
+public inline val Int.rem: Length
+	get() = Length.of(this, "rem")
+
+
+@CssDsl
+public inline val Int.vh: Length
+	get() = Length.of(this, "vh")
+
+
+@CssDsl
+public inline val Int.vmax: Length
+	get() = Length.of(this, "vmax")
+
+
+@CssDsl
+public inline val Int.vmin: Length
+	get() = Length.of(this, "vmin")
+
+
+@CssDsl
+public inline val Int.vw: Length
+	get() = Length.of(this, "vw")

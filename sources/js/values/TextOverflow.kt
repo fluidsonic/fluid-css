@@ -3,31 +3,49 @@
 package io.fluidsonic.css
 
 
-public interface TextOverflow : CssValue, Internal {
+public external interface TextOverflow : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val clip: Single = GenericValue("clip")
+		public inline val clip: Single
+			get() = Single.unsafe("clip")
 
 		@CssDsl
-		public val ellipsis: Single = GenericValue("ellipsis")
+		public inline val ellipsis: Single
+			get() = Single.unsafe("ellipsis")
 
 
-		public fun raw(value: String): TextOverflow =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TextOverflow =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 
 
-		public fun with(left: Single, right: Single): TextOverflow =
-			raw("$left $right")
+		public inline fun with(left: Single, right: Single): TextOverflow =
+			unsafe("$left $right")
 	}
 
 
-	public interface Single : TextOverflow
+	public interface Single : TextOverflow {
+
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+		public companion object {
+
+			public inline fun unsafe(value: String): Single =
+				CssValue.unsafe(value)
+
+
+			public inline fun variable(name: String): Variable =
+				CssVariable.unsafe(name)
+		}
+
+
+		public interface Variable : Single, CssVariable<Single>
+	}
 
 
 	public interface Variable : TextOverflow, CssVariable<TextOverflow>
@@ -35,17 +53,17 @@ public interface TextOverflow : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textOverflow(value: TextOverflow) {
+public inline fun CssDeclarationBlockBuilder.textOverflow(value: TextOverflow) {
 	property(textOverflow, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.textOverflow(left: TextOverflow.Single, right: TextOverflow.Single) {
+public inline fun CssDeclarationBlockBuilder.textOverflow(left: TextOverflow.Single, right: TextOverflow.Single) {
 	textOverflow(TextOverflow.with(left = left, right = right))
 }
 
 
 @Suppress("unused")
-public val CssProperties.textOverflow: CssProperty<TextOverflow>
-	get() = CssProperty("text-overflow")
+public inline val CssProperties.textOverflow: CssProperty<TextOverflow>
+	get() = CssProperty.unsafe("text-overflow")

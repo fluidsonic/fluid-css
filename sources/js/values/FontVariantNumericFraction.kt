@@ -3,18 +3,21 @@
 package io.fluidsonic.css
 
 
-public interface FontVariantNumericFraction : CssValue, Internal {
+public external interface FontVariantNumericFraction : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val diagonalFractions: FontVariantNumericFraction = raw("diagonal-fractions")
+		public inline val diagonalFractions: FontVariantNumericFraction
+			get() = unsafe("diagonal-fractions")
 
 		@CssDsl
-		public val stackedFractions: FontVariantNumericFraction = raw("stacked-fractions")
+		public inline val stackedFractions: FontVariantNumericFraction
+			get() = unsafe("stacked-fractions")
 
 
-		public fun raw(value: String): FontVariantNumericFraction =
-			GenericValue(value)
+		public inline fun unsafe(value: String): FontVariantNumericFraction =
+			CssValue.unsafe(value)
 	}
 }

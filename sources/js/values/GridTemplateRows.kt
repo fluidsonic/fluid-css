@@ -5,16 +5,17 @@ package io.fluidsonic.css
 // FIXME support
 
 
-public interface GridTemplateRows : CssValue, Internal {
+public external interface GridTemplateRows : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun raw(value: String): GridTemplateRows =
-			GenericValue(value)
+		public inline fun unsafe(value: String): GridTemplateRows =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -23,11 +24,11 @@ public interface GridTemplateRows : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.gridTemplateRows(value: GridTemplateRows) {
+public inline fun CssDeclarationBlockBuilder.gridTemplateRows(value: GridTemplateRows) {
 	property(gridTemplateRows, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.gridTemplateRows: CssProperty<GridTemplateRows>
-	get() = CssProperty("grid-template-rows")
+public inline val CssProperties.gridTemplateRows: CssProperty<GridTemplateRows>
+	get() = CssProperty.unsafe("grid-template-rows")

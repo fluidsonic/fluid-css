@@ -3,16 +3,21 @@
 package io.fluidsonic.css
 
 
-public interface CssUrl : CssImage {
+public external interface CssUrl : CssImage {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun of(value: String): CssUrl =
-			GenericValue("url('$value')") // FIXME escaping
+		public inline fun of(value: String): CssUrl =
+			unsafe("url('$value')") // FIXME escaping
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): CssUrl =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -21,5 +26,6 @@ public interface CssUrl : CssImage {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.url(value: String): CssUrl =
+@Suppress("unused")
+public inline fun CssDeclarationBlockBuilder.url(value: String): CssUrl =
 	CssUrl.of(value)

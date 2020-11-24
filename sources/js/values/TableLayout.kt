@@ -3,24 +3,27 @@
 package io.fluidsonic.css
 
 
-public interface TableLayout : CssValue, Internal {
+public external interface TableLayout : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val auto: TableLayout = raw("auto")
+		public inline val auto: TableLayout
+			get() = unsafe("auto")
 
 
 		@CssDsl
-		public val fixed: TableLayout = raw("fixed")
+		public inline val fixed: TableLayout
+			get() = unsafe("fixed")
 
 
-		public fun raw(value: String): TableLayout =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TableLayout =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -29,11 +32,11 @@ public interface TableLayout : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.tableLayout(value: TableLayout) {
+public inline fun CssDeclarationBlockBuilder.tableLayout(value: TableLayout) {
 	property(tableLayout, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.tableLayout: CssProperty<TableLayout>
-	get() = CssProperty("table-layout")
+public inline val CssProperties.tableLayout: CssProperty<TableLayout>
+	get() = CssProperty.unsafe("table-layout")

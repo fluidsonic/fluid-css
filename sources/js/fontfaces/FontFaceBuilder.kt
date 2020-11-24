@@ -11,7 +11,7 @@ public interface FontFaceBuilder {
 
 	@CssDsl
 	public fun property(name: String, value: String) {
-		declaration(CssDeclaration(property = name, value = value))
+		declaration(CssDeclaration.of(property = name, value = value))
 	}
 
 	public fun Unit.build(): FontFace
@@ -42,7 +42,7 @@ public interface FontFaceBuilder {
 
 @CssDsl
 public fun FontFaceBuilder.fontDisplay(value: FontFace.Display) {
-	property("font-display", value.toString())
+	property("font-display", value.asString())
 }
 
 
@@ -54,47 +54,47 @@ public fun FontFaceBuilder.fontFamily(value: String) {
 
 @CssDsl
 public fun FontFaceBuilder.fontFeatureSettings(value: FontFace.FeatureSettings) {
-	property("font-feature-settings", value.toString())
+	property("font-feature-settings", value.asString())
 }
 
 
 @CssDsl
 public fun FontFaceBuilder.fontStretch(value: FontFace.Stretch) {
-	property("font-stretch", value.toString())
+	property("font-stretch", value.asString())
 }
 
 
 @CssDsl
 public fun FontFaceBuilder.fontStyle(value: FontFace.Style) {
-	property("font-style", value.toString())
+	property("font-style", value.asString())
 }
 
 
 @CssDsl
 public fun FontFaceBuilder.fontVariationSettings(value: FontFace.VariationSettings) {
-	property("font-variation-settings", value.toString())
+	property("font-variation-settings", value.asString())
 }
 
 
 @CssDsl
 public fun FontFaceBuilder.fontVariant(value: FontFace.Variant) {
-	property("font-variant", value.toString())
+	property("font-variant", value.asString())
 }
 
 
 @CssDsl
 public fun FontFaceBuilder.fontWeight(value: FontFace.Weight) {
-	property("font-weight", value.toString())
+	property("font-weight", value.asString())
 }
 
 
 @CssDsl
 public fun FontFaceBuilder.src(value: FontFace.Source) {
-	property("src", value.toString())
+	property("src", value.asString())
 }
 
 
 @CssDsl
 public fun FontFaceBuilder.unicodeRange(value: FontFace.UnicodeRange) {
-	property("unicode-range", value.toString())
+	property("unicode-range", value.asString())
 }

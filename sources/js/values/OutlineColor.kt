@@ -3,24 +3,23 @@
 package io.fluidsonic.css
 
 
-public interface OutlineColor : CssValue, Internal {
+public external interface OutlineColor : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val invert: OutlineColor = raw("invert")
+		public inline val invert: OutlineColor
+			get() = unsafe("invert")
 
 
-		public fun raw(value: String): OutlineColor =
-			GenericValue(value)
+		public inline fun unsafe(value: String): OutlineColor =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
-
-
-	public interface Single : OutlineColor
 
 
 	public interface Variable : OutlineColor, CssVariable<OutlineColor>
@@ -28,11 +27,11 @@ public interface OutlineColor : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.outlineColor(all: OutlineColor) {
+public inline fun CssDeclarationBlockBuilder.outlineColor(all: OutlineColor) {
 	property(outlineColor, all)
 }
 
 
 @Suppress("unused")
-public val CssProperties.outlineColor: CssProperty<OutlineColor>
-	get() = CssProperty("outline-color")
+public inline val CssProperties.outlineColor: CssProperty<OutlineColor>
+	get() = CssProperty.unsafe("outline-color")

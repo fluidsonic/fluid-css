@@ -4,11 +4,11 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.width(value: Size) {
+public inline fun CssDeclarationBlockBuilder.width(value: Size) {
 	property(width, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.width: CssProperty<Size>
-	get() = CssProperty("width")
+public inline val CssProperties.width: CssProperty<Size>
+	get() = CssProperty.unsafe("width")

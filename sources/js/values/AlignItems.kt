@@ -3,97 +3,124 @@
 package io.fluidsonic.css
 
 
-public interface AlignItems : CssValue, Internal {
+public external interface AlignItems : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val baseline: AlignItems = raw("baseline")
+		public inline val baseline: AlignItems
+			get() = unsafe("baseline")
 
 		@CssDsl
-		public val center: AlignItems = raw("center")
+		public inline val center: AlignItems
+			get() = unsafe("center")
 
 		@CssDsl
-		public val end: AlignItems = raw("end")
+		public inline val end: AlignItems
+			get() = unsafe("end")
 
 		@CssDsl
-		public val firstBaseline: AlignItems = raw("first baseline")
+		public inline val firstBaseline: AlignItems
+			get() = unsafe("first baseline")
 
 		@CssDsl
-		public val flexEnd: AlignItems = raw("flex-end")
+		public inline val flexEnd: AlignItems
+			get() = unsafe("flex-end")
 
 		@CssDsl
-		public val flexStart: AlignItems = raw("flex-start")
+		public inline val flexStart: AlignItems
+			get() = unsafe("flex-start")
 
 		@CssDsl
-		public val lastBaseline: AlignItems = raw("last baseline")
+		public inline val lastBaseline: AlignItems
+			get() = unsafe("last baseline")
 
 		@CssDsl
-		public val normal: AlignItems = raw("normal")
+		public inline val normal: AlignItems
+			get() = unsafe("normal")
 
 		@CssDsl
-		public val selfEnd: AlignItems = raw("self-end")
+		public inline val selfEnd: AlignItems
+			get() = unsafe("self-end")
 
 		@CssDsl
-		public val selfStart: AlignItems = raw("self-start")
+		public inline val selfStart: AlignItems
+			get() = unsafe("self-start")
 
 		@CssDsl
-		public val start: AlignItems = raw("start")
+		public inline val start: AlignItems
+			get() = unsafe("start")
 
 		@CssDsl
-		public val stretch: AlignItems = raw("stretch")
-
-
-		@CssDsl
-		public val safeCenter: AlignItems = raw("safe center")
-
-		@CssDsl
-		public val safeEnd: AlignItems = raw("safe end")
-
-		@CssDsl
-		public val safeFlexEnd: AlignItems = raw("safe flex-end")
-
-		@CssDsl
-		public val safeFlexStart: AlignItems = raw("safe flex-start")
-
-		@CssDsl
-		public val safeSelfEnd: AlignItems = raw("safe self-end")
-
-		@CssDsl
-		public val safeSelfStart: AlignItems = raw("safe self-start")
-
-		@CssDsl
-		public val safeStart: AlignItems = raw("safe start")
+		public inline val stretch: AlignItems
+			get() = unsafe("stretch")
 
 
 		@CssDsl
-		public val unsafeCenter: AlignItems = raw("unsafe center")
+		public inline val safeCenter: AlignItems
+			get() = unsafe("safe center")
 
 		@CssDsl
-		public val unsafeEnd: AlignItems = raw("unsafe end")
+		public inline val safeEnd: AlignItems
+			get() = unsafe("safe end")
 
 		@CssDsl
-		public val unsafeFlexEnd: AlignItems = raw("unsafe flex-end")
+		public inline val safeFlexEnd: AlignItems
+			get() = unsafe("safe flex-end")
 
 		@CssDsl
-		public val unsafeFlexStart: AlignItems = raw("unsafe flex-start")
+		public inline val safeFlexStart: AlignItems
+			get() = unsafe("safe flex-start")
 
 		@CssDsl
-		public val unsafeSelfEnd: AlignItems = raw("unsafe self-end")
+		public inline val safeSelfEnd: AlignItems
+			get() = unsafe("safe self-end")
 
 		@CssDsl
-		public val unsafeSelfStart: AlignItems = raw("unsafe self-start")
+		public inline val safeSelfStart: AlignItems
+			get() = unsafe("safe self-start")
 
 		@CssDsl
-		public val unsafeStart: AlignItems = raw("unsafe start")
+		public inline val safeStart: AlignItems
+			get() = unsafe("safe start")
 
 
-		public fun raw(value: String): AlignItems =
-			GenericValue(value)
+		@CssDsl
+		public inline val unsafeCenter: AlignItems
+			get() = unsafe("unsafe center")
+
+		@CssDsl
+		public inline val unsafeEnd: AlignItems
+			get() = unsafe("unsafe end")
+
+		@CssDsl
+		public inline val unsafeFlexEnd: AlignItems
+			get() = unsafe("unsafe flex-end")
+
+		@CssDsl
+		public inline val unsafeFlexStart: AlignItems
+			get() = unsafe("unsafe flex-start")
+
+		@CssDsl
+		public inline val unsafeSelfEnd: AlignItems
+			get() = unsafe("unsafe self-end")
+
+		@CssDsl
+		public inline val unsafeSelfStart: AlignItems
+			get() = unsafe("unsafe self-start")
+
+		@CssDsl
+		public inline val unsafeStart: AlignItems
+			get() = unsafe("unsafe start")
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): AlignItems =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -102,11 +129,11 @@ public interface AlignItems : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.alignItems(value: AlignItems) {
+public inline fun CssDeclarationBlockBuilder.alignItems(value: AlignItems) {
 	property(alignItems, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.alignItems: CssProperty<AlignItems>
-	get() = CssProperty("align-items")
+public inline val CssProperties.alignItems: CssProperty<AlignItems>
+	get() = CssProperty.unsafe("align-items")

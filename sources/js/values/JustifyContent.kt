@@ -3,98 +3,124 @@
 package io.fluidsonic.css
 
 
-public interface JustifyContentOrGlobal : CssValue
-public interface JustifyContent : JustifyContentOrGlobal {
+public external interface JustifyContent : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val center: JustifyContent = raw("center")
+		public inline val center: JustifyContent
+			get() = unsafe("center")
 
 		@CssDsl
-		public val flexEnd: JustifyContent = raw("flex-end")
+		public inline val flexEnd: JustifyContent
+			get() = unsafe("flex-end")
 
 		@CssDsl
-		public val flexStart: JustifyContent = raw("flex-start")
+		public inline val flexStart: JustifyContent
+			get() = unsafe("flex-start")
 
 		@CssDsl
-		public val end: JustifyContent = raw("end")
+		public inline val end: JustifyContent
+			get() = unsafe("end")
 
 		@CssDsl
-		public val left: JustifyContent = raw("left")
+		public inline val left: JustifyContent
+			get() = unsafe("left")
 
 		@CssDsl
-		public val right: JustifyContent = raw("right")
+		public inline val right: JustifyContent
+			get() = unsafe("right")
 
 		@CssDsl
-		public val normal: JustifyContent = raw("normal")
+		public inline val normal: JustifyContent
+			get() = unsafe("normal")
 
 		@CssDsl
-		public val spaceAround: JustifyContent = raw("space-around")
+		public inline val spaceAround: JustifyContent
+			get() = unsafe("space-around")
 
 		@CssDsl
-		public val spaceBetween: JustifyContent = raw("space-between")
+		public inline val spaceBetween: JustifyContent
+			get() = unsafe("space-between")
 
 		@CssDsl
-		public val spaceEvenly: JustifyContent = raw("space-evenly")
+		public inline val spaceEvenly: JustifyContent
+			get() = unsafe("space-evenly")
 
 		@CssDsl
-		public val start: JustifyContent = raw("start")
+		public inline val start: JustifyContent
+			get() = unsafe("start")
 
 		@CssDsl
-		public val stretch: JustifyContent = raw("stretch")
-
-
-		@CssDsl
-		public val safeCenter: JustifyContent = raw("safe center")
-
-		@CssDsl
-		public val safeEnd: JustifyContent = raw("safe end")
-
-		@CssDsl
-		public val safeLeft: JustifyContent = raw("safe left")
-
-		@CssDsl
-		public val safeFlexEnd: JustifyContent = raw("safe flex-end")
-
-		@CssDsl
-		public val safeFlexStart: JustifyContent = raw("safe flex-start")
-
-		@CssDsl
-		public val safeRight: JustifyContent = raw("safe right")
-
-		@CssDsl
-		public val safeStart: JustifyContent = raw("safe start")
+		public inline val stretch: JustifyContent
+			get() = unsafe("stretch")
 
 
 		@CssDsl
-		public val unsafeCenter: JustifyContent = raw("unsafe center")
+		public inline val safeCenter: JustifyContent
+			get() = unsafe("safe center")
 
 		@CssDsl
-		public val unsafeEnd: JustifyContent = raw("unsafe end")
+		public inline val safeEnd: JustifyContent
+			get() = unsafe("safe end")
 
 		@CssDsl
-		public val unsafeLeft: JustifyContent = raw("unsafe left")
+		public inline val safeLeft: JustifyContent
+			get() = unsafe("safe left")
 
 		@CssDsl
-		public val unsafeFlexEnd: JustifyContent = raw("unsafe flex-end")
+		public inline val safeFlexEnd: JustifyContent
+			get() = unsafe("safe flex-end")
 
 		@CssDsl
-		public val unsafeFlexStart: JustifyContent = raw("unsafe flex-start")
+		public inline val safeFlexStart: JustifyContent
+			get() = unsafe("safe flex-start")
 
 		@CssDsl
-		public val unsafeRight: JustifyContent = raw("unsafe right")
+		public inline val safeRight: JustifyContent
+			get() = unsafe("safe right")
 
 		@CssDsl
-		public val unsafeStart: JustifyContent = raw("unsafe start")
+		public inline val safeStart: JustifyContent
+			get() = unsafe("safe start")
 
 
-		public fun raw(value: String): JustifyContent =
-			GenericValue(value)
+		@CssDsl
+		public inline val unsafeCenter: JustifyContent
+			get() = unsafe("unsafe center")
+
+		@CssDsl
+		public inline val unsafeEnd: JustifyContent
+			get() = unsafe("unsafe end")
+
+		@CssDsl
+		public inline val unsafeLeft: JustifyContent
+			get() = unsafe("unsafe left")
+
+		@CssDsl
+		public inline val unsafeFlexEnd: JustifyContent
+			get() = unsafe("unsafe flex-end")
+
+		@CssDsl
+		public inline val unsafeFlexStart: JustifyContent
+			get() = unsafe("unsafe flex-start")
+
+		@CssDsl
+		public inline val unsafeRight: JustifyContent
+			get() = unsafe("unsafe right")
+
+		@CssDsl
+		public inline val unsafeStart: JustifyContent
+			get() = unsafe("unsafe start")
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): JustifyContent =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -103,11 +129,11 @@ public interface JustifyContent : JustifyContentOrGlobal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.justifyContent(value: JustifyContent) {
+public inline fun CssDeclarationBlockBuilder.justifyContent(value: JustifyContent) {
 	property(justifyContent, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.justifyContent: CssProperty<JustifyContent>
-	get() = CssProperty("justify-content")
+public inline val CssProperties.justifyContent: CssProperty<JustifyContent>
+	get() = CssProperty.unsafe("justify-content")

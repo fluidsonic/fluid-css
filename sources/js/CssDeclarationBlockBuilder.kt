@@ -6,11 +6,16 @@ package io.fluidsonic.css
 @CssDsl
 public interface CssDeclarationBlockBuilder : CssProperties {
 
+	@JsName("d")
 	public fun declaration(value: CssDeclaration)
 
+
+	// Not inlined b/c inlined code `builder.d(["property","value"])` would be longer than `builder.p("property","value")`.
+	// Not an extension b/c it would be imported as a local variable `xx` and invocations emitted as `xx(builder,"property","value")`.
 	@CssDsl
+	@JsName("p")
 	public fun property(name: String, value: String) {
-		declaration(CssDeclaration(property = name, value = value))
+		declaration(CssDeclaration.of(property = name, value = value))
 	}
 
 	public fun Unit.build(): CssDeclarationBlock
@@ -31,7 +36,7 @@ public interface CssDeclarationBlockBuilder : CssProperties {
 		// TODO Move to extension once we have multiple receivers.
 		@CssDsl
 		public operator fun String.invoke(declarations: Hierarchical.() -> Unit) {
-			CssSelector(this)(declarations)
+			CssSelector.unsafe(this)(declarations)
 		}
 
 		override fun Unit.build(): CssDeclarationBlock.Hierarchical
@@ -71,49 +76,49 @@ public interface CssDeclarationBlockBuilder : CssProperties {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.property(property: String, value: Int) {
-	property(property, value.toString())
+public inline fun CssDeclarationBlockBuilder.property(property: String, value: CssValue) {
+	property(property, value.asString())
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.property(property: String, value: Number) {
-	property(property, value.toString())
+public inline fun CssDeclarationBlockBuilder.property(property: String, value: Double) {
+	property(property, "$value")
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.property(property: String, value: CssValue) {
-	property(property, value.toString())
+public inline fun CssDeclarationBlockBuilder.property(property: String, value: Int) {
+	property(property, "$value")
 }
 
 
 @CssDsl
-public fun <Value : CssValue> CssDeclarationBlockBuilder.property(property: CssProperty<in Value>, value: Value) {
-	property(property.name, value.toString())
+public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(property: CssProperty<in Value>, value: Value) {
+	property(property.name, value.asString())
 }
 
 
 @CssDsl
-public fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
+public inline fun <Value : CssValue.DoubleConstructable> CssDeclarationBlockBuilder.property(
+	property: CssProperty<Value>,
+	value: Double,
+) {
+	property(property.name, "$value")
+}
+
+
+@CssDsl
+public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
 	property: CssProperty<Value>,
 	value: Int,
 ) {
-	property(property.name, value.toString())
+	property(property.name, "$value")
 }
 
 
 @CssDsl
-public fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
-	property: CssProperty<Value>,
-	value: Number,
-) {
-	property(property.name, value.toString())
-}
-
-
-@CssDsl
-public fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
+public inline fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
 	property: CssProperty<Value>,
 	value: String,
 ) {
@@ -122,34 +127,34 @@ public fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.pro
 
 
 @CssDsl
-public fun <Value : CssValue> CssDeclarationBlockBuilder.property(
+public inline fun <Value : CssValue> CssDeclarationBlockBuilder.property(
 	variable: CssVariable<in Value>,
 	value: Value,
 ) {
-	property(variable.propertyName, value.toString())
+	property(variable.propertyName, value.asString())
 }
 
 
 @CssDsl
-public fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
+public inline fun <Value : CssValue.DoubleConstructable> CssDeclarationBlockBuilder.property(
+	variable: CssVariable<in Value>,
+	value: Double,
+) {
+	property(variable.propertyName, "$value")
+}
+
+
+@CssDsl
+public inline fun <Value : CssValue.IntConstructable> CssDeclarationBlockBuilder.property(
 	variable: CssVariable<in Value>,
 	value: Int,
 ) {
-	property(variable.propertyName, value.toString())
+	property(variable.propertyName, "$value")
 }
 
 
 @CssDsl
-public fun <Value : CssValue.NumberConstructable> CssDeclarationBlockBuilder.property(
-	variable: CssVariable<in Value>,
-	value: Number,
-) {
-	property(variable.propertyName, value.toString())
-}
-
-
-@CssDsl
-public fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
+public inline fun <Value : CssValue.StringConstructable> CssDeclarationBlockBuilder.property(
 	variable: CssVariable<in Value>,
 	value: String,
 ) {

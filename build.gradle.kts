@@ -7,10 +7,6 @@ plugins {
 fluidLibrary(name = "css", version = "0.9.0")
 
 fluidLibraryModule(description = "FIXME") {
-	language {
-		withExperimentalApi("io.fluidsonic.css.InternalCssApi")
-	}
-
 	targets {
 		js {
 			dependencies {

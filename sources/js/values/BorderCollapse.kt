@@ -3,23 +3,26 @@
 package io.fluidsonic.css
 
 
-public interface BorderCollapse : CssValue, Internal {
+public external interface BorderCollapse : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val collapse: BorderCollapse = raw("collapse")
+		public inline val collapse: BorderCollapse
+			get() = unsafe("collapse")
 
 		@CssDsl
-		public val separate: BorderCollapse = raw("separate")
+		public inline val separate: BorderCollapse
+			get() = unsafe("separate")
 
 
-		public fun raw(value: String): BorderCollapse =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BorderCollapse =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -28,11 +31,11 @@ public interface BorderCollapse : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.borderCollapse(value: BorderCollapse) {
+public inline fun CssDeclarationBlockBuilder.borderCollapse(value: BorderCollapse) {
 	property(borderCollapse, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.borderCollapse: CssProperty<BorderCollapse>
-	get() = CssProperty("border-collapse")
+public inline val CssProperties.borderCollapse: CssProperty<BorderCollapse>
+	get() = CssProperty.unsafe("border-collapse")

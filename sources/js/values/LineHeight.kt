@@ -3,24 +3,30 @@
 package io.fluidsonic.css
 
 
-public interface LineHeight : CssValue.NumberConstructable, Internal {
+public external interface LineHeight : CssValue.DoubleConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val normal: LineHeight = raw("normal")
+		public inline val normal: LineHeight
+			get() = unsafe("normal")
 
 
-		public fun multiple(value: Number): LineHeight =
-			raw(value.toString())
+		public inline fun multiple(value: Double): LineHeight =
+			CssValue.unsafe(value)
 
 
-		public fun raw(value: String): LineHeight =
-			GenericValue(value)
+		public inline fun multiple(value: Int): LineHeight =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): LineHeight =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -29,17 +35,23 @@ public interface LineHeight : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.lineHeight(value: LineHeight) {
+public inline fun CssDeclarationBlockBuilder.lineHeight(value: LineHeight) {
 	property(lineHeight, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.lineHeight(value: Number) {
+public inline fun CssDeclarationBlockBuilder.lineHeight(value: Double) {
+	property(lineHeight, value)
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.lineHeight(value: Int) {
 	property(lineHeight, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.lineHeight: CssProperty<LineHeight>
-	get() = CssProperty("line-height")
+public inline val CssProperties.lineHeight: CssProperty<LineHeight>
+	get() = CssProperty.unsafe("line-height")

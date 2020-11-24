@@ -3,90 +3,115 @@
 package io.fluidsonic.css
 
 
-public interface Display : CssValue, Internal {
+public external interface Display : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val none: Display = raw("none")
+		public inline val none: Display
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val block: Display = raw("block")
+		public inline val block: Display
+			get() = unsafe("block")
 
 		@CssDsl
-		public val contents: Display = raw("contents")
+		public inline val contents: Display
+			get() = unsafe("contents")
 
 		@CssDsl
-		public val flex: Display = raw("flex")
+		public inline val flex: Display
+			get() = unsafe("flex")
 
 		@CssDsl
-		public val flow: Display = raw("flow")
+		public inline val flow: Display
+			get() = unsafe("flow")
 
 		@CssDsl
-		public val flowRoot: Display = raw("flow-root")
+		public inline val flowRoot: Display
+			get() = unsafe("flow-root")
 
 		@CssDsl
-		public val grid: Display = raw("grid")
+		public inline val grid: Display
+			get() = unsafe("grid")
 
 		@CssDsl
-		public val inline: Display = raw("inline")
+		public inline val inline: Display
+			get() = unsafe("inline")
 
 		@CssDsl
-		public val inlineBlock: Display = raw("inline-block")
+		public inline val inlineBlock: Display
+			get() = unsafe("inline-block")
 
 		@CssDsl
-		public val inlineFlex: Display = raw("inline-flex")
+		public inline val inlineFlex: Display
+			get() = unsafe("inline-flex")
 
 		@CssDsl
-		public val inlineGrid: Display = raw("inline-grid")
+		public inline val inlineGrid: Display
+			get() = unsafe("inline-grid")
 
 		@CssDsl
-		public val inlineListItem: Display = raw("inline-list-item")
+		public inline val inlineListItem: Display
+			get() = unsafe("inline-list-item")
 
 		@CssDsl
-		public val inlineTable: Display = raw("inline-table")
+		public inline val inlineTable: Display
+			get() = unsafe("inline-table")
 
 		@CssDsl
-		public val listItem: Display = raw("list-item")
+		public inline val listItem: Display
+			get() = unsafe("list-item")
 
 		@CssDsl
-		public val runIn: Display = raw("run-in")
+		public inline val runIn: Display
+			get() = unsafe("run-in")
 
 		@CssDsl
-		public val table: Display = raw("table")
+		public inline val table: Display
+			get() = unsafe("table")
 
 		@CssDsl
-		public val tableCaption: Display = raw("table-caption")
+		public inline val tableCaption: Display
+			get() = unsafe("table-caption")
 
 		@CssDsl
-		public val tableCell: Display = raw("table-cell")
+		public inline val tableCell: Display
+			get() = unsafe("table-cell")
 
 		@CssDsl
-		public val tableColumn: Display = raw("table-column")
+		public inline val tableColumn: Display
+			get() = unsafe("table-column")
 
 		@CssDsl
-		public val tableColumnGroup: Display = raw("table-column-group")
+		public inline val tableColumnGroup: Display
+			get() = unsafe("table-column-group")
 
 		@CssDsl
-		public val tableFooterGroup: Display = raw("table-footer-group")
+		public inline val tableFooterGroup: Display
+			get() = unsafe("table-footer-group")
 
 		@CssDsl
-		public val tableHeaderGroup: Display = raw("table-header-group")
+		public inline val tableHeaderGroup: Display
+			get() = unsafe("table-header-group")
 
 		@CssDsl
-		public val tableRow: Display = raw("table-row")
+		public inline val tableRow: Display
+			get() = unsafe("table-row")
 
 		@CssDsl
-		public val tableRowGroup: Display = raw("table-row-group")
+		public inline val tableRowGroup: Display
+			get() = unsafe("table-row-group")
 
 
-		public fun raw(value: String): Display =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Display =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -95,11 +120,11 @@ public interface Display : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.display(value: Display) {
+public inline fun CssDeclarationBlockBuilder.display(value: Display) {
 	property(display, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.display: CssProperty<Display>
-	get() = CssProperty("display")
+public inline val CssProperties.display: CssProperty<Display>
+	get() = CssProperty.unsafe("display")

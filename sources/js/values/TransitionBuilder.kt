@@ -4,42 +4,41 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public interface TransitionBuilder : CssProperties {
+public external interface TransitionBuilder : CssProperties {
 
-	@CssDsl
-	public fun add(value: Transition.Single)
-
-	public fun Unit.build(): Transition
-
-
+	@Suppress(
+		"EXTENSION_FUNCTION_IN_EXTERNAL_DECLARATION",
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION"
+	)
 	public companion object {
 
-		public fun default(): TransitionBuilder =
-			Default()
-	}
+		public inline fun build(action: TransitionBuilder.() -> Unit): Transition =
+			complete(create().apply(action))
 
 
-	private class Default : TransitionBuilder {
-
-		private var value = ""
-
-
-		override fun add(value: Transition.Single) {
-			if (this.value.isNotEmpty())
-				this.value += ","
-
-			this.value += value
-		}
+		public inline fun complete(builder: TransitionBuilder): Transition =
+			if (builder.asDynamic().length == 0)
+				Transition.none
+			else
+				Transition.unsafe(builder.asDynamic().join().unsafeCast<String>())
 
 
-		override fun Unit.build(): Transition =
-			Transition.raw(value)
+		public inline fun create(): TransitionBuilder =
+			js("[]").unsafeCast<TransitionBuilder>()
 	}
 }
 
 
 @CssDsl
-public fun TransitionBuilder.add(
+public inline fun TransitionBuilder.add(value: Transition.Single) {
+	asDynamic().push(value)
+}
+
+
+@CssDsl
+public inline fun TransitionBuilder.add(
 	property: CssProperty<*>? = null,
 	duration: Time? = null,
 	timingFunction: TimingFunction? = null,

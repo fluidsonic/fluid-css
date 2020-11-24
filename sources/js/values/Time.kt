@@ -2,43 +2,43 @@
 
 package io.fluidsonic.css
 
+import kotlin.js.RegExp
 
-public interface Time : CssValue, Internal {
 
+private val numericTimeRegex = RegExp("^\\s*(-?\\d+)([a-z]+)\\s*$", "i")
+
+
+public external interface Time :
+	CssGradient.Direction,
+	CssValue {
+
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val zero: Time = numeric(0, "")
+		public inline val zero: Time
+			get() = unsafe("0")
 
 
-		public fun calc(value: String): Time =
-			raw("calc($value)")
+		public inline fun calc(value: String): Time =
+			unsafe("calc($value)")
 
 
-		public fun numeric(value: Number, unit: String): Numeric =
-			NumericDefault(unit = unit, value = value.toDouble())
+		public inline fun of(value: Double, unit: String): Time =
+			CssValue.unsafe("$value$unit")
 
 
-		public fun raw(value: String): Time =
-			GenericValue(value)
+		public inline fun of(value: Int, unit: String): Time =
+			CssValue.unsafe("$value$unit")
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): Time =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
-
-
-	public interface Numeric : Time {
-
-		public val value: Double
-		public val unit: String
-	}
-
-
-	private class NumericDefault(
-		override val unit: String,
-		override val value: Double,
-	) : GenericValue("$value$unit"), Numeric
 
 
 	public interface Variable : Time, CssVariable<Time>
@@ -46,65 +46,140 @@ public interface Time : CssValue, Internal {
 
 
 @CssDsl
-public operator fun Time.div(other: Number): Time =
-	when {
-		other == 1.0 -> this
-		this is Time.Numeric -> when (value) {
+public operator fun Time.div(other: Double): Time {
+	if (other == 1.0)
+		return this
+
+	ifNumeric { value, unit ->
+		return when (value) {
 			0.0 -> this
-			else -> Time.numeric(value / other.toDouble(), unit)
+			else -> Time.of(value / other, unit)
 		}
-		else -> Time.calc("($this) / $other")
 	}
+
+	return Time.calc("$this / $other")
+}
 
 
 @CssDsl
-public operator fun Time.minus(other: Time): Time =
-	when {
-		this is Time.Numeric && other is Time.Numeric && unit == other.unit -> Time.numeric(value - other.value, unit)
-		else -> Time.calc("($this) - ($other)")
-	}
+public operator fun Time.div(other: Int): Time {
+	if (other == 1)
+		return this
 
-
-@CssDsl
-public operator fun Time.times(other: Number): Time =
-	when {
-		other == 1.0 -> this
-		this is Time.Numeric -> when (value) {
+	ifNumeric { value, unit ->
+		return when (value) {
 			0.0 -> this
-			else -> Time.numeric(value * other.toDouble(), unit)
+			else -> Time.of(value / other, unit)
 		}
-		else -> Time.calc("($this) * $other")
 	}
+
+	return Time.calc("$this / $other")
+}
+
+
+@kotlin.internal.InlineOnly
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+private inline fun Time.ifNumeric(block: (value: Double, unit: String) -> Unit) {
+	val match = numericTimeRegex.exec(asString()) ?: return
+	val values = match.unsafeCast<Array<String>>()
+
+	block(values[1].toDouble(), values[2])
+}
 
 
 @CssDsl
-public operator fun Time.plus(other: Time): Time =
-	when {
-		this is Time.Numeric && other is Time.Numeric && unit == other.unit -> Time.numeric(value + other.value, unit)
-		else -> Time.calc("($this) + ($other)")
+public operator fun Time.minus(other: Time): Time {
+	ifNumeric { value, unit ->
+		other.ifNumeric { otherValue, otherUnit ->
+			if (unit == otherUnit)
+				return Time.of(value - otherValue, unit)
+		}
 	}
+
+	return Time.calc("$this - $other")
+}
 
 
 @CssDsl
-public operator fun Time.unaryPlus(): Time =
+public operator fun Time.times(other: Double): Time {
+	if (other == 1.0)
+		return this
+
+	ifNumeric { value, unit ->
+		return when (value) {
+			0.0 -> this
+			else -> Time.of(value * other, unit)
+		}
+	}
+
+	return Time.calc("$this * $other")
+}
+
+
+@CssDsl
+public operator fun Time.times(other: Int): Time {
+	if (other == 1)
+		return this
+
+	ifNumeric { value, unit ->
+		return when (value) {
+			0.0 -> this
+			else -> Time.of(value * other, unit)
+		}
+	}
+
+	return Time.calc("$this * $other")
+}
+
+
+@CssDsl
+public operator fun Time.plus(other: Time): Time {
+	ifNumeric { value, unit ->
+		other.ifNumeric { otherValue, otherUnit ->
+			if (unit == otherUnit)
+				return Time.of(value + otherValue, unit)
+		}
+	}
+
+	return Time.calc("$this + $other")
+}
+
+
+@CssDsl
+public inline operator fun Time.unaryPlus(): Time =
 	this
 
 
 @CssDsl
-public operator fun Time.unaryMinus(): Time =
+public inline operator fun Time.unaryMinus(): Time =
 	this * -1
 
 
 @CssDsl
-public operator fun Number.times(other: Time): Time =
+public inline operator fun Double.times(other: Time): Time =
 	other * this
 
 
 @CssDsl
-public val Number.s: Time
-	get() = Time.numeric(this, "s")
+public inline operator fun Int.times(other: Time): Time =
+	other * this
 
 
 @CssDsl
-public val Number.ms: Time
-	get() = Time.numeric(this, "ms")
+public inline val Double.s: Time
+	get() = Time.of(this, "s")
+
+
+@CssDsl
+public inline val Double.ms: Time
+	get() = Time.of(this, "ms")
+
+
+@CssDsl
+public inline val Int.s: Time
+	get() = Time.of(this, "s")
+
+
+@CssDsl
+public inline val Int.ms: Time
+	get() = Time.of(this, "ms")

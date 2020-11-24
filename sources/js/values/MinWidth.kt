@@ -4,11 +4,11 @@ import io.fluidsonic.css.*
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.minWidth(value: SizeLimit) {
+public inline fun CssDeclarationBlockBuilder.minWidth(value: SizeLimit) {
 	property(minWidth, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.minWidth: CssProperty<SizeLimit>
-	get() = CssProperty("min-width")
+public inline val CssProperties.minWidth: CssProperty<SizeLimit>
+	get() = CssProperty.unsafe("min-width")

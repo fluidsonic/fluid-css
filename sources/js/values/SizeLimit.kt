@@ -3,31 +3,35 @@
 package io.fluidsonic.css
 
 
-public interface SizeLimit : CssValue, Internal {
+public external interface SizeLimit : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val maxContent: SizeLimit = raw("max-content")
+		public inline val maxContent: SizeLimit
+			get() = unsafe("max-content")
 
 		@CssDsl
-		public val minContent: SizeLimit = raw("min-content")
+		public inline val minContent: SizeLimit
+			get() = unsafe("min-content")
 
 		@CssDsl
-		public val none: SizeLimit = raw("none")
+		public inline val none: SizeLimit
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public fun fitContent(height: LengthOrPercentage): SizeLimit =
-			raw("fit-content($height)")
+		public inline fun fitContent(height: LengthOrPercentage): SizeLimit =
+			unsafe("fit-content($height)")
 
 
-		public fun raw(value: String): SizeLimit =
-			GenericValue(value)
+		public inline fun unsafe(value: String): SizeLimit =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 

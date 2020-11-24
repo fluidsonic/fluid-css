@@ -5,43 +5,51 @@ package io.fluidsonic.css
 // FIXME add support for steps & for multiple values
 
 
-public interface TimingFunction : CssValue, Internal {
+public external interface TimingFunction : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val ease: TimingFunction = raw("ease")
+		public inline val ease: TimingFunction
+			get() = unsafe("ease")
 
 		@CssDsl
-		public val easeIn: TimingFunction = raw("ease-in")
+		public inline val easeIn: TimingFunction
+			get() = unsafe("ease-in")
 
 		@CssDsl
-		public val easeInOut: TimingFunction = raw("ease-in-out")
+		public inline val easeInOut: TimingFunction
+			get() = unsafe("ease-in-out")
 
 		@CssDsl
-		public val easeOut: TimingFunction = raw("ease-out")
+		public inline val easeOut: TimingFunction
+			get() = unsafe("ease-out")
 
 		@CssDsl
-		public val linear: TimingFunction = raw("linear")
+		public inline val linear: TimingFunction
+			get() = unsafe("linear")
 
 		@CssDsl
-		public val stepEnd: TimingFunction = raw("step-end")
+		public inline val stepEnd: TimingFunction
+			get() = unsafe("step-end")
 
 		@CssDsl
-		public val stepStart: TimingFunction = raw("step-start")
+		public inline val stepStart: TimingFunction
+			get() = unsafe("step-start")
 
 
 		@CssDsl
-		public fun cubicBezier(p0: Number, p1: Number, p2: Number, p3: Number): TimingFunction =
-			raw("cubic-bezier($p0,$p1,$p2,$p3)")
+		public inline fun cubicBezier(p0: Double, p1: Double, p2: Double, p3: Double): TimingFunction =
+			unsafe("cubic-bezier($p0,$p1,$p2,$p3)")
 
 
-		public fun raw(value: String): TimingFunction =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TimingFunction =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 

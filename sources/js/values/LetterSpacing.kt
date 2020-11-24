@@ -3,20 +3,22 @@
 package io.fluidsonic.css
 
 
-public interface LetterSpacing : CssValue, Internal {
+public external interface LetterSpacing : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val normal: LetterSpacing = raw("normal")
+		public inline val normal: LetterSpacing
+			get() = unsafe("normal")
 
 
-		public fun raw(value: String): LetterSpacing =
-			GenericValue(value)
+		public inline fun unsafe(value: String): LetterSpacing =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -25,11 +27,11 @@ public interface LetterSpacing : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.letterSpacing(value: LetterSpacing) {
+public inline fun CssDeclarationBlockBuilder.letterSpacing(value: LetterSpacing) {
 	property(letterSpacing, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.letterSpacing: CssProperty<LetterSpacing>
-	get() = CssProperty("letter-spacing")
+public inline val CssProperties.letterSpacing: CssProperty<LetterSpacing>
+	get() = CssProperty.unsafe("letter-spacing")

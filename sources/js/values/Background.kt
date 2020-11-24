@@ -3,99 +3,41 @@
 package io.fluidsonic.css
 
 
-public interface Background : CssValue, Internal {
+public external interface Background : CssValue {
 
+	@Suppress(
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
+		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
+	)
 	public companion object {
 
 		@CssDsl
-		public val none: Background = raw("none")
+		public inline val none: Background
+			get() = unsafe("none")
 
 
-		public fun combine(vararg values: Single): Background =
+		// FIXME check
+		public inline fun combine(vararg values: Single): Background =
 			when (values.size) {
-				1 -> values.first()
+				1 -> values[0]
 				0 -> CssValue.initial
-				else -> raw(values.joinToString(","))
+				else -> unsafe(values.join())
 			}
 
 
-		public fun raw(value: String): Background =
-			GenericValue(value)
+		public inline fun unsafe(value: String): Background =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
-
-
-		public fun with(
-			color: Color? = null,
-			image: CssImage? = null,
-			position: BackgroundPosition? = null,
-			size: BackgroundSize? = null,
-			repeat: BackgroundRepeat? = null,
-			attachment: BackgroundAttachment? = null,
-			origin: BackgroundOrigin? = null,
-			clip: BackgroundClip? = null,
-		): Single =
-			if (
-				color != null ||
-				image != null ||
-				position != null ||
-				size != null ||
-				repeat != null ||
-				attachment != null ||
-				origin != null ||
-				clip != null
-			)
-				GenericValue(buildString {
-					if (color != null)
-						append(color)
-
-					if (image != null) {
-						if (isNotEmpty()) append(" ")
-						append(image)
-					}
-					if (position != null) {
-						if (isNotEmpty()) append(" ")
-						append(position)
-					}
-					if (size != null) {
-						if (position == null) {
-							if (isNotEmpty()) append(" ")
-							append("0% 0%")
-						}
-						append("/")
-						append(size)
-					}
-					if (repeat != null) {
-						if (isNotEmpty()) append(" ")
-						append(repeat)
-					}
-					if (attachment != null) {
-						if (isNotEmpty()) append(" ")
-						append(attachment)
-					}
-					if (origin != null) {
-						if (isNotEmpty()) append(" ")
-						append(origin)
-						if (clip == null) append(BackgroundClip.borderBox)
-					}
-					if (clip != null) {
-						if (origin == null) {
-							if (isNotEmpty()) append(" ")
-							append(BackgroundOrigin.paddingBox)
-						}
-						append(" ")
-						append(clip)
-					}
-				})
-			else
-				CssValue.initial
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 
 
 		@kotlin.internal.LowPriorityInOverloadResolution
-		@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-		public fun with(
+		@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+		public inline fun with(
 			color: Color? = null,
 			image: CssImage? = null,
 			x: BackgroundPositionX? = null,
@@ -122,17 +64,102 @@ public interface Background : CssValue, Internal {
 	}
 
 
-	public interface Single : Background
+	public interface Single : Background {
+
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+		public companion object {
+
+			public inline fun unsafe(value: String): Single =
+				CssValue.unsafe(value)
+
+
+			public inline fun variable(name: String): Variable =
+				CssVariable.unsafe(name)
+		}
+
+
+		public interface Variable : Single, CssVariable<Single>
+	}
 
 
 	public interface Variable : Background, CssVariable<Background>
 }
 
 
+@Suppress("DEPRECATION")
+public inline fun Background.Companion.with(
+	color: Color? = null,
+	image: CssImage? = null,
+	position: BackgroundPosition? = null,
+	size: BackgroundSize? = null,
+	repeat: BackgroundRepeat? = null,
+	attachment: BackgroundAttachment? = null,
+	origin: BackgroundOrigin? = null,
+	clip: BackgroundClip? = null,
+): Background.Single =
+	if (
+		color != null ||
+		image != null ||
+		position != null ||
+		size != null ||
+		repeat != null ||
+		attachment != null ||
+		origin != null ||
+		clip != null
+	) {
+		var string = ""
+
+		if (color != null)
+			string += color
+
+		if (image != null) {
+			if (string.isNotEmpty()) string += " "
+			string += image
+		}
+		if (position != null) {
+			if (string.isNotEmpty()) string += " "
+			string += position
+		}
+		if (size != null) {
+			if (position == null) {
+				if (string.isNotEmpty()) string += " "
+				string += "0% 0%"
+			}
+			string += "/"
+			string += size
+		}
+		if (repeat != null) {
+			if (string.isNotEmpty()) string += " "
+			string += repeat
+		}
+		if (attachment != null) {
+			if (string.isNotEmpty()) string += " "
+			string += attachment
+		}
+		if (origin != null) {
+			if (string.isNotEmpty()) string += " "
+			string += origin
+			if (clip == null) string += BackgroundClip.borderBox
+		}
+		if (clip != null) {
+			if (origin == null) {
+				if (string.isNotEmpty()) string += " "
+				string += BackgroundOrigin.paddingBox
+			}
+			string += " "
+			string += clip
+		}
+
+		Background.Single.unsafe(string)
+	}
+	else
+		CssValue.initial
+
+
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public fun CssDeclarationBlockBuilder.background(value: Background) {
+public inline fun CssDeclarationBlockBuilder.background(value: Background) {
 	property(background, value)
 }
 
@@ -140,7 +167,7 @@ public fun CssDeclarationBlockBuilder.background(value: Background) {
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public fun CssDeclarationBlockBuilder.background(value: Background.Single) {
+public inline fun CssDeclarationBlockBuilder.background(value: Background.Single) {
 	property(background, value)
 }
 
@@ -148,13 +175,13 @@ public fun CssDeclarationBlockBuilder.background(value: Background.Single) {
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public fun CssDeclarationBlockBuilder.background(vararg values: Background.Single) {
+public inline fun CssDeclarationBlockBuilder.background(vararg values: Background.Single) {
 	background(Background.combine(*values))
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.background(
+public inline fun CssDeclarationBlockBuilder.background(
 	color: Color? = null,
 	image: CssImage? = null,
 	position: BackgroundPosition? = null,
@@ -180,7 +207,7 @@ public fun CssDeclarationBlockBuilder.background(
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-public fun CssDeclarationBlockBuilder.background(
+public inline fun CssDeclarationBlockBuilder.background(
 	color: Color? = null,
 	image: CssImage? = null,
 	x: BackgroundPositionX? = null,
@@ -206,5 +233,5 @@ public fun CssDeclarationBlockBuilder.background(
 
 
 @Suppress("unused")
-public val CssProperties.background: CssProperty<Background>
-	get() = CssProperty("background")
+public inline val CssProperties.background: CssProperty<Background>
+	get() = CssProperty.unsafe("background")

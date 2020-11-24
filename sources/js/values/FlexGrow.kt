@@ -3,20 +3,25 @@
 package io.fluidsonic.css
 
 
-public interface FlexGrow : CssValue.NumberConstructable, Internal {
+public external interface FlexGrow : CssValue.DoubleConstructable {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun of(value: Number): FlexGrow =
-			raw(value.toString())
+		public inline fun of(value: Double): FlexGrow =
+			CssValue.unsafe(value)
 
 
-		public fun raw(value: String): FlexGrow =
-			GenericValue(value)
+		public inline fun of(value: Int): FlexGrow =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun unsafe(value: String): FlexGrow =
+			CssValue.unsafe(value)
+
+
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -25,17 +30,23 @@ public interface FlexGrow : CssValue.NumberConstructable, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flexGrow(value: FlexGrow) {
+public inline fun CssDeclarationBlockBuilder.flexGrow(value: FlexGrow) {
 	property(flexGrow, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.flexGrow(value: Number) {
+public inline fun CssDeclarationBlockBuilder.flexGrow(value: Double) {
+	property(flexGrow, value)
+}
+
+
+@CssDsl
+public inline fun CssDeclarationBlockBuilder.flexGrow(value: Int) {
 	property(flexGrow, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.flexGrow: CssProperty<FlexGrow>
-	get() = CssProperty("flex-grow")
+public inline val CssProperties.flexGrow: CssProperty<FlexGrow>
+	get() = CssProperty.unsafe("flex-grow")

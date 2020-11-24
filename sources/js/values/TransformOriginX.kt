@@ -3,21 +3,25 @@
 package io.fluidsonic.css
 
 
-public interface TransformOriginX : CssValue, Internal {
+public external interface TransformOriginX : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val center: TransformOriginX = raw("center")
+		public inline val center: TransformOriginX
+			get() = unsafe("center")
 
 		@CssDsl
-		public val left: TransformOriginX = raw("left")
+		public inline val left: TransformOriginX
+			get() = unsafe("left")
 
 		@CssDsl
-		public val right: TransformOriginX = raw("right")
+		public inline val right: TransformOriginX
+			get() = unsafe("right")
 
 
-		public fun raw(value: String): TransformOriginX =
-			GenericValue(value)
+		public inline fun unsafe(value: String): TransformOriginX =
+			CssValue.unsafe(value)
 	}
 }

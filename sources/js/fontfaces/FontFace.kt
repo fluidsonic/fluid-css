@@ -1,337 +1,366 @@
 package io.fluidsonic.css
 
 
-public interface FontFace {
+public external interface FontFace {
 
 	public val declarations: CssDeclarationBlock
 
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun default(declarations: CssDeclarationBlock): FontFace =
-			Default(declarations = declarations)
+		public inline fun default(declarations: CssDeclarationBlock): FontFace =
+			DefaultFontFace(declarations = declarations)
 	}
 
 
-	private class Default(override val declarations: CssDeclarationBlock) : FontFace {
+	public interface Display : CssValue {
 
-		override fun toString() =
-			CssPrinter.default().print(this)
-	}
-
-
-	public interface Display {
-
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val auto: Display = raw("auto")
-			public val block: Display = raw("block")
-			public val fallback: Display = raw("fallback")
-			public val optional: Display = raw("optional")
-			public val swap: Display = raw("swap")
+			@CssDsl
+			public inline val auto: Display
+				get() = unsafe("auto")
+
+			@CssDsl
+			public inline val block: Display
+				get() = unsafe("block")
+
+			@CssDsl
+			public inline val fallback: Display
+				get() = unsafe("fallback")
+
+			@CssDsl
+			public inline val optional: Display
+				get() = unsafe("optional")
+
+			@CssDsl
+			public inline val swap: Display
+				get() = unsafe("swap")
 
 
-			public fun raw(value: String): Display =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : Display {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): Display =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface FeatureSettings {
+	public interface FeatureSettings : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val normal: FeatureSettings = raw("normal")
+			@CssDsl
+			public inline val normal: FeatureSettings
+				get() = unsafe("normal")
 
 
-			public fun combine(vararg values: FeatureSettings): FeatureSettings =
-				raw(values.joinToString(","))
+			// FIXME check
+			public inline fun combine(vararg values: FeatureSettings): FeatureSettings =
+				unsafe(values.join())
 
 
-			public fun set(tag: String, value: Boolean): FeatureSettings =
-				raw("$tag ${if (value) "on" else "off"}")
+			public inline fun set(tag: String, value: Boolean): FeatureSettings =
+				unsafe("$tag ${if (value) "on" else "off"}")
 
 
-			public fun set(tag: String, value: Int): FeatureSettings =
-				raw("$tag $value")
+			public inline fun set(tag: String, value: Int): FeatureSettings =
+				unsafe("$tag $value")
 
 
-			public fun raw(value: String): FeatureSettings =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : FeatureSettings {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): FeatureSettings =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface Format {
+	public interface Format : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val woff: Format = raw("woff")
-			public val woff2: Format = raw("woff2")
-			public val trueType: Format = raw("truetype")
-			public val openType: Format = raw("opentype")
-			public val embeddedOpenType: Format = raw("embedded-opentype")
-			public val svg: Format = raw("svg")
+			@CssDsl
+			public inline val woff: Format
+				get() = unsafe("woff")
+
+			@CssDsl
+			public inline val woff2: Format
+				get() = unsafe("woff2")
+
+			@CssDsl
+			public inline val trueType: Format
+				get() = unsafe("truetype")
+
+			@CssDsl
+			public inline val openType: Format
+				get() = unsafe("opentype")
+
+			@CssDsl
+			public inline val embeddedOpenType: Format
+				get() = unsafe("embedded-opentype")
+
+			@CssDsl
+			public inline val svg: Format
+				get() = unsafe("svg")
 
 
-			public fun raw(value: String): Format =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : Format {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): Format =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface Source {
+	public interface Source : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public fun combine(vararg values: Source): Source =
-				raw(values.joinToString(","))
+			public inline fun combine(vararg values: Source): Source =
+				unsafe(values.join())
 
 
-			public fun local(family: String): Source =
-				raw("local('$family')")
+			public inline fun local(family: String): Source =
+				unsafe("local('$family')")
 
 
-			public fun url(url: String, vararg formats: Format): Source =
-				raw(buildString {
-					append("url('")
-					append(url)
-					append("')")
-
-					for (format in formats) {
-						append(" format('")
-						append(format)
-						append("')")
-					}
-				})
-
-
-			public fun raw(value: String): Source =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : Source {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): Source =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface Stretch {
+	public interface Stretch : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val normal: Stretch = raw("normal")
-			public val ultraCondensed: Stretch = raw("ultra-condensed")
-			public val extraCondensed: Stretch = raw("extra-condensed")
-			public val condensed: Stretch = raw("condensed")
-			public val semiCondensed: Stretch = raw("semi-condensed")
-			public val semiExpanded: Stretch = raw("semi-expanded")
-			public val expanded: Stretch = raw("expanded")
-			public val extraExpanded: Stretch = raw("extra-expanded")
-			public val ultraExpanded: Stretch = raw("ultra-expanded")
+			@CssDsl
+			public inline val normal: Stretch
+				get() = unsafe("normal")
+
+			@CssDsl
+			public inline val ultraCondensed: Stretch
+				get() = unsafe("ultra-condensed")
+
+			@CssDsl
+			public inline val extraCondensed: Stretch
+				get() = unsafe("extra-condensed")
+
+			@CssDsl
+			public inline val condensed: Stretch
+				get() = unsafe("condensed")
+
+			@CssDsl
+			public inline val semiCondensed: Stretch
+				get() = unsafe("semi-condensed")
+
+			@CssDsl
+			public inline val semiExpanded: Stretch
+				get() = unsafe("semi-expanded")
+
+			@CssDsl
+			public inline val expanded: Stretch
+				get() = unsafe("expanded")
+
+			@CssDsl
+			public inline val extraExpanded: Stretch
+				get() = unsafe("extra-expanded")
+
+			@CssDsl
+			public inline val ultraExpanded: Stretch
+				get() = unsafe("ultra-expanded")
 
 
-			public fun range(from: Stretch, to: Stretch): Stretch =
-				raw("$from $to")
+			public inline fun range(from: Stretch, to: Stretch): Stretch =
+				unsafe("$from $to")
 
 
-			public fun raw(value: String): Stretch =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : Stretch {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): Stretch =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface Style {
+	public interface Style : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val normal: Style = raw("normal")
-			public val italic: Style = raw("italic")
-			public val oblique: Style = raw("extra-condensed")
+			@CssDsl
+			public inline val normal: Style
+				get() = unsafe("normal")
+
+			@CssDsl
+			public inline val italic: Style
+				get() = unsafe("italic")
+
+			@CssDsl
+			public inline val oblique: Style
+				get() = unsafe("extra-condensed")
 
 
-			public fun oblique(angle: Angle): Style =
-				raw("oblique $angle")
+			@CssDsl
+			public inline fun oblique(angle: Angle): Style =
+				unsafe("oblique $angle")
 
 
-			public fun oblique(fromAngle: Angle, toAngle: Angle): Style =
-				raw("oblique $fromAngle $toAngle")
+			@CssDsl
+			public inline fun oblique(fromAngle: Angle, toAngle: Angle): Style =
+				unsafe("oblique $fromAngle $toAngle")
 
 
-			public fun raw(value: String): Style =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : Style {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): Style =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface UnicodeRange {
+	public interface UnicodeRange : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public fun raw(value: String): UnicodeRange =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : UnicodeRange {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): UnicodeRange =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface Variant {
+	public interface Variant : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val none: Variant = raw("none")
-			public val normal: Variant = raw("normal")
+			@CssDsl
+			public inline val none: Variant
+				get() = unsafe("none")
+
+			@CssDsl
+			public inline val normal: Variant
+				get() = unsafe("normal")
 
 
-			public fun raw(value: String): Variant =
-				Default(value)
-		}
-
-
-		private class Default(val value: String) : Variant {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): Variant =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface VariationSettings {
+	public interface VariationSettings : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val normal: VariationSettings = raw("normal")
+			@CssDsl
+			public inline val normal: VariationSettings
+				get() = unsafe("normal")
 
 
-			public fun combine(vararg values: VariationSettings): VariationSettings =
-				raw(values.joinToString(","))
+			public inline fun combine(vararg values: VariationSettings): VariationSettings =
+				unsafe(values.join())
 
 
-			public fun set(tag: String, value: Number): VariationSettings =
-				raw("$tag $value")
+			public inline fun set(tag: String, value: Double): VariationSettings =
+				unsafe("$tag $value")
 
 
-			public fun raw(value: String): VariationSettings =
-				Default(value)
-		}
+			public inline fun set(tag: String, value: Int): VariationSettings =
+				unsafe("$tag $value")
 
 
-		private class Default(val value: String) : VariationSettings {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): VariationSettings =
+				CssValue.unsafe(value)
 		}
 	}
 
 
-	public interface Weight {
+	public interface Weight : CssValue {
 
-		override fun toString(): String
-
-
+		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 		public companion object {
 
-			public val bold: Weight = raw("bold")
-			public val normal: Weight = raw("normal")
-			public val w100: Weight = with(100)
-			public val w200: Weight = with(200)
-			public val w300: Weight = with(300)
-			public val w400: Weight = with(400)
-			public val w500: Weight = with(500)
-			public val w600: Weight = with(600)
-			public val w700: Weight = with(700)
-			public val w800: Weight = with(800)
-			public val w900: Weight = with(900)
+			@CssDsl
+			public inline val bold: Weight
+				get() = unsafe("bold")
+
+			@CssDsl
+			public inline val normal: Weight
+				get() = unsafe("normal")
+
+			@CssDsl
+			public inline val w100: Weight
+				get() = with(100)
+
+			@CssDsl
+			public inline val w200: Weight
+				get() = with(200)
+
+			@CssDsl
+			public inline val w300: Weight
+				get() = with(300)
+
+			@CssDsl
+			public inline val w400: Weight
+				get() = with(400)
+
+			@CssDsl
+			public inline val w500: Weight
+				get() = with(500)
+
+			@CssDsl
+			public inline val w600: Weight
+				get() = with(600)
+
+			@CssDsl
+			public inline val w700: Weight
+				get() = with(700)
+
+			@CssDsl
+			public inline val w800: Weight
+				get() = with(800)
+
+			@CssDsl
+			public inline val w900: Weight
+				get() = with(900)
 
 
-			public fun range(from: Weight, to: Weight): Weight =
-				raw("$from $to")
+			public inline fun range(from: Weight, to: Weight): Weight =
+				unsafe("$from $to")
 
 
-			public fun with(value: Number): Weight =
-				raw(value.toString())
+			public inline fun with(value: Double): Weight =
+				CssValue.unsafe(value)
 
 
-			public fun raw(value: String): Weight =
-				Default(value)
-		}
+			public inline fun with(value: Int): Weight =
+				CssValue.unsafe(value)
 
 
-		private class Default(val value: String) : Weight {
-
-			override fun toString(): String =
-				value
+			public inline fun unsafe(value: String): Weight =
+				CssValue.unsafe(value)
 		}
 	}
+}
+
+
+public inline fun FontFace.Source.Companion.url(url: String, vararg formats: FontFace.Format): FontFace.Source =
+	unsafe(buildString {
+		append("url('")
+		append(url)
+		append("')")
+
+		for (format in formats) {
+			append(" format('")
+			append(format)
+			append("')")
+		}
+	})
+
+
+@PublishedApi
+internal class DefaultFontFace(override val declarations: CssDeclarationBlock) : FontFace {
+
+	override fun toString() =
+		CssPrinter.default().print(this)
 }

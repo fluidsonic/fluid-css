@@ -21,7 +21,7 @@ public interface KeyframesBuilder {
 	// TODO Move to extension once we have multiple receivers.
 	@CssDsl
 	public operator fun Percentage.invoke(style: CssDeclarationBlockBuilder.() -> Unit) {
-		frame(key = toString(), style)
+		frame(key = asString(), style)
 	}
 
 

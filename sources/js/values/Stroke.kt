@@ -4,11 +4,11 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.stroke(value: Color) {
+public inline fun CssDeclarationBlockBuilder.stroke(value: Color) {
 	property(stroke, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.stroke: CssProperty<Color>
-	get() = CssProperty("stroke")
+public inline val CssProperties.stroke: CssProperty<Color>
+	get() = CssProperty.unsafe("stroke")

@@ -7,11 +7,11 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.animationDuration(value: Time) {
+public inline fun CssDeclarationBlockBuilder.animationDuration(value: Time) {
 	property(animationDuration, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.animationDuration: CssProperty<Time>
-	get() = CssProperty("animation-duration")
+public inline val CssProperties.animationDuration: CssProperty<Time>
+	get() = CssProperty.unsafe("animation-duration")

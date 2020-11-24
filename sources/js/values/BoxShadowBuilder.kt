@@ -4,42 +4,41 @@ package io.fluidsonic.css
 
 
 @CssDsl
-public interface BoxShadowBuilder {
+public external interface BoxShadowBuilder {
 
-	@CssDsl
-	public fun add(value: BoxShadow.Single)
-
-	public fun Unit.build(): BoxShadow
-
-
+	@Suppress(
+		"EXTENSION_FUNCTION_IN_EXTERNAL_DECLARATION",
+		"INLINE_EXTERNAL_DECLARATION",
+		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+		"WRONG_BODY_OF_EXTERNAL_DECLARATION"
+	)
 	public companion object {
 
-		public fun default(): BoxShadowBuilder =
-			Default()
-	}
+		public inline fun build(action: BoxShadowBuilder.() -> Unit): BoxShadow =
+			complete(create().apply(action))
 
 
-	private class Default : BoxShadowBuilder {
-
-		private var value = ""
-
-
-		override fun add(value: BoxShadow.Single) {
-			if (this.value.isNotEmpty())
-				this.value += ","
-
-			this.value += value
-		}
+		public inline fun complete(builder: BoxShadowBuilder): BoxShadow =
+			if (builder.asDynamic().length == 0)
+				BoxShadow.none
+			else
+				BoxShadow.unsafe(builder.asDynamic().join().unsafeCast<String>())
 
 
-		override fun Unit.build(): BoxShadow =
-			BoxShadow.raw(value)
+		public inline fun create(): BoxShadowBuilder =
+			js("[]").unsafeCast<BoxShadowBuilder>()
 	}
 }
 
 
 @CssDsl
-public fun BoxShadowBuilder.add(
+public inline fun BoxShadowBuilder.add(value: BoxShadow.Single) {
+	asDynamic().push(value)
+}
+
+
+@CssDsl
+public inline fun BoxShadowBuilder.add(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
 	blurRadius: Length? = null,
@@ -58,7 +57,7 @@ public fun BoxShadowBuilder.add(
 
 
 @CssDsl
-public fun BoxShadowBuilder.addInset(
+public inline fun BoxShadowBuilder.addInset(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
 	blurRadius: Length? = null,

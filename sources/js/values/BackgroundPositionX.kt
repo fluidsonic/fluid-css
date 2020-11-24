@@ -3,58 +3,62 @@
 package io.fluidsonic.css
 
 
-public interface BackgroundPositionX : CssValue, Internal {
+public external interface BackgroundPositionX : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val center: Align = GenericValue("center")
+		public inline val center: Named
+			get() = CssValue.unsafe("center")
 
 		@CssDsl
-		public val end: Align = GenericValue("x-end")
+		public inline val end: Named
+			get() = CssValue.unsafe("x-end")
 
 		@CssDsl
-		public val left: Align = GenericValue("left")
+		public inline val left: Named
+			get() = CssValue.unsafe("left")
 
 		@CssDsl
-		public val right: Align = GenericValue("right")
+		public inline val right: Named
+			get() = CssValue.unsafe("right")
 
 		@CssDsl
-		public val start: Align = GenericValue("x-start")
+		public inline val start: Named
+			get() = CssValue.unsafe("x-start")
 
 
-		public fun raw(value: String): BackgroundPositionX =
-			GenericValue(value)
+		public inline fun unsafe(value: String): BackgroundPositionX =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 
 
-		public fun with(align: Align, offset: LengthOrPercentage): BackgroundPositionX =
-			raw("$align $offset")
+		public inline fun with(align: Named, offset: LengthOrPercentage): BackgroundPositionX =
+			unsafe("$align $offset")
 	}
 
 
-	public interface Align : BackgroundPositionX
-
-
+	public interface Named : BackgroundPositionX
 	public interface Variable : BackgroundPositionX, CssVariable<BackgroundPositionX>
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundPositionX(value: BackgroundPositionX) {
+public inline fun CssDeclarationBlockBuilder.backgroundPositionX(value: BackgroundPositionX) {
 	property(backgroundPositionX, value)
 }
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.backgroundPositionX(align: BackgroundPositionX.Align, offset: LengthOrPercentage) {
+public inline fun CssDeclarationBlockBuilder.backgroundPositionX(align: BackgroundPositionX.Named, offset: LengthOrPercentage) {
 	backgroundPositionX(BackgroundPositionX.with(align = align, offset = offset))
 }
 
 
 @Suppress("unused")
-public val CssProperties.backgroundPositionX: CssProperty<BackgroundPositionX>
-	get() = CssProperty("background-position-x")
+public inline val CssProperties.backgroundPositionX: CssProperty<BackgroundPositionX>
+	get() = CssProperty.unsafe("background-position-x")

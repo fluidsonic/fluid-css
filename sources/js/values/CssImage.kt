@@ -3,18 +3,19 @@
 package io.fluidsonic.css
 
 
-public interface CssImage :
+public external interface CssImage :
 	BackgroundImage,
 	Cursor {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
-		public fun raw(value: String): CssImage =
-			GenericValue(value)
+		public inline fun unsafe(value: String): CssImage =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 

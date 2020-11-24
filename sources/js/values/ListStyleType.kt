@@ -3,33 +3,39 @@
 package io.fluidsonic.css
 
 
-public interface ListStyleType : CssValue, Internal {
+public external interface ListStyleType : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val none: ListStyleType = raw("none")
+		public inline val none: ListStyleType
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val circle: ListStyleType = raw("circle")
+		public inline val circle: ListStyleType
+			get() = unsafe("circle")
 
 		@CssDsl
-		public val decimal: ListStyleType = raw("decimal")
+		public inline val decimal: ListStyleType
+			get() = unsafe("decimal")
 
 		@CssDsl
-		public val disc: ListStyleType = raw("disc")
+		public inline val disc: ListStyleType
+			get() = unsafe("disc")
 
 		@CssDsl
-		public val square: ListStyleType = raw("square")
+		public inline val square: ListStyleType
+			get() = unsafe("square")
 
 
-		public fun raw(value: String): ListStyleType =
-			GenericValue(value)
+		public inline fun unsafe(value: String): ListStyleType =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -38,11 +44,11 @@ public interface ListStyleType : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.listStyleType(value: ListStyleType) {
+public inline fun CssDeclarationBlockBuilder.listStyleType(value: ListStyleType) {
 	property(listStyleType, value)
 }
 
 
 @Suppress("unused")
-public val CssProperties.listStyleType: CssProperty<ListStyleType>
-	get() = CssProperty("list-style-type")
+public inline val CssProperties.listStyleType: CssProperty<ListStyleType>
+	get() = CssProperty.unsafe("list-style-type")

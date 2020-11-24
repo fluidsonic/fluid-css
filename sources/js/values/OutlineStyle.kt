@@ -3,48 +3,59 @@
 package io.fluidsonic.css
 
 
-public interface OutlineStyle : CssValue, Internal {
+public external interface OutlineStyle : CssValue {
 
+	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl
-		public val none: OutlineStyle = raw("none")
+		public inline val none: OutlineStyle
+			get() = unsafe("none")
 
 
 		@CssDsl
-		public val dashed: OutlineStyle = raw("dashed")
+		public inline val dashed: OutlineStyle
+			get() = unsafe("dashed")
 
 		@CssDsl
-		public val dotted: OutlineStyle = raw("dotted")
+		public inline val dotted: OutlineStyle
+			get() = unsafe("dotted")
 
 		@CssDsl
-		public val double: OutlineStyle = raw("double")
+		public inline val double: OutlineStyle
+			get() = unsafe("double")
 
 		@CssDsl
-		public val groove: OutlineStyle = raw("groove")
+		public inline val groove: OutlineStyle
+			get() = unsafe("groove")
 
 		@CssDsl
-		public val hidden: OutlineStyle = raw("hidden")
+		public inline val hidden: OutlineStyle
+			get() = unsafe("hidden")
 
 		@CssDsl
-		public val inset: OutlineStyle = raw("inset")
+		public inline val inset: OutlineStyle
+			get() = unsafe("inset")
 
 		@CssDsl
-		public val outset: OutlineStyle = raw("outset")
+		public inline val outset: OutlineStyle
+			get() = unsafe("outset")
 
 		@CssDsl
-		public val ridge: OutlineStyle = raw("ridge")
+		public inline val ridge: OutlineStyle
+			get() = unsafe("ridge")
 
 		@CssDsl
-		public val solid: OutlineStyle = raw("solid")
+		public inline val solid: OutlineStyle
+			get() = unsafe("solid")
 
 
-		public fun raw(value: String): OutlineStyle =
-			GenericValue(value)
+		public inline fun unsafe(value: String): OutlineStyle =
+			CssValue.unsafe(value)
 
 
-		public fun variable(name: String): Variable =
-			GenericVariable(name)
+		public inline fun variable(name: String): Variable =
+			CssVariable.unsafe(name)
 	}
 
 
@@ -53,11 +64,11 @@ public interface OutlineStyle : CssValue, Internal {
 
 
 @CssDsl
-public fun CssDeclarationBlockBuilder.outlineStyle(all: OutlineStyle) {
+public inline fun CssDeclarationBlockBuilder.outlineStyle(all: OutlineStyle) {
 	property(outlineStyle, all)
 }
 
 
 @Suppress("unused")
-public val CssProperties.outlineStyle: CssProperty<OutlineStyle>
-	get() = CssProperty("outline-style")
+public inline val CssProperties.outlineStyle: CssProperty<OutlineStyle>
+	get() = CssProperty.unsafe("outline-style")
