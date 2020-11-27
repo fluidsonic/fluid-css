@@ -17,7 +17,7 @@ public external interface WhiteSpace : CssValue {
 			get() = unsafe("normal")
 
 		@CssDsl
-		public inline val nowrap: WhiteSpace
+		public inline val noWrap: WhiteSpace
 			get() = unsafe("nowrap")
 
 		@CssDsl
