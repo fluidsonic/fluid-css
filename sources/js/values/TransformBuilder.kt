@@ -96,7 +96,7 @@ public inline fun TransformBuilder.scale(xy: Double) {
 
 @CssDsl
 public inline fun TransformBuilder.scale(x: Double, y: Double) {
-	add("scale($x, $y)")
+	add("scale($x,$y)")
 }
 
 
@@ -108,7 +108,7 @@ public inline fun TransformBuilder.scale(xy: Int) {
 
 @CssDsl
 public inline fun TransformBuilder.scale(x: Int, y: Int) {
-	add("scale($x, $y)")
+	add("scale($x,$y)")
 }
 
 
@@ -168,7 +168,7 @@ public inline fun TransformBuilder.skew(xy: Angle) {
 
 @CssDsl
 public inline fun TransformBuilder.skew(x: Angle, y: Angle) {
-	add("skew($x, $y)")
+	add("skew($x,$y)")
 }
 
 
@@ -185,14 +185,8 @@ public inline fun TransformBuilder.skewY(y: Angle) {
 
 
 @CssDsl
-public inline fun TransformBuilder.translate(xy: LengthOrPercentage) {
-	add("translate($xy)")
-}
-
-
-@CssDsl
 public inline fun TransformBuilder.translate(x: LengthOrPercentage, y: LengthOrPercentage) {
-	add("translate($x, $y)")
+	add("translate($x,$y)")
 }
 
 

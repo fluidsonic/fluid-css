@@ -11,7 +11,7 @@ private val numericLengthOrPercentageRegex = RegExp("^\\s*(-?\\d+)([a-z]+|%)\\s*
 public external interface LengthOrPercentage :
 	BackgroundPositionX,
 	BackgroundPositionY,
-	BackgroundSize,
+	BackgroundSize.Axis,
 	BorderRadius.Single,
 	BoxOffset,
 	FlexBasis,
