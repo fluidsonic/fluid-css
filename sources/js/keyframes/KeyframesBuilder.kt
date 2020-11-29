@@ -34,11 +34,11 @@ public interface KeyframesBuilder {
 
 	private class Default(private val name: String) : KeyframesBuilder {
 
-		private val frames = mutableListOf<Keyframe>()
+		private val frames = arrayOf<Keyframe>()
 
 
 		override fun frame(value: Keyframe) {
-			frames += value
+			frames.push(value)
 		}
 
 

@@ -4,28 +4,28 @@ package io.fluidsonic.css
 // FIXME find better name -- see https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframesRule
 public interface CssDeclarationBlock {
 
-	public val declarations: List<CssDeclaration>
+	public val declarations: Array<out CssDeclaration>
 
 
 	public interface Hierarchical : CssDeclarationBlock {
 
-		public val children: List<CssRule>
+		public val children: Array<out CssRule>
 	}
 
 
 	public companion object {
 
-		public fun default(declarations: List<CssDeclaration>): CssDeclarationBlock =
-			Default(declarations = declarations.toList())
+		public fun default(declarations: Array<out CssDeclaration>): CssDeclarationBlock =
+			Default(declarations = declarations.copyOf())
 
 
-		public fun default(declarations: List<CssDeclaration>, children: List<CssRule>): Hierarchical =
-			DefaultHierarchical(children = children.toList(), declarations = declarations.toList())
+		public fun default(declarations: Array<out CssDeclaration>, children: Array<out CssRule>): Hierarchical =
+			DefaultHierarchical(children = children.copyOf(), declarations = declarations.copyOf())
 	}
 
 
 	private class Default(
-		override val declarations: List<CssDeclaration>,
+		override val declarations: Array<out CssDeclaration>,
 	) : CssDeclarationBlock {
 
 		override fun toString(): String =
@@ -34,8 +34,8 @@ public interface CssDeclarationBlock {
 
 
 	private class DefaultHierarchical(
-		override val children: List<CssRule>,
-		override val declarations: List<CssDeclaration>,
+		override val children: Array<out CssRule>,
+		override val declarations: Array<out CssDeclaration>,
 	) : Hierarchical {
 
 		override fun toString(): String =

@@ -15,6 +15,12 @@ fluidLibraryModule(description = "FIXME") {
 			dependencies {
 				implementation(npm("@emotion/stylis", "~0.8.5"))
 			}
+
+			custom {
+				compilations.all {
+					kotlinOptions.moduleKind = "commonjs"
+				}
+			}
 		}
 	}
 }

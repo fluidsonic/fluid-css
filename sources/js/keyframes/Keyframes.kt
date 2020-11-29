@@ -3,19 +3,19 @@ package io.fluidsonic.css
 
 public interface Keyframes {
 
-	public val frames: List<Keyframe>
+	public val frames: Array<out Keyframe>
 	public val name: String
 
 
 	public companion object {
 
-		public fun default(name: String, frames: List<Keyframe>): Keyframes =
-			Default(name = name, frames = frames.toList())
+		public fun default(name: String, frames: Array<out Keyframe>): Keyframes =
+			Default(name = name, frames = frames.copyOf())
 	}
 
 
 	private class Default(
-		override val frames: List<Keyframe>,
+		override val frames: Array<out Keyframe>,
 		override val name: String,
 	) : Keyframes {
 

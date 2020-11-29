@@ -26,11 +26,11 @@ public interface FontFaceBuilder {
 
 	private class Default : FontFaceBuilder {
 
-		private val declarations = mutableListOf<CssDeclaration>()
+		private val declarations = arrayOf<CssDeclaration>()
 
 
 		override fun declaration(value: CssDeclaration) {
-			declarations += value
+			declarations.push(value)
 		}
 
 

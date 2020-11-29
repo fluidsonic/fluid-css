@@ -52,17 +52,17 @@ public interface CssDeclarationBlockBuilder : CssProperties {
 
 	private class Default : Hierarchical {
 
-		private val children = mutableListOf<CssRule>() // FIXME
-		private val declarations = mutableListOf<CssDeclaration>()
+		private val children = arrayOf<CssRule>() // FIXME
+		private val declarations = arrayOf<CssDeclaration>()
 
 
 		override fun child(value: CssRule) {
-			children += value
+			children.push(value)
 		}
 
 
 		override fun declaration(value: CssDeclaration) {
-			declarations += value
+			declarations.push(value)
 		}
 
 
