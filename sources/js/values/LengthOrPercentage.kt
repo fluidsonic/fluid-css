@@ -16,6 +16,7 @@ public external interface LengthOrPercentage :
 	BoxOffset,
 	FlexBasis,
 	FontSize,
+	Gap.Axis,
 	LineHeight,
 	Margin.Single,
 	Padding.Single,
