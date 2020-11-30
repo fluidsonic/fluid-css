@@ -6,14 +6,6 @@ package io.fluidsonic.css
 /** Only `String` is a valid subtype of `CssValue`. */
 public external interface CssValue {
 
-	@Deprecated(
-		message = "Equality checks cannot be optimized by Terser. Use 'a eq b' or 'a ne b'. Suppress warning for null-checks.",
-		level = DeprecationLevel.WARNING,
-		replaceWith = ReplaceWith("this eq other")
-	)
-	public override operator fun equals(other: Any?): Boolean
-
-
 	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
