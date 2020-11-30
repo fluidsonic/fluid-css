@@ -13,12 +13,24 @@ public external interface Size : CssValue {
 			get() = unsafe("auto")
 
 		@CssDsl
+		public inline val contain: Size
+			get() = unsafe("contain")
+
+		@CssDsl
+		public inline val fitContent: Size
+			get() = unsafe("fit-content")
+
+		@CssDsl
 		public inline val maxContent: Size
 			get() = unsafe("max-content")
 
 		@CssDsl
 		public inline val minContent: Size
 			get() = unsafe("min-content")
+
+		@CssDsl
+		public inline val stretch: Size
+			get() = unsafe("stretch")
 
 
 		@CssDsl
