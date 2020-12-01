@@ -14,6 +14,7 @@ public external interface LengthOrPercentage :
 	BackgroundSize.Axis,
 	BorderRadius.Single,
 	BoxOffset,
+	CssValue.Numeric,
 	FlexBasis,
 	FontSize,
 	Gap.Axis,

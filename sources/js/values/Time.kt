@@ -10,7 +10,7 @@ private val numericTimeRegex = RegExp("^\\s*(-?\\d+)([a-z]+)\\s*$", "i")
 
 public external interface Time :
 	CssGradient.Direction,
-	CssValue {
+	CssValue.Numeric {
 
 	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
