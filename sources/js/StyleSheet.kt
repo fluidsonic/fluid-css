@@ -90,13 +90,16 @@ public abstract class StyleSheet(
 		pendingKeyframes.clear()
 		pendingStyles.clear()
 
-		val style = document.createElement("style").unsafeCast<HTMLStyleElement>()
-		if (js("process.env.NODE_ENV !== 'production'").unsafeCast<Boolean>() && name != null)
-			style.dataset["name"] = name
+		if (css.isNotEmpty()) {
+			val style = document.createElement("style").unsafeCast<HTMLStyleElement>()
+			securityNonce?.let { style.setAttribute("nonce", it) }
+			if (js("process.env.NODE_ENV !== 'production'").unsafeCast<Boolean>() && name != null)
+				style.dataset["name"] = name
 
-		style.appendChild(document.createTextNode(css))
+			style.appendChild(document.createTextNode(css))
 
-		head.insertAfter(style, head.children.lastOrNull { it.tagName == "STYLE" })
+			head.insertAfter(style, head.children.lastOrNull { it.tagName == "STYLE" })
+		}
 	}
 
 
