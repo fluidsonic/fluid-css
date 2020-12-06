@@ -9,6 +9,7 @@ private val numericLengthRegex = RegExp("^\\s*(-?\\d+)([a-z]+)\\s*$", "i")
 
 
 public external interface Length :
+	BorderSpacing.Axis,
 	BorderWidth.Single,
 	LengthOrPercentage,
 	LetterSpacing,

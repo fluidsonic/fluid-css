@@ -4,6 +4,14 @@ package io.fluidsonic.css
 @kotlin.internal.InlineOnly
 @PublishedApi
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+internal inline fun Array<*>.clear() {
+	asDynamic().splice(0)
+}
+
+
+@kotlin.internal.InlineOnly
+@PublishedApi
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 internal inline fun Array<*>.join(): String =
 	asDynamic().join().unsafeCast<String>()
 

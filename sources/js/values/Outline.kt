@@ -2,6 +2,8 @@
 
 package io.fluidsonic.css
 
+import kotlin.internal.*
+
 
 public external interface Outline : CssValue {
 
@@ -31,7 +33,6 @@ public external interface Outline : CssValue {
 }
 
 
-@Suppress("DEPRECATION")
 public inline fun Outline.Companion.with(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null): Outline =
 	when {
 		width != null && style != null && color != null -> unsafe("$width $style $color")
@@ -63,6 +64,8 @@ public inline fun CssDeclarationBlockBuilder.outline(value: Outline) {
 
 
 @CssDsl
+@LowPriorityInOverloadResolution
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.outline(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null) {
 	outline(Outline.with(color = color, style = style, width = width))
 }

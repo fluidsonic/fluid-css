@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package io.fluidsonic.css
 
 import kotlin.properties.*
@@ -10,75 +12,57 @@ public typealias StyleBuilder = CssDeclarationBlockBuilder.Hierarchical
 
 
 public abstract class StyleSheet(
-	private val name: String? = null,
+	@PublishedApi
+	internal val name: String? = null,
 ) {
 
-	private val pendingFontFaces = mutableListOf<() -> String>()
-	private val pendingKeyframes = mutableListOf<() -> String>()
-	private val pendingStyles = mutableListOf<Style>()
+	private var injectionPending = false
+	private val pendingStyles: Array<StyleBuilder .() -> Unit> = arrayOf()
 
-	public var isInjected: Boolean = false
-		private set
+	internal val pendingRawStyles: Array<() -> String> = arrayOf()
 
 
-	@CssDsl
-	public open fun fontFace(declarations: FontFaceBuilder.() -> Unit) {
-		pendingFontFaces += { CssPrinter.default().print(with(FontFaceBuilder.default().apply(declarations)) { Unit.build() }) }
+	@PublishedApi
+	internal fun add(build: StyleBuilder.() -> Unit) {
+		pendingStyles.push(build)
+
+		queueInjection()
 	}
 
 
-	public open fun generateClassName(sheetName: String?, localName: String?): String =
-		generateDefaultName(sheetName, localName)
-
-
-	public open fun generateKeyframeName(sheetName: String?, localName: String?): String =
-		generateDefaultName(sheetName, localName)
+	@CssDsl
+	public inline fun fontFace(noinline build: FontFaceBuilder.() -> Unit) {
+		add(build)
+	}
 
 
 	@CssDsl
-	public open fun global(build: StyleBuilder.() -> Unit): Style.Global =
-		LazyGlobalStyle(
-			build = build,
-			sheet = this@StyleSheet
-		)
-			.also(pendingStyles::add)
+	public inline fun global(noinline build: StyleBuilder.() -> Unit) {
+		add(build)
+	}
 
 
 	@CssDsl
-	public open fun keyframes(build: KeyframesBuilder.() -> Unit): PropertyDelegateProvider<StyleSheet, ReadOnlyProperty<StyleSheet, String>> =
-		PropertyDelegateProvider { _, property ->
-			check(!isInjected) { "Cannot add more keyframes after the stylesheet has been injected." }
-
-			val name = generateDefaultName(sheetName = name, localName = property.name)
-
-			pendingKeyframes += { CssPrinter.default().print(with(KeyframesBuilder.default(name = name).apply(build)) { Unit.build() }) }
-
-			ReadOnlyProperty { _, _ -> name }
-		}
+	public inline fun keyframes(noinline build: KeyframesBuilder.() -> Unit): Style.KeyframeDelegate =
+		build.unsafeCast<Style.KeyframeDelegate>()
 
 
-	public open fun inject() {
-		if (isInjected)
-			return
+	private fun inject() {
+		injectionPending = false
 
 		val head = document.head ?: return
-
-		isInjected = true
 
 		val css = CssDeclarationBlockBuilder.default()
 			.apply {
 				for (style in pendingStyles)
-					style.injectTo(this)
+					style()
 			}
 			.let { CssPrinter.default().print(with(it) { Unit.build() }) }
 			.let { styles ->
-				if (pendingFontFaces.isNotEmpty() || pendingKeyframes.isNotEmpty())
+				if (pendingRawStyles.isNotEmpty())
 					buildString {
-						for (fontFace in pendingFontFaces)
-							append(fontFace())
-
-						for (keyframe in pendingKeyframes)
-							append(keyframe())
+						for (style in pendingRawStyles)
+							append(style())
 
 						append(styles)
 					}
@@ -87,14 +71,14 @@ public abstract class StyleSheet(
 			}
 			.let { stylis("", it) }
 
-		pendingKeyframes.clear()
+		pendingRawStyles.clear()
 		pendingStyles.clear()
 
 		if (css.isNotEmpty()) {
 			val style = document.createElement("style").unsafeCast<HTMLStyleElement>()
 			securityNonce?.let { style.setAttribute("nonce", it) }
-			if (js("process.env.NODE_ENV !== 'production'").unsafeCast<Boolean>() && name != null)
-				style.dataset["name"] = name
+			if (!isProduction())
+				name?.let { style.dataset["name"] = it }
 
 			style.appendChild(document.createTextNode(css))
 
@@ -104,121 +88,111 @@ public abstract class StyleSheet(
 
 
 	@CssDsl
-	public open fun marker(): PropertyDelegateProvider<StyleSheet, Style.Local> =
-		style {}
+	public inline fun marker(): Style.MarkerDelegate =
+		0.unsafeCast<Style.MarkerDelegate>()
+
+
+	internal fun queueInjection() {
+		if (injectionPending)
+			return
+
+		injectionPending = true
+
+		window.requestAnimationFrame { inject() }
+	}
 
 
 	@CssDsl
-	public open fun style(build: StyleBuilder.() -> Unit): PropertyDelegateProvider<StyleSheet, Style.Local> =
-		PropertyDelegateProvider { _, property ->
-			check(!isInjected) { "Cannot add more styles after the stylesheet has been injected." }
-
-			LazyLocalStyle(
-				build = build,
-				className = generateClassName(sheetName = name, localName = property.name),
-				sheet = this@StyleSheet
-			)
-				.also(pendingStyles::add)
-		}
-
-
-	public companion object {
-
-		private var nextId = 1
-		private val stylis = run {
-			js("Stylis = Stylis.default") // https://youtrack.jetbrains.com/issue/KT-41650
-
-			Stylis()
-		}
-
-
-		public fun generateDefaultName(sheetName: String?, localName: String?): String {
-			if (js("process.env.NODE_ENV === 'production'").unsafeCast<Boolean>())
-				return "_${nextId++}"
-
-			return buildString {
-				append("_")
-				append(nextId++)
-				append("-")
-				append(sheetName ?: "unnamed")
-				append("-")
-				append(localName ?: "unnamed")
-			}
-		}
-	}
+	public inline fun style(build: StyleBuilder.() -> Unit): Style.Delegate =
+		build.unsafeCast<Style.Delegate>()
 }
 
 
-public interface Style {
+public external interface Style {
 
-	public fun inject()
-	public fun injectTo(builder: StyleBuilder)
-
-
-	public companion object;
-
-
-	public interface Global : Style
-
-
-	public interface Local : Style, ReadOnlyProperty<StyleSheet, String> {
-
-		public val className: String
-
-		override fun toString(): String
-	}
+	public interface Delegate
+	public interface KeyframeDelegate
+	public interface MarkerDelegate
 }
 
 
-private class LazyGlobalStyle(
-	private var build: (StyleBuilder.() -> Unit)?,
-	private val sheet: StyleSheet,
-) : Style.Global {
-
-	override fun inject() =
-		sheet.inject()
+public inline operator fun Style.getValue(thisRef: StyleSheet, property: KProperty<*>): String =
+	unsafeCast<String>()
 
 
-	override fun injectTo(builder: StyleBuilder) {
-		build?.invoke(builder)
-		build = null
+public inline operator fun Style.Delegate.provideDelegate(thisRef: StyleSheet, property: KProperty<*>): Style {
+	val name = when {
+		isProduction() -> generateClassName()
+		else -> thisRef.generateClassName(property.name)
 	}
 
+	val build = unsafeCast<StyleBuilder.() -> Unit>()
 
-	override fun toString() =
-		"<global>"
+	thisRef.add {
+		".$name"(build)
+	}
+
+	return name.unsafeCast<Style>()
 }
 
 
-private class LazyLocalStyle(
-	private var build: (StyleBuilder.() -> Unit)?,
-	override val className: String,
-	private val sheet: StyleSheet,
-) : Style.Local {
+public inline operator fun Style.KeyframeDelegate.provideDelegate(thisRef: StyleSheet, property: KProperty<*>): Style {
+	val name = when {
+		isProduction() -> generateClassName()
+		else -> thisRef.generateClassName(property.name)
+	}
 
-	override fun getValue(thisRef: StyleSheet, property: KProperty<*>): String =
-		toString()
+	thisRef.add(name = name, build = unsafeCast<KeyframesBuilder.() -> Unit>())
 
-
-	override fun inject() =
-		sheet.inject()
+	return name.unsafeCast<Style>()
+}
 
 
-	override fun injectTo(builder: StyleBuilder) {
-		val build = build ?: return
-		this.build = null
+public inline operator fun Style.MarkerDelegate.provideDelegate(thisRef: StyleSheet, property: KProperty<*>): Style =
+	when {
+		isProduction() -> generateClassName()
+		else -> thisRef.generateClassName(property.name)
+	}.unsafeCast<Style>()
 
-		with(builder) {
-			".$className" {
-				build()
-			}
-		}
+
+private var nextId = 1
+
+
+@PublishedApi
+internal fun generateClassName(): String =
+	"_${nextId++}"
+
+
+@PublishedApi
+internal fun StyleSheet.add(build: FontFaceBuilder.() -> Unit) {
+	pendingRawStyles.push { CssPrinter.default().print(with(FontFaceBuilder.default().apply(build)) { Unit.build() }) }
+
+	queueInjection()
+}
+
+
+@PublishedApi
+internal fun StyleSheet.add(name: String, build: KeyframesBuilder.() -> Unit) {
+	pendingRawStyles.push { CssPrinter.default().print(with(KeyframesBuilder.default(name = name).apply(build)) { Unit.build() }) }
+
+	queueInjection()
+}
+
+
+@PublishedApi
+internal fun StyleSheet.generateClassName(displayName: String): String =
+	buildString {
+		append("_")
+		append(nextId++)
+		append("-")
+		append(this@generateClassName.name ?: "unnamed")
+		append("-")
+		append(displayName)
 	}
 
 
-	override fun toString(): String {
-		inject()
+private val stylis = run {
+	js("Stylis = Stylis.default") // https://youtrack.jetbrains.com/issue/KT-41650
 
-		return className
-	}
+	Stylis()
 }

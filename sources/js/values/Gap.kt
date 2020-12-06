@@ -10,7 +10,6 @@ package io.fluidsonic.css
 
 public external interface Gap : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
 	public companion object {
 
 		@CssDsl

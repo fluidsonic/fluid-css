@@ -136,6 +136,7 @@ public external interface CssValue {
 		TextDecorationThickness,
 		TextOverflow,
 		TextRendering,
+		TextTransform,
 		Time,
 		TimingFunction,
 		Transform,
