@@ -188,7 +188,7 @@ public inline infix fun CssValue?.eq(other: CssValue?): Boolean =
 	this?.asString() == other?.asString()
 
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "UNUSED_PARAMETER")
 public inline infix fun CssValue?.eq(other: Nothing?): Boolean =
 	this == null
 
@@ -202,6 +202,6 @@ public inline infix fun CssValue?.ne(other: CssValue?): Boolean =
 	this?.asString() != other?.asString()
 
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "UNUSED_PARAMETER")
 public inline infix fun CssValue?.ne(other: Nothing?): Boolean =
 	this != null
