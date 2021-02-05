@@ -2,7 +2,7 @@
 
 package io.fluidsonic.css
 
-
+@JsName("null")
 public external interface AlignItems : CssValue {
 
 	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
