@@ -1,7 +1,7 @@
 import io.fluidsonic.gradle.*
 
 plugins {
-	id("io.fluidsonic.gradle") version "1.1.21"
+	id("io.fluidsonic.gradle") version "1.1.22"
 }
 
 fluidLibrary(name = "css", version = "0.9.1")
@@ -14,9 +14,7 @@ fluidLibraryModule(description = "FIXME") {
 			}
 
 			custom {
-				compilations.all {
-					kotlinOptions.moduleKind = "commonjs"
-				}
+				useCommonJs()
 			}
 		}
 	}
