@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-import io.fluidsonic.css.*
+package io.fluidsonic.css
 
 
 @CssDsl
