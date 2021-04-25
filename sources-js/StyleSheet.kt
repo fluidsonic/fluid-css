@@ -2,7 +2,6 @@
 
 package io.fluidsonic.css
 
-import kotlin.properties.*
 import kotlin.reflect.*
 import kotlinx.browser.*
 import org.w3c.dom.*
@@ -16,7 +15,6 @@ public abstract class StyleSheet(
 	internal val name: String? = null,
 ) {
 
-	private var injectionPending = false
 	private val pendingStyles: Array<StyleBuilder .() -> Unit> = arrayOf()
 
 	internal val pendingRawStyles: Array<() -> String> = arrayOf()
@@ -25,8 +23,6 @@ public abstract class StyleSheet(
 	@PublishedApi
 	internal fun add(build: StyleBuilder.() -> Unit) {
 		pendingStyles.push(build)
-
-		queueInjection()
 	}
 
 
@@ -42,15 +38,9 @@ public abstract class StyleSheet(
 	}
 
 
-	@CssDsl
-	public inline fun keyframes(noinline build: KeyframesBuilder.() -> Unit): Style.KeyframeDelegate =
-		build.unsafeCast<Style.KeyframeDelegate>()
-
-
-	private fun inject() {
-		injectionPending = false
-
-		val head = document.head ?: return
+	public fun inject() {
+		if (pendingRawStyles.isEmpty() && pendingStyles.isEmpty())
+			return
 
 		val css = CssDeclarationBlockBuilder.default()
 			.apply {
@@ -74,32 +64,29 @@ public abstract class StyleSheet(
 		pendingRawStyles.clear()
 		pendingStyles.clear()
 
-		if (css.isNotEmpty()) {
-			val style = document.createElement("style").unsafeCast<HTMLStyleElement>()
-			securityNonce?.let { style.setAttribute("nonce", it) }
-			if (!isProduction())
-				name?.let { style.dataset["name"] = it }
+		if (css.isEmpty())
+			return
 
-			style.appendChild(document.createTextNode(css))
+		val style = document.createElement("style").unsafeCast<HTMLStyleElement>()
+		securityNonce?.let { style.setAttribute("nonce", it) }
+		if (!isProduction())
+			name?.let { style.dataset["name"] = it }
 
-			head.insertAfter(style, head.children.lastOrNull { it.tagName == "STYLE" })
-		}
+		style.appendChild(document.createTextNode(css))
+
+		val head = checkNotNull(document.head)
+		head.insertAfter(style, head.children.lastOrNull { it.tagName == "STYLE" })
 	}
+
+
+	@CssDsl
+	public inline fun keyframes(noinline build: KeyframesBuilder.() -> Unit): Style.KeyframeDelegate =
+		build.unsafeCast<Style.KeyframeDelegate>()
 
 
 	@CssDsl
 	public inline fun marker(): Style.MarkerDelegate =
 		0.unsafeCast<Style.MarkerDelegate>()
-
-
-	internal fun queueInjection() {
-		if (injectionPending)
-			return
-
-		injectionPending = true
-
-		window.requestAnimationFrame { inject() }
-	}
 
 
 	@CssDsl
@@ -166,16 +153,12 @@ internal fun generateClassName(): String =
 @PublishedApi
 internal fun StyleSheet.add(build: FontFaceBuilder.() -> Unit) {
 	pendingRawStyles.push { CssPrinter.default().print(with(FontFaceBuilder.default().apply(build)) { Unit.build() }) }
-
-	queueInjection()
 }
 
 
 @PublishedApi
 internal fun StyleSheet.add(name: String, build: KeyframesBuilder.() -> Unit) {
 	pendingRawStyles.push { CssPrinter.default().print(with(KeyframesBuilder.default(name = name).apply(build)) { Unit.build() }) }
-
-	queueInjection()
 }
 
 
