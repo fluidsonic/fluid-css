@@ -727,7 +727,7 @@ public fun <T : Color.WithComponents> T.withAlpha(alpha: Double): T {
 	val match = colorRegex.exec(asString()) ?: error("Cannot parse CSS component color value: $this")
 	val values = match.unsafeCast<Array<String?>>()
 
-	val type = values[1]!!.toLowerCase()
+	val type = values[1]!!.lowercase()
 	return CssValue.unsafe(when (type) {
 		"hsl", "hsla" -> {
 			val hue = values[2]!!
