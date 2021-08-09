@@ -1,37 +1,32 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FontVariantNumeric : CssValue {
 
-	@Suppress(
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val normal: FontVariantNumeric
-			get() = unsafe("normal")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): FontVariantNumeric =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : FontVariantNumeric, CssVariable<FontVariantNumeric>
 }
 
 
-@Suppress("DEPRECATION")
+@CssDsl
+public inline val FontVariantNumeric.Companion.normal: FontVariantNumeric
+	get() = unsafe("normal")
+
+
+public inline fun FontVariantNumeric.Companion.unsafe(value: String): FontVariantNumeric =
+	CssValue.unsafe(value)
+
+
+public inline fun FontVariantNumeric.Companion.variable(name: String): FontVariantNumeric.Variable =
+	CssVariable.unsafe(name)
+
+
 public inline fun FontVariantNumeric.Companion.with(
 	figure: FontVariantNumericFigure? = null,
 	spacing: FontVariantNumericSpacing? = null,

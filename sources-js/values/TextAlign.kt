@@ -1,53 +1,54 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TextAlign : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val center: TextAlign
-			get() = unsafe("center")
-
-		@CssDsl
-		public inline val end: TextAlign
-			get() = unsafe("end")
-
-		@CssDsl
-		public inline val justify: TextAlign
-			get() = unsafe("justify")
-
-		@CssDsl
-		public inline val left: TextAlign
-			get() = unsafe("left")
-
-		@CssDsl
-		public inline val matchParent: TextAlign
-			get() = unsafe("match-parent")
-
-		@CssDsl
-		public inline val right: TextAlign
-			get() = unsafe("right")
-
-		@CssDsl
-		public inline val start: TextAlign
-			get() = unsafe("start")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): TextAlign =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TextAlign, CssVariable<TextAlign>
 }
+
+
+@CssDsl
+public inline val TextAlign.Companion.center: TextAlign
+	get() = unsafe("center")
+
+@CssDsl
+public inline val TextAlign.Companion.end: TextAlign
+	get() = unsafe("end")
+
+@CssDsl
+public inline val TextAlign.Companion.justify: TextAlign
+	get() = unsafe("justify")
+
+@CssDsl
+public inline val TextAlign.Companion.left: TextAlign
+	get() = unsafe("left")
+
+@CssDsl
+public inline val TextAlign.Companion.matchParent: TextAlign
+	get() = unsafe("match-parent")
+
+@CssDsl
+public inline val TextAlign.Companion.right: TextAlign
+	get() = unsafe("right")
+
+@CssDsl
+public inline val TextAlign.Companion.start: TextAlign
+	get() = unsafe("start")
+
+
+public inline fun TextAlign.Companion.unsafe(value: String): TextAlign =
+	CssValue.unsafe(value)
+
+
+public inline fun TextAlign.Companion.variable(name: String): TextAlign.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

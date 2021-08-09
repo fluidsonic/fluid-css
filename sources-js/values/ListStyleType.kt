@@ -1,46 +1,47 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface ListStyleType : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val none: ListStyleType
-			get() = unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val circle: ListStyleType
-			get() = unsafe("circle")
-
-		@CssDsl
-		public inline val decimal: ListStyleType
-			get() = unsafe("decimal")
-
-		@CssDsl
-		public inline val disc: ListStyleType
-			get() = unsafe("disc")
-
-		@CssDsl
-		public inline val square: ListStyleType
-			get() = unsafe("square")
-
-
-		public inline fun unsafe(value: String): ListStyleType =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : ListStyleType, CssVariable<ListStyleType>
 }
+
+
+@CssDsl
+public inline val ListStyleType.Companion.none: ListStyleType
+	get() = unsafe("none")
+
+
+@CssDsl
+public inline val ListStyleType.Companion.circle: ListStyleType
+	get() = unsafe("circle")
+
+@CssDsl
+public inline val ListStyleType.Companion.decimal: ListStyleType
+	get() = unsafe("decimal")
+
+@CssDsl
+public inline val ListStyleType.Companion.disc: ListStyleType
+	get() = unsafe("disc")
+
+@CssDsl
+public inline val ListStyleType.Companion.square: ListStyleType
+	get() = unsafe("square")
+
+
+public inline fun ListStyleType.Companion.unsafe(value: String): ListStyleType =
+	CssValue.unsafe(value)
+
+
+public inline fun ListStyleType.Companion.variable(name: String): ListStyleType.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

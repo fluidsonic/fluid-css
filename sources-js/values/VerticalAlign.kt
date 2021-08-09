@@ -1,57 +1,58 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface VerticalAlign : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val baseline: VerticalAlign
-			get() = unsafe("baseline")
-
-		@CssDsl
-		public inline val bottom: VerticalAlign
-			get() = unsafe("bottom")
-
-		@CssDsl
-		public inline val middle: VerticalAlign
-			get() = unsafe("middle")
-
-		@CssDsl
-		public inline val sub: VerticalAlign
-			get() = unsafe("sub")
-
-		@CssDsl
-		public inline val `super`: VerticalAlign
-			get() = unsafe("super")
-
-		@CssDsl
-		public inline val textBottom: VerticalAlign
-			get() = unsafe("text-bottom")
-
-		@CssDsl
-		public inline val textTop: VerticalAlign
-			get() = unsafe("text-top")
-
-		@CssDsl
-		public inline val top: VerticalAlign
-			get() = unsafe("top")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): VerticalAlign =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : VerticalAlign, CssVariable<VerticalAlign>
 }
+
+
+@CssDsl
+public inline val VerticalAlign.Companion.baseline: VerticalAlign
+	get() = unsafe("baseline")
+
+@CssDsl
+public inline val VerticalAlign.Companion.bottom: VerticalAlign
+	get() = unsafe("bottom")
+
+@CssDsl
+public inline val VerticalAlign.Companion.middle: VerticalAlign
+	get() = unsafe("middle")
+
+@CssDsl
+public inline val VerticalAlign.Companion.sub: VerticalAlign
+	get() = unsafe("sub")
+
+@CssDsl
+public inline val VerticalAlign.Companion.`super`: VerticalAlign
+	get() = unsafe("super")
+
+@CssDsl
+public inline val VerticalAlign.Companion.textBottom: VerticalAlign
+	get() = unsafe("text-bottom")
+
+@CssDsl
+public inline val VerticalAlign.Companion.textTop: VerticalAlign
+	get() = unsafe("text-top")
+
+@CssDsl
+public inline val VerticalAlign.Companion.top: VerticalAlign
+	get() = unsafe("top")
+
+
+public inline fun VerticalAlign.Companion.unsafe(value: String): VerticalAlign =
+	CssValue.unsafe(value)
+
+
+public inline fun VerticalAlign.Companion.variable(name: String): VerticalAlign.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

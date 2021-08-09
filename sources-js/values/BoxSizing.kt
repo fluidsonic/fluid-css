@@ -1,33 +1,35 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface BoxSizing : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val contentBox: BoxSizing
-			get() = unsafe("content-box")
-
-		@CssDsl
-		public inline val borderBox: BoxSizing
-			get() = unsafe("border-box")
+	@Suppress()
+	public companion object
 
 
-		public inline fun unsafe(value: String): BoxSizing =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : BoxSizing, CssVariable<BoxSizing>
 }
+
+
+@CssDsl
+public inline val BoxSizing.Companion.contentBox: BoxSizing
+	get() = unsafe("content-box")
+
+@CssDsl
+public inline val BoxSizing.Companion.borderBox: BoxSizing
+	get() = unsafe("border-box")
+
+
+public inline fun BoxSizing.Companion.unsafe(value: String): BoxSizing =
+	CssValue.unsafe(value)
+
+
+public inline fun BoxSizing.Companion.variable(name: String): BoxSizing.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

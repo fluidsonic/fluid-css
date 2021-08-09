@@ -1,60 +1,36 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 // TODO Add builder to support gradients with hints and more color stops.
 
 
+@JsName("0;0")
 public external interface CssGradient : CssImage {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun linear(stop1: ColorStop, stop2: ColorStop, vararg additionalStops: ColorStop): CssGradient =
-			linear(angle = null, stop1 = stop1, stop2 = stop2, additionalStops = additionalStops)
+	public companion object;
 
 
-		public inline fun unsafe(value: String): CssGradient =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Direction : CssValue
 
 
+	@JsName("0;0")
 	public interface SideOrCorner : Direction {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline val bottom: SideOrCorner get() = CssValue.unsafe("bottom")
-
-			public inline val left: SideOrCorner get() = CssValue.unsafe("left")
-
-			public inline val leftBottom: SideOrCorner get() = CssValue.unsafe("left bottom")
-
-			public inline val leftTop: SideOrCorner get() = CssValue.unsafe("left top")
-
-			public inline val right: SideOrCorner get() = CssValue.unsafe("right")
-
-			public inline val rightBottom: SideOrCorner get() = CssValue.unsafe("right bottom")
-
-			public inline val rightTop: SideOrCorner get() = CssValue.unsafe("right top")
-
-			public inline val top: SideOrCorner get() = CssValue.unsafe("top")
-		}
+		public companion object
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : CssGradient, CssVariable<CssGradient>
 }
 
 
-@Suppress("DEPRECATION")
+public inline fun CssGradient.Companion.linear(stop1: ColorStop, stop2: ColorStop, vararg additionalStops: ColorStop): CssGradient =
+	linear(angle = null, stop1 = stop1, stop2 = stop2, additionalStops = additionalStops)
+
+
 public inline fun CssGradient.Companion.linear(
 	angle: CssGradient.Direction?,
 	stop1: ColorStop,
@@ -66,7 +42,6 @@ public inline fun CssGradient.Companion.linear(
 	})
 
 
-@Suppress("DEPRECATION")
 public fun CssGradient.Companion.linear(
 	angle: CssGradient.Direction?,
 	stop1: ColorStop,
@@ -97,6 +72,39 @@ public fun CssGradient.Companion.linear(
 			unsafe(string)
 		}
 	}
+
+
+public inline fun CssGradient.Companion.unsafe(value: String): CssGradient =
+	CssValue.unsafe(value)
+
+
+public inline fun CssGradient.Companion.variable(name: String): CssGradient.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline val CssGradient.SideOrCorner.Companion.bottom: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("bottom")
+
+public inline val CssGradient.SideOrCorner.Companion.left: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("left")
+
+public inline val CssGradient.SideOrCorner.Companion.leftBottom: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("left bottom")
+
+public inline val CssGradient.SideOrCorner.Companion.leftTop: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("left top")
+
+public inline val CssGradient.SideOrCorner.Companion.right: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("right")
+
+public inline val CssGradient.SideOrCorner.Companion.rightBottom: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("right bottom")
+
+public inline val CssGradient.SideOrCorner.Companion.rightTop: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("right top")
+
+public inline val CssGradient.SideOrCorner.Companion.top: CssGradient.SideOrCorner
+	get() = CssValue.unsafe("top")
 
 
 @CssDsl

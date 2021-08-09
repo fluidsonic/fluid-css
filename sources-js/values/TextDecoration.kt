@@ -1,37 +1,32 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TextDecoration : CssValue {
 
-	@Suppress(
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val none: TextDecoration
-			get() = unsafe("none")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): TextDecoration =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TextDecoration, CssVariable<TextDecoration>
 }
 
 
-@Suppress("DEPRECATION")
+@CssDsl
+public inline val TextDecoration.Companion.none: TextDecoration
+	get() = unsafe("none")
+
+
+public inline fun TextDecoration.Companion.unsafe(value: String): TextDecoration =
+	CssValue.unsafe(value)
+
+
+public inline fun TextDecoration.Companion.variable(name: String): TextDecoration.Variable =
+	CssVariable.unsafe(name)
+
+
 public inline fun TextDecoration.Companion.with(
 	line: TextDecorationLine? = null,
 	style: TextDecorationStyle? = null,

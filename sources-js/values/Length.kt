@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
@@ -8,6 +8,7 @@ import kotlin.js.RegExp
 private val numericLengthRegex = RegExp("^\\s*(-?\\d+)([a-z]+)\\s*$", "i")
 
 
+@JsName("0;0")
 public external interface Length :
 	BorderSpacing.Axis,
 	BorderWidth.Single,
@@ -15,35 +16,10 @@ public external interface Length :
 	LetterSpacing,
 	OutlineWidth {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val zero: Length
-			get() = unsafe("0")
+	public companion object;
 
 
-		public inline fun calc(value: String): Length =
-			unsafe("calc($value)")
-
-
-		public inline fun of(value: Double, unit: String): Length =
-			CssValue.unsafe("$value$unit")
-
-
-		public inline fun of(value: Int, unit: String): Length =
-			CssValue.unsafe("$value$unit")
-
-
-		public inline fun unsafe(value: String): Length =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Length, CssVariable<Length>
 }
 
@@ -156,6 +132,31 @@ public inline operator fun Length.unaryPlus(): Length =
 @CssDsl
 public inline operator fun Length.unaryMinus(): Length =
 	this * -1
+
+
+@CssDsl
+public inline val Length.Companion.zero: Length
+	get() = unsafe("0")
+
+
+public inline fun Length.Companion.calc(value: String): Length =
+	unsafe("calc($value)")
+
+
+public inline fun Length.Companion.of(value: Double, unit: String): Length =
+	CssValue.unsafe("$value$unit")
+
+
+public inline fun Length.Companion.of(value: Int, unit: String): Length =
+	CssValue.unsafe("$value$unit")
+
+
+public inline fun Length.Companion.unsafe(value: String): Length =
+	CssValue.unsafe(value)
+
+
+public inline fun Length.Companion.variable(name: String): Length.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

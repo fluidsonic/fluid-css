@@ -1,41 +1,37 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface CounterIncrement : CssValue {
 
-	@Suppress(
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val none: CounterIncrement
-			get() = unsafe("none")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): CounterIncrement =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-
-
-		public inline fun with(name: String, increment: Int = 1): CounterIncrement =
-			unsafe(
-				if (increment == 1) name
-				else "$name $increment"
-			)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : CounterIncrement, CssVariable<CounterIncrement>
 }
+
+
+@CssDsl
+public inline val CounterIncrement.Companion.none: CounterIncrement
+	get() = unsafe("none")
+
+
+public inline fun CounterIncrement.Companion.unsafe(value: String): CounterIncrement =
+	CssValue.unsafe(value)
+
+
+public inline fun CounterIncrement.Companion.variable(name: String): CounterIncrement.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun CounterIncrement.Companion.with(name: String, increment: Int = 1): CounterIncrement =
+	unsafe(
+		if (increment == 1) name
+		else "$name $increment"
+	)
 
 
 @CssDsl

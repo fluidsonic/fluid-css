@@ -1,69 +1,71 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Overflow : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: Axis
-			get() = Axis.unsafe("auto")
+	public companion object;
 
 
-		@CssDsl
-		public inline val hidden: Axis
-			get() = Axis.unsafe("hidden")
-
-		@CssDsl
-		public inline val scroll: Axis
-			get() = Axis.unsafe("scroll")
-
-		@CssDsl
-		public inline val visible: Axis
-			get() = Axis.unsafe("visible")
-
-
-		public inline fun of(xy: Axis): Overflow =
-			xy
-
-
-		public inline fun of(x: Axis, y: Axis): Overflow =
-			if (x eq y) x
-			else unsafe("$x $y")
-
-
-		public inline fun unsafe(value: String): Overflow =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Axis : Overflow {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Axis =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Axis, CssVariable<Axis>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : Overflow, CssVariable<Overflow>
 }
+
+
+@CssDsl
+public inline val Overflow.Companion.auto: Overflow.Axis
+	get() = Overflow.Axis.unsafe("auto")
+
+
+@CssDsl
+public inline val Overflow.Companion.hidden: Overflow.Axis
+	get() = Overflow.Axis.unsafe("hidden")
+
+@CssDsl
+public inline val Overflow.Companion.scroll: Overflow.Axis
+	get() = Overflow.Axis.unsafe("scroll")
+
+@CssDsl
+public inline val Overflow.Companion.visible: Overflow.Axis
+	get() = Overflow.Axis.unsafe("visible")
+
+
+public inline fun Overflow.Companion.of(xy: Overflow.Axis): Overflow =
+	xy
+
+
+public inline fun Overflow.Companion.of(x: Overflow.Axis, y: Overflow.Axis): Overflow =
+	if (x eq y) x
+	else unsafe("$x $y")
+
+
+public inline fun Overflow.Companion.unsafe(value: String): Overflow =
+	CssValue.unsafe(value)
+
+
+public inline fun Overflow.Companion.variable(name: String): Overflow.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun Overflow.Axis.Companion.unsafe(value: String): Overflow.Axis =
+	CssValue.unsafe(value)
+
+
+public inline fun Overflow.Axis.Companion.variable(name: String): Overflow.Axis.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

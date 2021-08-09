@@ -1,50 +1,51 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Resize : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val none: Resize
-			get() = unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val block: Resize
-			get() = unsafe("block")
-
-		@CssDsl
-		public inline val both: Resize
-			get() = unsafe("both")
-
-		@CssDsl
-		public inline val horizontal: Resize
-			get() = unsafe("horizontal")
-
-		@CssDsl
-		public inline val inline: Resize
-			get() = unsafe("inline")
-
-		@CssDsl
-		public inline val vertical: Resize
-			get() = unsafe("vertical")
-
-
-		public inline fun unsafe(value: String): Resize =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Resize, CssVariable<Resize>
 }
+
+
+@CssDsl
+public inline val Resize.Companion.none: Resize
+	get() = unsafe("none")
+
+
+@CssDsl
+public inline val Resize.Companion.block: Resize
+	get() = unsafe("block")
+
+@CssDsl
+public inline val Resize.Companion.both: Resize
+	get() = unsafe("both")
+
+@CssDsl
+public inline val Resize.Companion.horizontal: Resize
+	get() = unsafe("horizontal")
+
+@CssDsl
+public inline val Resize.Companion.inline: Resize
+	get() = unsafe("inline")
+
+@CssDsl
+public inline val Resize.Companion.vertical: Resize
+	get() = unsafe("vertical")
+
+
+public inline fun Resize.Companion.unsafe(value: String): Resize =
+	CssValue.unsafe(value)
+
+
+public inline fun Resize.Companion.variable(name: String): Resize.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

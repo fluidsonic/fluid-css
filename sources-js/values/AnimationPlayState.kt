@@ -1,35 +1,36 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 // FIXME support multiple values
 
 
+@JsName("0;0")
 public external interface AnimationPlayState : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val paused: AnimationPlayState
-			get() = unsafe("paused")
-
-		@CssDsl
-		public inline val running: AnimationPlayState
-			get() = unsafe("running")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): AnimationPlayState =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : AnimationPlayState, CssVariable<AnimationPlayState>
 }
+
+
+@CssDsl
+public inline val AnimationPlayState.Companion.paused: AnimationPlayState
+	get() = unsafe("paused")
+
+@CssDsl
+public inline val AnimationPlayState.Companion.running: AnimationPlayState
+	get() = unsafe("running")
+
+
+public inline fun AnimationPlayState.Companion.unsafe(value: String): AnimationPlayState =
+	CssValue.unsafe(value)
+
+
+public inline fun AnimationPlayState.Companion.variable(name: String): AnimationPlayState.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

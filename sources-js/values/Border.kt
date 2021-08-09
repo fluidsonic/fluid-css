@@ -1,37 +1,32 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Border : CssValue {
 
-	@Suppress(
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val none: Border
-			get() = unsafe("none")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): Border =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Border, CssVariable<Border>
 }
 
 
-@Suppress("DEPRECATION")
+@CssDsl
+public inline val Border.Companion.none: Border
+	get() = unsafe("none")
+
+
+public inline fun Border.Companion.unsafe(value: String): Border =
+	CssValue.unsafe(value)
+
+
+public inline fun Border.Companion.variable(name: String): Border.Variable =
+	CssVariable.unsafe(name)
+
+
 public inline fun Border.Companion.with(width: BorderWidth? = null, style: BorderStyle? = null, color: Color? = null): Border =
 	when {
 		width != null && style != null && color != null ->

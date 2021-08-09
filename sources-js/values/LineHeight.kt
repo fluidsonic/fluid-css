@@ -1,37 +1,40 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface LineHeight : CssValue.DoubleConstructable {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val normal: LineHeight
-			get() = unsafe("normal")
+	public companion object;
 
 
-		public inline fun multiple(value: Double): LineHeight =
-			CssValue.unsafe(value)
-
-
-		public inline fun multiple(value: Int): LineHeight =
-			CssValue.unsafe(value)
-
-
-		public inline fun unsafe(value: String): LineHeight =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : LineHeight, CssVariable<LineHeight>
 }
+
+
+@CssDsl
+public inline val LineHeight.Companion.normal: LineHeight
+	get() = unsafe("normal")
+
+
+@CssDsl
+public inline fun LineHeight.Companion.multiple(value: Double): LineHeight =
+	CssValue.unsafe(value)
+
+
+@CssDsl
+public inline fun LineHeight.Companion.multiple(value: Int): LineHeight =
+	CssValue.unsafe(value)
+
+
+public inline fun LineHeight.Companion.unsafe(value: String): LineHeight =
+	CssValue.unsafe(value)
+
+
+public inline fun LineHeight.Companion.variable(name: String): LineHeight.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

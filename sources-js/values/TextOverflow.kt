@@ -1,55 +1,56 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TextOverflow : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val clip: Single
-			get() = Single.unsafe("clip")
-
-		@CssDsl
-		public inline val ellipsis: Single
-			get() = Single.unsafe("ellipsis")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): TextOverflow =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-
-
-		public inline fun with(left: Single, right: Single): TextOverflow =
-			unsafe("$left $right")
-	}
-
-
+	@JsName("0;0")
 	public interface Single : TextOverflow {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
-
-
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
+		public companion object;
 
 
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : TextOverflow, CssVariable<TextOverflow>
 }
+
+
+@CssDsl
+public inline val TextOverflow.Companion.clip: TextOverflow.Single
+	get() = TextOverflow.Single.unsafe("clip")
+
+@CssDsl
+public inline val TextOverflow.Companion.ellipsis: TextOverflow.Single
+	get() = TextOverflow.Single.unsafe("ellipsis")
+
+
+public inline fun TextOverflow.Companion.unsafe(value: String): TextOverflow =
+	CssValue.unsafe(value)
+
+
+public inline fun TextOverflow.Companion.variable(name: String): TextOverflow.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun TextOverflow.Companion.with(left: TextOverflow.Single, right: TextOverflow.Single): TextOverflow =
+	unsafe("$left $right")
+
+
+public inline fun TextOverflow.Single.Companion.unsafe(value: String): TextOverflow.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun TextOverflow.Single.Companion.variable(name: String): TextOverflow.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

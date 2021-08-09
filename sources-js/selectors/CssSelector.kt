@@ -1,21 +1,22 @@
-@file:Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
 /** Only `String` is a valid subtype of `CssSelector`. */
+@JsName("0;0")
 public external interface CssSelector {
 
-	public companion object {
-
-		public inline fun unsafe(selector: String): CssSelector =
-			selector.unsafeCast<CssSelector>()
-	}
+	public companion object
 }
 
 
 public inline fun CssSelector.asString(): String =
 	unsafeCast<String>()
+
+
+public inline fun CssSelector.Companion.unsafe(selector: String): CssSelector =
+	selector.unsafeCast<CssSelector>()
 
 
 // FIXME refactor

@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
@@ -8,35 +8,16 @@ import kotlin.js.RegExp
 private val numericPercentageRegex = RegExp("^\\s*(-?\\d+)%\\s*$", "i")
 
 
+@JsName("0;0")
 public external interface Percentage :
 	FontFace.Stretch,
 	LengthOrPercentage,
 	Opacity {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun calc(value: String): Percentage =
-			unsafe("calc($value)")
+	public companion object;
 
 
-		public inline fun of(value: Double): Percentage =
-			CssValue.unsafe("$value%")
-
-
-		public inline fun of(value: Int): Percentage =
-			CssValue.unsafe("$value%")
-
-
-		public inline fun unsafe(value: String): Percentage =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Percentage, CssVariable<Percentage>
 }
 
@@ -147,6 +128,26 @@ public inline operator fun Percentage.unaryPlus(): Percentage =
 @CssDsl
 public inline operator fun Percentage.unaryMinus(): Percentage =
 	this * -1
+
+
+public inline fun Percentage.Companion.calc(value: String): Percentage =
+	unsafe("calc($value)")
+
+
+public inline fun Percentage.Companion.of(value: Double): Percentage =
+	CssValue.unsafe("$value%")
+
+
+public inline fun Percentage.Companion.of(value: Int): Percentage =
+	CssValue.unsafe("$value%")
+
+
+public inline fun Percentage.Companion.unsafe(value: String): Percentage =
+	CssValue.unsafe(value)
+
+
+public inline fun Percentage.Companion.variable(name: String): Percentage.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

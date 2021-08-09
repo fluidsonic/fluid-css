@@ -1,87 +1,88 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FontWeight : CssValue.DoubleConstructable {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val bold: FontWeight
-			get() = unsafe("bold")
-
-		@CssDsl
-		public inline val bolder: FontWeight
-			get() = unsafe("bolder")
-
-		@CssDsl
-		public inline val lighter: FontWeight
-			get() = unsafe("lighter")
-
-		@CssDsl
-		public inline val normal: FontWeight
-			get() = unsafe("normal")
-
-		@CssDsl
-		public inline val w100: FontWeight
-			get() = unsafe("100")
-
-		@CssDsl
-		public inline val w200: FontWeight
-			get() = unsafe("200")
-
-		@CssDsl
-		public inline val w300: FontWeight
-			get() = unsafe("300")
-
-		@CssDsl
-		public inline val w400: FontWeight
-			get() = unsafe("400")
-
-		@CssDsl
-		public inline val w500: FontWeight
-			get() = unsafe("500")
-
-		@CssDsl
-		public inline val w600: FontWeight
-			get() = unsafe("600")
-
-		@CssDsl
-		public inline val w700: FontWeight
-			get() = unsafe("700")
-
-		@CssDsl
-		public inline val w800: FontWeight
-			get() = unsafe("800")
-
-		@CssDsl
-		public inline val w900: FontWeight
-			get() = unsafe("900")
+	public companion object;
 
 
-		@CssDsl
-		public inline fun of(value: Double): FontWeight =
-			CssValue.unsafe(value)
-
-
-		@CssDsl
-		public inline fun of(value: Int): FontWeight =
-			CssValue.unsafe(value)
-
-
-		public inline fun unsafe(value: String): FontWeight =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : FontWeight, CssVariable<FontWeight>
 }
+
+
+@CssDsl
+public inline val FontWeight.Companion.bold: FontWeight
+	get() = unsafe("bold")
+
+@CssDsl
+public inline val FontWeight.Companion.bolder: FontWeight
+	get() = unsafe("bolder")
+
+@CssDsl
+public inline val FontWeight.Companion.lighter: FontWeight
+	get() = unsafe("lighter")
+
+@CssDsl
+public inline val FontWeight.Companion.normal: FontWeight
+	get() = unsafe("normal")
+
+@CssDsl
+public inline val FontWeight.Companion.w100: FontWeight
+	get() = unsafe("100")
+
+@CssDsl
+public inline val FontWeight.Companion.w200: FontWeight
+	get() = unsafe("200")
+
+@CssDsl
+public inline val FontWeight.Companion.w300: FontWeight
+	get() = unsafe("300")
+
+@CssDsl
+public inline val FontWeight.Companion.w400: FontWeight
+	get() = unsafe("400")
+
+@CssDsl
+public inline val FontWeight.Companion.w500: FontWeight
+	get() = unsafe("500")
+
+@CssDsl
+public inline val FontWeight.Companion.w600: FontWeight
+	get() = unsafe("600")
+
+@CssDsl
+public inline val FontWeight.Companion.w700: FontWeight
+	get() = unsafe("700")
+
+@CssDsl
+public inline val FontWeight.Companion.w800: FontWeight
+	get() = unsafe("800")
+
+@CssDsl
+public inline val FontWeight.Companion.w900: FontWeight
+	get() = unsafe("900")
+
+
+@CssDsl
+public inline fun FontWeight.Companion.of(value: Double): FontWeight =
+	CssValue.unsafe(value)
+
+
+@CssDsl
+public inline fun FontWeight.Companion.of(value: Int): FontWeight =
+	CssValue.unsafe(value)
+
+
+public inline fun FontWeight.Companion.unsafe(value: String): FontWeight =
+	CssValue.unsafe(value)
+
+
+public inline fun FontWeight.Companion.variable(name: String): FontWeight.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

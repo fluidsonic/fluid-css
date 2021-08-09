@@ -1,34 +1,35 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TextDecorationThickness : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: TextDecorationThickness
-			get() = unsafe("auto")
+	public companion object;
 
 
-		@CssDsl
-		public inline val fromFont: TextDecorationThickness
-			get() = unsafe("from-font")
-
-
-		public inline fun unsafe(value: String): TextDecorationThickness =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TextDecorationThickness, CssVariable<TextDecorationThickness>
 }
+
+
+@CssDsl
+public inline val TextDecorationThickness.Companion.auto: TextDecorationThickness
+	get() = unsafe("auto")
+
+
+@CssDsl
+public inline val TextDecorationThickness.Companion.fromFont: TextDecorationThickness
+	get() = unsafe("from-font")
+
+
+public inline fun TextDecorationThickness.Companion.unsafe(value: String): TextDecorationThickness =
+	CssValue.unsafe(value)
+
+
+public inline fun TextDecorationThickness.Companion.variable(name: String): TextDecorationThickness.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

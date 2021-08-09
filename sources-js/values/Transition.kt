@@ -1,72 +1,59 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Transition : CssValue {
 
-	@Suppress(
-		"EXTENSION_FUNCTION_IN_EXTERNAL_DECLARATION",
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val all: Transition
-			get() = unsafe("all")
-
-		@CssDsl
-		public inline val none: Transition
-			get() = unsafe("none")
+	public companion object;
 
 
-		public inline fun build(values: TransitionBuilder.() -> Unit): Transition =
-			TransitionBuilder.build(values)
-
-
-		public inline fun combine(vararg values: Single): Transition =
-			when (values.size) {
-				1 -> values[0]
-				0 -> CssValue.initial
-				else -> unsafe(values.join())
-			}
-
-
-		public inline fun unsafe(value: String): Transition =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : Transition {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : Transition, CssVariable<Transition>
 }
 
 
-@Suppress("DEPRECATION")
+@CssDsl
+public inline val Transition.Companion.all: Transition
+	get() = unsafe("all")
+
+@CssDsl
+public inline val Transition.Companion.none: Transition
+	get() = unsafe("none")
+
+
+public inline fun Transition.Companion.build(values: TransitionBuilder.() -> Unit): Transition =
+	TransitionBuilder.build(values)
+
+
+public inline fun Transition.Companion.combine(vararg values: Transition.Single): Transition =
+	when (values.size) {
+		1 -> values[0]
+		0 -> CssValue.initial
+		else -> unsafe(values.join())
+	}
+
+
+public inline fun Transition.Companion.unsafe(value: String): Transition =
+	CssValue.unsafe(value)
+
+
+public inline fun Transition.Companion.variable(name: String): Transition.Variable =
+	CssVariable.unsafe(name)
+
+
 public inline fun Transition.Companion.with(
 	property: CssProperty<*>? = null,
 	duration: Time? = null,
@@ -148,6 +135,14 @@ public inline fun Transition.Companion.with(
 	duration: Time,
 ): Transition.Single =
 	Transition.Single.unsafe("$duration")
+
+
+public inline fun Transition.Single.Companion.unsafe(value: String): Transition.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun Transition.Single.Companion.variable(name: String): Transition.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

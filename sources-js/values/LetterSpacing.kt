@@ -1,29 +1,30 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface LetterSpacing : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val normal: LetterSpacing
-			get() = unsafe("normal")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): LetterSpacing =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : LetterSpacing, CssVariable<LetterSpacing>
 }
+
+
+@CssDsl
+public inline val LetterSpacing.Companion.normal: LetterSpacing
+	get() = unsafe("normal")
+
+
+public inline fun LetterSpacing.Companion.unsafe(value: String): LetterSpacing =
+	CssValue.unsafe(value)
+
+
+public inline fun LetterSpacing.Companion.variable(name: String): LetterSpacing.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

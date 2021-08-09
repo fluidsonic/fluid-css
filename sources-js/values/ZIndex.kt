@@ -1,33 +1,34 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface ZIndex : CssValue.IntConstructable {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: ZIndex
-			get() = unsafe("auto")
+	public companion object;
 
 
-		public inline fun of(value: Int): ZIndex =
-			CssValue.unsafe(value)
-
-
-		public inline fun unsafe(value: String): ZIndex =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : ZIndex, CssVariable<ZIndex>
 }
+
+
+@CssDsl
+public inline val ZIndex.Companion.auto: ZIndex
+	get() = unsafe("auto")
+
+
+public inline fun ZIndex.Companion.of(value: Int): ZIndex =
+	CssValue.unsafe(value)
+
+
+public inline fun ZIndex.Companion.unsafe(value: String): ZIndex =
+	CssValue.unsafe(value)
+
+
+public inline fun ZIndex.Companion.variable(name: String): ZIndex.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

@@ -1,23 +1,23 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FontVariantNumericFigure : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val liningNums: FontVariantNumericFigure
-			get() = unsafe("lining-nums")
-
-		@CssDsl
-		public inline val oldstyleNums: FontVariantNumericFigure
-			get() = unsafe("oldstyle-nums")
-
-
-		public inline fun unsafe(value: String): FontVariantNumericFigure =
-			CssValue.unsafe(value)
-	}
+	public companion object
 }
+
+
+@CssDsl
+public inline val FontVariantNumericFigure.Companion.liningNums: FontVariantNumericFigure
+	get() = unsafe("lining-nums")
+
+@CssDsl
+public inline val FontVariantNumericFigure.Companion.oldstyleNums: FontVariantNumericFigure
+	get() = unsafe("oldstyle-nums")
+
+
+public inline fun FontVariantNumericFigure.Companion.unsafe(value: String): FontVariantNumericFigure =
+	CssValue.unsafe(value)

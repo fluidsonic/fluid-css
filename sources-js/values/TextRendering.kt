@@ -1,41 +1,42 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TextRendering : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auth: TextRendering
-			get() = unsafe("auto")
-
-		@CssDsl
-		public inline val optimizeSpeed: TextRendering
-			get() = unsafe("optimizeSpeed")
-
-		@CssDsl
-		public inline val optimizeLegibility: TextRendering
-			get() = unsafe("optimizeLegibility")
-
-		@CssDsl
-		public inline val geometricPrecision: TextRendering
-			get() = unsafe("geometricPrecision")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): TextRendering =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TextRendering, CssVariable<TextRendering>
 }
+
+
+@CssDsl
+public inline val TextRendering.Companion.auth: TextRendering
+	get() = unsafe("auto")
+
+@CssDsl
+public inline val TextRendering.Companion.optimizeSpeed: TextRendering
+	get() = unsafe("optimizeSpeed")
+
+@CssDsl
+public inline val TextRendering.Companion.optimizeLegibility: TextRendering
+	get() = unsafe("optimizeLegibility")
+
+@CssDsl
+public inline val TextRendering.Companion.geometricPrecision: TextRendering
+	get() = unsafe("geometricPrecision")
+
+
+public inline fun TextRendering.Companion.unsafe(value: String): TextRendering =
+	CssValue.unsafe(value)
+
+
+public inline fun TextRendering.Companion.variable(name: String): TextRendering.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

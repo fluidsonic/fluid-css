@@ -1,77 +1,71 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Margin : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: Single
-			get() = Single.unsafe("auto")
+	public companion object;
 
 
-		public inline fun all(value: Single): Margin =
-			value
-
-
-		public inline fun of(vertical: Single, horizontal: Single): Margin =
-			if (vertical eq horizontal)
-				all(vertical)
-			else
-				unsafe("$vertical $horizontal")
-
-
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): Margin =
-			if (top eq bottom)
-				of(vertical = top, horizontal = horizontal)
-			else
-				unsafe("$top $horizontal $bottom")
-
-
-		public inline fun of(
-			top: Single,
-			right: Single,
-			bottom: Single,
-			left: Single,
-		): Margin =
-			if (left eq right)
-				of(top = top, horizontal = left, bottom = bottom)
-			else
-				unsafe("$top $right $bottom $left")
-
-
-		public inline fun unsafe(value: String): Margin =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : Margin {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : Margin, CssVariable<Margin>
 }
+
+
+@CssDsl
+public inline val Margin.Companion.auto: Margin.Single
+	get() = Margin.Single.unsafe("auto")
+
+
+public inline fun Margin.Companion.all(value: Margin.Single): Margin =
+	value
+
+
+public inline fun Margin.Companion.of(vertical: Margin.Single, horizontal: Margin.Single): Margin =
+	if (vertical eq horizontal)
+		all(vertical)
+	else
+		unsafe("$vertical $horizontal")
+
+
+public inline fun Margin.Companion.of(top: Margin.Single, horizontal: Margin.Single, bottom: Margin.Single): Margin =
+	if (top eq bottom)
+		of(vertical = top, horizontal = horizontal)
+	else
+		unsafe("$top $horizontal $bottom")
+
+
+public inline fun Margin.Companion.of(
+	top: Margin.Single,
+	right: Margin.Single,
+	bottom: Margin.Single,
+	left: Margin.Single,
+): Margin =
+	if (left eq right)
+		of(top = top, horizontal = left, bottom = bottom)
+	else
+		unsafe("$top $right $bottom $left")
+
+
+public inline fun Margin.Companion.unsafe(value: String): Margin =
+	CssValue.unsafe(value)
+
+
+public inline fun Margin.Companion.variable(name: String): Margin.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl
@@ -105,7 +99,7 @@ public inline fun CssDeclarationBlockBuilder.margin(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.margin(
 	all: Margin.Single? = null,
 	vertical: Margin.Single? = all,
@@ -128,6 +122,14 @@ public inline fun CssDeclarationBlockBuilder.margin(
 			marginLeft(left)
 	}
 }
+
+
+public inline fun Margin.Single.Companion.unsafe(value: String): Margin.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun Margin.Single.Companion.variable(name: String): Margin.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

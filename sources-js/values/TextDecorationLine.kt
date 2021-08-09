@@ -1,44 +1,45 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 // FIXME support multiple values
 
 
+@JsName("0;0")
 public external interface TextDecorationLine : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val none: TextDecorationLine
-			get() = unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val lineThrough: TextDecorationLine
-			get() = unsafe("line-through")
-
-		@CssDsl
-		public inline val overline: TextDecorationLine
-			get() = unsafe("overline")
-
-		@CssDsl
-		public inline val underline: TextDecorationLine
-			get() = unsafe("underline")
-
-
-		public inline fun unsafe(value: String): TextDecorationLine =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TextDecorationLine, CssVariable<TextDecorationLine>
 }
+
+
+@CssDsl
+public inline val TextDecorationLine.Companion.none: TextDecorationLine
+	get() = unsafe("none")
+
+
+@CssDsl
+public inline val TextDecorationLine.Companion.lineThrough: TextDecorationLine
+	get() = unsafe("line-through")
+
+@CssDsl
+public inline val TextDecorationLine.Companion.overline: TextDecorationLine
+	get() = unsafe("overline")
+
+@CssDsl
+public inline val TextDecorationLine.Companion.underline: TextDecorationLine
+	get() = unsafe("underline")
+
+
+public inline fun TextDecorationLine.Companion.unsafe(value: String): TextDecorationLine =
+	CssValue.unsafe(value)
+
+
+public inline fun TextDecorationLine.Companion.variable(name: String): TextDecorationLine.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

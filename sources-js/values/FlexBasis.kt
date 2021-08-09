@@ -1,50 +1,51 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FlexBasis : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: FlexBasis
-			get() = unsafe("auto")
+	public companion object;
 
 
-		@CssDsl
-		public inline val content: FlexBasis
-			get() = unsafe("content")
-
-		@CssDsl
-		public inline val fill: FlexBasis
-			get() = unsafe("fill")
-
-		@CssDsl
-		public inline val fitContent: FlexBasis
-			get() = unsafe("fit-content")
-
-		@CssDsl
-		public inline val maxContent: FlexBasis
-			get() = unsafe("max-content")
-
-		@CssDsl
-		public inline val minContent: FlexBasis
-			get() = unsafe("min-content")
-
-
-		public inline fun unsafe(value: String): FlexBasis =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : FlexBasis, CssVariable<FlexBasis>
 }
+
+
+@CssDsl
+public inline val FlexBasis.Companion.auto: FlexBasis
+	get() = unsafe("auto")
+
+
+@CssDsl
+public inline val FlexBasis.Companion.content: FlexBasis
+	get() = unsafe("content")
+
+@CssDsl
+public inline val FlexBasis.Companion.fill: FlexBasis
+	get() = unsafe("fill")
+
+@CssDsl
+public inline val FlexBasis.Companion.fitContent: FlexBasis
+	get() = unsafe("fit-content")
+
+@CssDsl
+public inline val FlexBasis.Companion.maxContent: FlexBasis
+	get() = unsafe("max-content")
+
+@CssDsl
+public inline val FlexBasis.Companion.minContent: FlexBasis
+	get() = unsafe("min-content")
+
+
+public inline fun FlexBasis.Companion.unsafe(value: String): FlexBasis =
+	CssValue.unsafe(value)
+
+
+public inline fun FlexBasis.Companion.variable(name: String): FlexBasis.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

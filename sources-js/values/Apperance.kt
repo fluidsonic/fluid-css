@@ -1,42 +1,43 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Appearance : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: Appearance
-			get() = unsafe("auto")
-
-		@CssDsl
-		public inline val none: Appearance
-			get() = unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val menulistButton: Appearance
-			get() = unsafe("menulist-button")
-
-		@CssDsl
-		public inline val textfield: Appearance
-			get() = unsafe("textfield")
-
-
-		public inline fun unsafe(value: String): Appearance =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Appearance, CssVariable<Appearance>
 }
+
+
+@CssDsl
+public inline val Appearance.Companion.auto: Appearance
+	get() = unsafe("auto")
+
+@CssDsl
+public inline val Appearance.Companion.none: Appearance
+	get() = unsafe("none")
+
+
+@CssDsl
+public inline val Appearance.Companion.menulistButton: Appearance
+	get() = unsafe("menulist-button")
+
+@CssDsl
+public inline val Appearance.Companion.textfield: Appearance
+	get() = unsafe("textfield")
+
+
+public inline fun Appearance.Companion.unsafe(value: String): Appearance =
+	CssValue.unsafe(value)
+
+
+public inline fun Appearance.Companion.variable(name: String): Appearance.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

@@ -1,57 +1,58 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FontSize : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val xxSmall: FontSize
-			get() = unsafe("xx-small")
-
-		@CssDsl
-		public inline val xSmall: FontSize
-			get() = unsafe("x-small")
-
-		@CssDsl
-		public inline val small: FontSize
-			get() = unsafe("small")
-
-		@CssDsl
-		public inline val medium: FontSize
-			get() = unsafe("medium")
-
-		@CssDsl
-		public inline val large: FontSize
-			get() = unsafe("large")
-
-		@CssDsl
-		public inline val xLarge: FontSize
-			get() = unsafe("x-large")
-
-		@CssDsl
-		public inline val xxLarge: FontSize
-			get() = unsafe("xx-large")
-
-		@CssDsl
-		public inline val xxxLarge: FontSize
-			get() = unsafe("xxx-large")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): FontSize =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : FontSize, CssVariable<FontSize>
 }
+
+
+@CssDsl
+public inline val FontSize.Companion.xxSmall: FontSize
+	get() = unsafe("xx-small")
+
+@CssDsl
+public inline val FontSize.Companion.xSmall: FontSize
+	get() = unsafe("x-small")
+
+@CssDsl
+public inline val FontSize.Companion.small: FontSize
+	get() = unsafe("small")
+
+@CssDsl
+public inline val FontSize.Companion.medium: FontSize
+	get() = unsafe("medium")
+
+@CssDsl
+public inline val FontSize.Companion.large: FontSize
+	get() = unsafe("large")
+
+@CssDsl
+public inline val FontSize.Companion.xLarge: FontSize
+	get() = unsafe("x-large")
+
+@CssDsl
+public inline val FontSize.Companion.xxLarge: FontSize
+	get() = unsafe("xx-large")
+
+@CssDsl
+public inline val FontSize.Companion.xxxLarge: FontSize
+	get() = unsafe("xxx-large")
+
+
+public inline fun FontSize.Companion.unsafe(value: String): FontSize =
+	CssValue.unsafe(value)
+
+
+public inline fun FontSize.Companion.variable(name: String): FontSize.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

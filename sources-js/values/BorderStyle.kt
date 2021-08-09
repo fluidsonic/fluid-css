@@ -1,114 +1,116 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface BorderStyle : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val none: Single
-			get() = CssValue.unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val dashed: Single
-			get() = CssValue.unsafe("dashed")
-
-		@CssDsl
-		public inline val dotted: Single
-			get() = CssValue.unsafe("dotted")
-
-		@CssDsl
-		public inline val double: Single
-			get() = CssValue.unsafe("double")
-
-		@CssDsl
-		public inline val groove: Single
-			get() = CssValue.unsafe("groove")
-
-		@CssDsl
-		public inline val hidden: Single
-			get() = CssValue.unsafe("hidden")
-
-		@CssDsl
-		public inline val inset: Single
-			get() = CssValue.unsafe("inset")
-
-		@CssDsl
-		public inline val outset: Single
-			get() = CssValue.unsafe("outset")
-
-		@CssDsl
-		public inline val ridge: Single
-			get() = CssValue.unsafe("ridge")
-
-		@CssDsl
-		public inline val solid: Single
-			get() = CssValue.unsafe("solid")
-
-
-		public inline fun all(value: Single): BorderStyle =
-			value
-
-
-		public inline fun of(vertical: Single, horizontal: Single): BorderStyle =
-			if (vertical eq horizontal)
-				all(vertical)
-			else
-				unsafe("$vertical $horizontal")
-
-
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderStyle =
-			if (top eq bottom)
-				of(vertical = top, horizontal = horizontal)
-			else
-				unsafe("$top $horizontal $bottom")
-
-
-		public inline fun of(
-			top: Single,
-			right: Single,
-			bottom: Single,
-			left: Single,
-		): BorderStyle =
-			if (left eq right)
-				of(top = top, horizontal = left, bottom = bottom)
-			else
-				unsafe("$top $right $bottom $left")
-
-
-		public inline fun unsafe(value: String): BorderStyle =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : BorderStyle {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : BorderStyle, CssVariable<BorderStyle>
 }
+
+
+@CssDsl
+public inline val BorderStyle.Companion.none: BorderStyle.Single
+	get() = CssValue.unsafe("none")
+
+
+@CssDsl
+public inline val BorderStyle.Companion.dashed: BorderStyle.Single
+	get() = CssValue.unsafe("dashed")
+
+@CssDsl
+public inline val BorderStyle.Companion.dotted: BorderStyle.Single
+	get() = CssValue.unsafe("dotted")
+
+@CssDsl
+public inline val BorderStyle.Companion.double: BorderStyle.Single
+	get() = CssValue.unsafe("double")
+
+@CssDsl
+public inline val BorderStyle.Companion.groove: BorderStyle.Single
+	get() = CssValue.unsafe("groove")
+
+@CssDsl
+public inline val BorderStyle.Companion.hidden: BorderStyle.Single
+	get() = CssValue.unsafe("hidden")
+
+@CssDsl
+public inline val BorderStyle.Companion.inset: BorderStyle.Single
+	get() = CssValue.unsafe("inset")
+
+@CssDsl
+public inline val BorderStyle.Companion.outset: BorderStyle.Single
+	get() = CssValue.unsafe("outset")
+
+@CssDsl
+public inline val BorderStyle.Companion.ridge: BorderStyle.Single
+	get() = CssValue.unsafe("ridge")
+
+@CssDsl
+public inline val BorderStyle.Companion.solid: BorderStyle.Single
+	get() = CssValue.unsafe("solid")
+
+
+public inline fun BorderStyle.Companion.all(value: BorderStyle.Single): BorderStyle =
+	value
+
+
+public inline fun BorderStyle.Companion.of(vertical: BorderStyle.Single, horizontal: BorderStyle.Single): BorderStyle =
+	if (vertical eq horizontal)
+		all(vertical)
+	else
+		unsafe("$vertical $horizontal")
+
+
+public inline fun BorderStyle.Companion.of(top: BorderStyle.Single, horizontal: BorderStyle.Single, bottom: BorderStyle.Single): BorderStyle =
+	if (top eq bottom)
+		of(vertical = top, horizontal = horizontal)
+	else
+		unsafe("$top $horizontal $bottom")
+
+
+public inline fun BorderStyle.Companion.of(
+	top: BorderStyle.Single,
+	right: BorderStyle.Single,
+	bottom: BorderStyle.Single,
+	left: BorderStyle.Single,
+): BorderStyle =
+	if (left eq right)
+		of(top = top, horizontal = left, bottom = bottom)
+	else
+		unsafe("$top $right $bottom $left")
+
+
+public inline fun BorderStyle.Companion.unsafe(value: String): BorderStyle =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderStyle.Companion.variable(name: String): BorderStyle.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun BorderStyle.Single.Companion.unsafe(value: String): BorderStyle.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderStyle.Single.Companion.variable(name: String): BorderStyle.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl
@@ -142,7 +144,7 @@ public inline fun CssDeclarationBlockBuilder.borderStyle(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.borderStyle(
 	all: BorderStyle.Single? = null,
 	vertical: BorderStyle.Single? = all,

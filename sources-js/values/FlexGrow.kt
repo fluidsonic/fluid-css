@@ -1,32 +1,33 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FlexGrow : CssValue.DoubleConstructable {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun of(value: Double): FlexGrow =
-			CssValue.unsafe(value)
+	public companion object;
 
 
-		public inline fun of(value: Int): FlexGrow =
-			CssValue.unsafe(value)
-
-
-		public inline fun unsafe(value: String): FlexGrow =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : FlexGrow, CssVariable<FlexGrow>
 }
+
+
+public inline fun FlexGrow.Companion.of(value: Double): FlexGrow =
+	CssValue.unsafe(value)
+
+
+public inline fun FlexGrow.Companion.of(value: Int): FlexGrow =
+	CssValue.unsafe(value)
+
+
+public inline fun FlexGrow.Companion.unsafe(value: String): FlexGrow =
+	CssValue.unsafe(value)
+
+
+public inline fun FlexGrow.Companion.variable(name: String): FlexGrow.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

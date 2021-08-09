@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
@@ -8,40 +8,18 @@ import kotlin.js.RegExp
 private val numericAngleRegex = RegExp("^\\s*(-?\\d+)([a-z]+)\\s*$", "i")
 
 
+@JsName("0;0")
 public external interface Angle :
 	CssGradient.Direction,
 	CssValue.Numeric {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val zero: Angle
-			get() = unsafe("0")
+	public companion object;
 
 
-		public inline fun calc(value: String): Angle =
-			unsafe("calc($value)")
-
-
-		public inline fun of(value: Double, unit: String): Numeric =
-			CssValue.unsafe("$value$unit")
-
-
-		public inline fun of(value: Int, unit: String): Numeric =
-			CssValue.unsafe("$value$unit")
-
-
-		public inline fun unsafe(value: String): Angle =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Numeric : Angle
+
+	@JsName("0;0")
 	public interface Variable : Angle, CssVariable<Angle>
 }
 
@@ -154,6 +132,31 @@ public inline operator fun Angle.unaryPlus(): Angle =
 @CssDsl
 public inline operator fun Angle.unaryMinus(): Angle =
 	this * -1
+
+
+@CssDsl
+public inline val Angle.Companion.zero: Angle
+	get() = unsafe("0")
+
+
+public inline fun Angle.Companion.calc(value: String): Angle =
+	unsafe("calc($value)")
+
+
+public inline fun Angle.Companion.of(value: Double, unit: String): Angle.Numeric =
+	CssValue.unsafe("$value$unit")
+
+
+public inline fun Angle.Companion.of(value: Int, unit: String): Angle.Numeric =
+	CssValue.unsafe("$value$unit")
+
+
+public inline fun Angle.Companion.unsafe(value: String): Angle =
+	CssValue.unsafe(value)
+
+
+public inline fun Angle.Companion.variable(name: String): Angle.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
@@ -8,6 +8,7 @@ import kotlin.js.RegExp
 private val numericLengthOrPercentageRegex = RegExp("^\\s*(-?\\d+)([a-z]+|%)\\s*$", "i")
 
 
+@JsName("0;0")
 public external interface LengthOrPercentage :
 	BackgroundPositionX,
 	BackgroundPositionY,
@@ -29,30 +30,10 @@ public external interface LengthOrPercentage :
 	TransformOriginY,
 	VerticalAlign {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun calc(value: String): LengthOrPercentage =
-			unsafe("calc($value)")
+	public companion object;
 
 
-		internal inline fun of(value: Double, unit: String): LengthOrPercentage =
-			CssValue.unsafe("$value$unit")
-
-
-		internal inline fun of(value: Int, unit: String): LengthOrPercentage =
-			CssValue.unsafe("$value$unit")
-
-
-		public inline fun unsafe(value: String): LengthOrPercentage =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : LengthOrPercentage, CssVariable<LengthOrPercentage>
 }
 
@@ -165,6 +146,26 @@ public inline operator fun LengthOrPercentage.unaryPlus(): LengthOrPercentage =
 @CssDsl
 public inline operator fun LengthOrPercentage.unaryMinus(): LengthOrPercentage =
 	this * -1
+
+
+public inline fun LengthOrPercentage.Companion.calc(value: String): LengthOrPercentage =
+	unsafe("calc($value)")
+
+
+internal inline fun LengthOrPercentage.Companion.of(value: Double, unit: String): LengthOrPercentage =
+	CssValue.unsafe("$value$unit")
+
+
+internal inline fun LengthOrPercentage.Companion.of(value: Int, unit: String): LengthOrPercentage =
+	CssValue.unsafe("$value$unit")
+
+
+public inline fun LengthOrPercentage.Companion.unsafe(value: String): LengthOrPercentage =
+	CssValue.unsafe(value)
+
+
+public inline fun LengthOrPercentage.Companion.variable(name: String): LengthOrPercentage.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

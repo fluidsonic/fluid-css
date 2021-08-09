@@ -1,85 +1,87 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface BorderWidth : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val medium: Single
-			get() = CssValue.unsafe("medium")
-
-		@CssDsl
-		public inline val thin: Single
-			get() = CssValue.unsafe("thin")
-
-		@CssDsl
-		public inline val thick: Single
-			get() = CssValue.unsafe("thick")
+	public companion object;
 
 
-		public inline fun all(value: Single): BorderWidth =
-			value
-
-
-		public inline fun of(vertical: Single, horizontal: Single): BorderWidth =
-			if (vertical eq horizontal)
-				all(vertical)
-			else
-				unsafe("$vertical $horizontal")
-
-
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderWidth =
-			if (top eq bottom)
-				of(vertical = top, horizontal = horizontal)
-			else
-				unsafe("$top $horizontal $bottom")
-
-
-		public inline fun of(
-			top: Single,
-			right: Single,
-			bottom: Single,
-			left: Single,
-		): BorderWidth =
-			if (left eq right)
-				of(top = top, horizontal = left, bottom = bottom)
-			else
-				unsafe("$top $right $bottom $left")
-
-
-		public inline fun unsafe(value: String): BorderWidth =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : BorderWidth {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : BorderWidth, CssVariable<BorderWidth>
 }
+
+
+@CssDsl
+public inline val BorderWidth.Companion.medium: BorderWidth.Single
+	get() = CssValue.unsafe("medium")
+
+@CssDsl
+public inline val BorderWidth.Companion.thin: BorderWidth.Single
+	get() = CssValue.unsafe("thin")
+
+@CssDsl
+public inline val BorderWidth.Companion.thick: BorderWidth.Single
+	get() = CssValue.unsafe("thick")
+
+
+public inline fun BorderWidth.Companion.all(value: BorderWidth.Single): BorderWidth =
+	value
+
+
+public inline fun BorderWidth.Companion.of(vertical: BorderWidth.Single, horizontal: BorderWidth.Single): BorderWidth =
+	if (vertical eq horizontal)
+		all(vertical)
+	else
+		unsafe("$vertical $horizontal")
+
+
+public inline fun BorderWidth.Companion.of(top: BorderWidth.Single, horizontal: BorderWidth.Single, bottom: BorderWidth.Single): BorderWidth =
+	if (top eq bottom)
+		of(vertical = top, horizontal = horizontal)
+	else
+		unsafe("$top $horizontal $bottom")
+
+
+public inline fun BorderWidth.Companion.of(
+	top: BorderWidth.Single,
+	right: BorderWidth.Single,
+	bottom: BorderWidth.Single,
+	left: BorderWidth.Single,
+): BorderWidth =
+	if (left eq right)
+		of(top = top, horizontal = left, bottom = bottom)
+	else
+		unsafe("$top $right $bottom $left")
+
+
+public inline fun BorderWidth.Companion.unsafe(value: String): BorderWidth =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderWidth.Companion.variable(name: String): BorderWidth.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun BorderWidth.Single.Companion.unsafe(value: String): BorderWidth.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderWidth.Single.Companion.variable(name: String): BorderWidth.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl
@@ -113,7 +115,7 @@ public inline fun CssDeclarationBlockBuilder.borderWidth(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.borderWidth(
 	all: BorderWidth.Single? = null,
 	vertical: BorderWidth.Single? = all,

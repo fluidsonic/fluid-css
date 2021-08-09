@@ -1,66 +1,67 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface PointerEvents : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: PointerEvents
-			get() = unsafe("auto")
-
-		@CssDsl
-		public inline val none: PointerEvents
-			get() = unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val all: PointerEvents
-			get() = unsafe("all")
-
-		@CssDsl
-		public inline val fill: PointerEvents
-			get() = unsafe("fill")
-
-		@CssDsl
-		public inline val painted: PointerEvents
-			get() = unsafe("painted")
-
-		@CssDsl
-		public inline val stroke: PointerEvents
-			get() = unsafe("stroke")
-
-		@CssDsl
-		public inline val visible: PointerEvents
-			get() = unsafe("visible")
-
-		@CssDsl
-		public inline val visibleFill: PointerEvents
-			get() = unsafe("visibleFill")
-
-		@CssDsl
-		public inline val visiblePainted: PointerEvents
-			get() = unsafe("visiblePainted")
-
-		@CssDsl
-		public inline val visibleStroke: PointerEvents
-			get() = unsafe("visibleStroke")
-
-
-		public inline fun unsafe(value: String): PointerEvents =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : PointerEvents, CssVariable<PointerEvents>
 }
+
+
+@CssDsl
+public inline val PointerEvents.Companion.auto: PointerEvents
+	get() = unsafe("auto")
+
+@CssDsl
+public inline val PointerEvents.Companion.none: PointerEvents
+	get() = unsafe("none")
+
+
+@CssDsl
+public inline val PointerEvents.Companion.all: PointerEvents
+	get() = unsafe("all")
+
+@CssDsl
+public inline val PointerEvents.Companion.fill: PointerEvents
+	get() = unsafe("fill")
+
+@CssDsl
+public inline val PointerEvents.Companion.painted: PointerEvents
+	get() = unsafe("painted")
+
+@CssDsl
+public inline val PointerEvents.Companion.stroke: PointerEvents
+	get() = unsafe("stroke")
+
+@CssDsl
+public inline val PointerEvents.Companion.visible: PointerEvents
+	get() = unsafe("visible")
+
+@CssDsl
+public inline val PointerEvents.Companion.visibleFill: PointerEvents
+	get() = unsafe("visibleFill")
+
+@CssDsl
+public inline val PointerEvents.Companion.visiblePainted: PointerEvents
+	get() = unsafe("visiblePainted")
+
+@CssDsl
+public inline val PointerEvents.Companion.visibleStroke: PointerEvents
+	get() = unsafe("visibleStroke")
+
+
+public inline fun PointerEvents.Companion.unsafe(value: String): PointerEvents =
+	CssValue.unsafe(value)
+
+
+public inline fun PointerEvents.Companion.variable(name: String): PointerEvents.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

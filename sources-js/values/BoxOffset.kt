@@ -1,29 +1,30 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface BoxOffset : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: BoxOffset
-			get() = unsafe("auto")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): BoxOffset =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : BoxOffset, CssVariable<BoxOffset>
 }
+
+
+@CssDsl
+public inline val BoxOffset.Companion.auto: BoxOffset
+	get() = unsafe("auto")
+
+
+public inline fun BoxOffset.Companion.unsafe(value: String): BoxOffset =
+	CssValue.unsafe(value)
+
+
+public inline fun BoxOffset.Companion.variable(name: String): BoxOffset.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

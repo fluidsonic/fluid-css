@@ -1,42 +1,43 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FontStyle : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val italic: FontStyle
-			get() = unsafe("italic")
-
-		@CssDsl
-		public inline val normal: FontStyle
-			get() = unsafe("normal")
-
-		@CssDsl
-		public inline val oblique: FontStyle
-			get() = unsafe("oblique")
+	public companion object;
 
 
-		@CssDsl
-		public inline fun oblique(angle: Angle): FontStyle =
-			unsafe("oblique $angle")
-
-
-		public inline fun unsafe(value: String): FontStyle =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : FontStyle, CssVariable<FontStyle>
 }
+
+
+@CssDsl
+public inline val FontStyle.Companion.italic: FontStyle
+	get() = unsafe("italic")
+
+@CssDsl
+public inline val FontStyle.Companion.normal: FontStyle
+	get() = unsafe("normal")
+
+@CssDsl
+public inline val FontStyle.Companion.oblique: FontStyle
+	get() = unsafe("oblique")
+
+
+@CssDsl
+public inline fun FontStyle.Companion.oblique(angle: Angle): FontStyle =
+	unsafe("oblique $angle")
+
+
+public inline fun FontStyle.Companion.unsafe(value: String): FontStyle =
+	CssValue.unsafe(value)
+
+
+public inline fun FontStyle.Companion.variable(name: String): FontStyle.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

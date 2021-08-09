@@ -1,36 +1,32 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 import kotlin.internal.*
 
 
+@JsName("0;0")
 public external interface Outline : CssValue {
 
-	@Suppress(
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val none: Outline
-			get() = unsafe("none")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): Outline =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Outline, CssVariable<Outline>
 }
+
+
+@CssDsl
+public inline val Outline.Companion.none: Outline
+	get() = unsafe("none")
+
+
+public inline fun Outline.Companion.unsafe(value: String): Outline =
+	CssValue.unsafe(value)
+
+
+public inline fun Outline.Companion.variable(name: String): Outline.Variable =
+	CssVariable.unsafe(name)
 
 
 public inline fun Outline.Companion.with(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null): Outline =

@@ -1,23 +1,23 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface FontVariantNumericSpacing : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val proportionalNums: FontVariantNumericSpacing
-			get() = unsafe("proportional-nums")
-
-		@CssDsl
-		public inline val tabularNums: FontVariantNumericSpacing
-			get() = unsafe("tabular-nums")
-
-
-		public inline fun unsafe(value: String): FontVariantNumericSpacing =
-			CssValue.unsafe(value)
-	}
+	public companion object
 }
+
+
+@CssDsl
+public inline val FontVariantNumericSpacing.Companion.proportionalNums: FontVariantNumericSpacing
+	get() = unsafe("proportional-nums")
+
+@CssDsl
+public inline val FontVariantNumericSpacing.Companion.tabularNums: FontVariantNumericSpacing
+	get() = unsafe("tabular-nums")
+
+
+public inline fun FontVariantNumericSpacing.Companion.unsafe(value: String): FontVariantNumericSpacing =
+	CssValue.unsafe(value)

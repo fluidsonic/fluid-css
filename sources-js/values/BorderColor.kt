@@ -1,72 +1,74 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface BorderColor : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun all(value: Single): BorderColor =
-			value
+	public companion object;
 
 
-		public inline fun of(vertical: Single, horizontal: Single): BorderColor =
-			if (vertical eq horizontal)
-				all(vertical)
-			else
-				unsafe("$vertical $horizontal")
-
-
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): BorderColor =
-			if (top eq bottom)
-				of(vertical = top, horizontal = horizontal)
-			else
-				unsafe("$top $horizontal $bottom")
-
-
-		public inline fun of(
-			top: Single,
-			right: Single,
-			bottom: Single,
-			left: Single,
-		): BorderColor =
-			if (left eq right)
-				of(top = top, horizontal = left, bottom = bottom)
-			else
-				unsafe("$top $right $bottom $left")
-
-
-		public inline fun unsafe(value: String): BorderColor =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : BorderColor {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : BorderColor, CssVariable<BorderColor>
 }
+
+
+public inline fun BorderColor.Companion.all(value: BorderColor.Single): BorderColor =
+	value
+
+
+public inline fun BorderColor.Companion.of(vertical: BorderColor.Single, horizontal: BorderColor.Single): BorderColor =
+	if (vertical eq horizontal)
+		all(vertical)
+	else
+		unsafe("$vertical $horizontal")
+
+
+public inline fun BorderColor.Companion.of(top: BorderColor.Single, horizontal: BorderColor.Single, bottom: BorderColor.Single): BorderColor =
+	if (top eq bottom)
+		of(vertical = top, horizontal = horizontal)
+	else
+		unsafe("$top $horizontal $bottom")
+
+
+public inline fun BorderColor.Companion.of(
+	top: BorderColor.Single,
+	right: BorderColor.Single,
+	bottom: BorderColor.Single,
+	left: BorderColor.Single,
+): BorderColor =
+	if (left eq right)
+		of(top = top, horizontal = left, bottom = bottom)
+	else
+		unsafe("$top $right $bottom $left")
+
+
+public inline fun BorderColor.Companion.unsafe(value: String): BorderColor =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderColor.Companion.variable(name: String): BorderColor.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun BorderColor.Single.Companion.unsafe(value: String): BorderColor.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderColor.Single.Companion.variable(name: String): BorderColor.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl
@@ -100,7 +102,7 @@ public inline fun CssDeclarationBlockBuilder.borderColor(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.borderColor(
 	all: BorderColor.Single? = null,
 	vertical: BorderColor.Single? = all,

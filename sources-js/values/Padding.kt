@@ -1,77 +1,79 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Padding : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: Single
-			get() = Single.unsafe("auto")
+	public companion object;
 
 
-		public inline fun all(value: Single): Padding =
-			value
-
-
-		public inline fun of(vertical: Single, horizontal: Single): Padding =
-			if (vertical eq horizontal)
-				all(vertical)
-			else
-				unsafe("$vertical $horizontal")
-
-
-		public inline fun of(top: Single, horizontal: Single, bottom: Single): Padding =
-			if (top eq bottom)
-				of(vertical = top, horizontal = horizontal)
-			else
-				unsafe("$top $horizontal $bottom")
-
-
-		public inline fun of(
-			top: Single,
-			right: Single,
-			bottom: Single,
-			left: Single,
-		): Padding =
-			if (left eq right)
-				of(top = top, horizontal = left, bottom = bottom)
-			else
-				unsafe("$top $right $bottom $left")
-
-
-		public inline fun unsafe(value: String): Padding =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : Padding {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : Padding, CssVariable<Padding>
 }
+
+
+@CssDsl
+public inline val Padding.Companion.auto: Padding.Single
+	get() = Padding.Single.unsafe("auto")
+
+
+public inline fun Padding.Companion.all(value: Padding.Single): Padding =
+	value
+
+
+public inline fun Padding.Companion.of(vertical: Padding.Single, horizontal: Padding.Single): Padding =
+	if (vertical eq horizontal)
+		all(vertical)
+	else
+		unsafe("$vertical $horizontal")
+
+
+public inline fun Padding.Companion.of(top: Padding.Single, horizontal: Padding.Single, bottom: Padding.Single): Padding =
+	if (top eq bottom)
+		of(vertical = top, horizontal = horizontal)
+	else
+		unsafe("$top $horizontal $bottom")
+
+
+public inline fun Padding.Companion.of(
+	top: Padding.Single,
+	right: Padding.Single,
+	bottom: Padding.Single,
+	left: Padding.Single,
+): Padding =
+	if (left eq right)
+		of(top = top, horizontal = left, bottom = bottom)
+	else
+		unsafe("$top $right $bottom $left")
+
+
+public inline fun Padding.Companion.unsafe(value: String): Padding =
+	CssValue.unsafe(value)
+
+
+public inline fun Padding.Companion.variable(name: String): Padding.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun Padding.Single.Companion.unsafe(value: String): Padding.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun Padding.Single.Companion.variable(name: String): Padding.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl
@@ -105,7 +107,7 @@ public inline fun CssDeclarationBlockBuilder.padding(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.padding(
 	all: Padding.Single? = null,
 	vertical: Padding.Single? = all,

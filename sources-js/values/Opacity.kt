@@ -1,32 +1,33 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Opacity : CssValue.DoubleConstructable {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun of(value: Double): Opacity =
-			CssValue.unsafe(value)
+	public companion object;
 
 
-		public inline fun of(value: Int): Opacity =
-			CssValue.unsafe(value)
-
-
-		public inline fun unsafe(value: String): Opacity =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Opacity, CssVariable<Opacity>
 }
+
+
+public inline fun Opacity.Companion.of(value: Double): Opacity =
+	CssValue.unsafe(value)
+
+
+public inline fun Opacity.Companion.of(value: Int): Opacity =
+	CssValue.unsafe(value)
+
+
+public inline fun Opacity.Companion.unsafe(value: String): Opacity =
+	CssValue.unsafe(value)
+
+
+public inline fun Opacity.Companion.variable(name: String): Opacity.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

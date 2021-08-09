@@ -1,33 +1,13 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
 @CssDsl
+@JsName("0;0")
 public external interface TransformBuilder {
 
-	@Suppress(
-		"EXTENSION_FUNCTION_IN_EXTERNAL_DECLARATION",
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION"
-	)
-	public companion object {
-
-		public inline fun build(action: TransformBuilder.() -> Unit): Transform =
-			complete(create().apply(action))
-
-
-		public inline fun complete(builder: TransformBuilder): Transform =
-			if (builder.asDynamic().length == 0)
-				Transform.none
-			else
-				Transform.unsafe(builder.asDynamic().join(" ").unsafeCast<String>())
-
-
-		public inline fun create(): TransformBuilder =
-			js("[]").unsafeCast<TransformBuilder>()
-	}
+	public companion object;
 }
 
 
@@ -212,3 +192,19 @@ public inline fun TransformBuilder.translateY(y: LengthOrPercentage) {
 public inline fun TransformBuilder.translateZ(z: LengthOrPercentage) {
 	add("translateZ($z)")
 }
+
+
+public inline fun TransformBuilder.Companion.build(action: TransformBuilder.() -> Unit): Transform =
+	complete(create().apply(action))
+
+
+public inline fun TransformBuilder.Companion.complete(builder: TransformBuilder): Transform =
+	if (builder.asDynamic().length == 0)
+		Transform.none
+	else
+		Transform.unsafe(builder.asDynamic().join(" ").unsafeCast<String>())
+
+
+public inline fun TransformBuilder.Companion.create(): TransformBuilder =
+	js("[]").unsafeCast<TransformBuilder>()
+

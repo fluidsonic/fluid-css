@@ -1,9 +1,4 @@
-@file:Suppress(
-	"INLINE_EXTERNAL_DECLARATION",
-	"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-	"NOTHING_TO_INLINE",
-	"WRONG_BODY_OF_EXTERNAL_DECLARATION"
-)
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
@@ -14,13 +9,10 @@ private val variableNameRegex = RegExp("^\\s*var\\(\\s*--([^,\\s]+).*\\)\\s*$", 
 
 
 /** Only `String` is a valid subtype of `CssVariable`. */
+@JsName("0;0")
 public external interface CssVariable<Value : CssValue> : CssValue {
 
-	public companion object {
-
-		public inline fun <Value : CssValue, Variable : CssVariable<Value>> unsafe(name: String): Variable =
-			"var(--$name)".unsafeCast<Variable>()
-	}
+	public companion object;
 }
 
 
@@ -58,3 +50,7 @@ public fun <Value : CssValue> CssVariable<in Value>.withDefaults(vararg defaults
 			append(")")
 		})
 	}
+
+
+public inline fun <Value : CssValue, Variable : CssVariable<Value>> CssVariable.Companion.unsafe(name: String): Variable =
+	"var(--$name)".unsafeCast<Variable>()

@@ -1,46 +1,47 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface UserSelect : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: UserSelect
-			get() = unsafe("auto")
-
-		@CssDsl
-		public inline val none: UserSelect
-			get() = unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val all: UserSelect
-			get() = unsafe("all")
-
-		@CssDsl
-		public inline val contain: UserSelect
-			get() = unsafe("contain")
-
-		@CssDsl
-		public inline val text: UserSelect
-			get() = unsafe("text")
-
-
-		public inline fun unsafe(value: String): UserSelect =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : UserSelect, CssVariable<UserSelect>
 }
+
+
+@CssDsl
+public inline val UserSelect.Companion.auto: UserSelect
+	get() = unsafe("auto")
+
+@CssDsl
+public inline val UserSelect.Companion.none: UserSelect
+	get() = unsafe("none")
+
+
+@CssDsl
+public inline val UserSelect.Companion.all: UserSelect
+	get() = unsafe("all")
+
+@CssDsl
+public inline val UserSelect.Companion.contain: UserSelect
+	get() = unsafe("contain")
+
+@CssDsl
+public inline val UserSelect.Companion.text: UserSelect
+	get() = unsafe("text")
+
+
+public inline fun UserSelect.Companion.unsafe(value: String): UserSelect =
+	CssValue.unsafe(value)
+
+
+public inline fun UserSelect.Companion.variable(name: String): UserSelect.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

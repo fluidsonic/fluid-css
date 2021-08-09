@@ -1,35 +1,36 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 // FIXME support fully
 
 
+@JsName("0;0")
 public external interface Content : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline fun counter(name: String): Content =
-			unsafe("counter($name)")
+	public companion object;
 
 
-		public inline fun string(value: String): Content =
-			unsafe("'$value'") // FIXME escaping
-
-
-		public inline fun unsafe(value: String): Content =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Content, CssVariable<Content>
 }
+
+
+@CssDsl
+public inline fun Content.Companion.counter(name: String): Content =
+	unsafe("counter($name)")
+
+
+public inline fun Content.Companion.string(value: String): Content =
+	unsafe("'$value'") // FIXME escaping
+
+
+public inline fun Content.Companion.unsafe(value: String): Content =
+	CssValue.unsafe(value)
+
+
+public inline fun Content.Companion.variable(name: String): Content.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

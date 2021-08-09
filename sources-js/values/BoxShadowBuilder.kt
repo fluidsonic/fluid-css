@@ -1,33 +1,13 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
 @CssDsl
+@JsName("0;0")
 public external interface BoxShadowBuilder {
 
-	@Suppress(
-		"EXTENSION_FUNCTION_IN_EXTERNAL_DECLARATION",
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION"
-	)
-	public companion object {
-
-		public inline fun build(action: BoxShadowBuilder.() -> Unit): BoxShadow =
-			complete(create().apply(action))
-
-
-		public inline fun complete(builder: BoxShadowBuilder): BoxShadow =
-			if (builder.asDynamic().length == 0)
-				BoxShadow.none
-			else
-				BoxShadow.unsafe(builder.asDynamic().join().unsafeCast<String>())
-
-
-		public inline fun create(): BoxShadowBuilder =
-			js("[]").unsafeCast<BoxShadowBuilder>()
-	}
+	public companion object
 }
 
 
@@ -73,3 +53,18 @@ public inline fun BoxShadowBuilder.addInset(
 		spreadRadius = spreadRadius,
 	))
 }
+
+
+public inline fun BoxShadowBuilder.Companion.build(action: BoxShadowBuilder.() -> Unit): BoxShadow =
+	complete(create().apply(action))
+
+
+public inline fun BoxShadowBuilder.Companion.complete(builder: BoxShadowBuilder): BoxShadow =
+	if (builder.asDynamic().length == 0)
+		BoxShadow.none
+	else
+		BoxShadow.unsafe(builder.asDynamic().join().unsafeCast<String>())
+
+
+public inline fun BoxShadowBuilder.Companion.create(): BoxShadowBuilder =
+	js("[]").unsafeCast<BoxShadowBuilder>()

@@ -1,39 +1,40 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 // FIXME support multiple values
 
 
+@JsName("0;0")
 public external interface BackgroundClip : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val borderBox: BackgroundClip
-			get() = unsafe("border-box")
-
-		@CssDsl
-		public inline val contentBox: BackgroundClip
-			get() = unsafe("content-box")
-
-		@CssDsl
-		public inline val paddingBox: BackgroundClip
-			get() = unsafe("padding-box")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): BackgroundClip =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : BackgroundClip, CssVariable<BackgroundClip>
 }
+
+
+@CssDsl
+public inline val BackgroundClip.Companion.borderBox: BackgroundClip
+	get() = unsafe("border-box")
+
+@CssDsl
+public inline val BackgroundClip.Companion.contentBox: BackgroundClip
+	get() = unsafe("content-box")
+
+@CssDsl
+public inline val BackgroundClip.Companion.paddingBox: BackgroundClip
+	get() = unsafe("padding-box")
+
+
+public inline fun BackgroundClip.Companion.unsafe(value: String): BackgroundClip =
+	CssValue.unsafe(value)
+
+
+public inline fun BackgroundClip.Companion.variable(name: String): BackgroundClip.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

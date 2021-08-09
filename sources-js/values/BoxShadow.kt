@@ -1,70 +1,57 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NOTHING_TO_INLINE", "NESTED_CLASS_IN_EXTERNAL_INTERFACE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface BoxShadow : CssValue {
 
-	@Suppress(
-		"EXTENSION_FUNCTION_IN_EXTERNAL_DECLARATION",
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val none: BoxShadow
-			get() = unsafe("none")
+	public companion object;
 
 
-		// FIXME check
-		public inline fun build(values: BoxShadowBuilder.() -> Unit): BoxShadow =
-			BoxShadowBuilder.build(values)
-
-
-		// FIXME check
-		public inline fun combine(vararg values: Single): BoxShadow =
-			when (values.size) {
-				1 -> values[0]
-				0 -> CssValue.initial
-				else -> unsafe(values.join())
-			}
-
-
-		public inline fun unsafe(value: String): BoxShadow =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : BoxShadow {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : BoxShadow, CssVariable<BoxShadow>
 }
 
 
-@Suppress("DEPRECATION")
+@CssDsl
+public inline val BoxShadow.Companion.none: BoxShadow
+	get() = unsafe("none")
+
+
+// FIXME check
+public inline fun BoxShadow.Companion.build(values: BoxShadowBuilder.() -> Unit): BoxShadow =
+	BoxShadowBuilder.build(values)
+
+
+// FIXME check
+public inline fun BoxShadow.Companion.combine(vararg values: BoxShadow.Single): BoxShadow =
+	when (values.size) {
+		1 -> values[0]
+		0 -> CssValue.initial
+		else -> unsafe(values.join())
+	}
+
+
+public inline fun BoxShadow.Companion.unsafe(value: String): BoxShadow =
+	CssValue.unsafe(value)
+
+
+public inline fun BoxShadow.Companion.variable(name: String): BoxShadow.Variable =
+	CssVariable.unsafe(name)
+
+
 public inline fun BoxShadow.Companion.with(
 	offsetX: Length = Length.zero,
 	offsetY: Length = Length.zero,
@@ -98,6 +85,14 @@ public inline fun BoxShadow.Companion.with(
 
 	return BoxShadow.Single.unsafe(string)
 }
+
+
+public inline fun BoxShadow.Single.Companion.unsafe(value: String): BoxShadow.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun BoxShadow.Single.Companion.variable(name: String): BoxShadow.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

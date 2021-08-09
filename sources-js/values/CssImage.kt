@@ -1,23 +1,24 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface CssImage :
 	BackgroundImage,
 	Cursor {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun unsafe(value: String): CssImage =
-			CssValue.unsafe(value)
+	public companion object;
 
 
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : CssImage, CssVariable<CssImage>
 }
+
+
+public inline fun CssImage.Companion.unsafe(value: String): CssImage =
+	CssValue.unsafe(value)
+
+
+public inline fun CssImage.Companion.variable(name: String): CssImage.Variable =
+	CssVariable.unsafe(name)

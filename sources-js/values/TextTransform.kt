@@ -1,53 +1,50 @@
-@file:Suppress(
-	"INLINE_EXTERNAL_DECLARATION",
-	"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-	"NOTHING_TO_INLINE",
-	"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-)
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TextTransform : CssValue {
 
-	public companion object {
-
-		@CssDsl
-		public inline val capitalize: TextTransform
-			get() = unsafe("capitalize")
-
-		@CssDsl
-		public inline val fullSizeKana: TextTransform
-			get() = unsafe("full-size-kana")
-
-		@CssDsl
-		public inline val fullWidth: TextTransform
-			get() = unsafe("full-width")
-
-		@CssDsl
-		public inline val lowercase: TextTransform
-			get() = unsafe("lowercase")
-
-		@CssDsl
-		public inline val none: TextTransform
-			get() = unsafe("none")
-
-		@CssDsl
-		public inline val uppercase: TextTransform
-			get() = unsafe("uppercase")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): TextTransform =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TextTransform, CssVariable<TextTransform>
 }
+
+
+@CssDsl
+public inline val TextTransform.Companion.capitalize: TextTransform
+	get() = unsafe("capitalize")
+
+@CssDsl
+public inline val TextTransform.Companion.fullSizeKana: TextTransform
+	get() = unsafe("full-size-kana")
+
+@CssDsl
+public inline val TextTransform.Companion.fullWidth: TextTransform
+	get() = unsafe("full-width")
+
+@CssDsl
+public inline val TextTransform.Companion.lowercase: TextTransform
+	get() = unsafe("lowercase")
+
+@CssDsl
+public inline val TextTransform.Companion.none: TextTransform
+	get() = unsafe("none")
+
+@CssDsl
+public inline val TextTransform.Companion.uppercase: TextTransform
+	get() = unsafe("uppercase")
+
+
+public inline fun TextTransform.Companion.unsafe(value: String): TextTransform =
+	CssValue.unsafe(value)
+
+
+public inline fun TextTransform.Companion.variable(name: String): TextTransform.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

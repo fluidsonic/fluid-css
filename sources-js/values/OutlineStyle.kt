@@ -1,66 +1,67 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface OutlineStyle : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val none: OutlineStyle
-			get() = unsafe("none")
+	public companion object;
 
 
-		@CssDsl
-		public inline val dashed: OutlineStyle
-			get() = unsafe("dashed")
-
-		@CssDsl
-		public inline val dotted: OutlineStyle
-			get() = unsafe("dotted")
-
-		@CssDsl
-		public inline val double: OutlineStyle
-			get() = unsafe("double")
-
-		@CssDsl
-		public inline val groove: OutlineStyle
-			get() = unsafe("groove")
-
-		@CssDsl
-		public inline val hidden: OutlineStyle
-			get() = unsafe("hidden")
-
-		@CssDsl
-		public inline val inset: OutlineStyle
-			get() = unsafe("inset")
-
-		@CssDsl
-		public inline val outset: OutlineStyle
-			get() = unsafe("outset")
-
-		@CssDsl
-		public inline val ridge: OutlineStyle
-			get() = unsafe("ridge")
-
-		@CssDsl
-		public inline val solid: OutlineStyle
-			get() = unsafe("solid")
-
-
-		public inline fun unsafe(value: String): OutlineStyle =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : OutlineStyle, CssVariable<OutlineStyle>
 }
+
+
+@CssDsl
+public inline val OutlineStyle.Companion.none: OutlineStyle
+	get() = unsafe("none")
+
+
+@CssDsl
+public inline val OutlineStyle.Companion.dashed: OutlineStyle
+	get() = unsafe("dashed")
+
+@CssDsl
+public inline val OutlineStyle.Companion.dotted: OutlineStyle
+	get() = unsafe("dotted")
+
+@CssDsl
+public inline val OutlineStyle.Companion.double: OutlineStyle
+	get() = unsafe("double")
+
+@CssDsl
+public inline val OutlineStyle.Companion.groove: OutlineStyle
+	get() = unsafe("groove")
+
+@CssDsl
+public inline val OutlineStyle.Companion.hidden: OutlineStyle
+	get() = unsafe("hidden")
+
+@CssDsl
+public inline val OutlineStyle.Companion.inset: OutlineStyle
+	get() = unsafe("inset")
+
+@CssDsl
+public inline val OutlineStyle.Companion.outset: OutlineStyle
+	get() = unsafe("outset")
+
+@CssDsl
+public inline val OutlineStyle.Companion.ridge: OutlineStyle
+	get() = unsafe("ridge")
+
+@CssDsl
+public inline val OutlineStyle.Companion.solid: OutlineStyle
+	get() = unsafe("solid")
+
+
+public inline fun OutlineStyle.Companion.unsafe(value: String): OutlineStyle =
+	CssValue.unsafe(value)
+
+
+public inline fun OutlineStyle.Companion.variable(name: String): OutlineStyle.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

@@ -1,62 +1,23 @@
-@file:Suppress(
-	"INLINE_EXTERNAL_DECLARATION",
-	"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-	"NOTHING_TO_INLINE",
-	"WRONG_BODY_OF_EXTERNAL_DECLARATION"
-)
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
 /** Only `String` is a valid subtype of `CssValue`. */
+@JsName("0;0")
 public external interface CssValue {
 
-	public companion object {
-
-		@CssDsl
-		public inline val inherit: Global
-			get() = unsafe("inherit")
-
-		@CssDsl
-		public inline val initial: Global
-			get() = unsafe("initial")
-
-		@CssDsl
-		public inline val unset: Global
-			get() = unsafe("unset")
+	public companion object;
 
 
-		public inline fun <Value : CssValue> unsafe(value: Double): Value =
-			unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
-
-
-		public inline fun <Value : CssValue> unsafe(value: Int): Value =
-			unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
-
-
-		public inline fun <Value : CssValue> unsafe(value: String): Value =
-			value.unsafeCast<Value>()
-	}
-
-
+	@JsName("0;0")
 	public interface Numeric : CssValue {
 
-		public companion object {
-
-			public inline fun <Value : Numeric> unsafe(value: Double): Value =
-				unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
-
-
-			public inline fun <Value : Numeric> unsafe(value: Int): Value =
-				unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
-
-
-			public inline fun <Value : Numeric> unsafe(value: String): Value =
-				value.unsafeCast<Value>()
-		}
+		public companion object
 	}
 
 
+	@JsName("0;0")
 	public interface Global :
 		AlignItems,
 		Angle,
@@ -151,10 +112,48 @@ public external interface CssValue {
 		ZIndex
 
 
+	@JsName("0;0")
 	public interface DoubleConstructable : IntConstructable
+
+	@JsName("0;0")
 	public interface IntConstructable : Numeric
+
+	@JsName("0;0")
 	public interface StringConstructable : CssValue
 }
+
+
+public inline fun CssValue.asString(): String =
+	unsafeCast<String>()
+
+
+// Using 'eq' and 'ne' instead of '==' is more efficient because we skip type-checking.
+// That in turn allows for compile-time optimizations.
+
+public inline infix fun CssValue.eq(other: CssValue): Boolean =
+	asString() == other.asString()
+
+
+public inline infix fun CssValue?.eq(other: CssValue?): Boolean =
+	this?.asString() == other?.asString()
+
+
+@Suppress("UNUSED_PARAMETER")
+public inline infix fun CssValue?.eq(other: Nothing?): Boolean =
+	this == null
+
+
+public inline infix fun CssValue.ne(other: CssValue): Boolean =
+	asString() != other.asString()
+
+
+public inline infix fun CssValue?.ne(other: CssValue?): Boolean =
+	this?.asString() != other?.asString()
+
+
+@Suppress("UNUSED_PARAMETER")
+public inline infix fun CssValue?.ne(other: Nothing?): Boolean =
+	this != null
 
 
 @CssDsl
@@ -172,36 +171,38 @@ public inline fun <Value : CssValue.Numeric> Value.coerceIn(min: Value, max: Val
 	CssValue.Numeric.unsafe("max($min,min($this,$max))") // Support for min() and max() is better than clamp() as of December 1, 2020.
 
 
-public inline fun CssValue.asString(): String =
-	unsafeCast<String>()
+@CssDsl
+public inline val CssValue.Companion.inherit: CssValue.Global
+	get() = unsafe("inherit")
+
+@CssDsl
+public inline val CssValue.Companion.initial: CssValue.Global
+	get() = unsafe("initial")
+
+@CssDsl
+public inline val CssValue.Companion.unset: CssValue.Global
+	get() = unsafe("unset")
 
 
-// Using 'eq' and 'ne' instead of '==' is more efficient because we skip type-checking.
-// That in turn allows for compile-time optimizations.
-
-public inline infix fun CssValue.eq(other: CssValue): Boolean =
-	asString() == other.asString()
+public inline fun <Value : CssValue> CssValue.Companion.unsafe(value: Double): Value =
+	unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
 
 
-@Suppress("DEPRECATION")
-public inline infix fun CssValue?.eq(other: CssValue?): Boolean =
-	this?.asString() == other?.asString()
+public inline fun <Value : CssValue> CssValue.Companion.unsafe(value: Int): Value =
+	unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
 
 
-@Suppress("DEPRECATION", "UNUSED_PARAMETER")
-public inline infix fun CssValue?.eq(other: Nothing?): Boolean =
-	this == null
+public inline fun <Value : CssValue> CssValue.Companion.unsafe(value: String): Value =
+	value.unsafeCast<Value>()
 
 
-public inline infix fun CssValue.ne(other: CssValue): Boolean =
-	asString() != other.asString()
+public inline fun <Value : CssValue.Numeric> CssValue.Numeric.Companion.unsafe(value: Double): Value =
+	unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
 
 
-@Suppress("DEPRECATION")
-public inline infix fun CssValue?.ne(other: CssValue?): Boolean =
-	this?.asString() != other?.asString()
+public inline fun <Value : CssValue.Numeric> CssValue.Numeric.Companion.unsafe(value: Int): Value =
+	unsafe("$value") // https://youtrack.jetbrains.com/issue/KT-43567
 
 
-@Suppress("DEPRECATION", "UNUSED_PARAMETER")
-public inline infix fun CssValue?.ne(other: Nothing?): Boolean =
-	this != null
+public inline fun <Value : CssValue.Numeric> CssValue.Numeric.Companion.unsafe(value: String): Value =
+	value.unsafeCast<Value>()

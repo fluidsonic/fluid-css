@@ -1,74 +1,80 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 // FIXME support 2nd radius w/ builder
 
 
+@JsName("0;0")
 public external interface BorderRadius : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		public inline fun all(value: Single): BorderRadius =
-			value
+	public companion object;
 
 
-		public inline fun of(topLeftBottomRight: Single, topRightBottomLeft: Single): BorderRadius =
-			if (topLeftBottomRight eq topRightBottomLeft)
-				all(topLeftBottomRight)
-			else
-				unsafe("$topLeftBottomRight $topRightBottomLeft")
-
-
-		public inline fun of(topLeft: Single, topRightBottomLeft: Single, bottomRight: Single): BorderRadius =
-			if (topLeft eq bottomRight)
-				of(topLeftBottomRight = topLeft, topRightBottomLeft = topRightBottomLeft)
-			else
-				unsafe("$topLeft $topRightBottomLeft $bottomRight")
-
-
-		public inline fun of(
-			topLeft: Single,
-			topRight: Single,
-			bottomRight: Single,
-			bottomLeft: Single,
-		): BorderRadius =
-			if (bottomLeft eq topRight)
-				of(topLeft = topLeft, topRightBottomLeft = bottomLeft, bottomRight = bottomRight)
-			else
-				unsafe("$topLeft $topRight $bottomRight $bottomLeft")
-
-
-		public inline fun unsafe(value: String): BorderRadius =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : BorderRadius {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : BorderRadius, CssVariable<BorderRadius>
 }
+
+
+public inline fun BorderRadius.Companion.all(value: BorderRadius.Single): BorderRadius =
+	value
+
+
+public inline fun BorderRadius.Companion.of(topLeftBottomRight: BorderRadius.Single, topRightBottomLeft: BorderRadius.Single): BorderRadius =
+	if (topLeftBottomRight eq topRightBottomLeft)
+		all(topLeftBottomRight)
+	else
+		unsafe("$topLeftBottomRight $topRightBottomLeft")
+
+
+public inline fun BorderRadius.Companion.of(
+	topLeft: BorderRadius.Single,
+	topRightBottomLeft: BorderRadius.Single,
+	bottomRight: BorderRadius.Single,
+): BorderRadius =
+	if (topLeft eq bottomRight)
+		of(topLeftBottomRight = topLeft, topRightBottomLeft = topRightBottomLeft)
+	else
+		unsafe("$topLeft $topRightBottomLeft $bottomRight")
+
+
+public inline fun BorderRadius.Companion.of(
+	topLeft: BorderRadius.Single,
+	topRight: BorderRadius.Single,
+	bottomRight: BorderRadius.Single,
+	bottomLeft: BorderRadius.Single,
+): BorderRadius =
+	if (bottomLeft eq topRight)
+		of(topLeft = topLeft, topRightBottomLeft = bottomLeft, bottomRight = bottomRight)
+	else
+		unsafe("$topLeft $topRight $bottomRight $bottomLeft")
+
+
+public inline fun BorderRadius.Companion.unsafe(value: String): BorderRadius =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderRadius.Companion.variable(name: String): BorderRadius.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun BorderRadius.Single.Companion.unsafe(value: String): BorderRadius.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun BorderRadius.Single.Companion.variable(name: String): BorderRadius.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl
@@ -106,7 +112,7 @@ public inline fun CssDeclarationBlockBuilder.borderRadius(
 
 @CssDsl
 @kotlin.internal.LowPriorityInOverloadResolution
-@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 public inline fun CssDeclarationBlockBuilder.borderRadius(
 	all: BorderRadius.Single? = null,
 	topLeft: BorderRadius.Single? = all,

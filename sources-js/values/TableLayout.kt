@@ -1,34 +1,35 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TableLayout : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val auto: TableLayout
-			get() = unsafe("auto")
+	public companion object;
 
 
-		@CssDsl
-		public inline val fixed: TableLayout
-			get() = unsafe("fixed")
-
-
-		public inline fun unsafe(value: String): TableLayout =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TableLayout, CssVariable<TableLayout>
 }
+
+
+@CssDsl
+public inline val TableLayout.Companion.auto: TableLayout
+	get() = unsafe("auto")
+
+
+@CssDsl
+public inline val TableLayout.Companion.fixed: TableLayout
+	get() = unsafe("fixed")
+
+
+public inline fun TableLayout.Companion.unsafe(value: String): TableLayout =
+	CssValue.unsafe(value)
+
+
+public inline fun TableLayout.Companion.variable(name: String): TableLayout.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

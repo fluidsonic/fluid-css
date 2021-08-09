@@ -1,55 +1,51 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface TransformOrigin : CssValue {
 
-	@Suppress(
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		public inline fun of(
-			xy: LengthOrPercentage,
-		): TransformOrigin =
-			unsafe(xy.asString())
+	public companion object;
 
 
-		public inline fun of(
-			x: TransformOriginX,
-		): TransformOrigin =
-			unsafe(x.asString())
-
-
-		public inline fun of(
-			y: TransformOriginY,
-		): TransformOrigin =
-			unsafe("50% $y")
-
-
-		public inline fun of(
-			x: TransformOriginX = 50.percent,
-			y: TransformOriginY = 50.percent,
-			z: Length = Length.zero,
-		): TransformOrigin =
-			unsafe("$x $y $z")
-
-
-		public inline fun unsafe(value: String): TransformOrigin =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : TransformOrigin, CssVariable<TransformOrigin>
 }
+
+
+public inline fun TransformOrigin.Companion.of(
+	xy: LengthOrPercentage,
+): TransformOrigin =
+	unsafe(xy.asString())
+
+
+public inline fun TransformOrigin.Companion.of(
+	x: TransformOriginX,
+): TransformOrigin =
+	unsafe(x.asString())
+
+
+public inline fun TransformOrigin.Companion.of(
+	y: TransformOriginY,
+): TransformOrigin =
+	unsafe("50% $y")
+
+
+public inline fun TransformOrigin.Companion.of(
+	x: TransformOriginX = 50.percent,
+	y: TransformOriginY = 50.percent,
+	z: Length = Length.zero,
+): TransformOrigin =
+	unsafe("$x $y $z")
+
+
+public inline fun TransformOrigin.Companion.unsafe(value: String): TransformOrigin =
+	CssValue.unsafe(value)
+
+
+public inline fun TransformOrigin.Companion.variable(name: String): TransformOrigin.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

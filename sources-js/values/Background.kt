@@ -1,92 +1,80 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface Background : CssValue {
 
-	@Suppress(
-		"INLINE_EXTERNAL_DECLARATION",
-		"NESTED_CLASS_IN_EXTERNAL_INTERFACE",
-		"WRONG_BODY_OF_EXTERNAL_DECLARATION",
-		"WRONG_DEFAULT_VALUE_FOR_EXTERNAL_FUN_PARAMETER"
-	)
-	public companion object {
-
-		@CssDsl
-		public inline val none: Background
-			get() = unsafe("none")
+	public companion object;
 
 
-		// FIXME check
-		public inline fun combine(vararg values: Single): Background =
-			when (values.size) {
-				1 -> values[0]
-				0 -> CssValue.initial
-				else -> unsafe(values.join())
-			}
-
-
-		public inline fun unsafe(value: String): Background =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-
-
-		@kotlin.internal.LowPriorityInOverloadResolution
-		@Suppress("DEPRECATION", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-		public inline fun with(
-			color: Color? = null,
-			image: CssImage? = null,
-			x: BackgroundPositionX? = null,
-			y: BackgroundPositionY? = null,
-			size: BackgroundSize? = null,
-			repeat: BackgroundRepeat? = null,
-			attachment: BackgroundAttachment? = null,
-			origin: BackgroundOrigin? = null,
-			clip: BackgroundClip? = null,
-		): Single =
-			with(
-				color = color,
-				image = image,
-				position = when (x != null || y != null) {
-					true -> BackgroundPosition.of(x = x, y = y)
-					false -> null
-				},
-				size = size,
-				repeat = repeat,
-				attachment = attachment,
-				origin = origin,
-				clip = clip,
-			)
-	}
-
-
+	@JsName("0;0")
 	public interface Single : Background {
 
-		@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-		public companion object {
-
-			public inline fun unsafe(value: String): Single =
-				CssValue.unsafe(value)
+		public companion object;
 
 
-			public inline fun variable(name: String): Variable =
-				CssVariable.unsafe(name)
-		}
-
-
+		@JsName("0;0")
 		public interface Variable : Single, CssVariable<Single>
 	}
 
 
+	@JsName("0;0")
 	public interface Variable : Background, CssVariable<Background>
 }
 
 
-@Suppress("DEPRECATION")
+@CssDsl
+public inline val Background.Companion.none: Background
+	get() = unsafe("none")
+
+
+// FIXME check
+public inline fun Background.Companion.combine(vararg values: Background.Single): Background =
+	when (values.size) {
+		1 -> values[0]
+		0 -> CssValue.initial
+		else -> unsafe(values.join())
+	}
+
+
+public inline fun Background.Companion.unsafe(value: String): Background =
+	CssValue.unsafe(value)
+
+
+public inline fun Background.Companion.variable(name: String): Background.Variable =
+	CssVariable.unsafe(name)
+
+
+@kotlin.internal.LowPriorityInOverloadResolution
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+public inline fun Background.Companion.with(
+	color: Color? = null,
+	image: CssImage? = null,
+	x: BackgroundPositionX? = null,
+	y: BackgroundPositionY? = null,
+	size: BackgroundSize? = null,
+	repeat: BackgroundRepeat? = null,
+	attachment: BackgroundAttachment? = null,
+	origin: BackgroundOrigin? = null,
+	clip: BackgroundClip? = null,
+): Background.Single =
+	with(
+		color = color,
+		image = image,
+		position = when (x != null || y != null) {
+			true -> BackgroundPosition.of(x = x, y = y)
+			false -> null
+		},
+		size = size,
+		repeat = repeat,
+		attachment = attachment,
+		origin = origin,
+		clip = clip,
+	)
+
+
 public inline fun Background.Companion.with(
 	color: Color? = null,
 	image: CssImage? = null,
@@ -154,6 +142,14 @@ public inline fun Background.Companion.with(
 	}
 	else
 		CssValue.initial
+
+
+public inline fun Background.Single.Companion.unsafe(value: String): Background.Single =
+	CssValue.unsafe(value)
+
+
+public inline fun Background.Single.Companion.variable(name: String): Background.Single.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

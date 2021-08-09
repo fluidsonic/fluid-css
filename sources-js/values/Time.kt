@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
@@ -8,39 +8,15 @@ import kotlin.js.RegExp
 private val numericTimeRegex = RegExp("^\\s*(-?\\d+)([a-z]+)\\s*$", "i")
 
 
+@JsName("0;0")
 public external interface Time :
 	CssGradient.Direction,
 	CssValue.Numeric {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val zero: Time
-			get() = unsafe("0")
+	public companion object;
 
 
-		public inline fun calc(value: String): Time =
-			unsafe("calc($value)")
-
-
-		public inline fun of(value: Double, unit: String): Time =
-			CssValue.unsafe("$value$unit")
-
-
-		public inline fun of(value: Int, unit: String): Time =
-			CssValue.unsafe("$value$unit")
-
-
-		public inline fun unsafe(value: String): Time =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-	}
-
-
+	@JsName("0;0")
 	public interface Variable : Time, CssVariable<Time>
 }
 
@@ -153,6 +129,31 @@ public inline operator fun Time.unaryPlus(): Time =
 @CssDsl
 public inline operator fun Time.unaryMinus(): Time =
 	this * -1
+
+
+@CssDsl
+public inline val Time.Companion.zero: Time
+	get() = unsafe("0")
+
+
+public inline fun Time.Companion.calc(value: String): Time =
+	unsafe("calc($value)")
+
+
+public inline fun Time.Companion.of(value: Double, unit: String): Time =
+	CssValue.unsafe("$value$unit")
+
+
+public inline fun Time.Companion.of(value: Int, unit: String): Time =
+	CssValue.unsafe("$value$unit")
+
+
+public inline fun Time.Companion.unsafe(value: String): Time =
+	CssValue.unsafe(value)
+
+
+public inline fun Time.Companion.variable(name: String): Time.Variable =
+	CssVariable.unsafe(name)
 
 
 @CssDsl

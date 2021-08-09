@@ -1,50 +1,53 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "NOTHING_TO_INLINE")
 
 package io.fluidsonic.css
 
 
+@JsName("0;0")
 public external interface BackgroundPositionY : CssValue {
 
-	@Suppress("INLINE_EXTERNAL_DECLARATION", "NESTED_CLASS_IN_EXTERNAL_INTERFACE", "WRONG_BODY_OF_EXTERNAL_DECLARATION")
-	public companion object {
-
-		@CssDsl
-		public inline val bottom: Named
-			get() = CssValue.unsafe("bottom")
-
-		@CssDsl
-		public inline val center: Named
-			get() = CssValue.unsafe("center")
-
-		@CssDsl
-		public inline val end: Named
-			get() = CssValue.unsafe("y-end")
-
-		@CssDsl
-		public inline val start: Named
-			get() = CssValue.unsafe("y-start")
-
-		@CssDsl
-		public inline val top: Named
-			get() = CssValue.unsafe("top")
+	public companion object;
 
 
-		public inline fun unsafe(value: String): BackgroundPositionY =
-			CssValue.unsafe(value)
-
-
-		public inline fun variable(name: String): Variable =
-			CssVariable.unsafe(name)
-
-
-		public inline fun with(align: Named, offset: LengthOrPercentage): BackgroundPositionY =
-			unsafe("$align $offset")
-	}
-
-
+	@JsName("0;0")
 	public interface Named : BackgroundPositionY
+
+	@JsName("0;0")
 	public interface Variable : BackgroundPositionY, CssVariable<BackgroundPositionY>
 }
+
+
+@CssDsl
+public inline val BackgroundPositionY.Companion.bottom: BackgroundPositionY.Named
+	get() = CssValue.unsafe("bottom")
+
+@CssDsl
+public inline val BackgroundPositionY.Companion.center: BackgroundPositionY.Named
+	get() = CssValue.unsafe("center")
+
+@CssDsl
+public inline val BackgroundPositionY.Companion.end: BackgroundPositionY.Named
+	get() = CssValue.unsafe("y-end")
+
+@CssDsl
+public inline val BackgroundPositionY.Companion.start: BackgroundPositionY.Named
+	get() = CssValue.unsafe("y-start")
+
+@CssDsl
+public inline val BackgroundPositionY.Companion.top: BackgroundPositionY.Named
+	get() = CssValue.unsafe("top")
+
+
+public inline fun BackgroundPositionY.Companion.unsafe(value: String): BackgroundPositionY =
+	CssValue.unsafe(value)
+
+
+public inline fun BackgroundPositionY.Companion.variable(name: String): BackgroundPositionY.Variable =
+	CssVariable.unsafe(name)
+
+
+public inline fun BackgroundPositionY.Companion.with(align: BackgroundPositionY.Named, offset: LengthOrPercentage): BackgroundPositionY =
+	unsafe("$align $offset")
 
 
 @CssDsl
