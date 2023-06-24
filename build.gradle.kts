@@ -4,7 +4,7 @@ plugins {
 	id("io.fluidsonic.gradle") version "1.3.2"
 }
 
-fluidLibrary(name = "css", version = "0.10.0")
+fluidLibrary(name = "css", version = "0.11.0")
 
 fluidLibraryModule(description = "FIXME") {
 	targets {
