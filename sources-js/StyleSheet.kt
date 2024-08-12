@@ -174,8 +174,8 @@ internal fun StyleSheet.generateClassName(displayName: String): String =
 	}
 
 
-private val stylis = run {
-	js("Stylis = Stylis.default") // https://youtrack.jetbrains.com/issue/KT-41650
-
-	Stylis()
+@Suppress("UnsafeCastFromDynamic")
+private val stylis: Stylis = run {
+	val x = Stylis
+	js("return new x.default()") // https://youtrack.jetbrains.com/issue/KT-41650
 }
