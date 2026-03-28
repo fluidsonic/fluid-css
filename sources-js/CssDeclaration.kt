@@ -11,13 +11,16 @@ public external interface CssDeclaration {
 }
 
 
+/** Creates a [CssDeclaration] with the given [property] name and [value]. */
 public inline fun CssDeclaration.Companion.of(property: String, value: String): CssDeclaration =
 	arrayOf(property, value).unsafeCast<CssDeclaration>()
 
 
+/** The CSS property name of this declaration. */
 public inline val CssDeclaration.property: String
 	get() = unsafeCast<Array<String>>()[0]
 
 
+/** The CSS value of this declaration. */
 public val CssDeclaration.value: String
 	get() = unsafeCast<Array<String>>()[1]

@@ -3,6 +3,7 @@
 package io.fluidsonic.css
 
 
+/** DSL builder for CSS `transition` values. */
 @CssDsl
 @JsName("0;0")
 public external interface TransitionBuilder : CssProperties {
@@ -11,12 +12,14 @@ public external interface TransitionBuilder : CssProperties {
 }
 
 
+/** Adds a transition for the given CSS property. */
 @CssDsl
 public inline fun TransitionBuilder.add(value: Transition.Single) {
 	asDynamic().push(value)
 }
 
 
+/** Adds a transition for the given CSS property. */
 @CssDsl
 public inline fun TransitionBuilder.add(
 	property: CssProperty<*>? = null,
@@ -33,10 +36,12 @@ public inline fun TransitionBuilder.add(
 }
 
 
+/** Builds a [TransitionBuilder] using the given builder [action]. */
 public inline fun TransitionBuilder.Companion.build(action: TransitionBuilder.() -> Unit): Transition =
 	complete(create().apply(action))
 
 
+/** Completes the [TransitionBuilder] builder and returns the result. */
 public inline fun TransitionBuilder.Companion.complete(builder: TransitionBuilder): Transition =
 	if (builder.asDynamic().length == 0)
 		Transition.none
@@ -44,5 +49,6 @@ public inline fun TransitionBuilder.Companion.complete(builder: TransitionBuilde
 		Transition.unsafe(builder.asDynamic().join().unsafeCast<String>())
 
 
+/** Creates a new [TransitionBuilder] builder. */
 public inline fun TransitionBuilder.Companion.create(): TransitionBuilder =
 	js("[]").unsafeCast<TransitionBuilder>()

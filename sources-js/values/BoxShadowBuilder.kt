@@ -3,6 +3,7 @@
 package io.fluidsonic.css
 
 
+/** DSL builder for CSS `box-shadow` values. */
 @CssDsl
 @JsName("0;0")
 public external interface BoxShadowBuilder {
@@ -11,12 +12,14 @@ public external interface BoxShadowBuilder {
 }
 
 
+/** Adds a box shadow value to this builder. */
 @CssDsl
 public inline fun BoxShadowBuilder.add(value: BoxShadow.Single) {
 	asDynamic().push(value)
 }
 
 
+/** Adds a box shadow with the given parameters to this builder. */
 @CssDsl
 public inline fun BoxShadowBuilder.add(
 	offsetX: Length = Length.zero,
@@ -36,6 +39,7 @@ public inline fun BoxShadowBuilder.add(
 }
 
 
+/** Adds an inset box shadow with the given parameters to this builder. */
 @CssDsl
 public inline fun BoxShadowBuilder.addInset(
 	offsetX: Length = Length.zero,
@@ -55,10 +59,12 @@ public inline fun BoxShadowBuilder.addInset(
 }
 
 
+/** Builds a [BoxShadowBuilder] using the given builder [action]. */
 public inline fun BoxShadowBuilder.Companion.build(action: BoxShadowBuilder.() -> Unit): BoxShadow =
 	complete(create().apply(action))
 
 
+/** Completes the [BoxShadowBuilder] builder and returns the result. */
 public inline fun BoxShadowBuilder.Companion.complete(builder: BoxShadowBuilder): BoxShadow =
 	if (builder.asDynamic().length == 0)
 		BoxShadow.none
@@ -66,5 +72,6 @@ public inline fun BoxShadowBuilder.Companion.complete(builder: BoxShadowBuilder)
 		BoxShadow.unsafe(builder.asDynamic().join().unsafeCast<String>())
 
 
+/** Creates a new [BoxShadowBuilder] builder. */
 public inline fun BoxShadowBuilder.Companion.create(): BoxShadowBuilder =
 	js("[]").unsafeCast<BoxShadowBuilder>()

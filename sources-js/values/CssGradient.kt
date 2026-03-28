@@ -5,16 +5,19 @@ package io.fluidsonic.css
 // TODO Add builder to support gradients with hints and more color stops.
 
 
+/** Represents a CSS `css-gradient` value. */
 @JsName("0;0")
 public external interface CssGradient : CssImage {
 
 	public companion object;
 
 
+	/** A gradient direction value. */
 	@JsName("0;0")
 	public interface Direction : CssValue
 
 
+	/** A gradient side or corner direction. */
 	@JsName("0;0")
 	public interface SideOrCorner : Direction {
 
@@ -22,15 +25,18 @@ public external interface CssGradient : CssImage {
 	}
 
 
+	/** A [CssGradient] backed by a [CssVariable]. */
 	@JsName("0;0")
 	public interface Variable : CssGradient, CssVariable<CssGradient>
 }
 
 
+/** Creates a CSS `linear-gradient()` value. */
 public inline fun CssGradient.Companion.linear(stop1: ColorStop, stop2: ColorStop, vararg additionalStops: ColorStop): CssGradient =
 	linear(angle = null, stop1 = stop1, stop2 = stop2, additionalStops = additionalStops)
 
 
+/** Creates a CSS `linear-gradient()` with a direction and two stops. */
 public inline fun CssGradient.Companion.linear(
 	angle: CssGradient.Direction?,
 	stop1: ColorStop,
@@ -42,6 +48,7 @@ public inline fun CssGradient.Companion.linear(
 	})
 
 
+/** Creates a CSS `linear-gradient()` with a direction and multiple stops. */
 public fun CssGradient.Companion.linear(
 	angle: CssGradient.Direction?,
 	stop1: ColorStop,
@@ -74,39 +81,50 @@ public fun CssGradient.Companion.linear(
 	}
 
 
+/** Creates a [CssGradient] from an unchecked string [value]. */
 public inline fun CssGradient.Companion.unsafe(value: String): CssGradient =
 	CssValue.unsafe(value)
 
 
+/** Creates a [CssGradient] backed by a CSS variable with the given [name]. */
 public inline fun CssGradient.Companion.variable(name: String): CssGradient.Variable =
 	CssVariable.unsafe(name)
 
 
+/** The CSS `bottom` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.bottom: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("bottom")
 
+/** The CSS `left` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.left: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("left")
 
+/** The CSS `left bottom` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.leftBottom: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("left bottom")
 
+/** The CSS `left top` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.leftTop: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("left top")
 
+/** The CSS `right` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.right: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("right")
 
+/** The CSS `right bottom` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.rightBottom: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("right bottom")
 
+/** The CSS `right top` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.rightTop: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("right top")
 
+/** The CSS `top` side-or-corner value. */
 public inline val CssGradient.SideOrCorner.Companion.top: CssGradient.SideOrCorner
 	get() = CssValue.unsafe("top")
 
 
+/** Sets the `linear-gradient` CSS property. */
 @CssDsl
 @Suppress("unused")
 public inline fun CssDeclarationBlockBuilder.linearGradient(
@@ -117,6 +135,7 @@ public inline fun CssDeclarationBlockBuilder.linearGradient(
 	CssGradient.linear(stop1 = stop1, stop2 = stop2, additionalStops = additionalStops)
 
 
+/** Sets the `linear-gradient` CSS property. */
 @CssDsl
 @Suppress("unused")
 public inline fun CssDeclarationBlockBuilder.linearGradient(
@@ -126,6 +145,7 @@ public inline fun CssDeclarationBlockBuilder.linearGradient(
 	CssGradient.linear(stop1 = stop1, stop2 = stop2)
 
 
+/** Sets the `linear-gradient` CSS property. */
 @CssDsl
 @Suppress("unused")
 public inline fun CssDeclarationBlockBuilder.linearGradient(
@@ -137,6 +157,7 @@ public inline fun CssDeclarationBlockBuilder.linearGradient(
 	CssGradient.linear(angle = angle, stop1 = stop1, stop2 = stop2, additionalStops = additionalStops)
 
 
+/** Sets the `linear-gradient` CSS property. */
 @CssDsl
 @Suppress("unused")
 public inline fun CssDeclarationBlockBuilder.linearGradient(

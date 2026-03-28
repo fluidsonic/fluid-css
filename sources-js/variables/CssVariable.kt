@@ -16,24 +16,29 @@ public external interface CssVariable<Value : CssValue> : CssValue {
 }
 
 
+/** Returns the string representation of this [CssVariable] (e.g. `var(--name)`). */
 public inline fun CssVariable<*>.asString(): String =
 	unsafeCast<String>()
 
 
+/** The variable name without the `--` prefix. */
 public val CssVariable<*>.name: String
 	get() = variableNameRegex.exec(asString())
 		?.let { match -> match.unsafeCast<Array<String?>>()[1] }
 		?: error("Invalid CSS variable value: $this")
 
 
+/** The CSS custom property name (e.g. `--name`). */
 public inline val CssVariable<*>.propertyName: String
 	get() = "--$name"
 
 
+/** Converts this variable to a [CssProperty] using its custom property name. */
 public fun <Value : CssValue> CssVariable<Value>.toProperty(): CssProperty<Value> =
 	CssProperty.unsafe(propertyName)
 
 
+/** Returns a `var()` expression with fallback [defaults]. */
 @Suppress("UNCHECKED_CAST")
 public fun <Value : CssValue> CssVariable<in Value>.withDefaults(vararg defaults: Value): Value =
 	when {
@@ -52,5 +57,6 @@ public fun <Value : CssValue> CssVariable<in Value>.withDefaults(vararg defaults
 	}
 
 
+/** Creates a [CssVariable] from an unchecked [name] string. */
 public inline fun <Value : CssValue, Variable : CssVariable<Value>> CssVariable.Companion.unsafe(name: String): Variable =
 	"var(--$name)".unsafeCast<Variable>()

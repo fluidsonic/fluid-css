@@ -3,6 +3,7 @@
 package io.fluidsonic.css
 
 
+/** Represents a CSS `css-image` value. */
 @JsName("0;0")
 public external interface CssImage :
 	BackgroundImage,
@@ -11,14 +12,17 @@ public external interface CssImage :
 	public companion object;
 
 
+	/** A [CssImage] backed by a [CssVariable]. */
 	@JsName("0;0")
 	public interface Variable : CssImage, CssVariable<CssImage>
 }
 
 
+/** Creates a [CssImage] from an unchecked string [value]. */
 public inline fun CssImage.Companion.unsafe(value: String): CssImage =
 	CssValue.unsafe(value)
 
 
+/** Creates a [CssImage] backed by a CSS variable with the given [name]. */
 public inline fun CssImage.Companion.variable(name: String): CssImage.Variable =
 	CssVariable.unsafe(name)

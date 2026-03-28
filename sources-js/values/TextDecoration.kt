@@ -3,30 +3,36 @@
 package io.fluidsonic.css
 
 
+/** Represents a CSS `text-decoration` value. */
 @JsName("0;0")
 public external interface TextDecoration : CssValue {
 
 	public companion object;
 
 
+	/** A [TextDecoration] backed by a [CssVariable]. */
 	@JsName("0;0")
 	public interface Variable : TextDecoration, CssVariable<TextDecoration>
 }
 
 
+/** The CSS `none` text-decoration value. */
 @CssDsl
 public inline val TextDecoration.Companion.none: TextDecoration
 	get() = unsafe("none")
 
 
+/** Creates a [TextDecoration] from an unchecked string [value]. */
 public inline fun TextDecoration.Companion.unsafe(value: String): TextDecoration =
 	CssValue.unsafe(value)
 
 
+/** Creates a [TextDecoration] backed by a CSS variable with the given [name]. */
 public inline fun TextDecoration.Companion.variable(name: String): TextDecoration.Variable =
 	CssVariable.unsafe(name)
 
 
+/** Creates a [TextDecoration] shorthand value. */
 public inline fun TextDecoration.Companion.with(
 	line: TextDecorationLine? = null,
 	style: TextDecorationStyle? = null,
@@ -58,12 +64,14 @@ public inline fun TextDecoration.Companion.with(
 		CssValue.initial
 
 
+/** Sets the `text-decoration` CSS property. */
 @CssDsl
 public inline fun CssDeclarationBlockBuilder.textDecoration(value: TextDecoration) {
 	property(textDecoration, value)
 }
 
 
+/** Sets the `text-decoration` CSS property. */
 @CssDsl
 public inline fun CssDeclarationBlockBuilder.textDecoration(
 	line: TextDecorationLine? = null,
@@ -75,6 +83,7 @@ public inline fun CssDeclarationBlockBuilder.textDecoration(
 }
 
 
+/** The `text-decoration` CSS property. */
 @Suppress("unused")
 public inline val CssProperties.textDecoration: CssProperty<TextDecoration>
 	get() = CssProperty.unsafe("text-decoration")

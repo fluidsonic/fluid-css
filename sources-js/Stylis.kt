@@ -2,7 +2,6 @@ package io.fluidsonic.css
 
 
 @JsModule("@emotion/stylis")
-@JsNonModule
 internal external class Stylis {
 
 	companion object

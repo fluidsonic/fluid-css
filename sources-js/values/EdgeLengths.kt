@@ -3,21 +3,25 @@
 package io.fluidsonic.css
 
 
+/** Represents a CSS `edge-lengths` value. */
 @JsName("0;0")
 public external interface EdgeLengths : Margin, Padding {
 
 	public companion object;
 
 
+	/** A [EdgeLengths] backed by a [CssVariable]. */
 	@JsName("0;0")
 	public interface Variable : EdgeLengths, CssVariable<EdgeLengths>
 }
 
 
+/** Creates a [EdgeLengths] applying the same value to all sides. */
 public inline fun EdgeLengths.Companion.all(value: Length): EdgeLengths =
 	value.unsafeCast<EdgeLengths>()
 
 
+/** Creates a [EdgeLengths] value. */
 public inline fun EdgeLengths.Companion.of(vertical: Length, horizontal: Length): EdgeLengths =
 	if (vertical eq horizontal)
 		all(vertical)
@@ -25,6 +29,7 @@ public inline fun EdgeLengths.Companion.of(vertical: Length, horizontal: Length)
 		unsafe("$vertical $horizontal")
 
 
+/** Creates a [EdgeLengths] value. */
 public inline fun EdgeLengths.Companion.of(top: Length, horizontal: Length, bottom: Length): EdgeLengths =
 	if (top eq bottom)
 		of(vertical = top, horizontal = horizontal)
@@ -32,6 +37,7 @@ public inline fun EdgeLengths.Companion.of(top: Length, horizontal: Length, bott
 		unsafe("$top $horizontal $bottom")
 
 
+/** Creates [EdgeLengths] with individual side values. */
 public inline fun EdgeLengths.Companion.of(
 	top: Length,
 	right: Length,
@@ -44,9 +50,11 @@ public inline fun EdgeLengths.Companion.of(
 		unsafe("$top $right $bottom $left")
 
 
+/** Creates a [EdgeLengths] from an unchecked string [value]. */
 public inline fun EdgeLengths.Companion.unsafe(value: String): EdgeLengths =
 	CssValue.unsafe(value)
 
 
+/** Creates a [EdgeLengths] backed by a CSS variable with the given [name]. */
 public inline fun EdgeLengths.Companion.variable(name: String): EdgeLengths.Variable =
 	CssVariable.unsafe(name)

@@ -5,30 +5,36 @@ package io.fluidsonic.css
 import kotlin.internal.*
 
 
+/** Represents a CSS `outline` value. */
 @JsName("0;0")
 public external interface Outline : CssValue {
 
 	public companion object;
 
 
+	/** A [Outline] backed by a [CssVariable]. */
 	@JsName("0;0")
 	public interface Variable : Outline, CssVariable<Outline>
 }
 
 
+/** The CSS `none` outline value. */
 @CssDsl
 public inline val Outline.Companion.none: Outline
 	get() = unsafe("none")
 
 
+/** Creates a [Outline] from an unchecked string [value]. */
 public inline fun Outline.Companion.unsafe(value: String): Outline =
 	CssValue.unsafe(value)
 
 
+/** Creates a [Outline] backed by a CSS variable with the given [name]. */
 public inline fun Outline.Companion.variable(name: String): Outline.Variable =
 	CssVariable.unsafe(name)
 
 
+/** Creates a [Outline] shorthand value. */
 public inline fun Outline.Companion.with(width: OutlineWidth? = null, style: OutlineStyle? = null, color: Color? = null): Outline =
 	when {
 		width != null && style != null && color != null -> unsafe("$width $style $color")
@@ -53,12 +59,14 @@ public inline fun Outline.Companion.with(width: OutlineWidth? = null, style: Out
 	}
 
 
+/** Sets the `outline` CSS property. */
 @CssDsl
 public inline fun CssDeclarationBlockBuilder.outline(value: Outline) {
 	property(outline, value)
 }
 
 
+/** Sets the `outline` CSS property with width and height values. */
 @CssDsl
 @LowPriorityInOverloadResolution
 @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
@@ -67,6 +75,7 @@ public inline fun CssDeclarationBlockBuilder.outline(width: OutlineWidth? = null
 }
 
 
+/** The `outline` CSS property. */
 @Suppress("unused")
 public inline val CssProperties.outline: CssProperty<Outline>
 	get() = CssProperty.unsafe("outline")
